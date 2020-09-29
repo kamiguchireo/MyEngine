@@ -224,6 +224,7 @@
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
     <ClInclude Include="SourceFile\graphic\Animation\AnimationClip.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="SourceFile\Noncopyable.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
   </ItemGroup>

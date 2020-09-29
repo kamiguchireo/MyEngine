@@ -211,5 +211,8 @@
     <ClInclude Include="SourceFile\graphic\Animation\AnimationClip.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="SourceFile\Noncopyable.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

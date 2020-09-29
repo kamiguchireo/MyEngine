@@ -39,4 +39,6 @@ void TkaFile::Load(const char* filePath)
 	
 	fclose(fp);
 
+	//ファイルの読み込み終了
+	m_isLoaded = true;
 }

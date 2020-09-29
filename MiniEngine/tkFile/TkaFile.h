@@ -73,8 +73,14 @@ public:
 	{
 		return static_cast<int>(m_keyFrames.size());
 	}
+
+	bool IsLoaded()const
+	{
+		return m_isLoaded;
+	}
 private:
 	std::vector< AnimationEvent> m_animationEvents;	//アニメーションイベント。
 	std::vector< KeyFrame> m_keyFrames;				//キーフレーム。
+	bool m_isLoaded = false;
 };
 

@@ -2,8 +2,11 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "MiniEngine.h"
+#include "SourceFile/Noncopyable.h"
 
+using namespace Engine;
 const int NUM_DIRECTIONAL_LIGHT = 4;	//ディレクションライトの数。
+static const int MAX_BONE = 512;	//!<ボーンの最大数。
 
 /// <summary>
 /// ディレクションライト。
