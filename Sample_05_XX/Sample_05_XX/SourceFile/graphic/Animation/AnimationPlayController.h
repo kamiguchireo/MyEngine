@@ -2,7 +2,10 @@
 //アニメーションの再生コントローラ
 class Skeleton;
 
+
 namespace Engine {
+	class AnimationClip;
+	class Animation;
 
 	//アニメーションの再生コントローラ
 	//一つのアニメーションクリップに対してアニメーションを進めて、
@@ -22,13 +25,59 @@ namespace Engine {
 		//footStepBoneNo	footStepのボーン番号	
 		void Init(Skeleton* skeleton, int footStepBoneNo);
 
+		//アニメーションクリップの取得
+		AnimationClip* GetAnimClip()const
+		{
+			return m_animationClip;
+		}
+
+		//アニメーションクリップの変更
+		void ChangeAnimationClip(AnimationClip* clip)
+		{
+			m_animationClip = clip;
+			m_currentKeyFrameNo = 0;
+			m_time = 0.0f;
+			m_isPlaying = true;		//再生中
+			m_footstepPos = g_vec3Zero;		//フットステップの位置
+			m_footstepDeltaValue = g_vec3Zero;		//フットステップの移動ベクトル
+		}
+
+		//アニメーションクリップの補完時間の設定
+		void SetInterpolateTime(float interpolateTime)
+		{
+			if (interpolateTime < 0.0f)
+			{
+				//補完時間が不正です
+				std::abort();
+			}
+			//補完の終わる時間を設定
+			m_interpolateEndTime = interpolateTime;
+			//現在の補完時間を設定
+			m_interpolateTime = 0.0f;			
+		}
 		//更新処理
 		//deltaTime		アニメーションを進める時間
-		//void Update(float deltaTime, Animation* animation);
+		//animation		アニメーション
+		void Update(float deltaTime, Animation* animation);
+
+		//キーフレーム番号を進める
+		void ProgressKeyFrameNo(float deltaTime);
+
+		//ループ再生開始するときの処理
+		void StartLoop();
+
 	private:
-		int						m_footstepBoneNo = -1;		//フットステップのボーンの番号
+		int m_footstepBoneNo = -1;		//フットステップのボーンの番号
 		std::vector<Matrix> m_boneMatrix;		//このコントローラで再生中のアニメーションのボーン行列
 		Skeleton* m_skeleton = nullptr;				//スケルトン。
-
+		AnimationClip* m_animationClip = nullptr;		//アニメーションクリップ
+		int m_currentKeyFrameNoLastFrame = 0;		//1フレーム前のキーフレーム番号。
+		int m_currentKeyFrameNo = 0;		//現在再生中のキーフレーム番号
+		float m_time = 0.0f;
+		bool m_isPlaying = false;		//再生中かどうか
+		Vector3 m_footstepPos = g_vec3Zero;		//フットステップボーンの座標
+		Vector3 m_footstepDeltaValue = g_vec3Zero;		//フットステップの移動ベクトル
+		float m_interpolateEndTime;		//補完終了時間
+		float m_interpolateTime;		//現在の補完時間
 	};
 }

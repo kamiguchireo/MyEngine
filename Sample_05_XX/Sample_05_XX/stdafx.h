@@ -3,6 +3,9 @@
 
 #include "MiniEngine.h"
 #include "SourceFile/Noncopyable.h"
+#include "SourceFile/graphic/Animation/Animation.h"
+#include "SourceFile/graphic/Animation/AnimationClip.h"
+#include "SourceFile/graphic/Animation/AnimationPlayController.h"
 
 const int NUM_DIRECTIONAL_LIGHT = 4;	//ディレクションライトの数。
 static const int MAX_BONE = 512;	//!<ボーンの最大数。
