@@ -223,6 +223,12 @@ public:
 	{
 		return m_boneMatrixs.get();
 	}
+
+	//アニメーションが再生されているフラグを立てる
+	void SetMarkPlayAnimation()
+	{
+		m_isPlayAnimation = true;
+	}
 public:
 		
 
@@ -249,4 +255,5 @@ private:
 	std::vector<BonePtr>	m_bones;				//ボーンの配列。
 	std::unique_ptr<Matrix[]>	m_boneMatrixs;		//ボーン行列。
 	bool m_isInited = false;						//初期化済み？
+	bool m_isPlayAnimation = false;		//アニメーションが流し込まれている？
 };

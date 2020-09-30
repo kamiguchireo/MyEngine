@@ -77,6 +77,9 @@ namespace Engine {
 
 		//footstepのボーンの変化量をサンプリングする
 		void SamplingDeltaValueFootStepBone();
+
+		//footstepボーンの座標を全体の骨から減算する
+		void SubtractFootstepBonePosFromAllBone();
 	private:
 		int m_footstepBoneNo = -1;		//フットステップのボーンの番号
 		std::vector<Matrix> m_boneMatrix;		//このコントローラで再生中のアニメーションのボーン行列

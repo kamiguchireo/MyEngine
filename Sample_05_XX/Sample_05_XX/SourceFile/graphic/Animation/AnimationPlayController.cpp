@@ -33,6 +33,12 @@ namespace Engine {
 
 		//footstepのボーンの移動量を取得する
 		SamplingDeltaValueFootStepBone();
+
+		//footstepボーンの移動量を全体の骨から減算する
+		SubtractFootstepBonePosFromAllBone();
+
+		//アニメーション再生したフラグをスケルトンに立てる
+		m_skeleton->SetMarkPlayAnimation();
 	}
 
 	void AnimationPlayController::ProgressKeyFrameNo(float deltaTime)
@@ -156,6 +162,23 @@ namespace Engine {
 				m_footstepPos = footstepBonePos;
 				break;
 			}
+		}
+	}
+
+	void AnimationPlayController::SubtractFootstepBonePosFromAllBone()
+	{
+		if (m_footstepBoneNo == -1)
+		{
+			return;
+		}
+		int numBone = m_skeleton->GetNumBones();
+
+		for (int boneNo = 0; boneNo < numBone; boneNo++)
+		{
+			auto bone = m_skeleton->GetBone(boneNo);
+			m_boneMatrix[bone->GetNo()].m[3][0] -= m_footstepPos.x;
+			m_boneMatrix[bone->GetNo()].m[3][1] -= m_footstepPos.y;
+			m_boneMatrix[bone->GetNo()].m[3][2] -= m_footstepPos.z;
 		}
 	}
 }
