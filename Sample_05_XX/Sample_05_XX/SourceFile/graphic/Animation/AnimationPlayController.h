@@ -66,6 +66,17 @@ namespace Engine {
 		//ループ再生開始するときの処理
 		void StartLoop();
 
+		//ボーン行列をアニメーションクリップからサンプリングする
+		void SamplingBoneMatrixFromAnimationClip();
+
+		//ルートボーン空間での行列を計算する
+		void CalcBoneMatrixInRootBoneSpace();
+		//bone		計算するボーン
+		//parentMatrix		親の行列
+		void CalcBoneMatrixInRootBoneSpace(Bone&bone,Matrix parentMatrix);
+
+		//footstepのボーンの変化量をサンプリングする
+		void SamplingDeltaValueFootStepBone();
 	private:
 		int m_footstepBoneNo = -1;		//フットステップのボーンの番号
 		std::vector<Matrix> m_boneMatrix;		//このコントローラで再生中のアニメーションのボーン行列

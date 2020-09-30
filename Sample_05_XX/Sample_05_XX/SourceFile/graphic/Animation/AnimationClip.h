@@ -47,6 +47,11 @@ namespace Engine {
 		{
 			m_isLoop = flag;
 		}
+
+		const std::vector<KeyFramePtrList>& GetKeyFramePtrListArray()const
+		{
+			return m_keyFramePtrListArray;
+		}
 	private:
 		using KeyFramePtr = std::unique_ptr<KeyFrame>;		//キーフレームのポインタを別名定義
 		TkaFile m_tkaFile;		//tksファイル
