@@ -48,6 +48,9 @@ namespace Engine {
 		//ローカルポーズの更新
 		//deltaTime		アニメーションを進める時間(単位：秒)
 		void UpdateLocalPose(float deltaTime);
+
+		//グローバルポーズの更新
+		void UpdateGlobalPose();
 	private:
 		////////////////////////////////////////////////////
 		////アニメーションコントローラのインデックス取得////
@@ -75,6 +78,7 @@ namespace Engine {
 		float m_interpolateTime = 0.0f;		//現在の補完時間
 		float m_interpolateTimeEnd = 0.0f;		//補完終了時間
 		float m_deltaTimeOnUpdate = 0.0f;		//Update関数を実行したときのデルタタイム。
+		Vector3 m_footstepDeltaValue = g_vec3Zero;		//footstepボーンの移動量
 
 	};
 }

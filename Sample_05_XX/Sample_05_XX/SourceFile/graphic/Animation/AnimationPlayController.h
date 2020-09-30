@@ -80,6 +80,28 @@ namespace Engine {
 
 		//footstepボーンの座標を全体の骨から減算する
 		void SubtractFootstepBonePosFromAllBone();
+
+		//補完率を取得
+		float GetInterpolateRate()const
+		{
+			if (m_interpolateEndTime <= 0.0f)
+			{
+				return 1.0f;
+			}
+			return min(1.0f, m_interpolateTime / m_interpolateEndTime);
+		}
+
+		//ローカルボーン行列を取得
+		const std::vector<Matrix>& GetBoneLocalMatrix()const
+		{
+			return m_boneMatrix;
+		}
+
+		//Update関数を呼び出した時の、footstepボーンの移動量を取得
+		Vector3 GetFootStepDeltaValueOnUpdate()const
+		{
+			return m_footstepDeltaValue;
+		}
 	private:
 		int m_footstepBoneNo = -1;		//フットステップのボーンの番号
 		std::vector<Matrix> m_boneMatrix;		//このコントローラで再生中のアニメーションのボーン行列
