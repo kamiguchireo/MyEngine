@@ -1,11 +1,12 @@
 #pragma once
 
 #include "tkFile/TksFile.h"
+#include "SourceFile/Noncopyable.h"
 
 /// <summary>
 /// ボーン。
 /// </summary>
-class Bone {
+class Bone:Engine::Noncopyable{
 public:
 	/// <summary>
 	/// コンストラクタ。
@@ -141,7 +142,7 @@ private:
 /// <summary>
 /// スケルトンクラス。
 /// </summary>
-class Skeleton  {
+class Skeleton : Engine::Noncopyable {
 public:
 	using OnPostProcessSkeletonUpdate = std::function<void()>;
 
