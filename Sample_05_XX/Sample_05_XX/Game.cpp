@@ -3,7 +3,8 @@
 
 Game::Game()
 {
-
+	m_animClip[0].Load("Assets/animData/run.tka");
+	m_animClip[0].SetLoopFlag(true);
 }
 
 Game::~Game()
@@ -29,6 +30,8 @@ bool Game::Start()
 	light.eyePos = g_camera3D->GetPosition();
 	light.specPow = 5.0f;
 	
+	m_animation.Init(m_skeleton, m_animClip, 1);
+	m_skeleton.Init("Assets/modelData/unityChan.tks");
 	RC = g_graphicsEngine->GetRenderContext();
 	m_unityChanInitData.m_tkmFilePath = "Assets/modelData/unityChan.tkm";
 	m_unityChanInitData.m_fxFilePath = "Assets/shader/NoAnimModel_LambertSpecularAmbient.fx";

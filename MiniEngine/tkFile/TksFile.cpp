@@ -5,6 +5,7 @@ void TksFile::Load(const char* filePath)
 {
 	auto fp = fopen(filePath, "rb");
 	if (fp == nullptr) {
+		throw;
 		return;
 	}
 	//œ‚Ì”‚ğæ“¾B

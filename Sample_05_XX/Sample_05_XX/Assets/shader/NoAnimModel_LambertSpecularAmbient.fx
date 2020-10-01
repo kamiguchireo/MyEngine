@@ -42,7 +42,8 @@ struct SPSIn{
 Texture2D<float4> g_texture : register(t0);	
 Texture2D<float4> g_normalMap : register(t1);
 Texture2D<float4> g_specularMap : register(t2);
-
+//ボーン行列
+StructuredBuffer<float4x4> boneMatrix : register(t3);
 //サンプラステート。
 sampler g_sampler : register(s0);
 

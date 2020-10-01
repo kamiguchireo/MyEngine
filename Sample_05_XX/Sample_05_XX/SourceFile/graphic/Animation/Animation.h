@@ -18,7 +18,7 @@ namespace Engine {
 		//初期化処理
 		//skeleton		スケルトン
 		//animClips		アニメーションクリップ
-		void Init(Skeleton& skeleton, const std::vector<std::unique_ptr<AnimationClip>>& animClips);
+		void Init(Skeleton& skeleton,AnimationClip animClips[],int numAnimClip);
 
 		//アニメーションの再生
 		//clipNo		アニメーションクリップの番号
@@ -79,6 +79,7 @@ namespace Engine {
 		float m_interpolateTimeEnd = 0.0f;		//補完終了時間
 		float m_deltaTimeOnUpdate = 0.0f;		//Update関数を実行したときのデルタタイム。
 		Vector3 m_footstepDeltaValue = g_vec3Zero;		//footstepボーンの移動量
+		bool m_isInited = false;
 
 	};
 }

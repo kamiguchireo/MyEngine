@@ -3,10 +3,10 @@
 
 namespace Engine
 {
-	void Animation::Init(Skeleton& skeleton, const std::vector<std::unique_ptr<AnimationClip>>&animClips)
+	void Animation::Init(Skeleton& skeleton,AnimationClip animClips[],int numAnimClip)
 	{
 		//アニメーションクリップがからの時
-		if (animClips.empty() == true)
+		if (animClips == nullptr)
 		{
 			//アニメーションクリップがからです
 			std::abort();
@@ -14,9 +14,9 @@ namespace Engine
 		m_skeleton = &skeleton;
 
 		//アニメーションクリップの数だけ回す
-		for (auto& animClip : animClips)
+		for (int i = 0; i < numAnimClip; i++)
 		{
-			m_animationClips.push_back(animClip.get());
+			m_animationClips.push_back(&animClips[i]);
 		}
 
 		//footStepボーンの番号を調べる
@@ -38,6 +38,8 @@ namespace Engine
 		{
 			ctr.Init(m_skeleton, footsteoBoneNo);
 		}
+		Play(0);
+		m_isInited = true;
 	}
 
 	//アニメーションの再生
