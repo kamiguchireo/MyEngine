@@ -34,7 +34,7 @@ namespace Engine {
 		//アニメーションを進める
 		//エンジン内部で使用します
 		//deltaTime		アニメーションを進める時間(単位：秒)
-		void Progress(float deltaTime);
+		void Update(float deltaTime);
 
 	private:
 		////////////////////////////////////

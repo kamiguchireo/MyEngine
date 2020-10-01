@@ -30,12 +30,23 @@ struct SVSIn{
 	float3 normal	: NORMAL;		//法線。
 	float2 uv 		: TEXCOORD0;	//UV座標。
 };
+
+//スキンありモデルの頂点シェーダーへの入力
+struct SVSInSkin {
+	float4 pos		: POSITION;			//モデルの頂点座標
+	float3 normal	: NORMAL;			//法線
+	float2 uv		: TEXCOORD0;		//UV座標
+	float3 tangent	: TANGENT;			//接ベクトル
+	uint4 Indices	: BLENDINDICES0;	//この頂点に関連付けされているボーン番号
+	float4 Weights	: BLENDWEIGHT0;		//この頂点に関連付けされているボーンウェイト
+};
 //ピクセルシェーダーへの入力。
 struct SPSIn{
 	float4 pos 			: SV_POSITION;	//スクリーン空間でのピクセルの座標。
 	float3 normal		: NORMAL;		//法線。
 	float2 uv 			: TEXCOORD0;	//uv座標。
 	float3 worldPos		: TEXCOORD1;	//ワールド空間でのピクセルの座標。
+	float3 tangent		: TANGENT;		//接ベクトル
 };
 
 //モデルテクスチャ。
@@ -62,6 +73,59 @@ SPSIn VSMain(SVSIn vsIn, uniform bool hasSkin)
 	psIn.uv = vsIn.uv;
 
 	return psIn;
+}
+
+
+//スキン行列を計算
+float4x4 CalcSkinMatrix(SVSInSkin vsIn)
+{
+	float4x4 skinning = 0;
+	float4 pos = 0;
+
+	float w = 0.0f;
+	for (int i = 0; i < 3; i++)
+	{
+		//boneMatrixニーボーン行列が設定されている
+		//vsIn.indicesは頂点に埋め込まれた、関連しているボーンの番号
+		skinning += boneMatrix[vsIn.Indices[i]] * vsIn.Weights[i];
+		w += vsIn.Weights[i];
+	}
+	//最後のボーンを計算する
+	skinning += boneMatrix[vsIn.Indices[3]] * (1.0f - w);
+	return skinning;
+}
+
+//スキンありモデル用の頂点シェーダー
+SPSIn VSMainSkin(SVSInSkin In)
+{
+	////初期化
+	SPSIn psInput = (SPSIn)0;
+
+	//スキン行列を計算
+	float4x4 skinning = CalcSkinMatrix(In);
+	//ワールド座標、法線、接ベクトルを計算
+	float4 pos = mul(skinning, In.pos);
+	psInput.normal = normalize(mul(skinning, In.normal));
+	psInput.tangent = normalize((mul(skinning, In.tangent)));
+
+	psInput.pos = pos;		
+	pos = mul(mView, pos);		//ワールド座標系からカメラ座標系に変換
+	pos = mul(mProj, pos);		//カメラ座標系からスクリーン座標系に変換
+
+	psInput.pos = pos;
+	psInput.uv = In.uv;
+	
+	//SPSIn psIn;
+
+	//psIn.pos = mul(mWorld, vsIn.pos);						//モデルの頂点をワールド座標系に変換。
+	//psIn.worldPos = psIn.pos.xyz;
+	//psIn.pos = mul(mView, psIn.pos);						//ワールド座標系からカメラ座標系に変換。
+	//psIn.pos = mul(mProj, psIn.pos);						//カメラ座標系からスクリーン座標系に変換。
+	//psIn.normal = normalize(mul(mWorld, vsIn.normal));		//法線をワールド座標系に変換。
+	//psIn.uv = vsIn.uv;
+
+
+	return psInput;
 }
 /// <summary>
 /// モデル用のピクセルシェーダーのエントリーポイント

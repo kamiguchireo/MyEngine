@@ -97,7 +97,14 @@ namespace Engine {
 			}
 			//現在再生中のキーフレームをとってくる
 			KeyFrame* keyframe = keyFrameList.at(m_currentKeyFrameNo);
-			m_boneMatrix[keyframe->boneIndex] = keyframe->transform;
+			if (keyframe->boneIndex < m_boneMatrix.size())
+			{
+				m_boneMatrix[keyframe->boneIndex] = keyframe->transform;
+			}
+			else
+			{
+				std::abort();
+			}
 		}
 	}
 

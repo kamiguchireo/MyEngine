@@ -198,7 +198,7 @@ namespace Engine
 		m_numAnimationPlayController = numAnimationPlayController;
 	}
 
-	void Animation::Progress(float deltaTime)
+	void Animation::Update(float deltaTime)
 	{
 		if (m_numAnimationPlayController == 0)
 		{

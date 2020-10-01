@@ -21,6 +21,8 @@ namespace Engine {
 			//ˆ—‚ğ’â~‚·‚é
 			std::abort();
 		}
+		
+		BuildKeyFramesAndAnimationEvents();
 	}
 	
 	void AnimationClip::BuildKeyFramesAndAnimationEvents()
