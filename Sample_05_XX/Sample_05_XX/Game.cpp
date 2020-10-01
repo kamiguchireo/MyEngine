@@ -38,11 +38,13 @@ bool Game::Start()
 	RC = g_graphicsEngine->GetRenderContext();
 	m_unityChanInitData.m_tkmFilePath = "Assets/modelData/unityChan.tkm";
 	m_unityChanInitData.m_fxFilePath = "Assets/shader/NoAnimModel_LambertSpecularAmbient.fx";
-	m_unityChanInitData.m_vsEntryPointFunc = "VSMain";
+	m_unityChanInitData.m_vsEntryPointFunc = "VSMainSkin";
 	m_unityChanInitData.m_expandConstantBuffer = &light;
 	m_unityChanInitData.m_expandConstantBufferSize = (sizeof(light));
-	m_unityChan.Init(m_unityChanInitData);
+
 	m_unityChan.BindSkeleton(m_skeleton);
+
+	m_unityChan.Init(m_unityChanInitData);
 	m_skeleton.Update(m_unityChan.GetWorldMatrix());
 
 	return true;
@@ -51,6 +53,7 @@ bool Game::Start()
 void Game::Update()
 {
 	m_animation.Update(1.0f / 30.0f);
+	m_skeleton.Update(m_unityChan.GetWorldMatrix());
 	m_unityChan.UpdateWorldMatrix(pos, g_quatIdentity, scale);
 }
 

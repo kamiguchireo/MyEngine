@@ -137,8 +137,8 @@ namespace Engine
 				//Šg‘å¬•ª‚Ì•âŠ®
 				Vector3 vBoneScale;
 				vBoneScale.x = (*(Vector3*)m.m[0]).Length();
-				vBoneScale.x = (*(Vector3*)m.m[1]).Length();
-				vBoneScale.x = (*(Vector3*)m.m[2]).Length();
+				vBoneScale.y = (*(Vector3*)m.m[1]).Length();
+				vBoneScale.z = (*(Vector3*)m.m[2]).Length();
 
 				vGlobalScale[boneNo].Lerp(interpolateRate, vGlobalScale[boneNo], vBoneScale);
 				//Šg‘å¬•ª‚ğœ‹
@@ -155,7 +155,7 @@ namespace Engine
 				m.m[2][2] /= vBoneScale.z;
 
 				//‰ñ“]‚Ì•âŠ®
-				Quaternion qBone;
+				Quaternion qBone = Quaternion::Identity;
 				qBone.SetRotation(m);
 				qGlobalPose[boneNo].Slerp(interpolateRate, qGlobalPose[boneNo], qBone);
 			}

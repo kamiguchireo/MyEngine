@@ -83,6 +83,7 @@ float4x4 CalcSkinMatrix(SVSInSkin vsIn)
 	float4 pos = 0;
 
 	float w = 0.0f;
+	[unroll]
 	for (int i = 0; i < 3; i++)
 	{
 		//boneMatrixニーボーン行列が設定されている
