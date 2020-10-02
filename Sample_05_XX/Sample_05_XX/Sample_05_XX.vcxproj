@@ -182,6 +182,8 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TkmFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
+    <ClCompile Include="SourceFile\GameObject\GameObject.cpp" />
+    <ClCompile Include="SourceFile\GameObject\GameObjectManager.cpp" />
     <ClCompile Include="SourceFile\graphic\Animation\Animation.cpp" />
     <ClCompile Include="SourceFile\graphic\Animation\AnimationPlayController.cpp" />
     <ClCompile Include="SourceFile\graphic\Animation\AnimationClip.cpp" />
@@ -224,6 +226,8 @@
     <ClInclude Include="..\..\MiniEngine\tkFile\TkmFile.h" />
     <ClInclude Include="..\..\MiniEngine\tkFile\TksFile.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
+    <ClInclude Include="SourceFile\GameObject\GameObject.h" />
+    <ClInclude Include="SourceFile\GameObject\GameObjectManager.h" />
     <ClInclude Include="SourceFile\graphic\Animation\Animation.h" />
     <ClInclude Include="SourceFile\graphic\Animation\AnimationPlayController.h" />
     <ClInclude Include="SourceFile\graphic\Animation\AnimationClip.h" />
