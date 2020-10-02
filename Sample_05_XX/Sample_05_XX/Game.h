@@ -19,8 +19,7 @@ private:
 	Vector3 scale = Vector3::One;
 	RenderContext RC;
 	Light light;
-	Skeleton m_skeleton;
-	Engine::Animation m_animation;
-	Engine::AnimationClip m_animClip[1];
-	//std::vector<std::unique_ptr<Engine::AnimationClip>> m_animClips;
+	//Skeleton m_skeleton;
+	//Engine::Animation m_animation;
+	//Engine::AnimationClip m_animClip[1];
 };
