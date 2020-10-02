@@ -1,8 +1,9 @@
 #pragma once
 #include "SourceFile/graphic/Animation/Animation.h"
 #include "SourceFile/graphic/Animation/AnimationClip.h"
+#include "SourceFile/GameObject/GameObject.h"
 
-class Game
+class Game:public Engine::IGameObject
 {
 public:
 	Game();

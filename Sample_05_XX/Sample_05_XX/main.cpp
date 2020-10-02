@@ -1,8 +1,7 @@
 #include "stdafx.h"
 #include "system/system.h"
 #include "Game.h"
-
-
+#include "SourceFile/GameObject/GameObjectManager.h"
 
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
@@ -16,25 +15,21 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	// ここから初期化を行うコードを記述する。
 	//////////////////////////////////////
 
-	Game game;
-	game.Start();
+	Game* game = Engine::NewGO<Game>(0, nullptr);
 	//////////////////////////////////////
 	// 初期化を行うコードを書くのはここまで！！！
 	//////////////////////////////////////
-
 	// ここからゲームループ。
 	while (DispatchWindowMessage())
 	{
 		//レンダリング開始。
 		g_engine->BeginFrame();
 	
-		
 		//////////////////////////////////////
 		//ここから絵を描くコードを記述する。
 		//////////////////////////////////////
+		Engine::GameObjectManager().Thread();
 
-		game.Update();
-		game.Draw();
 		//////////////////////////////////////
 		//絵を描くコードを書くのはここまで！！！
 		//////////////////////////////////////

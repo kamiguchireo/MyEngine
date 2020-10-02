@@ -49,7 +49,6 @@ namespace Engine {
 		}
 	}
 
-
 	void CGameObjectManager::PostRender()
 	{
 		for (GameObjectList objList : m_gameObjectListArray)
