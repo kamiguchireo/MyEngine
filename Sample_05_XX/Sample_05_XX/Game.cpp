@@ -3,8 +3,8 @@
 
 Game::Game()
 {
-	//m_animClip[0].Load("Assets/animData/idle.tka");
-	//m_animClip[0].SetLoopFlag(true);
+	m_animClip[0].Load("Assets/animData/run.tka");
+	m_animClip[0].SetLoopFlag(true);
 }
 
 Game::~Game()
@@ -31,29 +31,29 @@ bool Game::Start()
 	light.specPow = 5.0f;
 	
 	//スケルトンとアニメーションの初期化
-	//m_skeleton.Init("Assets/modelData/unityChan.tks"); 
-	//m_skeleton.Update(Matrix::Identity);
-	//m_animation.Init(m_skeleton, m_animClip, 2);
-	//m_animation.Play(0);
+	m_skeleton.Init("Assets/modelData/unityChan.tks"); 
+	m_skeleton.Update(Matrix::Identity);
+	m_animation.Init(m_skeleton, m_animClip, 2);
+	m_animation.Play(0);
 	RC = g_graphicsEngine->GetRenderContext();
 	m_unityChanInitData.m_tkmFilePath = "Assets/modelData/unityChan.tkm";
 	m_unityChanInitData.m_fxFilePath = "Assets/shader/NoAnimModel_LambertSpecularAmbient.fx";
-	m_unityChanInitData.m_vsEntryPointFunc = "VSMain";
+	m_unityChanInitData.m_vsEntryPointFunc = "VSMainSkin";
 	m_unityChanInitData.m_expandConstantBuffer = &light;
 	m_unityChanInitData.m_expandConstantBufferSize = (sizeof(light));
 
-	//m_unityChan.BindSkeleton(m_skeleton);
+	m_unityChan.BindSkeleton(m_skeleton);
 
 	m_unityChan.Init(m_unityChanInitData);
-	//m_skeleton.Update(m_unityChan.GetWorldMatrix());
+	m_skeleton.Update(m_unityChan.GetWorldMatrix());
 
 	return true;
 }
 
 void Game::Update()
 {
-	//m_animation.Update(1.0f / 30.0f);
-	//m_skeleton.Update(m_unityChan.GetWorldMatrix());
+	m_animation.Update(1.0f / 60.0f);
+	m_skeleton.Update(m_unityChan.GetWorldMatrix());
 	m_unityChan.UpdateWorldMatrix(pos, g_quatIdentity, scale);
 }
 

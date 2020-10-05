@@ -13,12 +13,24 @@ void Material::InitTexture(const TkmFile::SMaterial& tkmMat)
 	if (tkmMat.albedoMap != nullptr) {
 		m_albedoMap.InitFromMemory(tkmMat.albedoMap.get(), tkmMat.albedoMapSize);
 	}
+	
 	if (tkmMat.normalMap != nullptr) {
 		m_normalMap.InitFromMemory(tkmMat.normalMap.get(), tkmMat.normalMapSize);
 	}
+	
 	if (tkmMat.specularMap != nullptr) {
 		m_specularMap.InitFromMemory(tkmMat.specularMap.get(), tkmMat.specularMapSize);
 	}
+	
+	if (tkmMat.reflectionMap != nullptr) {
+		m_reflectionMap.InitFromMemory(tkmMat.reflectionMap.get(), tkmMat.reflectionMapSize);
+	}
+	
+
+	if (tkmMat.refractionMap != nullptr) {
+		m_refractionMap.InitFromMemory(tkmMat.refractionMap.get(), tkmMat.refractionMapSize);
+	}
+
 }
 void Material::InitFromTkmMaterila(
 	const TkmFile::SMaterial& tkmMat,
@@ -42,12 +54,12 @@ void Material::InitFromTkmMaterila(
 		D3D12_TEXTURE_ADDRESS_MODE_WRAP,
 		D3D12_TEXTURE_ADDRESS_MODE_WRAP);
 
-	//シェーダーを初期化。
-	InitShaders(fxFilePath, vsEntryPointFunc, psEntryPointFunc);
-
-	//パイプラインステートを初期化。
-	InitPipelineState();
-
+	if (wcslen(fxFilePath) > 0) {
+		//シェーダーを初期化。
+		InitShaders(fxFilePath, vsEntryPointFunc, psEntryPointFunc);
+		//パイプラインステートを初期化。
+		InitPipelineState();
+	}
 }
 void Material::InitPipelineState()
 {
