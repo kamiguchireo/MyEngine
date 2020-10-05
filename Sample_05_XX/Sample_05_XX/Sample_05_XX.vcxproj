@@ -171,6 +171,7 @@
     <ClCompile Include="..\..\MiniEngine\MeshParts.cpp" />
     <ClCompile Include="..\..\MiniEngine\Model.cpp" />
     <ClCompile Include="..\..\MiniEngine\PipelineState.cpp" />
+    <ClCompile Include="..\..\MiniEngine\RenderTarget.cpp" />
     <ClCompile Include="..\..\MiniEngine\RootSignature.cpp" />
     <ClCompile Include="..\..\MiniEngine\Shader.cpp" />
     <ClCompile Include="..\..\MiniEngine\Skeleton.cpp" />
@@ -182,6 +183,7 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TkmFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
+    <ClCompile Include="SourceFile\graphic\Shadow\ShadowMap.cpp" />
     <ClCompile Include="SourceFile\GameObject\GameObject.cpp" />
     <ClCompile Include="SourceFile\GameObject\GameObjectManager.cpp" />
     <ClCompile Include="SourceFile\graphic\Animation\Animation.cpp" />
@@ -215,6 +217,7 @@
     <ClInclude Include="..\..\MiniEngine\PipelineState.h" />
     <ClInclude Include="..\..\MiniEngine\RenderContext.h" />
     <ClInclude Include="..\..\MiniEngine\RenderContext_inline.h" />
+    <ClInclude Include="..\..\MiniEngine\RenderTarget.h" />
     <ClInclude Include="..\..\MiniEngine\RootSignature.h" />
     <ClInclude Include="..\..\MiniEngine\Shader.h" />
     <ClInclude Include="..\..\MiniEngine\Skeleton.h" />
@@ -226,6 +229,7 @@
     <ClInclude Include="..\..\MiniEngine\tkFile\TkmFile.h" />
     <ClInclude Include="..\..\MiniEngine\tkFile\TksFile.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
+    <ClInclude Include="SourceFile\graphic\Shadow\ShadowMap.h" />
     <ClInclude Include="SourceFile\GameObject\GameObject.h" />
     <ClInclude Include="SourceFile\GameObject\GameObjectManager.h" />
     <ClInclude Include="SourceFile\graphic\Animation\Animation.h" />
