@@ -62,10 +62,7 @@ namespace Engine {
 	
 	void CGameObjectManager::ExecuteDeleteGameObjects()
 	{
-		int preBufferNo = m_currentDeleteObjectBufferNo;
-		//バッファを切り替え
-		m_currentDeleteObjectBufferNo = 1 ^ m_currentDeleteObjectBufferNo;
-		for (GameObjectList&goList : m_deleteObjectArray[preBufferNo])
+		for (GameObjectList&goList : m_deleteObjectArray)
 		{
 			for (IGameObject*go : goList)
 			{
