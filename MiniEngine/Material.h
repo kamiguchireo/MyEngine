@@ -115,6 +115,9 @@ private:
 	PipelineState m_transNonSkinModelPipelineState;	//スキンなしモデル用のパイプラインステート(半透明マテリアル)。
 	Shader m_vsNonSkinModel;						//スキンなしモデル用の頂点シェーダー。
 	Shader m_vsSkinModel;							//スキンありモデル用の頂点シェーダー。
+	Shader m_vsshadowModel;							//シャドウマップ作成用の頂点シェーダー
+	Shader m_vsshadowSkinModel;						//シャドウマップ作成用のスキンモデル頂点シェーダー
+	Shader m_psshadowModel;							//シャドウマップ用のピクセルシェーダー
 	Shader m_psModel;								//モデル用のピクセルシェーダー。
 };
 

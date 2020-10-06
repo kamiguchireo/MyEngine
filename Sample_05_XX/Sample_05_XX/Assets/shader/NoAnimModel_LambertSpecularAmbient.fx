@@ -49,6 +49,11 @@ struct SPSIn{
 	float3 tangent		: TANGENT;		//接ベクトル
 };
 
+//シャドウマップ用のピクセルシェーダーへの入力構造体
+struct PSInput_ShadowMap {
+	float4 Position:SV_POSITION;		//座標
+};
+
 //モデルテクスチャ。
 Texture2D<float4> g_texture : register(t0);	
 Texture2D<float4> g_normalMap : register(t1);
@@ -173,4 +178,56 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 	float4 texColor = g_texture.Sample(g_sampler, psIn.uv);
 	texColor.xyz *= lig; //光をテクスチャカラーに乗算する。
 	return float4(texColor.xyz, 1.0f);	
+}
+
+//シャドウマップ生成用のスキンなしモデル頂点シェーダー
+PSInput_ShadowMap VSMain_ShadowMap(SVSIn In)
+{
+	PSInput_ShadowMap psInput = (PSInput_ShadowMap)0;
+	float4 pos = mul(mWorld, In.pos);
+	pos = mul(mView, pos);
+	pos = mul(mProj, pos);
+	psInput.Position = pos;
+	return psInput;
+}
+
+//シャドウマップ生成用のスキンモデル頂点シェーダー
+PSInput_ShadowMap VSMain_ShadowMapSkin(SVSInSkin In)
+{
+	PSInput_ShadowMap psInput = (PSInput_ShadowMap)0;
+	///////////////////////////////////////////////////
+	//ここからスキニングを行っている箇所。
+	//スキン行列を計算。
+	///////////////////////////////////////////////////
+	float4x4 skinning = 0;
+	float4 pos = 0;
+	{
+
+		float w = 0.0f;
+		for (int i = 0; i < 3; i++)
+		{
+			//boneMatrixにボーン行列が設定されていて、
+			//In.indicesは頂点に埋め込まれた、関連しているボーンの番号。
+			//In.weightsは頂点に埋め込まれた、関連しているボーンのウェイト。
+			skinning += boneMatrix[In.Indices[i]] * In.Weights[i];
+			w += In.Weights[i];
+		}
+		//最後のボーンを計算する。
+		skinning += boneMatrix[In.Indices[3]] * (1.0f - w);
+		//頂点座標にスキン行列を乗算して、頂点をワールド空間に変換。
+		//mulは乗算命令。
+		pos = mul(skinning, In.pos);
+	}
+
+	pos = mul(mView, pos);
+	pos = mul(mProj, pos);
+	psInput.Position = pos;
+	return psInput;
+}
+
+//ピクセルシェーダーのエントリ関数
+float4 PSMain_ShadowMap(PSInput_ShadowMap In) : SV_Target0
+{
+	//射影空間でのZ値を返す
+	return In.Position.z / In.Position.w;
 }
