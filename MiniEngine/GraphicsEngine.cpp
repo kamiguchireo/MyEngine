@@ -166,8 +166,11 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 
 	g_camera2D = &m_camera2D;
 	g_camera3D = &m_camera3D;
+
 	//
 	g_graphicsEngine = this;
+	m_shadowMap.ShadowMapRTCreate();
+
 	return true;
 }
 IDXGIFactory4* GraphicsEngine::CreateDXGIFactory()

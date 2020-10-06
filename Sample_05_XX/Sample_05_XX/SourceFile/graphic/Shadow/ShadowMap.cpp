@@ -38,10 +38,10 @@ namespace Engine
 			(
 				wh[i][0],
 				wh[i][1],
-				0,
+				1,
 				1,
 				DXGI_FORMAT_R32_FLOAT,
-				DXGI_FORMAT_R32_FLOAT,
+				DXGI_FORMAT_D32_FLOAT,
 				clearColor
 			);
 			//定数バッファを作成
@@ -227,5 +227,34 @@ namespace Engine
 			m_shadowCbEntity.shadowAreaDepthInViewSpace[i] = farPlaneZ * 0.9f;
 			nearPlaneZ = farPlaneZ * 0.85f;		//ギリギリだと境界線ができる
 		}
+	}
+
+	void ShadowMap::RenderToShadowMap()
+	{
+		auto RenCon = g_graphicsEngine->GetRenderContext();
+		for (int i = 0; i < CascadeShadow; i++)
+		{
+			ShadowTextureNum = i;
+			//レンダリングターゲットを切り替える
+			RenCon.SetRenderTarget(m_shadowMapRT[i].GetRTVCpuDescriptorHandle(), m_shadowMapRT[i].GetDSVCpuDescriptorHandle());
+
+			//シャドウマップをクリア
+			float clearColor[4] = { 1.0f,1.0f,1.0f,1.0f };
+			RenCon.ClearRenderTargetView(m_shadowMapRT[i].GetRTVCpuDescriptorHandle(), clearColor);
+
+			for (auto& caster : m_shadowCasters)
+			{
+				caster->Draw(
+					RenCon,
+					Matrix::Identity,
+					m_lightProMatrix[i]
+				);
+			}
+		}
+
+		//シャドウキャスターをクリア
+		m_shadowCasters.clear();
+		//レンダーターゲットとビューポートをもとに戻す
+		RenCon.SetRenderTarget(g_graphicsEngine->GetCurrentFrameBuffuerRTV(), g_graphicsEngine->GetCurrentFrameBuffuerDSV());
 	}
 }

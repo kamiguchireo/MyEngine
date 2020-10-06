@@ -9,8 +9,12 @@
 
 const int NUM_DIRECTIONAL_LIGHT = 4;	//ディレクションライトの数。
 static const int MAX_BONE = 512;	//!<ボーンの最大数。
-const int CascadeShadow = 3;		//シャドウマップの枚数
+static const int CascadeShadow = 3;		//シャドウマップの枚数
 
+enum RenderMode {
+	enRenderMode_CreateShadowMap,		//シャドウマップ生成
+	enRenderMode_Normal,				//通常レンダリング
+};
 /// <summary>
 /// ディレクションライト。
 /// </summary>

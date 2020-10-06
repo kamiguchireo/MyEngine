@@ -6,12 +6,10 @@
 
 #include "tkFile/TkmFile.h"
 #include "StructuredBuffer.h"
-
 class RenderContext;
 class Skeleton;
 class Material;
 class IShaderResource;
-
 
 /// <summary>
 /// メッシュ
@@ -22,6 +20,8 @@ struct SMesh {
 	std::vector< Material* >		m_materials;			//マテリアル。
 	std::vector<int>				skinFlags;				//スキンを持っているかどうかのフラグ。
 };
+
+
 
 /// <summary>
 /// メッシュパーツ。
@@ -82,6 +82,13 @@ private:
 	/// ディスクリプタヒープを作成。
 	/// </summary>
 	void CreateDescriptorHeaps();
+
+//public:
+//	//シェーダーのエントリーポイントのセット
+//	//vsEntryPoint		頂点シェーダーのエントリーポイント
+//	//psEntryPoint		ピクセルシェーダーのエントリーポイント
+//	void SetShaders(const char* vsEntryPoint, const char* psEntryPoint);
+
 private:
 	//拡張SRVが設定されるレジスタの開始番号。
 	const int EXPAND_SRV_REG__START_NO = 10;

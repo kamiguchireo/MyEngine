@@ -159,6 +159,18 @@ void MeshParts::BindSkeleton(Skeleton& skeleton)
 		m_skeleton->GetBoneMatricesTopAddress()
 	);
 }
+
+//void MeshParts::SetShaders(const char* vsEntryPoint,const char* psEntryPoint)
+//{
+//	for (auto& mesh : m_meshs)
+//	{
+//		for (int matNo = 0; matNo < mesh->m_materials.size(); matNo++)
+//		{
+//			mesh->m_materials[matNo]->InitShaders(L"Assets/shader/NoAnimModel_LambertSpecularAmbient.fx", vsEntryPoint, psEntryPoint);
+//		}
+//	}
+//}
+
 void MeshParts::Draw(
 	RenderContext& rc,
 	const Matrix& mWorld,

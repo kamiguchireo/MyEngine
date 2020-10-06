@@ -13,6 +13,7 @@
 #include "RenderContext.h"
 
 #include "Camera.h"
+#include "SourceFile/graphic/Shadow/ShadowMap.h"
 
 /// <summary>
 /// DirectX12に依存するグラフィックスエンジン
@@ -118,6 +119,15 @@ public:
 	{
 		return m_currentFrameBufferRTVHandle;
 	}
+	D3D12_CPU_DESCRIPTOR_HANDLE GetCurrentFrameBuffuerDSV() const
+	{
+		return m_currentFrameBufferDSVHandle;
+	}
+
+	Engine::ShadowMap* GetShadowMap()
+	{
+		return &m_shadowMap;
+	}
 private:
 	/// <summary>
 	/// D3Dデバイスの作成。
@@ -222,6 +232,7 @@ private:
 	UINT m_frameBufferHeight = 0;		//フレームバッファの高さ。
 	Camera m_camera2D;					//2Dカメラ。
 	Camera m_camera3D;					//3Dカメラ。
+	Engine::ShadowMap m_shadowMap;
 };
 extern GraphicsEngine* g_graphicsEngine;	//グラフィックスエンジン
 extern Camera* g_camera2D;					//2Dカメラ。

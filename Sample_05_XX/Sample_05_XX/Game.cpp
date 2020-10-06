@@ -46,7 +46,6 @@ bool Game::Start()
 
 	m_unityChan.Init(m_unityChanInitData);
 	m_skeleton.Update(m_unityChan.GetWorldMatrix());
-
 	return true;
 }
 
@@ -55,6 +54,9 @@ void Game::Update()
 	m_animation.Update(1.0f / 60.0f);
 	m_skeleton.Update(m_unityChan.GetWorldMatrix());
 	m_unityChan.UpdateWorldMatrix(pos, g_quatIdentity, scale);
+	g_graphicsEngine->GetShadowMap()->Update(Vector3::Up, Vector3::Zero);
+	g_graphicsEngine->GetShadowMap()->RegistShadowCaster(&m_unityChan);
+	g_graphicsEngine->GetShadowMap()->RenderToShadowMap();
 }
 
 void Game::Draw()

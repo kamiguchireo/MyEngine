@@ -1,5 +1,7 @@
 #pragma once
 #include "RenderTarget.h"
+#include "SourceFile/NonCopyable.h"
+#include "Model.h"
 
 namespace Engine {
 	class ShadowMap:Engine::Noncopyable
@@ -15,6 +17,16 @@ namespace Engine {
 		//lightCameraTarget		ライトのターゲット
 		void Update(Vector3 lightCameraPos, Vector3 lightCameraTarget);
 
+		//シャドウマップに影を書き込むタイミングで呼んでください
+		void RenderToShadowMap();
+
+		//シャドウキャスターを登録
+		//RenderToShadowMapを呼び出したら登録したリストはクリアされる
+		//常に影を出したかったら毎フレーム呼んでください
+		void RegistShadowCaster(Model* shadowCaster)
+		{
+			m_shadowCasters.push_back(shadowCaster);
+		}
 	private:
 		//ライトの座標を計算する。
 		// 分割された視推台を写すライトの座標を計算します。
@@ -37,15 +49,18 @@ namespace Engine {
 			float shadowAreaDepthInViewSpace[3];	//カメラ空間での影を落とすエリアの深度テーブル。
 		};
 		const int TexResolution = 2048;		//シャドウマップテクスチャの解像度
-		RenderTarget m_shadowMapRT[CascadeShadow];
+		RenderTarget m_shadowMapRT[3];
 		ConstantBuffer m_shadowCb;		//影を落とす時に使用する定数バッファ
 		SShadowCb m_shadowCbEntity;
 		Vector3 m_range = { 500.0f,1000.0f,2000.0f };		//シャドウマップを設定する範囲
 		float m_lightHeight = 1000.0f;				//ライトの高さ。
 		const float InitNearPlane = 0.0f;		//NearPlaneの初期値
-		Matrix m_lightViewMatrix[CascadeShadow] = { Matrix::Identity };
-		Matrix m_lightProMatrix[CascadeShadow] = { Matrix::Identity };
+		Matrix m_lightViewMatrix[3] = { Matrix::Identity };
+		Matrix m_lightProMatrix[3] = { Matrix::Identity };
 		float maxheight = 500.0f;		//影に含める最大の高さ
 		Vector3 lightDir = Vector3::Down;
+		int ShadowTextureNum = 0;		//シャドウマップに使うテクスチャの番号
+		std::vector<Model*> m_shadowCasters;		//シャドウキャスターの配列
+		ModelInitData InitData;
 	};
 }

@@ -132,6 +132,7 @@ void Material::InitShaders(
 	m_vsSkinModel.LoadVS(fxFilePath, vsEntryPointFunc);
 	m_psModel.LoadPS(fxFilePath, psEntryPointFunc);
 }
+
 void Material::BeginRender(RenderContext& rc, int hasSkin)
 {
 	rc.SetRootSignature(m_rootSignature);

@@ -49,3 +49,15 @@ void Model::Draw(RenderContext& rc)
 		g_camera3D->GetProjectionMatrix()
 	);
 }
+
+void Model::Draw(RenderContext& rc,Matrix viewMat,Matrix proMat)
+{
+	m_meshParts.Draw(
+		rc,
+		m_world,
+		viewMat,
+		proMat
+	);
+}
+
+

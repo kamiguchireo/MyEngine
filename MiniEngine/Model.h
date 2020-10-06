@@ -51,6 +51,8 @@ public:
 	/// </summary>
 	/// <param name="renderContext">レンダリングコンテキスト</param>
 	void Draw(RenderContext& renderContext);
+	void Draw(RenderContext& renderContext,Matrix viewMat,Matrix proMat);
+
 	/// <summary>
 	/// ワールド行列を取得。
 	/// </summary>
@@ -59,6 +61,15 @@ public:
 	{
 		return m_world;
 	}
+
+	////シェーダーのエントリーポイントの設定
+	////vsEntryPoint		頂点シェーダーのエントリーポイント
+	////psEntryPoint		ピクセルシェーダーのエントリーポイント
+	//void SetShaderEntryPoint(const char* vsEntryPoint, const char* psEntryPoint)
+	//{
+	//	m_meshParts.SetShaders(vsEntryPoint, psEntryPoint);
+	//}
+
 private:
 
 	Matrix m_world;			//ワールド行列。

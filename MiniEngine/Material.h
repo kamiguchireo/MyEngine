@@ -75,6 +75,7 @@ private:
 	/// パイプラインステートの初期化。
 	/// </summary>
 	void InitPipelineState();
+public:
 	/// <summary>
 	/// シェーダーの初期化。
 	/// </summary>
@@ -85,6 +86,8 @@ private:
 		const wchar_t* fxFilePath,
 		const char* vsEntryPointFunc,
 		const char* psEntryPointFunc);
+
+private:
 	/// <summary>
 	/// テクスチャを初期化。
 	/// </summary>
