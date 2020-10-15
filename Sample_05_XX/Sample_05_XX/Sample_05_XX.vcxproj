@@ -183,6 +183,8 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TkmFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
+    <ClCompile Include="SourceFile\graphic\DeferredRendering.cpp" />
+    <ClCompile Include="SourceFile\graphic\ModelRender.cpp" />
     <ClCompile Include="SourceFile\graphic\Shadow\ShadowMap.cpp" />
     <ClCompile Include="SourceFile\GameObject\GameObject.cpp" />
     <ClCompile Include="SourceFile\GameObject\GameObjectManager.cpp" />
@@ -229,6 +231,8 @@
     <ClInclude Include="..\..\MiniEngine\tkFile\TkmFile.h" />
     <ClInclude Include="..\..\MiniEngine\tkFile\TksFile.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
+    <ClInclude Include="SourceFile\graphic\DeferredRendering.h" />
+    <ClInclude Include="SourceFile\graphic\ModelRender.h" />
     <ClInclude Include="SourceFile\graphic\Shadow\ShadowMap.h" />
     <ClInclude Include="SourceFile\GameObject\GameObject.h" />
     <ClInclude Include="SourceFile\GameObject\GameObjectManager.h" />

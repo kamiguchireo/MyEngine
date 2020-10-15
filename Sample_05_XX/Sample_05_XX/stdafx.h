@@ -6,11 +6,12 @@
 #include "SourceFile/graphic/Animation/Animation.h"
 #include "SourceFile/graphic/Animation/AnimationClip.h"
 #include "SourceFile/graphic/Animation/AnimationPlayController.h"
+#include "SourceFile/GameObject/GameObject.h"
+#include "SourceFile/GameObject/GameObjectManager.h"
 
 const int NUM_DIRECTIONAL_LIGHT = 4;	//ディレクションライトの数。
 static const int MAX_BONE = 512;	//!<ボーンの最大数。
 static const int CascadeShadow = 3;		//シャドウマップの枚数
-
 
 /// <summary>
 /// ディレクションライト。

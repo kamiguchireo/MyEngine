@@ -32,7 +32,12 @@ bool Game::Start()
 	light.ambinetLight.z = 1.0f;
 	light.eyePos = g_camera3D->GetPosition();
 	light.specPow = 5.0f;
-	
+
+	//MR = Engine::NewGO<Engine::prefab::ModelRender>(1, nullptr);
+	//MR->SetTkmFilePath("Assets/modelData/unityChan.tkm");
+	////MR->SetVSEntryPoint("VSMainSkin");
+	//MR->SetConstantBuffer(&light);
+
 	//スケルトンとアニメーションの初期化
 	m_skeleton.Init("Assets/modelData/unityChan.tks"); 
 	m_skeleton.Update(Matrix::Identity);
@@ -74,11 +79,11 @@ void Game::Update()
 	}
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
-		pos.x += 1.0f;
+		pos.x -= 1.0f;
 	}
 	if (GetAsyncKeyState(VK_LEFT))
 	{
-		pos.x -= 1.0f;
+		pos.x += 1.0f;
 	}
 	m_animation.Update(1.0f / 60.0f);
 	m_skeleton.Update(m_unityChan.GetWorldMatrix());
