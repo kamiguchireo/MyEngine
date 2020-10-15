@@ -51,7 +51,7 @@ public:
 	/// </summary>
 	/// <param name="renderContext">レンダリングコンテキスト</param>
 	void Draw(RenderContext& renderContext);
-	void Draw(RenderContext& renderContext,Matrix viewMat,Matrix proMat);
+	void Draw(RenderContext& renderContext,Matrix viewMat,Matrix proMat,int rendermode = 1);
 
 	/// <summary>
 	/// ワールド行列を取得。
@@ -70,10 +70,15 @@ public:
 	//	m_meshParts.SetShaders(vsEntryPoint, psEntryPoint);
 	//}
 
+	void SetShadowRecieverFlag(bool flag)
+	{
+		IsShadowReciever = flag;
+	}
 private:
 
 	Matrix m_world;			//ワールド行列。
 	TkmFile m_tkmFile;		//tkmファイル。
 	Skeleton m_skeleton;	//スケルトン。
 	MeshParts m_meshParts;	//メッシュパーツ。
+	bool IsShadowReciever = false;
 };

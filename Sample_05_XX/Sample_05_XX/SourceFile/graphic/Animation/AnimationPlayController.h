@@ -113,7 +113,7 @@ namespace Engine {
 		bool m_isPlaying = false;		//再生中かどうか
 		Vector3 m_footstepPos = g_vec3Zero;		//フットステップボーンの座標
 		Vector3 m_footstepDeltaValue = g_vec3Zero;		//フットステップの移動ベクトル
-		float m_interpolateEndTime;		//補完終了時間
-		float m_interpolateTime;		//現在の補完時間
+		float m_interpolateEndTime = 1.0f;		//補完終了時間
+		float m_interpolateTime = 0.0f;		//現在の補完時間
 	};
 }

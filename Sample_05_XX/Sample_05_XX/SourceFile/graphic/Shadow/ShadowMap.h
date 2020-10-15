@@ -27,6 +27,18 @@ namespace Engine {
 		{
 			m_shadowCasters.push_back(shadowCaster);
 		}
+
+		void SendShadowRecieverParamToGpu();
+
+		Texture& GetSRV(int i)
+		{
+			return m_shadowMapRT[i].GetRenderTargetTexture();
+		}
+
+		ConstantBuffer& GetConstantBuffer()
+		{
+			return m_shadowCb;
+		}
 	private:
 		//ライトの座標を計算する。
 		// 分割された視推台を写すライトの座標を計算します。
@@ -48,19 +60,19 @@ namespace Engine {
 			Matrix mLVP[3];
 			float shadowAreaDepthInViewSpace[3];	//カメラ空間での影を落とすエリアの深度テーブル。
 		};
-		const int TexResolution = 2048;		//シャドウマップテクスチャの解像度
+		const int TexResolutionW = 2560;		//シャドウマップテクスチャの解像度
+		const int TexResolutionH = 1440;		//シャドウマップテクスチャの解像度
+
 		RenderTarget m_shadowMapRT[3];
 		ConstantBuffer m_shadowCb;		//影を落とす時に使用する定数バッファ
 		SShadowCb m_shadowCbEntity;
 		Vector3 m_range = { 500.0f,1000.0f,2000.0f };		//シャドウマップを設定する範囲
 		float m_lightHeight = 1000.0f;				//ライトの高さ。
-		const float InitNearPlane = 0.0f;		//NearPlaneの初期値
-		Matrix m_lightViewMatrix[3] = { Matrix::Identity };
 		Matrix m_lightProMatrix[3] = { Matrix::Identity };
-		float maxheight = 500.0f;		//影に含める最大の高さ
+		float maxheight = 1000.0f;		//影に含める最大の高さ
 		Vector3 lightDir = Vector3::Down;
-		int ShadowTextureNum = 0;		//シャドウマップに使うテクスチャの番号
 		std::vector<Model*> m_shadowCasters;		//シャドウキャスターの配列
 		ModelInitData InitData;
+		bool ResourceInited[3] = {false};
 	};
 }

@@ -135,9 +135,13 @@ public:
 	/// レンダリングターゲットとビューポートを同時に設定する。
 	/// </summary>
 	/// <param name="renderTarget"></param>
-	void SetRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle, D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle)
+	void SetRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle, D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle,D3D12_VIEWPORT* m_viewport = nullptr)
 	{
 		m_commandList->OMSetRenderTargets(1, &rtvHandle, FALSE, &dsvHandle);
+		if (m_viewport != nullptr)
+		{
+			SetViewport(*m_viewport);
+		}
 	}
 	/// <summary>
 	/// レンダリングターゲットとビューポートを同時に設定する。

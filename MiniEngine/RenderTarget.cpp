@@ -13,8 +13,13 @@ bool RenderTarget::Create(
 )
 {
 	auto d3dDevice = g_graphicsEngine->GetD3DDevice();
-	m_width = w;
-	m_height = h;
+	//ビューポートを初期化。
+	m_viewport.TopLeftX = 0;
+	m_viewport.TopLeftY = 0;
+	m_viewport.Width = static_cast<FLOAT>(w);
+	m_viewport.Height = static_cast<FLOAT>(h);
+	m_viewport.MinDepth = D3D12_MIN_DEPTH;
+	m_viewport.MaxDepth = D3D12_MAX_DEPTH;
 	//レンダリングターゲットとなるテクスチャを作成する。
 	if (!CreateRenderTargetTexture(*g_graphicsEngine, d3dDevice, w, h, mipLevel, arraySize, colorFormat, clearColor)) {
 	//	TK_ASSERT(false, "レンダリングターゲットとなるテクスチャの作成に失敗しました。");
@@ -28,6 +33,7 @@ bool RenderTarget::Create(
 			return false;
 		}
 	}
+
 	if (!CreateDescriptorHeap(*g_graphicsEngine, d3dDevice)) {
 		//ディスクリプタヒープの作成に失敗した。
 		MessageBoxA(nullptr, "レンダリングターゲットとなるテクスチャの作成に失敗しました。", "エラー", MB_OK);

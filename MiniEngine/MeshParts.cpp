@@ -70,6 +70,10 @@ void MeshParts::CreateDescriptorHeaps()
 			descriptorHeap.RegistShaderResource(1, mesh->m_materials[matNo]->GetNormalMap());		//法線マップ。
 			descriptorHeap.RegistShaderResource(2, mesh->m_materials[matNo]->GetSpecularMap());		//スペキュラマップ。
 			descriptorHeap.RegistShaderResource(3, m_boneMatricesStructureBuffer);		//ボーン行列
+			descriptorHeap.RegistShaderResource(4, g_graphicsEngine->GetShadowMap()->GetSRV(0));
+			descriptorHeap.RegistShaderResource(5, g_graphicsEngine->GetShadowMap()->GetSRV(1));
+			descriptorHeap.RegistShaderResource(6, g_graphicsEngine->GetShadowMap()->GetSRV(2));
+
 			if (m_expandShaderResourceView){
 				descriptorHeap.RegistShaderResource(EXPAND_SRV_REG__START_NO, *m_expandShaderResourceView);
 			}
@@ -77,11 +81,13 @@ void MeshParts::CreateDescriptorHeaps()
 			if (m_expandConstantBuffer.IsValid()) {
 				descriptorHeap.RegistConstantBuffer(1, m_expandConstantBuffer);
 			}
+			descriptorHeap.RegistConstantBuffer(2, g_graphicsEngine->GetShadowMap()->GetConstantBuffer());
 			//ディスクリプタヒープへの登録を確定させる。
 			descriptorHeap.Commit();
 			descriptorHeapNo++;
 		}
 	}
+	m_isCreateDescriptorHeap = true;
 }
 void MeshParts::CreateMeshFromTkmMesh(
 	const TkmFile::SMesh& tkmMesh, 
@@ -175,11 +181,16 @@ void MeshParts::Draw(
 	RenderContext& rc,
 	const Matrix& mWorld,
 	const Matrix& mView,
-	const Matrix& mProj
+	const Matrix& mProj,
+	int rendermode,
+	int IsShadowRecieverFlag
 )
 {
 #if 1
-
+	if (m_isCreateDescriptorHeap == false) {
+		//ディスクリプタヒープを作成。
+		CreateDescriptorHeaps();
+	}
 	//メッシュごとにドロー
 	//プリミティブのトポロジーはトライアングルリストのみ。
 	rc.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -189,6 +200,7 @@ void MeshParts::Draw(
 	cb.mWorld = mWorld;
 	cb.mView = mView;
 	cb.mProj = mProj;
+	cb.IsShadowReciever = IsShadowRecieverFlag;
 
 	m_commonConstantBuffer.CopyToVRAM(&cb);
 
@@ -206,7 +218,7 @@ void MeshParts::Draw(
 		//マテリアルごとにドロー。
 		for (int matNo = 0; matNo < mesh->m_materials.size(); matNo++) {
 			//このマテリアルが貼られているメッシュの描画開始。
-			mesh->m_materials[matNo]->BeginRender(rc, mesh->skinFlags[matNo]);
+			mesh->m_materials[matNo]->BeginRender(rc, mesh->skinFlags[matNo], rendermode);
 			//ディスクリプタヒープを登録。
 			rc.SetDescriptorHeap(m_descriptorHeap.at(descriptorHeapNo));
 			//インデックスバッファを設定。

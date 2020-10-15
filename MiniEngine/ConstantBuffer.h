@@ -37,6 +37,11 @@ public:
 	/// <param name="descriptorHandle"></param>
 	void RegistConstantBufferView(D3D12_CPU_DESCRIPTOR_HANDLE descriptorHandle);
 	void RegistConstantBufferView(D3D12_CPU_DESCRIPTOR_HANDLE descriptorHandle, int bufferNo);
+
+	const ID3D12Resource* GetResource(int i) const
+	{
+		return m_constantBuffer[i];
+	}
 private:
 	ID3D12Resource* m_constantBuffer[2] = {nullptr};//定数バッファ。
 	void* m_constBufferCPU[2] = { nullptr };		//CPU側からアクセスできるする定数バッファのアドレス。

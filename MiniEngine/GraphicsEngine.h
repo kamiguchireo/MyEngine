@@ -15,6 +15,10 @@
 #include "Camera.h"
 #include "SourceFile/graphic/Shadow/ShadowMap.h"
 
+enum EnRenderMode {
+	enRenderMode_CreateShadowMap,		//シャドウマップ生成
+	enRenderMode_Normal,				//通常レンダリング
+};
 /// <summary>
 /// DirectX12に依存するグラフィックスエンジン
 /// </summary>
@@ -74,6 +78,19 @@ public:
 		return m_commandQueue;
 	}
 
+	void ExecuteCommand()
+	{	// レンダリングターゲットへの描き込み完了待ち
+		m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_renderTargets[m_frameIndex]);
+
+		//レンダリングコンテキストを閉じる。
+		m_renderContext.Close();
+
+		//コマンドを実行。
+		ID3D12CommandList* ppCommandLists[] = { m_commandList };
+		m_commandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
+
+		WaitDraw();
+	}
 	/// <summary>
 	/// CBR_SRVのディスクリプタのサイズを取得。
 	/// </summary>

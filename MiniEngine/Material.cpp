@@ -75,6 +75,7 @@ void Material::InitPipelineState()
 		{ "BLENDWEIGHT", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 72, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 	};
 
+
 	//パイプラインステートを作成。
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc = { 0 };
 	psoDesc.InputLayout = { inputElementDescs, _countof(inputElementDescs) };
@@ -102,26 +103,47 @@ void Material::InitPipelineState()
 	psoDesc.SampleDesc.Count = 1;
 
 	m_skinModelPipelineState.Init(psoDesc);
+	
+	//スキンありシャドウマップ用	
+	//psoDesc.InputLayout = { inputElementShadowDescs, _countof(inputElementShadowDescs) };
+	psoDesc.VS = CD3DX12_SHADER_BYTECODE(m_vsshadowSkinModel.GetCompiledBlob());
+	psoDesc.PS = CD3DX12_SHADER_BYTECODE(m_psshadowModel.GetCompiledBlob());
+	psoDesc.RTVFormats[0] = DXGI_FORMAT_R32_FLOAT;		//アルベドカラー出力用。
+	m_ShadowSkinModelPipelineState.Init(psoDesc);
+	//スキンなしシャドウマップ用
+	//psoDesc.InputLayout = { inputElementShadowDescs, _countof(inputElementShadowDescs) };
+	psoDesc.VS = CD3DX12_SHADER_BYTECODE(m_vsshadowModel.GetCompiledBlob());
+	psoDesc.PS = CD3DX12_SHADER_BYTECODE(m_psshadowModel.GetCompiledBlob());
+	m_ShadownonSkinModelPipelineState.Init(psoDesc);
 
 	//続いてスキンなしモデル用を作成。
+	//psoDesc.InputLayout = { inputElementDescs, _countof(inputElementDescs) };
+	psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;		//アルベドカラー出力用。
 	psoDesc.VS = CD3DX12_SHADER_BYTECODE(m_vsNonSkinModel.GetCompiledBlob());
+	psoDesc.PS = CD3DX12_SHADER_BYTECODE(m_psModel.GetCompiledBlob());
 	m_nonSkinModelPipelineState.Init(psoDesc);
 
 	//続いて半透明マテリアル用。
+	//psoDesc.InputLayout = { inputElementDescs, _countof(inputElementDescs) };
 	psoDesc.VS = CD3DX12_SHADER_BYTECODE(m_vsSkinModel.GetCompiledBlob());
+	psoDesc.PS = CD3DX12_SHADER_BYTECODE(m_psModel.GetCompiledBlob());
 	psoDesc.BlendState.IndependentBlendEnable = TRUE;
 	psoDesc.BlendState.RenderTarget[0].BlendEnable = TRUE;
 	psoDesc.BlendState.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;
 	psoDesc.BlendState.RenderTarget[0].DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
 	psoDesc.BlendState.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;
 
-	
+
 	m_transSkinModelPipelineState.Init(psoDesc);
 
+
 	psoDesc.VS = CD3DX12_SHADER_BYTECODE(m_vsNonSkinModel.GetCompiledBlob());
+	psoDesc.PS = CD3DX12_SHADER_BYTECODE(m_psModel.GetCompiledBlob());
 	m_transNonSkinModelPipelineState.Init(psoDesc);
 
+
 }
+
 void Material::InitShaders(
 	const wchar_t* fxFilePath,
 	const char* vsEntryPointFunc,
@@ -136,16 +158,31 @@ void Material::InitShaders(
 	m_psshadowModel.LoadPS(fxFilePath, "PSMain_ShadowMap");
 }
 
-void Material::BeginRender(RenderContext& rc, int hasSkin)
+void Material::BeginRender(RenderContext& rc, int hasSkin,int renderMode)
 {
 	rc.SetRootSignature(m_rootSignature);
 	
-	if (hasSkin) {
-	//	rc.SetPipelineState(m_skinModelPipelineState);
-		rc.SetPipelineState(m_transSkinModelPipelineState);
+	if (renderMode == enRenderMode_Normal)
+	{
+		if (hasSkin) {
+			//	rc.SetPipelineState(m_skinModelPipelineState);
+			rc.SetPipelineState(m_transSkinModelPipelineState);
+		}
+		else {
+			//	rc.SetPipelineState(m_nonSkinModelPipelineState);
+			rc.SetPipelineState(m_transNonSkinModelPipelineState);
+		}
 	}
-	else {
-	//	rc.SetPipelineState(m_nonSkinModelPipelineState);
-		rc.SetPipelineState(m_transNonSkinModelPipelineState);
+	else if (renderMode == enRenderMode_CreateShadowMap)
+	{
+		if (hasSkin) {
+			//スキンありシャドウマップ用のパイプラインステート
+			rc.SetPipelineState(m_ShadowSkinModelPipelineState);
+		}
+		else {
+			//スキンなしシャドウマップ用のパイプラインステート
+			rc.SetPipelineState(m_ShadownonSkinModelPipelineState);
+		}
+
 	}
 }

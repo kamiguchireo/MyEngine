@@ -15,12 +15,16 @@ public:
 
 private:
 	Model m_unityChan;
+	Model m_map;
+	ModelInitData m_mapInitData;
 	ModelInitData m_unityChanInitData;
-	Vector3 pos = Vector3::Zero;
+	Vector3 pos = {0.0f,0.0f,0.0f};
 	Vector3 scale = Vector3::One;
 	RenderContext RC;
 	Light light;
 	Skeleton m_skeleton;
 	Engine::Animation m_animation;
 	Engine::AnimationClip m_animClip[1];
+	Quaternion qrot = Quaternion::Identity;
+
 };

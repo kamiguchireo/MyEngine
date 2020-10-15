@@ -56,7 +56,7 @@ public:
 	/// <param name="mView">ビュー行列</param>
 	/// <param name="mProj">プロジェクション行列</param>
 	/// <param name="light">ライト</param>
-	void Draw(RenderContext& rc, const Matrix& mWorld, const Matrix& mView, const Matrix& mProj);
+	void Draw(RenderContext& rc, const Matrix& mWorld, const Matrix& mView, const Matrix& mProj, int rendermode = 1, int IsShadowResieverFlag = false);
 	/// <summary>
 	/// スケルトンを関連付ける。
 	/// </summary>
@@ -102,13 +102,16 @@ private:
 		Matrix mWorld;		//ワールド行列。
 		Matrix mView;		//ビュー行列。
 		Matrix mProj;		//プロジェクション行列。
+		int IsShadowReciever;
 	};
 	ConstantBuffer m_commonConstantBuffer;					//メッシュ共通の定数バッファ。
 	ConstantBuffer m_expandConstantBuffer;					//ユーザー拡張用の定数バッファ
+
 	IShaderResource* m_expandShaderResourceView = nullptr;	//ユーザー拡張シェーダーリソースビュー。
 	StructuredBuffer m_boneMatricesStructureBuffer;			//ボーン行列の構造化バッファ。
 	std::vector< SMesh* > m_meshs;							//メッシュ。
 	std::vector< DescriptorHeap > m_descriptorHeap;			//ディスクリプタヒープ。
 	Skeleton* m_skeleton = nullptr;							//スケルトン。
 	void* m_expandData = nullptr;							//ユーザー拡張データ。
+	bool m_isCreateDescriptorHeap = false;					//ディスクリプタヒープを作成済み？
 };

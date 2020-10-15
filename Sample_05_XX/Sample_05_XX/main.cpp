@@ -23,14 +23,23 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	// ここからゲームループ。
 	while (DispatchWindowMessage())
 	{
+		Engine::GameObjectManager().Start();
+		Engine::GameObjectManager().PreRender();
+		Engine::GameObjectManager().Update();
+		g_graphicsEngine->GetShadowMap()->Update(
+			{ -500.0f,1000.0f,0.0f },
+			Vector3::Zero
+		);
 		//レンダリング開始。
 		g_engine->BeginFrame();
 	
+		g_graphicsEngine->GetShadowMap()->RenderToShadowMap();
 		//////////////////////////////////////
 		//ここから絵を描くコードを記述する。
 		//////////////////////////////////////
-		Engine::GameObjectManager().Thread();
-
+		//Engine::GameObjectManager().Thread();
+		Engine::GameObjectManager().Draw();
+		Engine::GameObjectManager().PostRender();
 		//////////////////////////////////////
 		//絵を描くコードを書くのはここまで！！！
 		//////////////////////////////////////

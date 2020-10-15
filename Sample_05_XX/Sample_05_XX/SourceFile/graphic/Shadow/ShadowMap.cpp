@@ -24,9 +24,9 @@ namespace Engine
 	void ShadowMap::ShadowMapRTCreate()
 	{
 		int wh[][2] = {
-			{TexResolution,TexResolution},
-			{TexResolution >> 2,TexResolution >> 2},
-			{TexResolution >> 4,TexResolution >> 4}
+			{TexResolutionW,TexResolutionH},
+			{TexResolutionW,TexResolutionH >> 1},
+			{TexResolutionW >> 1,TexResolutionH >> 1}
 		};
 
 		float clearColor[4] = { 1.0f,1.0f,1.0f,1.0f };
@@ -115,13 +115,14 @@ namespace Engine
 		float lightHeight = g_camera3D->GetTarget().y + m_lightHeight;
 		
 		//近平面の距離
-		float nearPlaneZ = InitNearPlane;
+		float nearPlaneZ = g_camera3D->GetNear();
 		//遠平面の距離
 		float farPlaneZ = shadowAreaTbl[0];
 
 		//カメラの上方向
 		Vector3 cameraUp = Vector3::Up;
 		cameraUp = g_camera3D->GetUp();
+
 		//カメラの前方向
 		Vector3 cameraForward = Vector3::Front;
 		cameraForward = g_camera3D->GetForward();
@@ -136,32 +137,32 @@ namespace Engine
 		for (int i = 0; i < CascadeShadow; i++)
 		{
 			farPlaneZ = nearPlaneZ + shadowAreaTbl[i];
-			
-			//ライトビュー行列
-			for (int i = 0; i < CascadeShadow; i++)
-			{
-				m_lightViewMatrix[i] = Matrix::Identity;
-			}
+			Matrix mLightView = Matrix::Identity;
+
 			//画角の半分を取得
 			float halfViewAngle = g_camera3D->GetViewAngle() * 0.5f;
 			//視推台の8頂点をライト空間に変換して、正射影の幅と高さを求める
-			float w, h = 0.0f;
+			float w, h;
+			w = 0.0f;
+			h = 0.0f;
 			float far_z = -1.0f;
 			Vector3 v[8] = { Vector3::Zero };
-			
+			float nearZ = -1.0f;
+			float farZ = -1.0f;
 			{
 				//画角から距離に対する高さの割合を計算
 				float t = tan(halfViewAngle);
 
 				Vector3 toUpperNear, toUpperFar;
 				toUpperNear = cameraUp * t * nearPlaneZ;
-				toUpperNear.y = min(toUpperNear.y, maxheight);
+				//toUpperNear.y = min(toUpperNear.y, maxheight);
 				toUpperFar = cameraUp * t * farPlaneZ;
-				toUpperFar.y = min(toUpperFar.y, maxheight);
+				//toUpperFar.y = min(toUpperFar.y, maxheight);
 				t *= g_camera3D->GetAspect();
 
 				//近平面の中央座標を計算
 				auto nearPlaneCenterPos = cameraPos + cameraForward * nearPlaneZ;
+				nearZ = nearPlaneCenterPos.z;
 				//手前右上の座標
 				v[0] = nearPlaneCenterPos + cameraRight * t * nearPlaneZ + toUpperNear;
 				//手前右下の座標
@@ -173,6 +174,7 @@ namespace Engine
 
 				//遠平面の中央座標を計算
 				auto farPlaneCenterPos = cameraPos + cameraForward * farPlaneZ;
+				farZ = farPlaneCenterPos.z;
 				//奥右上の座標
 				v[4] = farPlaneCenterPos + cameraRight * t * farPlaneZ + toUpperFar;
 				//奥右下の座標
@@ -181,20 +183,19 @@ namespace Engine
 				v[6] = farPlaneCenterPos + cameraRight * -t * farPlaneZ + toUpperFar;
 				//奥左下の座標
 				v[7] = v[6] - toUpperFar * 2.0f;
-
 				//ライト行列を作成
 				auto viewFrustumCenterPosition = (nearPlaneCenterPos + farPlaneCenterPos) * 0.5f;
 				auto lightPos = CalcLightPosition(lightHeight, viewFrustumCenterPosition);
 
-				m_lightViewMatrix[i] = lightViewRot;
+				mLightView = lightViewRot;
 
-				m_lightViewMatrix[i].m[3][0] = lightPos.x;
-				m_lightViewMatrix[i].m[3][1] = lightPos.y;
-				m_lightViewMatrix[i].m[3][2] = lightPos.z;
-				m_lightViewMatrix[i].m[3][3] = 1.0f;
+				mLightView.m[3][0] = lightPos.x;
+				mLightView.m[3][1] = lightPos.y;
+				mLightView.m[3][2] = lightPos.z;
+				mLightView.m[3][3] = 1.0f;
 
 				//ライトビュー完成
-				m_lightViewMatrix[i].Inverse(m_lightViewMatrix[i]);
+				mLightView.Inverse(mLightView);
 
 				//視推台を構成する8頂点を計算できたので、ライト空間に座標を変換して、AABBを求める
 				Vector3 vMax = { -FLT_MAX,-FLT_MAX,-FLT_MAX };
@@ -202,8 +203,7 @@ namespace Engine
 				for (auto& vInLight : v)
 				{
 					//ベクトルと行列の乗算
-					m_lightViewMatrix[i].Mul(vInLight);
-					
+					mLightView.Apply(vInLight);
 					//最大値を設定
 					vMax.Max(vInLight);
 					//最小値を設定
@@ -221,11 +221,11 @@ namespace Engine
 				far_z / 100.0f,
 				far_z
 			);
-			Matrix m_mat = Matrix::Identity;
-			m_lightProMatrix[i].Multiply(m_lightViewMatrix[i], proj);
+
+			m_lightProMatrix[i].Multiply(mLightView, proj);
 			m_shadowCbEntity.mLVP[i] = m_lightProMatrix[i];
-			m_shadowCbEntity.shadowAreaDepthInViewSpace[i] = farPlaneZ * 0.9f;
-			nearPlaneZ = farPlaneZ * 0.85f;		//ギリギリだと境界線ができる
+			m_shadowCbEntity.shadowAreaDepthInViewSpace[i] = farPlaneZ;
+			nearPlaneZ = farPlaneZ;		//ギリギリだと境界線ができる
 		}
 	}
 
@@ -234,27 +234,45 @@ namespace Engine
 		auto RenCon = g_graphicsEngine->GetRenderContext();
 		for (int i = 0; i < CascadeShadow; i++)
 		{
-			ShadowTextureNum = i;
+			if (ResourceInited[i] == false)
+			{
+				RenCon.WaitUntilToPossibleSetRenderTarget(m_shadowMapRT[i]);
+				ResourceInited[i] = true;
+			}
 			//レンダリングターゲットを切り替える
-			RenCon.SetRenderTarget(m_shadowMapRT[i].GetRTVCpuDescriptorHandle(), m_shadowMapRT[i].GetDSVCpuDescriptorHandle());
+			RenCon.SetRenderTarget(m_shadowMapRT[i].GetRTVCpuDescriptorHandle(), m_shadowMapRT[i].GetDSVCpuDescriptorHandle(),&m_shadowMapRT[i].GetViewport());
 
 			//シャドウマップをクリア
 			float clearColor[4] = { 1.0f,1.0f,1.0f,1.0f };
 			RenCon.ClearRenderTargetView(m_shadowMapRT[i].GetRTVCpuDescriptorHandle(), clearColor);
+			RenCon.ClearDepthStencilView(m_shadowMapRT[i].GetDSVCpuDescriptorHandle(), 1.0f);
+			
 
-			for (auto& caster : m_shadowCasters)
+			for (const auto& caster : m_shadowCasters)
 			{
 				caster->Draw(
 					RenCon,
 					Matrix::Identity,
-					m_lightProMatrix[i]
+					m_lightProMatrix[i],
+					enRenderMode_CreateShadowMap
 				);
+
 			}
+
+			g_graphicsEngine->ExecuteCommand();
+			g_graphicsEngine->BeginRender();
 		}
 
 		//シャドウキャスターをクリア
 		m_shadowCasters.clear();
 		//レンダーターゲットとビューポートをもとに戻す
 		RenCon.SetRenderTarget(g_graphicsEngine->GetCurrentFrameBuffuerRTV(), g_graphicsEngine->GetCurrentFrameBuffuerDSV());
+		SendShadowRecieverParamToGpu();
+	}
+
+	void ShadowMap::SendShadowRecieverParamToGpu()
+	{
+		g_graphicsEngine->GetRenderContext().SetConstantBuffer(2,m_shadowCb);
+		m_shadowCb.CopyToVRAM(&m_shadowCbEntity);
 	}
 }

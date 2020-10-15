@@ -85,6 +85,11 @@ public:
 	{
 		return m_dsvClearValue;
 	}
+
+	D3D12_VIEWPORT GetViewport()const
+	{
+		return m_viewport;
+	}
 private:
 	/// <summary>
 	/// ディスクリプタヒープを作成。
@@ -147,6 +152,7 @@ private:
 	int m_height = 0;							//レンダリングターゲットの高さ。
 	float m_rtvClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };	//レンダリングターゲットビューのクリアカラー。
 	float m_dsvClearValue = 1.0f;							//DSVのクリアカラー。
+	D3D12_VIEWPORT m_viewport;
 };
 
 

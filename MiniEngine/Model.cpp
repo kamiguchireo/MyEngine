@@ -50,13 +50,15 @@ void Model::Draw(RenderContext& rc)
 	);
 }
 
-void Model::Draw(RenderContext& rc,Matrix viewMat,Matrix proMat)
+void Model::Draw(RenderContext& rc,Matrix viewMat,Matrix proMat,int rendermode)
 {
 	m_meshParts.Draw(
 		rc,
 		m_world,
 		viewMat,
-		proMat
+		proMat,
+		rendermode,
+		IsShadowReciever
 	);
 }
 
