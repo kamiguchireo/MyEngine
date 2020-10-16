@@ -25,7 +25,7 @@ namespace Engine {
 			InitData.m_psEntryPointFunc = m_psEntryPointFunc;
 			InitData.m_fxFilePath = m_fxFilePath;
 			InitData.m_expandConstantBuffer = m_expandConstantBuffer;
-			InitData.m_expandConstantBufferSize = sizeof(m_expandConstantBuffer);
+			InitData.m_expandConstantBufferSize = (sizeof(m_expandConstantBuffer));
 			InitData.m_expandShaderResoruceView = m_expandShaderResoruceView;
 
 			m_model.Init(InitData);

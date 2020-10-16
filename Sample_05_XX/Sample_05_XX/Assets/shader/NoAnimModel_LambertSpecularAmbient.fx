@@ -323,13 +323,8 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 
 	float f;
 	f = CalcShadow(psIn.worldPos, psIn.posInview.z);
-	//f = CalcShadow(psIn.pos,0.0f);
-
-	if (f == 1.0f)
-	{
-
-		lig *= 0.5f;
-	}
+	//線形補完
+	lig *= lerp(1.0f, 0.5f, f);
 
 	float4 texColor = g_texture.Sample(g_sampler, psIn.uv);
 	texColor.xyz *= lig; //光をテクスチャカラーに乗算する。
