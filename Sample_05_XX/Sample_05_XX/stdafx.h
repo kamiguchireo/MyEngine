@@ -13,6 +13,7 @@ const int NUM_DIRECTIONAL_LIGHT = 4;	//ディレクションライトの数。
 static const int MAX_BONE = 512;	//!<ボーンの最大数。
 static const int CascadeShadow = 3;		//シャドウマップの枚数
 
+using namespace Engine;
 /// <summary>
 /// ディレクションライト。
 /// </summary>

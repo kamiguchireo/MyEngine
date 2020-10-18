@@ -57,8 +57,8 @@ namespace Engine {
 
 	private:
 		struct SShadowCb {
-			Matrix mLVP[3];
-			float shadowAreaDepthInViewSpace[3];	//カメラ空間での影を落とすエリアの深度テーブル。
+			Matrix mLVP[3] = {Matrix::Identity};
+			float shadowAreaDepthInViewSpace[3] = {500.0f,1000.0f,2000.0f};	//カメラ空間での影を落とすエリアの深度テーブル。
 		};
 		const int TexResolutionW = 2560;		//シャドウマップテクスチャの解像度
 		const int TexResolutionH = 1440;		//シャドウマップテクスチャの解像度

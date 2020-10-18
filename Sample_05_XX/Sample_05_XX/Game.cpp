@@ -7,7 +7,7 @@ Game::Game()
 	m_animClip[0].SetLoopFlag(true);
 	g_camera3D->SetPosition({ 0.0f, 100.0f, 500.0f });
 	g_camera3D->SetTarget({ 0.0f, 0.0f, 0.0f });
-
+	g_camera3D->Update();
 }
 
 Game::~Game()
@@ -33,10 +33,8 @@ bool Game::Start()
 	light.eyePos = g_camera3D->GetPosition();
 	light.specPow = 5.0f;
 
-	//MR = Engine::NewGO<Engine::prefab::ModelRender>(1, nullptr);
-	//MR->SetTkmFilePath("Assets/modelData/unityChan.tkm");
-	////MR->SetVSEntryPoint("VSMainSkin");
-	//MR->SetConstantBuffer(&light);
+	MR = Engine::NewGO<Engine::prefab::ModelRender>(1, nullptr);
+	MR->SetTkmFilePath("Assets/modelData/unityChan.tkm");
 
 	//スケルトンとアニメーションの初期化
 	m_skeleton.Init("Assets/modelData/unityChan.tks"); 
@@ -91,13 +89,10 @@ void Game::Update()
 
 	m_map.UpdateWorldMatrix({0.0f,-10.0f,0.0f}, qrot, { 5.0f,5.0,1.0f });
 	g_graphicsEngine->GetShadowMap()->RegistShadowCaster(&m_unityChan);
-
 }
 
 void Game::Draw()
 {
-
-	m_unityChan.Draw(RC,g_camera3D->GetViewMatrix(),g_camera3D->GetProjectionMatrix()); 
+	m_unityChan.Draw(RC); 
 	m_map.Draw(RC, g_camera3D->GetViewMatrix(), g_camera3D->GetProjectionMatrix());
-
 }

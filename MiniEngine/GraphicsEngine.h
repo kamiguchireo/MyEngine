@@ -14,6 +14,7 @@
 
 #include "Camera.h"
 #include "SourceFile/graphic/Shadow/ShadowMap.h"
+#include "SourceFile/graphic/DefferdRendering.h"
 
 enum EnRenderMode {
 	enRenderMode_CreateShadowMap,		//シャドウマップ生成
@@ -145,6 +146,12 @@ public:
 	{
 		return &m_shadowMap;
 	}
+
+	Engine::DefferdRendering* GetDefferdRendering()
+	{
+		return &m_DefferdRendering;
+	}
+
 private:
 	/// <summary>
 	/// D3Dデバイスの作成。
@@ -250,6 +257,7 @@ private:
 	Camera m_camera2D;					//2Dカメラ。
 	Camera m_camera3D;					//3Dカメラ。
 	Engine::ShadowMap m_shadowMap;
+	Engine::DefferdRendering m_DefferdRendering;
 };
 extern GraphicsEngine* g_graphicsEngine;	//グラフィックスエンジン
 extern Camera* g_camera2D;					//2Dカメラ。

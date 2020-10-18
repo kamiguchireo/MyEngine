@@ -2,7 +2,7 @@
 #include "SourceFile/graphic/Animation/Animation.h"
 #include "SourceFile/graphic/Animation/AnimationClip.h"
 #include "SourceFile/graphic/ModelRender.h"
-class Game:public Engine::IGameObject
+class Game:public IGameObject
 {
 public:
 	Game();
@@ -25,5 +25,5 @@ private:
 	Engine::Animation m_animation;
 	Engine::AnimationClip m_animClip[1];
 	Quaternion qrot = Quaternion::Identity;
-	Engine::prefab::ModelRender* MR;
+	Engine::prefab::ModelRender* MR = nullptr;
 };

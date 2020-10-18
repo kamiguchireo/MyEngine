@@ -2,6 +2,8 @@
 #include "system/system.h"
 #include "Game.h"
 #include "SourceFile/GameObject/GameObjectManager.h"
+#include "SourceFile/EngineProcessing.h"
+#include "SourceFile/graphic/DefferdRendering.h"
 
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
@@ -19,27 +21,19 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//////////////////////////////////////
 	// 初期化を行うコードを書くのはここまで！！！
 	//////////////////////////////////////
-
+	EngineProcessing EP;
+	EP.Init();
+	DefferdRendering DR;
+	DR.CreateRT();
 	// ここからゲームループ。
 	while (DispatchWindowMessage())
 	{
-		Engine::GameObjectManager().Start();
-		Engine::GameObjectManager().PreRender();
-		Engine::GameObjectManager().Update();
-		g_graphicsEngine->GetShadowMap()->Update(
-			{ -500.0f,1000.0f,0.0f },
-			Vector3::Zero
-		);
+		EP.Update();
 		//レンダリング開始。
 		g_engine->BeginFrame();
-	
-		g_graphicsEngine->GetShadowMap()->RenderToShadowMap();
-		//////////////////////////////////////
-		//ここから絵を描くコードを記述する。
-		//////////////////////////////////////
-		//Engine::GameObjectManager().Thread();
-		Engine::GameObjectManager().Draw();
-		Engine::GameObjectManager().PostRender();
+		EP.Rendering();
+		DR.DrawRT();
+
 		//////////////////////////////////////
 		//絵を描くコードを書くのはここまで！！！
 		//////////////////////////////////////

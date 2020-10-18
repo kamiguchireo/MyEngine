@@ -151,7 +151,7 @@ namespace Engine
 			float farZ = -1.0f;
 			{
 				//‰æŠp‚©‚ç‹——£‚É‘Î‚·‚é‚‚³‚ÌŠ„‡‚ğŒvZ
-				float t = tan(halfViewAngle);
+				float t = tanf(halfViewAngle);
 
 				Vector3 toUpperNear, toUpperFar;
 				toUpperNear = cameraUp * t * nearPlaneZ;

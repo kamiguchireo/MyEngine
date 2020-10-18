@@ -28,10 +28,7 @@ namespace Engine {
 			{
 				m_fxFilePath = FilePath;
 			}
-			void SetConstantBuffer(void*buffer)
-			{
-				m_expandConstantBuffer = buffer;
-			}
+
 		private:
 			Model m_model;
 			Vector3 m_pos = Vector3::Zero;
@@ -42,7 +39,8 @@ namespace Engine {
 			const char* m_vsEntryPointFunc = "VSMain";	//頂点シェーダーのエントリーポイント。
 			const char* m_psEntryPointFunc = "PSMain";	//ピクセルシェーダーのエントリーポイント。
 			const char* m_fxFilePath = "Assets/shader/NoAnimModel_LambertSpecularAmbient.fx";			//fxファイルのファイルパス。
-			void* m_expandConstantBuffer = nullptr;		//ユーザー拡張の定数バッファ。
+			Light light;
+			void* m_expandConstantBuffer = &light;		//ユーザー拡張の定数バッファ。
 			int m_expandConstantBufferSize = 0;			//ユーザー拡張の定数バッファのサイズ。
 			IShaderResource* m_expandShaderResoruceView = nullptr;	//ユーザー拡張のシェーダーリソース。
 			ModelInitData InitData;
