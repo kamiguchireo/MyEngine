@@ -23,8 +23,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//////////////////////////////////////
 	EngineProcessing EP;
 	EP.Init();
-	DefferdRendering DR;
-	DR.CreateRT();
+	//DefferdRendering DR;
+	g_graphicsEngine->GetDefferdRendering()->CreateRT();
 	// ここからゲームループ。
 	while (DispatchWindowMessage())
 	{
@@ -32,7 +32,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//レンダリング開始。
 		g_engine->BeginFrame();
 		EP.Rendering();
-		DR.DrawRT();
+		g_graphicsEngine->GetDefferdRendering()->DrawRT();
 
 		//////////////////////////////////////
 		//絵を描くコードを書くのはここまで！！！

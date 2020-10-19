@@ -36,7 +36,7 @@ namespace Engine {
 		RenCon.WaitUntilToPossibleSetRenderTargets(TexNum, rts);
 		RenCon.SetRenderTargets(TexNum, rts);
 		RenCon.ClearRenderTargetViews(TexNum, rts);
-		for (auto caster : m_Casters)
+		for (const auto& caster : m_Casters)
 		{
 			caster->Draw(RenCon);
 		}
