@@ -27,9 +27,9 @@ namespace Engine {
 			DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_FORMAT_UNKNOWN
 		);
 		SpriteInitData initData;
-
 		initData.m_width = FRAME_BUFFER_W;
 		initData.m_height = FRAME_BUFFER_H;
+
 		initData.m_textures[0] = &albedRT.GetRenderTargetTexture();
 		initData.m_textures[1] = &normalRT.GetRenderTargetTexture();
 		initData.m_fxFilePath = "Assets/shader/sprite.fx";
@@ -51,12 +51,14 @@ namespace Engine {
 		{
 			caster->Draw(RenCon);
 		}
+
 		//キャスターをクリア
 		m_Casters.clear();
 		RenCon.WaitUntilFinishDrawingToRenderTargets(TexNum, rts);
 
 		//レンダリング先をフレームバッファに戻す
 		g_graphicsEngine->ChangeRenderTargetToFrameBuffer(RenCon);
+		defferdLightingSprite.Update(Vector3::Zero, Quaternion::Identity, Vector3::One);
 		defferdLightingSprite.Draw(RenCon);
 	}
 }

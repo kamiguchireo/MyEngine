@@ -62,6 +62,7 @@ bool Game::Start()
 	//m_skeleton.Update(m_unityChan.GetWorldMatrix());
 
 	qrot.SetRotationDeg(Vector3::AxisX, 90.0f);
+	
 	return true;
 }
 

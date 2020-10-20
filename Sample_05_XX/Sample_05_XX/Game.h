@@ -26,6 +26,4 @@ private:
 	Engine::AnimationClip m_animClip[1];
 	Quaternion qrot = Quaternion::Identity;
 	Engine::prefab::ModelRender* MR = nullptr;
-	SpriteInitData spriteInitData;
-
 };

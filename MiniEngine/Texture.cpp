@@ -78,7 +78,7 @@ void Texture::LoadTextureFromDDSFile(const wchar_t* filePath)
 
 	if (FAILED(hr)) {
 		//テクスチャの作成に失敗しました。
-		return;
+		std::abort();
 	}
 
 	m_texture = texture;

@@ -90,19 +90,19 @@
 		{
 			{
 				Vector4(-halfW, -halfH, 0.0f, 1.0f),
-				Vector2(1.0f, 1.0f),
+				Vector2(0.0f, 0.0f),
 			},
 			{
 				Vector4(halfW, -halfH, 0.0f, 1.0f),
-				Vector2(0.0f, 1.0f),
+				Vector2(1.0f, 0.0f),
 			},
 			{
 				Vector4(-halfW, halfH, 0.0f, 1.0f),
-				Vector2(1.0f, 0.0f)
+				Vector2(0.0f, 1.0f)
 			},
 			{
 				Vector4(halfW, halfH, 0.0f, 1.0f),
-				Vector2(0.0f, 0.0f)
+				Vector2(1.0f, 1.0f)
 			}
 
 		};
