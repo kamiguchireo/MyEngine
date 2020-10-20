@@ -13,8 +13,8 @@ public:
 	void Draw();
 
 private:
-	Model m_unityChan;
-	Model m_map;
+	//Model m_unityChan;
+	//Model m_map;
 	ModelInitData m_mapInitData;
 	ModelInitData m_unityChanInitData;
 	Vector3 pos = {0.0f,0.0f,0.0f};
@@ -26,4 +26,6 @@ private:
 	Engine::AnimationClip m_animClip[1];
 	Quaternion qrot = Quaternion::Identity;
 	Engine::prefab::ModelRender* MR = nullptr;
+	SpriteInitData spriteInitData;
+
 };

@@ -54,7 +54,7 @@ namespace Engine {
 
 		void ModelRender::Draw()
 		{
-			m_model.Draw(RC);
+			//m_model.Draw(RC);
 		}
 	}
 }

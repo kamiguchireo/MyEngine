@@ -65,6 +65,11 @@ struct PSInput_ShadowMap {
 	float4 Position:SV_POSITION;		//座標
 };
 
+//ピクセルシェーダーからの出力
+struct SPSOUT{
+	float4 albedo :	SV_Target0;		//アルベド
+	float3 normal : SV_Target1;		//法線
+};
 //モデルテクスチャ。
 Texture2D<float4> g_texture : register(t0);	
 Texture2D<float4> g_normalMap : register(t1);
@@ -383,4 +388,14 @@ float4 PSMain_ShadowMap(PSInput_ShadowMap In) : SV_Target0
 
 	//射影空間でのZ値を返す
 	return In.Position.z / In.Position.w;
+}
+
+SPSOUT PSDefferdMain(SPSIn psIn)
+{
+	SPSOUT psOut;
+	psOut.albedo = g_texture.Sample(g_sampler, psIn.uv);
+	//法線は0～1
+	psOut.normal = (psIn.normal / 2.0f) + 0.5f;
+
+	return psOut;
 }

@@ -17,6 +17,8 @@ struct PSInput{
 };
 
 Texture2D<float4> colorTexture : register(t0);	//�J���[�e�N�X�`���B
+Texture2D<float4> normalTexture : register(t1);	//法線。
+
 sampler Sampler : register(s0);
 
 PSInput VSMain(VSInput In) 
@@ -29,4 +31,13 @@ PSInput VSMain(VSInput In)
 float4 PSMain( PSInput In ) : SV_Target0
 {
 	return colorTexture.Sample(Sampler, In.uv) * mulColor;
+}
+
+float4 PSDefferd(PSInput In) : SV_Target0
+{
+	float4 albedo = colorTexture.Sample(Sampler,In.uv);
+	float3 normal = normalTexture.Sample(Sampler, In.uv);
+	normal = (normal * 2.0f) - 1.0f;
+	float4 finalColor = albedo;
+	return finalColor;
 }

@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Sprite.h"
 namespace Engine {
 	class DefferdRendering
 	{
@@ -14,10 +14,10 @@ namespace Engine {
 			m_Casters.push_back(Caster);
 		}
 	private:
-		static const int TexNum = 1;
+		static const int TexNum = 2;
 		RenderTarget albedRT;
-		//SpriteInitData initData;
-		//Sprite defferdLightingSprite;
+		RenderTarget normalRT;
+		Sprite defferdLightingSprite;
 		std::vector<Model*> m_Casters;		//キャスターの配列
 	};
 }

@@ -37,7 +37,7 @@ namespace Engine {
 			RenderContext RC;
 			const char* m_tkmFilePath = nullptr;
 			const char* m_vsEntryPointFunc = "VSMain";	//頂点シェーダーのエントリーポイント。
-			const char* m_psEntryPointFunc = "PSMain";	//ピクセルシェーダーのエントリーポイント。
+			const char* m_psEntryPointFunc = "PSDefferdMain";	//ピクセルシェーダーのエントリーポイント。
 			const char* m_fxFilePath = "Assets/shader/NoAnimModel_LambertSpecularAmbient.fx";			//fxファイルのファイルパス。
 			Light light;
 			void* m_expandConstantBuffer = &light;		//ユーザー拡張の定数バッファ。
