@@ -35,6 +35,11 @@ namespace Engine {
 			{
 				m_skeleton = &SK;
 			}
+
+			void SetShadowCasterFlag(bool flag)
+			{
+				m_ShadowCasterFlag = flag;
+			}
 		private:
 			Model m_model;
 			Vector3 m_pos = Vector3::Zero;
@@ -51,6 +56,7 @@ namespace Engine {
 			IShaderResource* m_expandShaderResoruceView = nullptr;	//ユーザー拡張のシェーダーリソース。
 			ModelInitData InitData;
 			Skeleton* m_skeleton = nullptr;
+			bool m_ShadowCasterFlag = true;
 		};
 	}
 }

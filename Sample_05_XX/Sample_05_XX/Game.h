@@ -14,7 +14,7 @@ public:
 
 private:
 	//Model m_unityChan;
-	//Model m_map;
+	Model m_map;
 	ModelInitData m_mapInitData;
 	ModelInitData m_unityChanInitData;
 	Vector3 pos = {0.0f,0.0f,0.0f};

@@ -58,6 +58,11 @@ namespace Engine {
 			{
 				m_skeleton->Update(m_model.GetWorldMatrix());
 			}
+			//シャドウキャスターに登録されているとき
+			if (m_ShadowCasterFlag == true)
+			{
+				g_graphicsEngine->GetShadowMap()->RegistShadowCaster(&m_model);
+			}
 			m_model.UpdateWorldMatrix(m_pos, m_rot, m_scale);
 			g_graphicsEngine->GetDefferdRendering()->RegistCaster(&m_model);
 		}

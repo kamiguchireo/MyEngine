@@ -58,8 +58,8 @@ bool Game::Start()
 
 	//m_unityChan.BindSkeleton(m_skeleton);
 
-	//m_map.Init(m_mapInitData);
-	//m_map.SetShadowRecieverFlag(true);
+	m_map.Init(m_mapInitData);
+	m_map.SetShadowRecieverFlag(true);
 	//m_unityChan.Init(m_unityChanInitData);
 	//m_skeleton.Update(m_unityChan.GetWorldMatrix());
 
@@ -90,12 +90,12 @@ void Game::Update()
 	//m_skeleton.Update(m_unityChan.GetWorldMatrix());
 	//m_unityChan.UpdateWorldMatrix(pos, g_quatIdentity, scale);
 
-	//m_map.UpdateWorldMatrix({0.0f,-10.0f,0.0f}, qrot, { 5.0f,5.0,1.0f });
+	m_map.UpdateWorldMatrix({0.0f,-10.0f,0.0f}, qrot, { 5.0f,5.0,1.0f });
 	//g_graphicsEngine->GetShadowMap()->RegistShadowCaster(&m_unityChan);
 }
 
 void Game::Draw()
 {
 	//m_unityChan.Draw(RC); 
-	//m_map.Draw(RC, g_camera3D->GetViewMatrix(), g_camera3D->GetProjectionMatrix());
+	m_map.Draw(RC, g_camera3D->GetViewMatrix(), g_camera3D->GetProjectionMatrix());
 }

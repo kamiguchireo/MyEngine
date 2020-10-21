@@ -25,7 +25,7 @@ void EngineProcessing::Update()
 
 	//シャドウマップのアップデート
 	g_graphicsEngine->GetShadowMap()->Update(
-		{ -500.0f,1000.0f,0.0f },
+		{ 0.0f,1000.0f,0.0f },
 		Vector3::Zero
 	);
 }
