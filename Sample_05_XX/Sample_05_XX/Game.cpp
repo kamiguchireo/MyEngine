@@ -35,11 +35,13 @@ bool Game::Start()
 
 	MR = Engine::NewGO<Engine::prefab::ModelRender>(1, nullptr);
 	MR->SetTkmFilePath("Assets/modelData/unityChan.tkm");
+	MR->SetVSEntryPoint("VSMainSkin");
+	MR->SetSkeleton(m_skeleton);
 
 	//スケルトンとアニメーションの初期化
 	m_skeleton.Init("Assets/modelData/unityChan.tks"); 
 	m_skeleton.Update(Matrix::Identity);
-	m_animation.Init(m_skeleton, m_animClip, 2);
+	m_animation.Init(m_skeleton, m_animClip, 1);
 	m_animation.Play(0);
 	RC = g_graphicsEngine->GetRenderContext();
 	m_unityChanInitData.m_tkmFilePath = "Assets/modelData/unityChan.tkm";

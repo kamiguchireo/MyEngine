@@ -29,6 +29,11 @@ namespace Engine {
 				m_fxFilePath = FilePath;
 			}
 
+			void SetSkeleton(Skeleton& SK)
+			{
+				m_skeleton = &SK;
+				SkeletonFlag = true;
+			}
 		private:
 			Model m_model;
 			Vector3 m_pos = Vector3::Zero;
@@ -44,7 +49,8 @@ namespace Engine {
 			int m_expandConstantBufferSize = 0;			//ユーザー拡張の定数バッファのサイズ。
 			IShaderResource* m_expandShaderResoruceView = nullptr;	//ユーザー拡張のシェーダーリソース。
 			ModelInitData InitData;
-			Skeleton m_skeleton;
+			Skeleton* m_skeleton;
+			bool SkeletonFlag = false;
 		};
 	}
 }
