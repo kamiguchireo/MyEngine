@@ -10,7 +10,9 @@ namespace Engine {
 
 			bool Start();
 			void Update();
-			void Draw();
+			//ディファード以外を使用する場合はコメントアウトを外してください
+			//まだ未実装です
+			//void Draw();
 
 			void SetTkmFilePath(const char*filePath)
 			{
@@ -32,7 +34,6 @@ namespace Engine {
 			void SetSkeleton(Skeleton& SK)
 			{
 				m_skeleton = &SK;
-				SkeletonFlag = true;
 			}
 		private:
 			Model m_model;
@@ -49,8 +50,7 @@ namespace Engine {
 			int m_expandConstantBufferSize = 0;			//ユーザー拡張の定数バッファのサイズ。
 			IShaderResource* m_expandShaderResoruceView = nullptr;	//ユーザー拡張のシェーダーリソース。
 			ModelInitData InitData;
-			Skeleton* m_skeleton;
-			bool SkeletonFlag = false;
+			Skeleton* m_skeleton = nullptr;
 		};
 	}
 }

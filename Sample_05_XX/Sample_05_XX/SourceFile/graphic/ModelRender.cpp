@@ -42,7 +42,7 @@ namespace Engine {
 			InitData.m_expandShaderResoruceView = m_expandShaderResoruceView;
 
 			//スケルトンがセットされているとき
-			if (SkeletonFlag == true)
+			if (m_skeleton != nullptr)
 			{
 				m_model.BindSkeleton(*m_skeleton);
 			}
@@ -54,7 +54,7 @@ namespace Engine {
 		void ModelRender::Update()
 		{
 			//スケルトンがセットされているとき
-			if (SkeletonFlag == true)
+			if (m_skeleton != nullptr)
 			{
 				m_skeleton->Update(m_model.GetWorldMatrix());
 			}
@@ -62,9 +62,9 @@ namespace Engine {
 			g_graphicsEngine->GetDefferdRendering()->RegistCaster(&m_model);
 		}
 
-		void ModelRender::Draw()
-		{
-			m_model.Draw(RC);
-		}
+		//void ModelRender::Draw()
+		//{
+		//	m_model.Draw(RC);
+		//}
 	}
 }
