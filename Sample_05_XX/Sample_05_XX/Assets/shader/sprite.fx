@@ -34,7 +34,7 @@ Texture2D<float4> colorTexture : register(t0);	//アルベド
 Texture2D<float4> normalTexture : register(t1);	//法線。
 Texture2D<float4> shadowTexture : register(t2);	//シャドウ用
 Texture2D<float4> worldPosTexture : register(t3); //ワールド座標
-Texture2D<float4> g_specularMap : register(t4);
+Texture2D<float4> g_specularMap : register(t4); //スペキュラマップ
 
 sampler Sampler : register(s0);
 
