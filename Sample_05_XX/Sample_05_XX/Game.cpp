@@ -18,21 +18,6 @@ Game::~Game()
 
 bool Game::Start()
 {
-	//ライトを用意する。
-	light.directionalLight[0].color.x = 1.0f;
-	light.directionalLight[0].color.y = 1.0f;
-	light.directionalLight[0].color.z = 1.0f;
-
-	light.directionalLight[0].direction.x = 1.0f;
-	light.directionalLight[0].direction.y = 0.0f;
-	light.directionalLight[0].direction.z = 0.0f;
-
-	light.ambinetLight.x = 1.0f;
-	light.ambinetLight.y = 1.0f;
-	light.ambinetLight.z = 1.0f;
-	light.eyePos = g_camera3D->GetPosition();
-	light.specPow = 5.0f;
-
 	m_unityChan = Engine::NewGO<Engine::prefab::ModelRender>(1, nullptr);
 	m_unityChan->SetTkmFilePath("Assets/modelData/unityChan.tkm");
 	m_unityChan->SetVSEntryPoint("VSMainSkin");
@@ -47,6 +32,9 @@ bool Game::Start()
 	//m_map->SetPSEntryPoint("PSMain");
 	m_map->SetShadowRecieverFlag(true);
 	m_map->SetShadowCasterFlag(false);
+	
+	//m_unityChanInitData.m_fxFilePath = "Assets/shader/NoAnimModel_LambertSpecularAmbient.fx";
+	//m_unityChanInitData.m_tkmFilePath = "Assets/modelData/unityChan.tkm";
 
 	//スケルトンとアニメーションの初期化
 	m_skeleton.Init("Assets/modelData/unityChan.tks"); 
@@ -54,16 +42,18 @@ bool Game::Start()
 	m_animation.Init(m_skeleton, m_animClip, 1);
 	m_animation.Play(0);
 	//RC = g_graphicsEngine->GetRenderContext();
-
+	//m_unityChan.Init(m_unityChanInitData);
 	return true;
 }
 
 void Game::Update()
 {
 	m_animation.Update(1.0f / 60.0f);
+
 }
 
 void Game::Draw()
 {
+	//m_unityChan.Draw(g_graphicsEngine->GetRenderContext());
 
 }

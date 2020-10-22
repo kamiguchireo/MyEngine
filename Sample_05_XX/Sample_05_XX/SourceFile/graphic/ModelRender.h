@@ -70,9 +70,6 @@ namespace Engine {
 			const char* m_vsEntryPointFunc = "VSMain";	//頂点シェーダーのエントリーポイント。
 			const char* m_psEntryPointFunc = "PSDefferdMain";	//ピクセルシェーダーのエントリーポイント。
 			const char* m_fxFilePath = "Assets/shader/NoAnimModel_LambertSpecularAmbient.fx";			//fxファイルのファイルパス。
-			Light light;
-			void* m_expandConstantBuffer = &light;		//ユーザー拡張の定数バッファ。
-			int m_expandConstantBufferSize = 0;			//ユーザー拡張の定数バッファのサイズ。
 			IShaderResource* m_expandShaderResoruceView = nullptr;	//ユーザー拡張のシェーダーリソース。
 			ModelInitData InitData;
 			Skeleton* m_skeleton = nullptr;

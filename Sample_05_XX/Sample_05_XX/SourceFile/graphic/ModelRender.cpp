@@ -5,20 +5,7 @@ namespace Engine {
 	namespace prefab {
 		ModelRender::ModelRender()
 		{
-			//ライトを用意する。
-			light.directionalLight[0].color.x = 1.0f;
-			light.directionalLight[0].color.y = 1.0f;
-			light.directionalLight[0].color.z = 1.0f;
 
-			light.directionalLight[0].direction.x = 1.0f;
-			light.directionalLight[0].direction.y = 0.0f;
-			light.directionalLight[0].direction.z = 0.0f;
-
-			light.ambinetLight.x = 1.0f;
-			light.ambinetLight.y = 1.0f;
-			light.ambinetLight.z = 1.0f;
-			light.eyePos = g_camera3D->GetPosition();
-			light.specPow = 5.0f;
 		}
 
 		ModelRender::~ModelRender()
@@ -37,8 +24,6 @@ namespace Engine {
 			InitData.m_vsEntryPointFunc = m_vsEntryPointFunc;
 			InitData.m_psEntryPointFunc = m_psEntryPointFunc;
 			InitData.m_fxFilePath = m_fxFilePath;
-			InitData.m_expandConstantBuffer = &light;
-			InitData.m_expandConstantBufferSize = (sizeof(light));
 			InitData.m_expandShaderResoruceView = m_expandShaderResoruceView;
 
 			//スケルトンがセットされているとき

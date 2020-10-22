@@ -1,25 +1,63 @@
 #pragma once
+#include "SLight.h"
 
 namespace Engine
 {
-	class LightManager
+	class LightManager:Noncopyable
 	{
 	public:
 		LightManager()
 		{
-
+			//lig = new Light;
 		}
 		~LightManager()
 		{
+			//delete lig;
+		}
 
+		void InitCB()
+		{
+			m_CB.Init(sizeof(Light), &lig);
+		}
+		void AddDirectionLight(DirectionalLight DLig);
+
+		const Light& GetLight()const
+		{
+			return lig;
+		}
+
+		const int GetLightSize()const
+		{
+			return sizeof(lig);
+		}
+
+		void SetLightEyepos(Vector3 pos)
+		{
+			lig.eyePos = pos;
+		}
+
+		void SetLightSpecpow(float f)
+		{
+			lig.specPow = f;
+		}
+
+		void SetLightAmbinetLight(Vector3 ALig)
+		{
+			lig.ambinetLight = ALig;
+		}
+
+		void SendLigParamToGpu()
+		{
+			m_CB.CopyToVRAM(lig);
+		}
+
+		ConstantBuffer& GetConstantBuffer()
+		{
+			return m_CB;
 		}
 	private:
-		/// ライト構造体。
-		struct Light {
-			DirectionalLight directionalLight[NUM_DIRECTIONAL_LIGHT];	//ディレクションライト。
-			Vector3 eyePos;					//カメラの位置。
-			float specPow;					//スペキュラの絞り。
-			Vector3 ambinetLight;			//環境光。
-		};
+		Light lig;
+		int NowDirectionLightNum = 0;
+		ConstantBuffer m_CB;
 	};
 }

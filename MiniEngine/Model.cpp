@@ -12,15 +12,14 @@ void Model::Init(const ModelInitData& initData)
 		std::abort();
 	}
 	mbstowcs(wfxFilePath, initData.m_fxFilePath, 256);
-
 	m_tkmFile.Load(initData.m_tkmFilePath);
 	m_meshParts.InitFromTkmFile(
 		m_tkmFile, 
 		wfxFilePath, 
 		initData.m_vsEntryPointFunc,
 		initData.m_psEntryPointFunc,
-		initData.m_expandConstantBuffer,
-		initData.m_expandConstantBufferSize,
+		//g_graphicsEngine->GetLightManager()->GetLight(),
+		//g_graphicsEngine->GetLightManager()->GetLightSize(),
 		initData.m_expandShaderResoruceView
 	);
 

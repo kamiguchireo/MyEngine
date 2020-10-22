@@ -6,6 +6,8 @@
 
 #include "tkFile/TkmFile.h"
 #include "StructuredBuffer.h"
+#include "SourceFile/graphic/Light/SLight.h"
+
 class RenderContext;
 class Skeleton;
 class Material;
@@ -44,8 +46,8 @@ public:
 		const wchar_t* fxFilePath,
 		const char* vsEntryPointFunc,
 		const char* psEntryPointFunc,
-		void* expandData,
-		int expandDataSize,
+		//Engine::Light* expandData,
+		//int expandDataSize,
 		IShaderResource* expandShaderResourceView
 	) ;
 	/// <summary>
@@ -105,13 +107,13 @@ private:
 		int IsShadowReciever;
 	};
 	ConstantBuffer m_commonConstantBuffer;					//メッシュ共通の定数バッファ。
-	ConstantBuffer m_expandConstantBuffer;					//ユーザー拡張用の定数バッファ
+	//ConstantBuffer m_expandConstantBuffer;					//ユーザー拡張用の定数バッファ
 
 	IShaderResource* m_expandShaderResourceView = nullptr;	//ユーザー拡張シェーダーリソースビュー。
 	StructuredBuffer m_boneMatricesStructureBuffer;			//ボーン行列の構造化バッファ。
 	std::vector< SMesh* > m_meshs;							//メッシュ。
 	std::vector< DescriptorHeap > m_descriptorHeap;			//ディスクリプタヒープ。
 	Skeleton* m_skeleton = nullptr;							//スケルトン。
-	void* m_expandData = nullptr;							//ユーザー拡張データ。
+	//void* m_expandData = nullptr;							//ユーザー拡張データ。
 	bool m_isCreateDescriptorHeap = false;					//ディスクリプタヒープを作成済み？
 };

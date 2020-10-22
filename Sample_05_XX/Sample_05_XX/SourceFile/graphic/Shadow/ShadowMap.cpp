@@ -46,6 +46,7 @@ namespace Engine
 			);
 			//定数バッファを作成
 			m_shadowCb.Init(sizeof(m_shadowCbEntity),&m_shadowCbEntity);
+			g_graphicsEngine->GetRenderContext().SetConstantBuffer(2, m_shadowCb);
 		}
 	}
 
@@ -272,7 +273,6 @@ namespace Engine
 
 	void ShadowMap::SendShadowRecieverParamToGpu()
 	{
-		g_graphicsEngine->GetRenderContext().SetConstantBuffer(2,m_shadowCb);
 		m_shadowCb.CopyToVRAM(&m_shadowCbEntity);
 	}
 }
