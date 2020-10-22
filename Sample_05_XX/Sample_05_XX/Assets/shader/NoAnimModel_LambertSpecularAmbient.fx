@@ -69,6 +69,7 @@ struct PSInput_ShadowMap {
 struct SPSOUT{
 	float4 albedo :	SV_Target0;		//アルベド
 	float3 normal : SV_Target1;		//法線
+	float4 shadow : SV_Target2;		//シャドウ用
 };
 //モデルテクスチャ。
 Texture2D<float4> g_texture : register(t0);	
@@ -396,6 +397,9 @@ SPSOUT PSDefferdMain(SPSIn psIn)
 	psOut.albedo = g_texture.Sample(g_sampler, psIn.uv);
 	//法線は0～1
 	psOut.normal = (psIn.normal / 2.0f) + 0.5f;
-
+	//シャドウ用
+	float f = 0.0f;
+	f = CalcShadow(psIn.worldPos, psIn.posInview.z);
+	psOut.shadow = f;
 	return psOut;
 }

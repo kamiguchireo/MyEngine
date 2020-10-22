@@ -38,7 +38,7 @@ void Model::UpdateWorldMatrix(Vector3 pos, Quaternion rot, Vector3 scale)
 	mTrans.MakeTranslation(pos);
 	mRot.MakeRotationFromQuaternion(rot);
 	mScale.MakeScaling(scale);
-	m_world = mScale * mRot * mTrans;
+	m_world = mScale * mRot * mTrans * mBias;
 }
 void Model::Draw(RenderContext& rc)
 {
@@ -46,7 +46,9 @@ void Model::Draw(RenderContext& rc)
 		rc, 
 		m_world, 
 		g_camera3D->GetViewMatrix(), 
-		g_camera3D->GetProjectionMatrix()
+		g_camera3D->GetProjectionMatrix(),
+		enRenderMode_Normal,
+		IsShadowReciever
 	);
 }
 

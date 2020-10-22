@@ -15,7 +15,7 @@ namespace Engine {
 
 		//lightCameraPos		ライトの位置
 		//lightCameraTarget		ライトのターゲット
-		void Update(Vector3 lightCameraPos, Vector3 lightCameraTarget);
+		void Update();
 
 		//シャドウマップに影を書き込むタイミングで呼んでください
 		void RenderToShadowMap();
@@ -38,6 +38,16 @@ namespace Engine {
 		ConstantBuffer& GetConstantBuffer()
 		{
 			return m_shadowCb;
+		}
+
+		void SetLigPos(Vector3 pos)
+		{
+			ligPos = pos;
+		}
+
+		void SetLigTarget(Vector3 pos)
+		{
+			ligTarget = pos;
 		}
 	private:
 		//ライトの座標を計算する。
@@ -74,5 +84,7 @@ namespace Engine {
 		std::vector<Model*> m_shadowCasters;		//シャドウキャスターの配列
 		ModelInitData InitData;
 		bool ResourceInited[3] = {false};
+		Vector3 ligPos = { 0.0f,1000.0f,0.0f };
+		Vector3 ligTarget = Vector3::Zero;
 	};
 }

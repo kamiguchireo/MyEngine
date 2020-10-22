@@ -40,6 +40,26 @@ namespace Engine {
 			{
 				m_ShadowCasterFlag = flag;
 			}
+
+			void SetShadowRecieverFlag(bool flag)
+			{
+				m_model.SetShadowRecieverFlag(flag);
+			}
+
+			void SetPosition(Vector3 pos)
+			{
+				m_pos = pos;
+			}
+
+			void SetRotation(Quaternion rot)
+			{
+				m_rot = rot;
+			}
+
+			void SetScale(Vector3 scale)
+			{
+				m_scale = scale;
+			}
 		private:
 			Model m_model;
 			Vector3 m_pos = Vector3::Zero;

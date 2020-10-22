@@ -15,6 +15,7 @@ struct PSInput{
 
 Texture2D<float4> colorTexture : register(t0);	//アルベド
 Texture2D<float4> normalTexture : register(t1);	//法線。
+Texture2D<float4> shadowTexture : register(t2);	//シャドウ用
 
 sampler Sampler : register(s0);
 
@@ -36,5 +37,10 @@ float4 PSDefferd(PSInput In) : SV_Target0
 	float3 normal = normalTexture.Sample(Sampler, In.uv);
 	normal = (normal * 2.0f) - 1.0f;
 	float4 finalColor = albedo;
+	float4 shadow = shadowTexture.Sample(Sampler, In.uv);
+	if (shadow.x == 1.0f)
+	{
+		finalColor *= 0.5f;
+	}
 	return finalColor;
 }

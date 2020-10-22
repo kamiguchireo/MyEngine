@@ -24,10 +24,7 @@ void EngineProcessing::Update()
 	Engine::GameObjectManager().Update();
 
 	//シャドウマップのアップデート
-	g_graphicsEngine->GetShadowMap()->Update(
-		{ 0.0f,1000.0f,0.0f },
-		Vector3::Zero
-	);
+	g_graphicsEngine->GetShadowMap()->Update();
 }
 
 void EngineProcessing::Rendering()

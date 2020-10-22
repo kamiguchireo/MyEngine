@@ -64,9 +64,10 @@ namespace Engine {
 				g_graphicsEngine->GetShadowMap()->RegistShadowCaster(&m_model);
 			}
 			m_model.UpdateWorldMatrix(m_pos, m_rot, m_scale);
-			g_graphicsEngine->GetDefferdRendering()->RegistCaster(&m_model);
-		}
 
+			g_graphicsEngine->GetDefferdRendering()->RegistCaster(&m_model);
+
+		}
 		//void ModelRender::Draw()
 		//{
 		//	m_model.Draw(RC);

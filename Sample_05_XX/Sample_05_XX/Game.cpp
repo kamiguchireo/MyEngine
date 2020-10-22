@@ -33,69 +33,37 @@ bool Game::Start()
 	light.eyePos = g_camera3D->GetPosition();
 	light.specPow = 5.0f;
 
-	MR = Engine::NewGO<Engine::prefab::ModelRender>(1, nullptr);
-	MR->SetTkmFilePath("Assets/modelData/unityChan.tkm");
-	MR->SetVSEntryPoint("VSMainSkin");
-	MR->SetSkeleton(m_skeleton);
+	m_unityChan = Engine::NewGO<Engine::prefab::ModelRender>(1, nullptr);
+	m_unityChan->SetTkmFilePath("Assets/modelData/unityChan.tkm");
+	m_unityChan->SetVSEntryPoint("VSMainSkin");
+	m_unityChan->SetSkeleton(m_skeleton);
+	Quaternion q_rot = Quaternion::Identity;
+	q_rot.SetRotationDeg(Vector3::AxisX, 90.0f);
+	m_unityChan->SetRotation(q_rot);
+
+	m_map = Engine::NewGO<Engine::prefab::ModelRender>(2, nullptr);
+	m_map->SetTkmFilePath("Assets/modelData/bg/bg.tkm");
+	m_map->SetVSEntryPoint("VSMain");
+	//m_map->SetPSEntryPoint("PSMain");
+	m_map->SetShadowRecieverFlag(true);
+	m_map->SetShadowCasterFlag(false);
 
 	//スケルトンとアニメーションの初期化
 	m_skeleton.Init("Assets/modelData/unityChan.tks"); 
 	m_skeleton.Update(Matrix::Identity);
 	m_animation.Init(m_skeleton, m_animClip, 1);
 	m_animation.Play(0);
-	RC = g_graphicsEngine->GetRenderContext();
-	m_unityChanInitData.m_tkmFilePath = "Assets/modelData/unityChan.tkm";
-	m_unityChanInitData.m_fxFilePath = "Assets/shader/NoAnimModel_LambertSpecularAmbient.fx";
-	m_unityChanInitData.m_vsEntryPointFunc = "VSMainSkin";
-	m_unityChanInitData.m_expandConstantBuffer = &light;
-	m_unityChanInitData.m_expandConstantBufferSize = (sizeof(light));
+	//RC = g_graphicsEngine->GetRenderContext();
 
-	m_mapInitData.m_tkmFilePath = "Assets/modelData/bg/bg.tkm";
-	m_mapInitData.m_fxFilePath = "Assets/shader/NoAnimModel_LambertSpecularAmbient.fx";
-	m_mapInitData.m_vsEntryPointFunc = "VSMain";
-	m_mapInitData.m_expandConstantBuffer = &light;
-	m_mapInitData.m_expandConstantBufferSize = (sizeof(light));
-
-	//m_unityChan.BindSkeleton(m_skeleton);
-
-	m_map.Init(m_mapInitData);
-	m_map.SetShadowRecieverFlag(true);
-	//m_unityChan.Init(m_unityChanInitData);
-	//m_skeleton.Update(m_unityChan.GetWorldMatrix());
-
-	qrot.SetRotationDeg(Vector3::AxisX, 90.0f);
-	
 	return true;
 }
 
 void Game::Update()
 {
-	if (GetAsyncKeyState(VK_UP))
-	{
-		pos.z -= 1.0f;
-	}
-	if (GetAsyncKeyState(VK_DOWN))
-	{
-		pos.z += 1.0f;
-	}
-	if (GetAsyncKeyState(VK_RIGHT))
-	{
-		pos.x -= 1.0f;
-	}
-	if (GetAsyncKeyState(VK_LEFT))
-	{
-		pos.x += 1.0f;
-	}
 	m_animation.Update(1.0f / 60.0f);
-	//m_skeleton.Update(m_unityChan.GetWorldMatrix());
-	//m_unityChan.UpdateWorldMatrix(pos, g_quatIdentity, scale);
-
-	m_map.UpdateWorldMatrix({0.0f,-10.0f,0.0f}, qrot, { 5.0f,5.0,1.0f });
-	//g_graphicsEngine->GetShadowMap()->RegistShadowCaster(&m_unityChan);
 }
 
 void Game::Draw()
 {
-	//m_unityChan.Draw(RC); 
-	m_map.Draw(RC, g_camera3D->GetViewMatrix(), g_camera3D->GetProjectionMatrix());
+
 }

@@ -97,7 +97,7 @@ void Material::InitPipelineState()
 	psoDesc.RTVFormats[2] = DXGI_FORMAT_R32_FLOAT;						//Z値。
 #else
 	psoDesc.RTVFormats[1] = DXGI_FORMAT_R8G8B8A8_UNORM;			//法線出力用。	
-	psoDesc.RTVFormats[2] = DXGI_FORMAT_R32G32B32A32_FLOAT;	//Z値。
+	psoDesc.RTVFormats[2] = DXGI_FORMAT_R8G8B8A8_UNORM;	//Z値。
 #endif
 	psoDesc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 	psoDesc.SampleDesc.Count = 1;

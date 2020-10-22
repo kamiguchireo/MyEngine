@@ -49,10 +49,10 @@ namespace Engine
 		}
 	}
 
-	void ShadowMap::Update(Vector3 lightCameraPos, Vector3 lightCameraTarget)
+	void ShadowMap::Update()
 	{
 		//ƒ‰ƒCƒg‚Ì•ûŒü‚ðŒvŽZ‚·‚é
-		lightDir = lightCameraTarget - lightCameraPos;
+		lightDir = ligTarget - ligPos;
 		const float DistBoundary = 0.0001f;		//‹——£ŒÀŠE‚Ì‹«ŠE
 		if (lightDir.Length() < DistBoundary)
 		{

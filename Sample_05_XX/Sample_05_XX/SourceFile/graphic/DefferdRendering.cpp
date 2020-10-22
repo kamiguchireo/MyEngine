@@ -29,12 +29,20 @@ namespace Engine {
 			DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_FORMAT_UNKNOWN,
 			clearColor
 		);
+		//シャドウ用のレンダーターゲットの作成
+		shadowRT.Create(
+			FRAME_BUFFER_W, FRAME_BUFFER_H,
+			1, 1,
+			DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_FORMAT_D32_FLOAT,
+			clearColor
+		);
 		SpriteInitData initData;
 		initData.m_width = FRAME_BUFFER_W;
 		initData.m_height = FRAME_BUFFER_H;
 
 		initData.m_textures[0] = &albedRT.GetRenderTargetTexture();
 		initData.m_textures[1] = &normalRT.GetRenderTargetTexture();
+		initData.m_textures[2] = &shadowRT.GetRenderTargetTexture();
 		initData.m_fxFilePath = "Assets/shader/sprite.fx";
 		initData.m_psEntryPoinFunc = "PSDefferd";
 		defferdLightingSprite.Init(initData);
@@ -45,6 +53,7 @@ namespace Engine {
 		RenderTarget* rts[] = {
 			&albedRT,
 			&normalRT,
+			&shadowRT,
 		};
 		auto& RenCon = g_graphicsEngine->GetRenderContext();
 		RenCon.WaitUntilToPossibleSetRenderTargets(TexNum, rts);
