@@ -68,9 +68,9 @@ struct PSInput_ShadowMap {
 //ピクセルシェーダーからの出力
 struct SPSOUT{
 	float4 albedo :	SV_Target0;		//アルベド
-	float3 normal : SV_Target1;		//法線
+	float4 normal : SV_Target1;		//法線
 	float4 shadow : SV_Target2;		//シャドウ用
-	float3 worldPos : SV_Target3;		//ワールド座標
+	float4 worldPos : SV_Target3;		//ワールド座標
 	float4 specularMap : SV_Target4;	//スペキュラマップ
 };
 //モデルテクスチャ。
@@ -398,12 +398,12 @@ SPSOUT PSDefferdMain(SPSIn psIn)
 	SPSOUT psOut;
 	psOut.albedo = g_texture.Sample(g_sampler, psIn.uv);
 	//法線は0～1
-	psOut.normal = (psIn.normal / 2.0f) + 0.5f;
+	psOut.normal.xyz = (psIn.normal / 2.0f) + 0.5f;
 	//シャドウ用
 	float f = 0.0f;
 	f = CalcShadow(psIn.worldPos, psIn.posInview.z);
 	psOut.shadow = f;
-	psOut.worldPos = psIn.worldPos;
+	psOut.worldPos.xyz = psIn.worldPos;
 	float metaric = g_specularMap.Sample(g_sampler, psIn.uv).a;
 	psOut.specularMap = metaric;
 	return psOut;
