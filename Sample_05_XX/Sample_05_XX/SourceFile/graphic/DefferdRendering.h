@@ -14,11 +14,12 @@ namespace Engine {
 			m_Casters.push_back(Caster);
 		}
 	private:
-		static const int TexNum = 4;
+		static const int TexNum = 5;
 		RenderTarget albedRT;
 		RenderTarget normalRT;
 		RenderTarget shadowRT;
 		RenderTarget worldPosRT;
+		RenderTarget specularMapRT;
 		Sprite defferdLightingSprite;
 		std::vector<Model*> m_Casters;		//キャスターの配列
 	};

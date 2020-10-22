@@ -32,10 +32,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_graphicsEngine->GetLightManager()->SetLightAmbinetLight({ 1.0f,1.0f,1.0f });
 	g_graphicsEngine->GetLightManager()->SetLightEyepos(g_camera3D->GetPosition());
 	g_graphicsEngine->GetLightManager()->SetLightSpecpow(5.0f);
-	DirectionalLight DL2;
-	DL2.direction = { -1.0f,0.0f,0.0f };
-	DL2.color = {1.0f,0.0f,0.0f,0.0f};
-	g_graphicsEngine->GetLightManager()->AddDirectionLight(DL2);
+	//DirectionalLight DL2;
+	//DL2.direction = { -1.0f,0.0f,0.0f };
+	//DL2.color = {1.0f,0.0f,0.0f,0.0f};
+	//g_graphicsEngine->GetLightManager()->AddDirectionLight(DL2);
 
 	//DefferdRendering DR;
 	g_graphicsEngine->GetDefferdRendering()->CreateRT();

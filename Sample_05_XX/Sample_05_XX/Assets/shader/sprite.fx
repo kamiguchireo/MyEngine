@@ -33,6 +33,8 @@ struct PSInput{
 Texture2D<float4> colorTexture : register(t0);	//アルベド
 Texture2D<float4> normalTexture : register(t1);	//法線。
 Texture2D<float4> shadowTexture : register(t2);	//シャドウ用
+Texture2D<float4> worldPosTexture : register(t3); //ワールド座標
+Texture2D<float4> g_specularMap : register(t4);
 
 sampler Sampler : register(s0);
 
@@ -124,27 +126,30 @@ float4 PSDefferd(PSInput In) : SV_Target0
 	normal = (normal * 2.0f) - 1.0f;
 	float4 finalColor = albedo;
 	float4 shadow = shadowTexture.Sample(Sampler, In.uv);
-	
+	float3 worldPos = worldPosTexture.Sample(Sampler, In.uv);
+	float metaric = g_specularMap.Sample(Sampler, In.uv).a;
+
 	float3 lig = 0;
-	//for (int i = 0; i < NUM_DIRECTIONAL_LIGHT; i++) {
-	//	float NdotL = dot(normal, -directionalLight[i].direction);	//ライトの逆方向と法線で内積を計算する。
-	//	if (NdotL < 0.0f) {	//内積の計算結果はマイナスになるので、if文で判定する。
-	//		NdotL = 0.0f;
-	//	}
-	//	//ライトをあてる物体から視点に向かって伸びるベクトルを計算する。
-	//	float3 eyeToPixel = eyePos - psIn.worldPos;
-	//	eyeToPixel = normalize(eyeToPixel);
 
-	//	//拡散反射光を求める
-	//	float3 Diffuse = NormalizedDisneyDiffuse(normal, directionalLight[i].direction, eyeToPixel, 1.0f - metaric);
-	//	Diffuse *= directionalLight[i].color * (1.0f - metaric) * NdotL;
+	for (int i = 0; i < NUM_DIRECTIONAL_LIGHT; i++) {
+		float NdotL = dot(normal, -directionalLight[i].direction);	//ライトの逆方向と法線で内積を計算する。
+		if (NdotL < 0.0f) {	//内積の計算結果はマイナスになるので、if文で判定する。
+			NdotL = 0.0f;
+		}
+		//ライトをあてる物体から視点に向かって伸びるベクトルを計算する。
+		float3 eyeToPixel = eyePos - worldPos;
+		eyeToPixel = normalize(eyeToPixel);
 
-	//	//スペキュラ反射を求める
-	//	float3 Spec = BRDF(-directionalLight[i].direction, eyeToPixel, normal);
-	//	//Spec *= directionalLight[i].color * metaric;
-	//	//スペキュラ反射の光を足し算する。
-	//	lig += (Diffuse + Spec);
-	//}
+		//拡散反射光を求める
+		float3 Diffuse = NormalizedDisneyDiffuse(normal, directionalLight[i].direction, eyeToPixel, 1.0f - metaric);
+		Diffuse *= directionalLight[i].color * (1.0f - metaric) * NdotL;
+
+		//スペキュラ反射を求める
+		float3 Spec = BRDF(-directionalLight[i].direction, eyeToPixel, normal);
+		Spec *= directionalLight[i].color * metaric;
+		//スペキュラ反射の光を足し算する。
+		lig += (Diffuse + Spec);
+	}
 
 	lig += ambinentLight;
 	if (shadow.x == 1.0f)
