@@ -183,6 +183,7 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TkmFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
+    <ClCompile Include="SourceFile\graphic\DirectionLight.cpp" />
     <ClCompile Include="SourceFile\EngineProcessing.cpp" />
     <ClCompile Include="SourceFile\graphic\DefferdRendering.cpp" />
     <ClCompile Include="SourceFile\graphic\ModelRender.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="..\..\MiniEngine\tkFile\TkmFile.h" />
     <ClInclude Include="..\..\MiniEngine\tkFile\TksFile.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
+    <ClInclude Include="SourceFile\graphic\DirectionLight.h" />
     <ClInclude Include="SourceFile\EngineProcessing.h" />
     <ClInclude Include="SourceFile\graphic\DefferdRendering.h" />
     <ClInclude Include="SourceFile\graphic\ModelRender.h" />
