@@ -143,9 +143,6 @@
     <ClCompile Include="SourceFile\graphic\Light\LightManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="SourceFile\graphic\Light\DirectionLight.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -277,7 +274,7 @@
     <ClInclude Include="SourceFile\graphic\Light\LightManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="SourceFile\graphic\Light\DirectionLight.h">
+    <ClInclude Include="SourceFile\graphic\Light\SLight.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
