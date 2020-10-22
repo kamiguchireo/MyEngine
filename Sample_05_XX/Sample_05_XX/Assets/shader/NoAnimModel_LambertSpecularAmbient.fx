@@ -71,6 +71,7 @@ struct SPSOUT{
 	float3 normal : SV_Target1;		//法線
 	float4 shadow : SV_Target2;		//シャドウ用
 	float3 worldPos : SV_Target3;		//ワールド座標
+	float4 specularMap : SV_Target4;	//スペキュラマップ
 };
 //モデルテクスチャ。
 Texture2D<float4> g_texture : register(t0);	
@@ -403,5 +404,7 @@ SPSOUT PSDefferdMain(SPSIn psIn)
 	f = CalcShadow(psIn.worldPos, psIn.posInview.z);
 	psOut.shadow = f;
 	psOut.worldPos = psIn.worldPos;
+	float metaric = g_specularMap.Sample(g_sampler, psIn.uv).a;
+	psOut.specularMap = metaric;
 	return psOut;
 }
