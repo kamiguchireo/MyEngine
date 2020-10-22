@@ -36,6 +36,14 @@ namespace Engine {
 			DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_FORMAT_D32_FLOAT,
 			clearColor
 		);
+		//ワールド座標用のレンダーターゲットの作成
+		worldPosRT.Create(
+			FRAME_BUFFER_W,
+			FRAME_BUFFER_H,
+			1, 1,
+			DXGI_FORMAT_R32G32B32A32_FLOAT,
+			DXGI_FORMAT_UNKNOWN
+		);
 		SpriteInitData initData;
 		initData.m_width = FRAME_BUFFER_W;
 		initData.m_height = FRAME_BUFFER_H;
@@ -43,6 +51,7 @@ namespace Engine {
 		initData.m_textures[0] = &albedRT.GetRenderTargetTexture();
 		initData.m_textures[1] = &normalRT.GetRenderTargetTexture();
 		initData.m_textures[2] = &shadowRT.GetRenderTargetTexture();
+		//initData.m_textures[3] = &worldPosRT.GetRenderTargetTexture();
 		initData.m_fxFilePath = "Assets/shader/sprite.fx";
 		initData.m_psEntryPoinFunc = "PSDefferd";
 		defferdLightingSprite.Init(initData);
@@ -54,6 +63,7 @@ namespace Engine {
 			&albedRT,
 			&normalRT,
 			&shadowRT,
+			&worldPosRT,
 		};
 		auto& RenCon = g_graphicsEngine->GetRenderContext();
 		RenCon.WaitUntilToPossibleSetRenderTargets(TexNum, rts);

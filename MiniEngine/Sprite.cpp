@@ -75,10 +75,12 @@
 			);
 		}
 		m_descriptorHeap.RegistConstantBuffer(0, m_constantBufferGPU);
-		if (m_LightConstantBufferCPU != nullptr) {
-			//ユーザー拡張の定数バッファはb1に関連付けする。
-			m_descriptorHeap.RegistConstantBuffer(1, m_LightConstantBufferGPU);
-		}
+		m_descriptorHeap.RegistConstantBuffer(1, g_graphicsEngine->GetLightManager()->GetConstantBuffer());
+
+		//if (m_LightConstantBufferCPU != nullptr) {
+		//	//ユーザー拡張の定数バッファはb1に関連付けする。
+		//	m_descriptorHeap.RegistConstantBuffer(1, m_LightConstantBufferGPU);
+		//}
 		m_descriptorHeap.Commit();
 	}
 	void Sprite::InitVertexBufferAndIndexBuffer(const SpriteInitData& initData)
@@ -157,14 +159,14 @@
 	{
 		//定数バッファの初期化。
 		m_constantBufferGPU.Init(sizeof(m_constantBufferCPU), nullptr);
-		//ユーザー拡張の定数バッファが指定されている。
-		if (initData.m_DefferdLightingConstantBuffer != nullptr){
-			m_LightConstantBufferCPU = initData.m_DefferdLightingConstantBuffer;
-			m_LightConstantBufferGPU.Init(
-				initData.m_DefferdLightingConstantBufferSize,
-				initData.m_DefferdLightingConstantBuffer
-			);
-		}
+		////ユーザー拡張の定数バッファが指定されている。
+		//if (initData.m_DefferdLightingConstantBuffer != nullptr){
+		//	m_LightConstantBufferCPU = initData.m_DefferdLightingConstantBuffer;
+		//	m_LightConstantBufferGPU.Init(
+		//		initData.m_DefferdLightingConstantBufferSize,
+		//		initData.m_DefferdLightingConstantBuffer
+		//	);
+		//}
 	}
 	void Sprite::Init(const SpriteInitData& initData)
 	{
@@ -235,9 +237,9 @@
 
 		//定数バッファを更新。
 		m_constantBufferGPU.CopyToVRAM(&m_constantBufferCPU);
-		if (m_LightConstantBufferCPU != nullptr) {
-			m_LightConstantBufferGPU.CopyToVRAM(m_LightConstantBufferCPU);
-		}
+		//if (m_LightConstantBufferCPU != nullptr) {
+		//	m_LightConstantBufferGPU.CopyToVRAM(m_LightConstantBufferCPU);
+		//}
 		//ルートシグネチャを設定。
 		renderContext.SetRootSignature(m_rootSignature);
 		//パイプラインステートを設定。

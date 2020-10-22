@@ -90,7 +90,7 @@ void Material::InitPipelineState()
 	psoDesc.DepthStencilState.StencilEnable = FALSE;
 	psoDesc.SampleMask = UINT_MAX;
 	psoDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
-	psoDesc.NumRenderTargets = 3;
+	psoDesc.NumRenderTargets = 4;
 	psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;		//アルベドカラー出力用。
 #ifdef SAMPE_16_02
 	psoDesc.RTVFormats[1] = DXGI_FORMAT_R16G16B16A16_FLOAT;	//法線出力用。	
@@ -98,6 +98,7 @@ void Material::InitPipelineState()
 #else
 	psoDesc.RTVFormats[1] = DXGI_FORMAT_R8G8B8A8_UNORM;			//法線出力用。	
 	psoDesc.RTVFormats[2] = DXGI_FORMAT_R8G8B8A8_UNORM;	//Z値。
+	psoDesc.RTVFormats[3] = DXGI_FORMAT_R32G32B32A32_FLOAT;		//ワールド座標用
 #endif
 	psoDesc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 	psoDesc.SampleDesc.Count = 1;

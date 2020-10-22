@@ -29,8 +29,8 @@ struct SpriteInitData {
 	const char* m_fxFilePath = nullptr;						//.fxファイルのファイルパス。
 	UINT m_width = 0;										//スプライトの幅。
 	UINT m_height = 0;										//スプライトの高さ。
-	void* m_DefferdLightingConstantBuffer = nullptr;					//ディファードライティング用の定数バッファ
-	int m_DefferdLightingConstantBufferSize = 0;						//ディファードライティング用の定数バッファのサイズ。
+	//void* m_DefferdLightingConstantBuffer = nullptr;					//ディファードライティング用の定数バッファ
+	//int m_DefferdLightingConstantBufferSize = 0;						//ディファードライティング用の定数バッファのサイズ。
 	IShaderResource* m_expandShaderResoruceView = nullptr;	//ユーザー拡張のシェーダーリソース。
 };
 /// <summary>
@@ -113,8 +113,8 @@ private:
 
 	LocalConstantBuffer m_constantBufferCPU;	//CPU側の定数バッファ。
 	ConstantBuffer		m_constantBufferGPU;	//GPU側の定数バッファ。
-	ConstantBuffer		m_LightConstantBufferGPU;	//ディファードで使用するライトの定数バッファ(GPU側)
-	void* m_LightConstantBufferCPU = nullptr;		//ディファードで使用するライトの定数バッファ(CPU側)
+	//ConstantBuffer		m_LightConstantBufferGPU;	//ディファードで使用するライトの定数バッファ(GPU側)
+	//void* m_LightConstantBufferCPU = nullptr;		//ディファードで使用するライトの定数バッファ(CPU側)
 	DescriptorHeap		m_descriptorHeap;		//ディスクリプタヒープ。
 	RootSignature		m_rootSignature;		//ルートシグネチャ。
 	PipelineState		m_pipelineState;		//パイプラインステート。

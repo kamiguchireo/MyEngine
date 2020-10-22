@@ -70,6 +70,7 @@ struct SPSOUT{
 	float4 albedo :	SV_Target0;		//アルベド
 	float3 normal : SV_Target1;		//法線
 	float4 shadow : SV_Target2;		//シャドウ用
+	float3 worldPos : SV_Target3;		//ワールド座標
 };
 //モデルテクスチャ。
 Texture2D<float4> g_texture : register(t0);	
@@ -401,5 +402,6 @@ SPSOUT PSDefferdMain(SPSIn psIn)
 	float f = 0.0f;
 	f = CalcShadow(psIn.worldPos, psIn.posInview.z);
 	psOut.shadow = f;
+	psOut.worldPos = psIn.worldPos;
 	return psOut;
 }
