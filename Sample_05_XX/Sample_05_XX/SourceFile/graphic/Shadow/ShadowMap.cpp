@@ -240,8 +240,9 @@ namespace Engine
 				RenCon.WaitUntilToPossibleSetRenderTarget(m_shadowMapRT[i]);
 				ResourceInited[i] = true;
 			}
+			D3D12_VIEWPORT m_viewport = m_shadowMapRT[i].GetViewport();
 			//レンダリングターゲットを切り替える
-			RenCon.SetRenderTarget(m_shadowMapRT[i].GetRTVCpuDescriptorHandle(), m_shadowMapRT[i].GetDSVCpuDescriptorHandle(),&m_shadowMapRT[i].GetViewport());
+			RenCon.SetRenderTarget(m_shadowMapRT[i].GetRTVCpuDescriptorHandle(), m_shadowMapRT[i].GetDSVCpuDescriptorHandle(),&m_viewport);
 
 			//シャドウマップをクリア
 			float clearColor[4] = { 1.0f,1.0f,1.0f,1.0f };
