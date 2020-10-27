@@ -240,11 +240,11 @@ bool GraphicsEngine::CreateD3DDevice( IDXGIFactory4* dxgiFactory )
 		//NVIDIAとAMDのGPUがなければビデオメモリが一番多いやつを使う。
 		useAdapter = adapterMaxVideoMemory;
 	}
-	for (auto fuatureLevel : fuatureLevel) {
+	for (auto FuatureLevel : fuatureLevel) {
 
 		auto hr = D3D12CreateDevice(
 			useAdapter,
-			fuatureLevel,
+			FuatureLevel,
 			IID_PPV_ARGS(&m_d3dDevice)
 		);
 		if (SUCCEEDED(hr)) {
@@ -360,8 +360,9 @@ bool GraphicsEngine::CreateDSVForFrameBuffer( UINT frameBufferWidth, UINT frameB
 		D3D12_TEXTURE_LAYOUT_UNKNOWN,
 		D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL | D3D12_RESOURCE_FLAG_DENY_SHADER_RESOURCE);
 
+	CD3DX12_HEAP_PROPERTIES m_CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
 	auto hr = m_d3dDevice->CreateCommittedResource(
-		&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
+		&m_CD3DX12_HEAP_PROPERTIES,
 		D3D12_HEAP_FLAG_NONE,
 		&desc,
 		D3D12_RESOURCE_STATE_DEPTH_WRITE,
@@ -429,7 +430,7 @@ void GraphicsEngine::BeginRender()
 	m_renderContext.SetScissorRect(m_scissorRect);
 
 	m_currentFrameBufferRTVHandle = m_rtvHeap->GetCPUDescriptorHandleForHeapStart();
-	m_currentFrameBufferRTVHandle.ptr += m_frameIndex * m_rtvDescriptorSize;
+	m_currentFrameBufferRTVHandle.ptr += static_cast<uint64_t>(m_frameIndex) * m_rtvDescriptorSize;
 	//深度ステンシルバッファのディスクリプタヒープの開始アドレスを取得。
 	m_currentFrameBufferDSVHandle = m_dsvHeap->GetCPUDescriptorHandleForHeapStart();
 	//バックバッファがレンダリングターゲットとして設定可能になるまで待つ。

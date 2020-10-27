@@ -21,7 +21,7 @@ void StructuredBuffer::Init(int sizeOfElement, int numElement, void* initData)
 
 	int bufferNo = 0;
 	for (auto& buffer : m_buffersOnGPU) {
-		auto hr = device->CreateCommittedResource(
+		HRESULT hr = device->CreateCommittedResource(
 			&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),
 			D3D12_HEAP_FLAG_NONE,
 			&CD3DX12_RESOURCE_DESC::Buffer(static_cast<long long>(m_sizeOfElement)* m_numElement),
@@ -29,7 +29,10 @@ void StructuredBuffer::Init(int sizeOfElement, int numElement, void* initData)
 			nullptr,
 			IID_PPV_ARGS(&buffer)
 		);
-
+		if (FAILED(hr))
+		{
+			std::abort();
+		}
 		
 		//構造化バッファをCPUからアクセス可能な仮想アドレス空間にマッピングする。
 		//マップ、アンマップのオーバーヘッドを軽減するためにはこのインスタンスが生きている間は行わない。
