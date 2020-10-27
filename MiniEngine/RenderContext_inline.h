@@ -55,7 +55,7 @@ inline void RenderContext::WaitUntilFinishDrawingToRenderTargets(int numRt, Rend
 inline void RenderContext::SetRenderTargets(UINT numRT, RenderTarget* renderTargets[])
 {
 	//d
-	D3D12_CPU_DESCRIPTOR_HANDLE rtDSHandleTbl[32];
+	D3D12_CPU_DESCRIPTOR_HANDLE rtDSHandleTbl[32] = { NULL };
 	int rtNo = 0;
 	for( int rtNo = 0; rtNo < numRT; rtNo++){
 		rtDSHandleTbl[rtNo] = renderTargets[rtNo]->GetRTVCpuDescriptorHandle();

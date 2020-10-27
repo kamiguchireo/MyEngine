@@ -12,7 +12,7 @@ namespace Engine {
 		m_skeleton = skeleton;
 	}
 
-	void AnimationPlayController::Update(float deltaTime, Animation* animation)
+	void AnimationPlayController::Update(float deltaTime/*, Animation* animation*/)
 	{
 		if (m_animationClip == nullptr)
 		{
@@ -158,7 +158,7 @@ namespace Engine {
 			auto bone = m_skeleton->GetBone(boneNo);
 			if (m_footstepBoneNo == bone->GetNo())
 			{
-				auto mat = m_boneMatrix[bone->GetNo()];
+				const auto& mat = m_boneMatrix[bone->GetNo()];
 				Vector3 footstepBonePos;
 				footstepBonePos.x = mat.m[3][0];
 				footstepBonePos.x = mat.m[3][1];

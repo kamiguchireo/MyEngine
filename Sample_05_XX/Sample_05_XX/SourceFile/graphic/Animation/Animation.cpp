@@ -91,11 +91,11 @@ namespace Engine
 		for (int i = 0; i < m_numAnimationPlayController - 1; i++)
 		{
 			int index = GetAnimationControllerIndecx(m_startAnimationPlayController, i);
-			m_animationPlayController[index].Update(deltaTime, this);
+			m_animationPlayController[index].Update(deltaTime/*, this*/);
 		}
 		//最後のポーズだけ進める
 		int lastIndex = GetLastAnimationControllerIndex();
-		m_animationPlayController[lastIndex].Update(deltaTime, this);
+		m_animationPlayController[lastIndex].Update(deltaTime/*, this*/);
 
 	}
 
@@ -103,16 +103,28 @@ namespace Engine
 	{
 		//グローバルポーズ計算用のメモリを確保
 		int numBone = m_skeleton->GetNumBones();
-		Quaternion* qGlobalPose = (Quaternion*)alloca(sizeof(Quaternion) * numBone);
-		Vector3* vGlobalPose = (Vector3*)alloca(sizeof(Vector3) * numBone);
-		Vector3* vGlobalScale = (Vector3*)alloca(sizeof(Vector3) * numBone);
+		Quaternion* qGlobalPose = (Quaternion*)_malloca(sizeof(Quaternion) * numBone);
+		Vector3* vGlobalPose = (Vector3*)_malloca(sizeof(Vector3) * numBone);
+		Vector3* vGlobalScale = (Vector3*)_malloca(sizeof(Vector3) * numBone);
 		//footstepの移動量を初期化
 		m_footstepDeltaValue = g_vec3Zero;
 		for (int i = 0; i < numBone; i++)
 		{
-			qGlobalPose[i] = Quaternion::Identity;
-			vGlobalPose[i] = Vector3::Zero;
-			vGlobalScale[i] = Vector3::One;
+			//NULLチェック
+			if (qGlobalPose)
+			{
+				qGlobalPose[i] = Quaternion::Identity;
+			}
+			//NULLチェック
+			if (vGlobalPose)
+			{
+				vGlobalPose[i] = Vector3::Zero;
+			}
+			//NULLチェック
+			if (vGlobalScale)
+			{
+				vGlobalScale[i] = Vector3::One;
+			}
 		}
 		//グローバルポーズを計算
 		int startIndex = m_startAnimationPlayController;
@@ -128,7 +140,11 @@ namespace Engine
 			{
 				//平行移動の補完
 				Matrix m = localBoneMatrix[boneNo];
-				vGlobalPose[boneNo].Lerp(interpolateRate, vGlobalPose[boneNo], *(Vector3*)m.m[3]);
+				//NULLチェック
+				if (vGlobalPose)
+				{
+					vGlobalPose[boneNo].Lerp(interpolateRate, vGlobalPose[boneNo], *(Vector3*)m.m[3]);
+				}
 				//平行移動成分を削除
 				m.m[3][0] = 0.0f;
 				m.m[3][1] = 0.0f;
@@ -140,7 +156,11 @@ namespace Engine
 				vBoneScale.y = (*(Vector3*)m.m[1]).Length();
 				vBoneScale.z = (*(Vector3*)m.m[2]).Length();
 
-				vGlobalScale[boneNo].Lerp(interpolateRate, vGlobalScale[boneNo], vBoneScale);
+				//NULLチェック
+				if (vGlobalScale)
+				{
+					vGlobalScale[boneNo].Lerp(interpolateRate, vGlobalScale[boneNo], vBoneScale);
+				}
 				//拡大成分を除去
 				m.m[0][0] /= vBoneScale.x;
 				m.m[0][1] /= vBoneScale.x;
@@ -157,7 +177,11 @@ namespace Engine
 				//回転の補完
 				Quaternion qBone = Quaternion::Identity;
 				qBone.SetRotation(m);
-				qGlobalPose[boneNo].Slerp(interpolateRate, qGlobalPose[boneNo], qBone);
+				//NULLチェック
+				if (qGlobalPose)
+				{
+					qGlobalPose[boneNo].Slerp(interpolateRate, qGlobalPose[boneNo], qBone);
+				}
 			}
 		}
 		//グローバルポーズをスケルトンに反映させる
@@ -165,14 +189,25 @@ namespace Engine
 		{
 			//拡大行列を作成
 			Matrix scaleMatrix;
-			scaleMatrix.MakeScaling(vGlobalScale[boneNo]);
+			//NULLチェック
+			if (vGlobalScale)
+			{
+				scaleMatrix.MakeScaling(vGlobalScale[boneNo]);
+			}
 			//回転行列を作成
 			Matrix rotMatrix;
-			rotMatrix.MakeRotationFromQuaternion(qGlobalPose[boneNo]);
+			//NULLチェック
+			if (qGlobalPose)
+			{
+				rotMatrix.MakeRotationFromQuaternion(qGlobalPose[boneNo]);
+			}
 			//平行移動行列を作成
 			Matrix transMat;
-			transMat.MakeTranslation(vGlobalPose[boneNo]);
-
+			//NULLチェック
+			if (vGlobalPose)
+			{
+				transMat.MakeTranslation(vGlobalPose[boneNo]);
+			}
 			//全部を合成して、ボーン行列を作成
 			Matrix boneMatrix;
 			boneMatrix = scaleMatrix * rotMatrix;

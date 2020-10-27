@@ -58,7 +58,7 @@ namespace Engine {
 		//更新処理
 		//deltaTime		アニメーションを進める時間
 		//animation		アニメーション
-		void Update(float deltaTime, Animation* animation);
+		void Update(float deltaTime/*, Animation* animation*/);
 
 		//キーフレーム番号を進める
 		void ProgressKeyFrameNo(float deltaTime);
