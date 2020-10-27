@@ -24,7 +24,7 @@ void StructuredBuffer::Init(int sizeOfElement, int numElement, void* initData)
 		auto hr = device->CreateCommittedResource(
 			&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),
 			D3D12_HEAP_FLAG_NONE,
-			&CD3DX12_RESOURCE_DESC::Buffer(m_sizeOfElement* m_numElement),
+			&CD3DX12_RESOURCE_DESC::Buffer(static_cast<long long>(m_sizeOfElement)* m_numElement),
 			D3D12_RESOURCE_STATE_GENERIC_READ,
 			nullptr,
 			IID_PPV_ARGS(&buffer)
@@ -38,7 +38,7 @@ void StructuredBuffer::Init(int sizeOfElement, int numElement, void* initData)
 			buffer->Map(0, &readRange, reinterpret_cast<void**>(&m_buffersOnCPU[bufferNo]));
 		}
 		if (initData != nullptr) {
-			memcpy(m_buffersOnCPU[bufferNo], initData, m_sizeOfElement * m_numElement);
+			memcpy(m_buffersOnCPU[bufferNo], initData, static_cast<long long>(m_sizeOfElement) * m_numElement);
 		}
 		
 		bufferNo++;
@@ -48,7 +48,7 @@ void StructuredBuffer::Init(int sizeOfElement, int numElement, void* initData)
 void StructuredBuffer::Update(void* data)
 {
 	auto backBufferIndex = g_graphicsEngine->GetBackBufferIndex();
-	memcpy(m_buffersOnCPU[backBufferIndex], data, m_numElement * m_sizeOfElement);
+	memcpy(m_buffersOnCPU[backBufferIndex], data, static_cast<long long>(m_numElement) * m_sizeOfElement);
 }
 ID3D12Resource* StructuredBuffer::GetD3DResoruce() 
 {
