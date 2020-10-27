@@ -84,7 +84,7 @@ private:
 	/// 頂点バッファとインデックスバッファを初期化。
 	/// </summary>
 	/// <param name="initData"></param>
-	void InitVertexBufferAndIndexBuffer(const SpriteInitData& initData);
+	void InitVertexBufferAndIndexBuffer(/*const SpriteInitData& initData*/);
 	/// <summary>
 	/// パイプラインステートを初期化する。
 	/// </summary>
@@ -93,7 +93,7 @@ private:
 	/// 定数バッファを初期化。
 	/// </summary>
 	/// <param name="initData"></param>
-	void InitConstantBuffer(const SpriteInitData& initData);
+	void InitConstantBuffer(/*const SpriteInitData& initData*/);
 private:
 	IndexBuffer m_indexBuffer;			//インデックスバッファ。
 	VertexBuffer m_vertexBuffer;		//頂点バッファ。

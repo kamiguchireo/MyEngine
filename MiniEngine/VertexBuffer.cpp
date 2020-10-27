@@ -27,7 +27,7 @@ void VertexBuffer::Init(int size, int stride)
 }
 void VertexBuffer::Copy(void* srcVertices)
 {
-	auto& rc = g_graphicsEngine->GetRenderContext();
+	//auto& rc = g_graphicsEngine->GetRenderContext();
 	auto device = g_graphicsEngine->GetD3DDevice();
 	
 	DirectX::ResourceUploadBatch re(device);

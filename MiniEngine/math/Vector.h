@@ -341,10 +341,10 @@ public:
 	/// this->y = max( this->y, v.y );
 	/// this->z = max( this->z, v.z );
 	/// </remarks>
-	void Max(const Vector3& v)
+	void Max(const Vector3& Vec)
 	{
 		DirectX::XMVECTOR xmv0 = DirectX::XMLoadFloat3(&vec);
-		DirectX::XMVECTOR xmv1 = DirectX::XMLoadFloat3(&v.vec);
+		DirectX::XMVECTOR xmv1 = DirectX::XMLoadFloat3(&Vec.vec);
 		DirectX::XMStoreFloat3(&vec,  DirectX::XMVectorMax(xmv0, xmv1));
 	}
 

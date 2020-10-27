@@ -141,7 +141,7 @@ private:
 	/// <returns>trueが返ってｋチアら成功。</returns>
 	void CreateDescriptor(ID3D12Device*& d3dDevice);
 private:
-	Texture m_renderTargetTexture = {};
+	Texture m_renderTargetTexture;
 	ID3D12Resource* m_renderTargetTextureDx12 = nullptr;	//レンダリングターゲットとなるテクスチャ。
 	ID3D12Resource* m_depthStencilTexture = nullptr;		//深度ステンシルバッファとなるテクスチャ。
 	ID3D12DescriptorHeap*		m_rtvHeap = nullptr;		//RTV用のディスクリプタヒープ。

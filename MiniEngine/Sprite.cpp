@@ -83,7 +83,7 @@
 		//}
 		m_descriptorHeap.Commit();
 	}
-	void Sprite::InitVertexBufferAndIndexBuffer(const SpriteInitData& initData)
+	void Sprite::InitVertexBufferAndIndexBuffer(/*const SpriteInitData& initData*/)
 	{
 		float halfW = m_size.x * 0.5f;
 		float halfH = m_size.y * 0.5f;
@@ -155,7 +155,7 @@
 		psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
 		m_pipelineState.Init(psoDesc);
 	}
-	void Sprite::InitConstantBuffer(const SpriteInitData& initData)
+	void Sprite::InitConstantBuffer(/*const SpriteInitData& initData*/)
 	{
 		//定数バッファの初期化。
 		m_constantBufferGPU.Init(sizeof(m_constantBufferCPU), nullptr);
@@ -176,9 +176,9 @@
 		//テクスチャを初期化。
 		InitTextures(initData);
 		//頂点バッファとインデックスバッファを初期化。
-		InitVertexBufferAndIndexBuffer(initData);
+		InitVertexBufferAndIndexBuffer(/*initData*/);
 		//定数バッファを初期化。
-		InitConstantBuffer(initData);
+		InitConstantBuffer(/*initData*/);
 		
 		//ルートシグネチャの初期化。
 		m_rootSignature.Init(
