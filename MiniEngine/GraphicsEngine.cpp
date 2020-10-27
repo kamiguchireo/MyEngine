@@ -155,7 +155,7 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 	dxgiFactory->Release();
 
 	//ƒJƒƒ‰‚ğ‰Šú‰»‚·‚éB
-	m_camera2D.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
+	m_camera2D.SetUpdateProjMatrixFunc(EnUpdateProjMatrixFunc::enUpdateProjMatrixFunc_Ortho);
 	m_camera2D.SetWidth( static_cast<float>(m_frameBufferWidth) );
 	m_camera2D.SetHeight( static_cast<float>(m_frameBufferHeight) );
 	m_camera2D.SetPosition({0.0f, 0.0f, 1.0f});

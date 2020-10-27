@@ -3,19 +3,18 @@
 */
 
 #pragma once
-
+/// <summary>
+/// 射影行列の更新方法。
+/// </summary>
+enum class EnUpdateProjMatrixFunc : int {
+	enUpdateProjMatrixFunc_Perspective,		//透視射影行列。遠近法が効いた絵を作りたいならこっち。
+	enUpdateProjMatrixFunc_Ortho,			//平行投影。２Ｄ的な表現がしたいならこっち。
+};
 /// <summary>
 /// カメラクラス。
 /// </summary>
 class Camera  {
 public:
-	/// <summary>
-	/// 射影行列の更新方法。
-	/// </summary>
-	enum EnUpdateProjMatrixFunc {
-		enUpdateProjMatrixFunc_Perspective,		//透視射影行列。遠近法が効いた絵を作りたいならこっち。
-		enUpdateProjMatrixFunc_Ortho,			//平行投影。２Ｄ的な表現がしたいならこっち。
-	};
 	/// <summary>
 	/// ビュー行列、プロジェクション行列を更新する。
 	/// </summary>
@@ -290,7 +289,7 @@ protected:
 	float		m_aspect = 1.0f;						//アスペクト比。
 	float		m_width = 1280.0f;						//平行投影行列を作成するときに使用される幅。
 	float		m_height = 720.0f;						//平行投影行列を作成するときに使用される高さ。
-	EnUpdateProjMatrixFunc m_updateProjMatrixFunc = enUpdateProjMatrixFunc_Perspective;	//プロジェクション行列の更新の仕方。
+	EnUpdateProjMatrixFunc m_updateProjMatrixFunc = EnUpdateProjMatrixFunc::enUpdateProjMatrixFunc_Perspective;	//プロジェクション行列の更新の仕方。
 	bool		m_isNeedUpdateProjectionMatrix = true;
 	bool		m_isDirty = false;						//ダーティフラグ。
 };
