@@ -17,23 +17,23 @@ namespace {
 		DWORD	 xButton;		//!<XBoxコントローラのボタン。
 	};
 		
-	const VirtualPadToXPad vPadToXPadTable[enButtonNum] = {
-		{ enButtonUp		, XINPUT_GAMEPAD_DPAD_UP },
-		{ enButtonDown		, XINPUT_GAMEPAD_DPAD_DOWN },
-		{ enButtonLeft		, XINPUT_GAMEPAD_DPAD_LEFT },
-		{ enButtonRight		, XINPUT_GAMEPAD_DPAD_RIGHT },
-		{ enButtonA			, XINPUT_GAMEPAD_A },
-		{ enButtonB			, XINPUT_GAMEPAD_B },
-		{ enButtonY			, XINPUT_GAMEPAD_Y },
-		{ enButtonX			, XINPUT_GAMEPAD_X },
-		{ enButtonSelect	, XINPUT_GAMEPAD_BACK },
-		{ enButtonStart		, XINPUT_GAMEPAD_START },
-		{ enButtonRB1		, XINPUT_GAMEPAD_RIGHT_SHOULDER },
-		{ enButtonRB2		, 0 },
-		{ enButtonRB3		, XINPUT_GAMEPAD_RIGHT_THUMB },
-		{ enButtonLB1		, XINPUT_GAMEPAD_LEFT_SHOULDER },
-		{ enButtonLB2		, 0 },
-		{ enButtonLB3		, XINPUT_GAMEPAD_LEFT_THUMB },
+	const VirtualPadToXPad vPadToXPadTable[static_cast<int>(EnButton::enButtonNum)] = {
+		{ EnButton::enButtonUp		, XINPUT_GAMEPAD_DPAD_UP },
+		{ EnButton::enButtonDown		, XINPUT_GAMEPAD_DPAD_DOWN },
+		{ EnButton::enButtonLeft		, XINPUT_GAMEPAD_DPAD_LEFT },
+		{ EnButton::enButtonRight		, XINPUT_GAMEPAD_DPAD_RIGHT },
+		{ EnButton::enButtonA			, XINPUT_GAMEPAD_A },
+		{ EnButton::enButtonB			, XINPUT_GAMEPAD_B },
+		{ EnButton::enButtonY			, XINPUT_GAMEPAD_Y },
+		{ EnButton::enButtonX			, XINPUT_GAMEPAD_X },
+		{ EnButton::enButtonSelect	, XINPUT_GAMEPAD_BACK },
+		{ EnButton::enButtonStart		, XINPUT_GAMEPAD_START },
+		{ EnButton::enButtonRB1		, XINPUT_GAMEPAD_RIGHT_SHOULDER },
+		{ EnButton::enButtonRB2		, 0 },
+		{ EnButton::enButtonRB3		, XINPUT_GAMEPAD_RIGHT_THUMB },
+		{ EnButton::enButtonLB1		, XINPUT_GAMEPAD_LEFT_SHOULDER },
+		{ EnButton::enButtonLB2		, 0 },
+		{ EnButton::enButtonLB3		, XINPUT_GAMEPAD_LEFT_THUMB },
 	};
 	/*!
 	*@brief	仮想ボタンとキーボードとの関連付けを表す構造体。
@@ -43,23 +43,23 @@ namespace {
 		DWORD keyCoord1;		//!<キーボードのキーコード。
 		DWORD keyCoord2;		//!<キーボードのキーコード。
 	};
-	const VirtualPadToKeyboard vPadToKeyboardTable[enButtonNum] = {
-		{ enButtonUp		, VK_NUMPAD8,	'8' 		},
-		{ enButtonDown		, VK_NUMPAD2,	'2' 		},
-		{ enButtonLeft		, VK_NUMPAD4,	'4' 		},
-		{ enButtonRight		, VK_NUMPAD6,	'6' 		},
-		{ enButtonA			, 'J',			0xFFFFFFFF	},
-		{ enButtonB			, 'K',			0xFFFFFFFF	},
-		{ enButtonY			, 'I',			0xFFFFFFFF	},
-		{ enButtonX			, 'L',			0xFFFFFFFF	},
-		{ enButtonSelect	, VK_SPACE,		0xFFFFFFFF	},
-		{ enButtonStart		, VK_RETURN,	0xFFFFFFFF	},
-		{ enButtonRB1		, '7',			0xFFFFFFFF	},
-		{ enButtonRB2		, '8',			0xFFFFFFFF	},
-		{ enButtonRB3		, '9',			0xFFFFFFFF	},
-		{ enButtonLB1		, 'B',			0xFFFFFFFF	},
-		{ enButtonLB2		, 'N',			0xFFFFFFFF	},
-		{ enButtonLB3		, 'M',			0xFFFFFFFF	},
+	const VirtualPadToKeyboard vPadToKeyboardTable[static_cast<int>(EnButton::enButtonNum)] = {
+		{ EnButton::enButtonUp		, VK_NUMPAD8,	'8' 		},
+		{ EnButton::enButtonDown		, VK_NUMPAD2,	'2' 		},
+		{ EnButton::enButtonLeft		, VK_NUMPAD4,	'4' 		},
+		{ EnButton::enButtonRight		, VK_NUMPAD6,	'6' 		},
+		{ EnButton::enButtonA			, 'J',			0xFFFFFFFF	},
+		{ EnButton::enButtonB			, 'K',			0xFFFFFFFF	},
+		{ EnButton::enButtonY			, 'I',			0xFFFFFFFF	},
+		{ EnButton::enButtonX			, 'L',			0xFFFFFFFF	},
+		{ EnButton::enButtonSelect	, VK_SPACE,		0xFFFFFFFF	},
+		{ EnButton::enButtonStart		, VK_RETURN,	0xFFFFFFFF	},
+		{ EnButton::enButtonRB1		, '7',			0xFFFFFFFF	},
+		{ EnButton::enButtonRB2		, '8',			0xFFFFFFFF	},
+		{ EnButton::enButtonRB3		, '9',			0xFFFFFFFF	},
+		{ EnButton::enButtonLB1		, 'B',			0xFFFFFFFF	},
+		{ EnButton::enButtonLB2		, 'N',			0xFFFFFFFF	},
+		{ EnButton::enButtonLB3		, 'M',			0xFFFFFFFF	},
 	};
 }
 GamePad::EnXInputPadState GamePad::m_padStates[4] = { GamePad::EnXInputPadState::Undef };
@@ -105,31 +105,31 @@ void GamePad::Update()
 		m_state.bConnected = true;
 		for (const VirtualPadToXPad& vPadToXPad : vPadToXPadTable) {
 			if (m_state.state.Gamepad.wButtons & vPadToXPad.xButton) {
-				m_trigger[vPadToXPad.vButton] = 1 ^ m_press[vPadToXPad.vButton];
-				m_press[vPadToXPad.vButton] = 1;
+				m_trigger[static_cast<int>(vPadToXPad.vButton)] = 1 ^ m_press[static_cast<int>(vPadToXPad.vButton)];
+				m_press[static_cast<int>(vPadToXPad.vButton)] = 1;
 			}
 			else {
-				m_trigger[vPadToXPad.vButton] = 0;
-				m_press[vPadToXPad.vButton] = 0;
+				m_trigger[static_cast<int>(vPadToXPad.vButton)] = 0;
+				m_press[static_cast<int>(vPadToXPad.vButton)] = 0;
 			}
 		}
 		//左トリガー。
 		if (m_state.state.Gamepad.bLeftTrigger != 0) {
-			m_trigger[enButtonLB2] = 1 ^ m_press[enButtonLB2];
-			m_press[enButtonLB2] = 1;
+			m_trigger[static_cast<int>(EnButton::enButtonLB2)] = 1 ^ m_press[static_cast<int>(EnButton::enButtonLB2)];
+			m_press[static_cast<int>(EnButton::enButtonLB2)] = 1;
 		}
 		else {
-			m_trigger[enButtonLB2] = 0;
-			m_press[enButtonLB2] = 0;
+			m_trigger[static_cast<int>(EnButton::enButtonLB2)] = 0;
+			m_press[static_cast<int>(EnButton::enButtonLB2)] = 0;
 		}
 		//右トリガー
 		if (m_state.state.Gamepad.bRightTrigger != 0) {
-			m_trigger[enButtonRB2] = 1 ^ m_press[enButtonRB2];
-			m_press[enButtonRB2] = 1;
+			m_trigger[static_cast<int>(EnButton::enButtonRB2)] = 1 ^ m_press[static_cast<int>(EnButton::enButtonRB2)];
+			m_press[static_cast<int>(EnButton::enButtonRB2)] = 1;
 		}
 		else {
-			m_trigger[enButtonRB2] = 0;
-			m_press[enButtonRB2] = 0;
+			m_trigger[static_cast<int>(EnButton::enButtonRB2)] = 0;
+			m_press[static_cast<int>(EnButton::enButtonRB2)] = 0;
 		}
 		if ((m_state.state.Gamepad.sThumbLX < INPUT_DEADZONE &&
 			m_state.state.Gamepad.sThumbLX > -INPUT_DEADZONE) &&
@@ -235,18 +235,18 @@ void GamePad::Update()
 		for (const VirtualPadToKeyboard& vPadToKeyboard : vPadToKeyboardTable) {
 			if (GetAsyncKeyState(vPadToKeyboard.keyCoord1)) {
 				//優先順位１番目のキー。
-				m_trigger[vPadToKeyboard.vButton] = 1 ^ m_press[vPadToKeyboard.vButton];
-				m_press[vPadToKeyboard.vButton] = 1;
+				m_trigger[static_cast<int>(vPadToKeyboard.vButton)] = 1 ^ m_press[static_cast<int>(vPadToKeyboard.vButton)];
+				m_press[static_cast<int>(vPadToKeyboard.vButton)] = 1;
 			}
 			else if (vPadToKeyboard.keyCoord2 != 0xFFFFFFFF
 				&& GetAsyncKeyState(vPadToKeyboard.keyCoord2)) {
 				//優先順位２番目のキー。
-				m_trigger[vPadToKeyboard.vButton] = 1 ^ m_press[vPadToKeyboard.vButton];
-				m_press[vPadToKeyboard.vButton] = 1;
+				m_trigger[static_cast<int>(vPadToKeyboard.vButton)] = 1 ^ m_press[static_cast<int>(vPadToKeyboard.vButton)];
+				m_press[static_cast<int>(vPadToKeyboard.vButton)] = 1;
 			}
 			else {
-				m_trigger[vPadToKeyboard.vButton] = 0;
-				m_press[vPadToKeyboard.vButton] = 0;
+				m_trigger[static_cast<int>(vPadToKeyboard.vButton)] = 0;
+				m_press[static_cast<int>(vPadToKeyboard.vButton)] = 0;
 			}
 		}
 	}

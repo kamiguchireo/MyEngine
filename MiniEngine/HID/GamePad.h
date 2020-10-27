@@ -8,7 +8,7 @@
 /*!
 	*@brief	仮想ボタン定義。
 	*/
-enum EnButton{
+enum class EnButton : int {
 	enButtonUp,		//!<上。
 	enButtonDown,		//!<下。
 	enButtonLeft,		//!<左。
@@ -67,7 +67,7 @@ public:
 	*/
 	bool IsTrigger(EnButton button) const
 	{
-		return m_trigger[button] != 0;
+		return m_trigger[static_cast<int>(button)] != 0;
 	}
 	/*!
 	*@brief	ボタンが押されているか判定。
@@ -75,7 +75,7 @@ public:
 	*/
 	bool IsPress(EnButton button) const
 	{
-		return m_press[button] != 0;
+		return m_press[static_cast<int>(button)] != 0;
 	}
 	/*!
 	*@brief	何かのボタンが押されているか判定
@@ -83,22 +83,22 @@ public:
 	*/
 	bool IsPressAnyKey() const
 	{
-		return IsPress(enButtonUp)
-			|| IsPress(enButtonDown)
-			|| IsPress(enButtonLeft)
-			|| IsPress(enButtonRight)
-			|| IsPress(enButtonA)
-			|| IsPress(enButtonB)
-			|| IsPress(enButtonX)
-			|| IsPress(enButtonY)
-			|| IsPress(enButtonSelect)
-			|| IsPress(enButtonStart)
-			|| IsPress(enButtonRB1)
-			|| IsPress(enButtonRB2)
-			|| IsPress(enButtonRB3)
-			|| IsPress(enButtonLB1)
-			|| IsPress(enButtonLB2)
-			|| IsPress(enButtonLB3);
+		return IsPress(EnButton::enButtonUp)
+			|| IsPress(EnButton::enButtonDown)
+			|| IsPress(EnButton::enButtonLeft)
+			|| IsPress(EnButton::enButtonRight)
+			|| IsPress(EnButton::enButtonA)
+			|| IsPress(EnButton::enButtonB)
+			|| IsPress(EnButton::enButtonX)
+			|| IsPress(EnButton::enButtonY)
+			|| IsPress(EnButton::enButtonSelect)
+			|| IsPress(EnButton::enButtonStart)
+			|| IsPress(EnButton::enButtonRB1)
+			|| IsPress(EnButton::enButtonRB2)
+			|| IsPress(EnButton::enButtonRB3)
+			|| IsPress(EnButton::enButtonLB1)
+			|| IsPress(EnButton::enButtonLB2)
+			|| IsPress(EnButton::enButtonLB3);
 	}
 	/*!
 	*@brief	左スティックのX軸の入力量を取得。
@@ -144,8 +144,8 @@ public:
 private:
 	PAD_STATE m_state;	//!<パッドステート。
 	int m_padNo = 0;			//!<パッド番号。
-	int m_trigger[enButtonNum];	//!<トリガー入力のフラグ。
-	int m_press[enButtonNum];	//!<press入力のフラグ。
+	int m_trigger[static_cast<int>(EnButton::enButtonNum)];	//!<トリガー入力のフラグ。
+	int m_press[static_cast<int>(EnButton::enButtonNum)];	//!<press入力のフラグ。
 	float m_lStickX = 0.0f;		//!<左スティックのX軸の入力量。
 	float m_lStickY = 0.0f;		//!<左スティックのY軸の入力量。
 	float m_rStickX = 0.0f;		//!<右スティックのX軸の入力量。
