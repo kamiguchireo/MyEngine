@@ -357,10 +357,10 @@ public:
 	/// this->y = min( this->y, v.y );
 	/// this->z = min( this->z, v.z );
 	/// </remarks>
-	void Min(const Vector3& v)
+	void Min(const Vector3& Vec)
 	{
 		DirectX::XMVECTOR xmv0 = DirectX::XMLoadFloat3(&vec);
-		DirectX::XMVECTOR xmv1 = DirectX::XMLoadFloat3(&v.vec);
+		DirectX::XMVECTOR xmv1 = DirectX::XMLoadFloat3(&Vec.vec);
 		DirectX::XMStoreFloat3(&vec, DirectX::XMVectorMin(xmv0, xmv1));
 	}
 
