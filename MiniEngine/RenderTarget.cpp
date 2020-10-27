@@ -2,6 +2,30 @@
 #include "RenderTarget.h"
 #include "GraphicsEngine.h"
 
+RenderTarget::~RenderTarget()
+{
+	if (m_renderTargetTextureDx12 != nullptr)
+	{
+		m_renderTargetTextureDx12->Release();
+		m_renderTargetTextureDx12 = nullptr;
+	}
+	if (m_depthStencilTexture != nullptr)
+	{
+		m_depthStencilTexture->Release();
+		m_depthStencilTexture = nullptr;
+	}
+	if (m_rtvHeap != nullptr)
+	{
+		m_rtvHeap->Release();
+		m_rtvHeap = nullptr;
+	}
+	if (m_dsvHeap != nullptr)
+	{
+		m_dsvHeap->Release();
+		m_dsvHeap = nullptr;
+	}
+}
+
 bool RenderTarget::Create(
 	int w,
 	int h,

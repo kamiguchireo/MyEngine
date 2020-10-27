@@ -11,7 +11,7 @@
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
 	//ゲームの初期化。
-	InitGame(hInstance, /*hPrevInstance, lpCmdLine,*/ nCmdShow, TEXT("Game"));
+	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, TEXT("Game"));
 
 	//////////////////////////////////////
 	// ここから初期化を行うコードを記述する。
@@ -37,7 +37,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//DL2.color = {1.0f,0.0f,0.0f,0.0f};
 	//g_graphicsEngine->GetLightManager()->AddDirectionLight(DL2);
 
-	//DefferdRendering DR;
+	DefferdRendering DR;
 	g_graphicsEngine->GetDefferdRendering()->CreateRT();
 	// ここからゲームループ。
 	while (DispatchWindowMessage())
