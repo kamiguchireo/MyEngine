@@ -19,14 +19,14 @@ namespace Engine {
 	
 	public:
 		//イベント
-		enum EnEvent {
+		enum class EnEvent : int {
 			enEvent_Undef,		//未定義イベント
 			enEvent_Destroy		//インスタンスが破棄される
 		};
 
 		//イベント発生時のデータ
 		struct SEventParam {
-			EnEvent eEvent = enEvent_Undef;		//発生しているイベント
+			EnEvent eEvent = EnEvent::enEvent_Undef;		//発生しているイベント
 			IGameObject*gameObject = nullptr;	//イベントを通知しているゲームオブジェクトのインスタンス
 		};
 	public:
@@ -48,7 +48,7 @@ namespace Engine {
 	public:
 		void StartWrapper()
 		{
-			if (NextRenderStep == StartStep)
+			if (NextRenderStep == GameObjectStep::StartStep)
 			{
 				if (!is_StartEnd)
 				{
@@ -57,63 +57,63 @@ namespace Engine {
 					}
 				}
 				//初期化処理完了。
-				NextRenderStep = PreRenderStep;
+				NextRenderStep = GameObjectStep::PreRenderStep;
 
 			}
 		}
 
 		void PreRenderWrapper()
 		{
-			if (NextRenderStep == PreRenderStep)
+			if (NextRenderStep == GameObjectStep::PreRenderStep)
 			{
 				if (!m_isDead)
 				{
 					PreRender();
 				}
-				NextRenderStep = UpdateStep;
+				NextRenderStep = GameObjectStep::UpdateStep;
 			}
 		}
 
 		void UpdateWrapper()
 		{
-			if (NextRenderStep == UpdateStep)
+			if (NextRenderStep == GameObjectStep::UpdateStep)
 			{
 				if (!m_isDead)
 				{
 					Update();
 				}
-				NextRenderStep = DrawStep;
+				NextRenderStep = GameObjectStep::DrawStep;
 			}
 		}
 
 		void DrawWrapper()
 		{
-			if (NextRenderStep == DrawStep)
+			if (NextRenderStep == GameObjectStep::DrawStep)
 			{
 				if (!m_isDead)
 				{
 					Draw();
 				}
-				NextRenderStep = PostRenderStep;
+				NextRenderStep = GameObjectStep::PostRenderStep;
 			}
 		}
 
 		void PostRenderWrapper()
 		{
-			if (NextRenderStep == PostRenderStep)
+			if (NextRenderStep == GameObjectStep::PostRenderStep)
 			{
 				if (!m_isDead)
 				{
 					PostRender();
 				}
-				NextRenderStep = PreRenderStep;
+				NextRenderStep = GameObjectStep::PreRenderStep;
 			}
 		}
 
 		void OnDestoroyWrapper()
 		{
 			SEventParam param;
-			param.eEvent = enEvent_Destroy;
+			param.eEvent = EnEvent::enEvent_Destroy;
 			param.gameObject = this;
 			//デストロイイベントをリスナーに通知する。
 			for (auto&listener : m_eventListeners)
@@ -155,13 +155,13 @@ namespace Engine {
 		bool is_StartEnd = false;
 
 	private:
-	enum GameObjectStep {
+	enum class GameObjectStep : int{
 		StartStep,
 		PreRenderStep,
 		UpdateStep,
 		DrawStep,
 		PostRenderStep
 	};
-	GameObjectStep NextRenderStep = StartStep;		//ゲームオブジェクトマネージャー内で使う次に実行する実行ステップ
+	GameObjectStep NextRenderStep = GameObjectStep::StartStep;		//ゲームオブジェクトマネージャー内で使う次に実行する実行ステップ
 	};
 }
