@@ -32,6 +32,7 @@ Skeleton::Skeleton()
 }
 Skeleton::~Skeleton()
 {
+
 }
 void Skeleton::UpdateBoneWorldMatrix(Bone& bone, const Matrix& parentMatrix)
 {

@@ -83,7 +83,7 @@ void MeshParts::CreateDescriptorHeaps()
 			//}
 			descriptorHeap.RegistConstantBuffer(1, g_graphicsEngine->GetLightManager()->GetConstantBuffer());
 
-			descriptorHeap.RegistConstantBuffer(2, g_graphicsEngine->GetShadowMap()->GetConstantBuffer());
+			descriptorHeap.RegistConstantBuffer(2, *g_graphicsEngine->GetShadowMap()->GetConstantBuffer());
 			//ディスクリプタヒープへの登録を確定させる。
 			descriptorHeap.Commit();
 			descriptorHeapNo++;

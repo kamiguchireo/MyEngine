@@ -3,6 +3,14 @@
 
 class Shader {
 public:
+	~Shader()
+	{
+		if (m_blob != nullptr)
+		{
+			m_blob->Release();
+			m_blob = nullptr;
+		}
+	}
 	/// <summary>
 	/// ピクセルシェーダーをロード。
 	/// </summary>

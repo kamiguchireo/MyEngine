@@ -17,7 +17,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	// ここから初期化を行うコードを記述する。
 	//////////////////////////////////////
 
-	Engine::NewGO<Game>(0, nullptr);
+	Game* g_game = nullptr;
+	g_game = Engine::NewGO<Game>(0, nullptr);
 	//////////////////////////////////////
 	// 初期化を行うコードを書くのはここまで！！！
 	//////////////////////////////////////
@@ -54,5 +55,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//レンダリング終了。
 		g_engine->EndFrame();
 	}
+	
+	Engine::GameObjectManager().DeleteAllGameObject();
 	return 0;
 }

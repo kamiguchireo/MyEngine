@@ -90,7 +90,6 @@ public:
 		//コマンドを実行。
 		ID3D12CommandList* ppCommandLists[] = { m_commandList };
 		m_commandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
-
 		WaitDraw();
 	}
 	/// <summary>
@@ -143,19 +142,19 @@ public:
 		return m_currentFrameBufferDSVHandle;
 	}
 
-	Engine::ShadowMap* GetShadowMap()
+	std::unique_ptr<Engine::ShadowMap>& GetShadowMap()
 	{
-		return &m_shadowMap;
+		return m_shadowMap;
 	}
 
-	Engine::DefferdRendering* GetDefferdRendering()
+	std::unique_ptr<Engine::DefferdRendering>& GetDefferdRendering()
 	{
-		return &m_DefferdRendering;
+		return m_DefferdRendering;
 	}
 
-	Engine::LightManager* GetLightManager()
+	std::unique_ptr<Engine::LightManager>& GetLightManager()
 	{
-		return &m_LM;
+		return m_LM;
 	}
 private:
 	/// <summary>
@@ -261,9 +260,9 @@ private:
 	UINT m_frameBufferHeight = 0;		//フレームバッファの高さ。
 	Camera m_camera2D;					//2Dカメラ。
 	Camera m_camera3D;					//3Dカメラ。
-	Engine::ShadowMap m_shadowMap;
-	Engine::DefferdRendering m_DefferdRendering;
-	Engine::LightManager m_LM;
+	std::unique_ptr<Engine::ShadowMap> m_shadowMap = nullptr;
+	std::unique_ptr<Engine::DefferdRendering> m_DefferdRendering = nullptr;
+	std::unique_ptr<Engine::LightManager> m_LM = nullptr;
 };
 extern GraphicsEngine* g_graphicsEngine;	//グラフィックスエンジン
 extern Camera* g_camera2D;					//2Dカメラ。

@@ -12,7 +12,16 @@ Game::Game()
 
 Game::~Game()
 {
-
+	if (m_unityChan != nullptr)
+	{
+		DeleteGO(m_unityChan);
+		m_unityChan = nullptr;
+	}
+	if (m_map != nullptr)
+	{
+		DeleteGO(m_map);
+		m_map = nullptr;
+	}
 }
 
 

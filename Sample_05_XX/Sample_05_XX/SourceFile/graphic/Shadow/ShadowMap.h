@@ -32,10 +32,10 @@ namespace Engine {
 
 		Texture& GetSRV(int i)
 		{
-			return m_shadowMapRT[i].GetRenderTargetTexture();
+			return m_shadowMapRT[i]->GetRenderTargetTexture();
 		}
 
-		ConstantBuffer& GetConstantBuffer()
+		std::unique_ptr<ConstantBuffer>& GetConstantBuffer()
 		{
 			return m_shadowCb;
 		}
@@ -73,8 +73,8 @@ namespace Engine {
 		const int TexResolutionW = 2560;		//シャドウマップテクスチャの解像度
 		const int TexResolutionH = 1440;		//シャドウマップテクスチャの解像度
 
-		RenderTarget m_shadowMapRT[3];
-		ConstantBuffer m_shadowCb;		//影を落とす時に使用する定数バッファ
+		std::unique_ptr<RenderTarget> m_shadowMapRT[3];
+		std::unique_ptr<ConstantBuffer> m_shadowCb;		//影を落とす時に使用する定数バッファ
 		SShadowCb m_shadowCbEntity;
 		Vector3 m_range = { 500.0f,1000.0f,2000.0f };		//シャドウマップを設定する範囲
 		float m_lightHeight = 1000.0f;				//ライトの高さ。

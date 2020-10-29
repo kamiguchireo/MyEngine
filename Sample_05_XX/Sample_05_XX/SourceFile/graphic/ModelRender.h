@@ -65,7 +65,7 @@ namespace Engine {
 			Vector3 m_pos = Vector3::Zero;
 			Quaternion m_rot = Quaternion::Identity;
 			Vector3 m_scale = Vector3::One;
-			RenderContext RC;
+			//RenderContext RC;
 			const char* m_tkmFilePath = nullptr;
 			const char* m_vsEntryPointFunc = "VSMain";	//頂点シェーダーのエントリーポイント。
 			const char* m_psEntryPointFunc = "PSDefferdMain";	//ピクセルシェーダーのエントリーポイント。

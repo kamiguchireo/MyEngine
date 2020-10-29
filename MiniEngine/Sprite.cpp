@@ -12,6 +12,14 @@
 	const Vector2	Sprite::DEFAULT_PIVOT = { 0.5f, 0.5f };
 	Sprite::~Sprite()
 	{
+		//for (auto& tex : m_textureExternal)
+		//{
+		//	if (tex != nullptr)
+		//	{
+		//		delete tex;
+		//		tex = nullptr;
+		//	}
+		//}
 	}
 	void Sprite::InitTextures(const SpriteInitData& initData)
 	{

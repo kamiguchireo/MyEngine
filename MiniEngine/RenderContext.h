@@ -9,6 +9,12 @@ class RenderTarget;
 /// </summary>
 class RenderContext {
 public:
+	RenderContext()
+	{
+	}
+	~RenderContext()
+	{
+	}
 	/// <summary>
 	/// 初期化。
 	/// </summary>
@@ -306,8 +312,8 @@ private:
 	enum { MAX_CONSTANT_BUFFER = 8 };	//定数バッファの最大数。足りなくなったら増やしてね。
 	enum { MAX_SHADER_RESOURCE = 16 };	//シェーダーリソースの最大数。足りなくなったら増やしてね。
 
-	ID3D12GraphicsCommandList* m_commandList;	//コマンドリスト。
-	ID3D12DescriptorHeap* m_descriptorHeaps[MAX_DESCRIPTOR_HEAP];			//ディスクリプタヒープの配列。
+	ID3D12GraphicsCommandList* m_commandList = nullptr;	//コマンドリスト。
+	ID3D12DescriptorHeap* m_descriptorHeaps[MAX_DESCRIPTOR_HEAP] = { nullptr };			//ディスクリプタヒープの配列。
 	ConstantBuffer* m_constantBuffers[MAX_CONSTANT_BUFFER] = { nullptr };	//定数バッファの配列。
 	Texture* m_shaderResources[MAX_SHADER_RESOURCE] = { nullptr };			//シェーダーリソースの配列。
 };

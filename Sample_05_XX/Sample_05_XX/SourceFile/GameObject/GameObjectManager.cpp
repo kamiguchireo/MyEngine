@@ -60,6 +60,18 @@ namespace Engine {
 		}
 	}
 	
+	void CGameObjectManager::DeleteAllGameObject()
+	{
+		for (GameObjectList objList : m_gameObjectListArray)
+		{
+			for (IGameObject* obj : objList)
+			{
+				DeleteGO(obj);
+			}
+		}
+		ExecuteDeleteGameObjects();
+	}
+
 	void CGameObjectManager::ExecuteDeleteGameObjects()
 	{
 		for (GameObjectList&goList : m_deleteObjectArray)

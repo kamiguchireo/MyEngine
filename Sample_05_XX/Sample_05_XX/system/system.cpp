@@ -82,6 +82,7 @@ void InitGame(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, in
 	//TKエンジンの初期化。
 	g_engine = new TkEngine;
 	g_engine->Init(g_hWnd, FRAME_BUFFER_W, FRAME_BUFFER_H);
+	//delete g_engine;
 }
 //ウィンドウメッセージをディスパッチ。falseが返ってきたら、ゲーム終了。
 bool DispatchWindowMessage()

@@ -130,6 +130,8 @@ namespace Engine {
 		//更新後描画
 		void PostRender();
 
+		//すべてのゲームオブジェクトを削除
+		void DeleteAllGameObject();
 		//ゲームオブジェクトマネージャー全体の更新
 		void Thread()
 		{

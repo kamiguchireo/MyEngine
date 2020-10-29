@@ -11,42 +11,54 @@ GraphicsEngine::~GraphicsEngine()
 	//ŒãŽn––B
 	if (m_commandQueue) {
 		m_commandQueue->Release();
+		m_commandQueue = nullptr;
 	}
 	if (m_swapChain) {
 		m_swapChain->Release();
+		m_swapChain = nullptr;
 	}
 	if (m_rtvHeap) {
 		m_rtvHeap->Release();
+		m_rtvHeap = nullptr;
 	}
 	if (m_dsvHeap) {
 		m_dsvHeap->Release();
+		m_dsvHeap = nullptr;
 	}
 	if (m_commandAllocator) {
 		m_commandAllocator->Release();
+		m_commandAllocator = nullptr;
 	}
 	if (m_commandList) {
 		m_commandList->Release();
+		m_commandList = nullptr;
 	}
 	if (m_pipelineState) {
 		m_pipelineState->Release();
+		m_pipelineState = nullptr;
 	}
 	for (auto& rt : m_renderTargets) {
 		if (rt) {
 			rt->Release();
+			rt = nullptr;
 		}
 	}
 	if (m_depthStencilBuffer) {
 		m_depthStencilBuffer->Release();
+		m_depthStencilBuffer = nullptr;
 	}
 	if (m_fence) {
 		m_fence->Release();
+		m_fence = nullptr;
 	}
 
 	if (m_d3dDevice) {
 		m_d3dDevice->Release();
+		m_d3dDevice = nullptr;
 	}
 
 	CloseHandle(m_fenceEvent);
+
 }
 void GraphicsEngine::WaitDraw()
 {
@@ -65,6 +77,10 @@ void GraphicsEngine::WaitDraw()
 }
 bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeight)
 {
+	m_shadowMap = std::make_unique<Engine::ShadowMap>();
+	m_DefferdRendering = std::make_unique<Engine::DefferdRendering>();
+	m_LM = std::make_unique<Engine::LightManager>();
+
 	m_frameBufferWidth = frameBufferWidth;
 	m_frameBufferHeight = frameBufferHeight;
 
@@ -169,7 +185,7 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 
 	//
 	g_graphicsEngine = this;
-	m_shadowMap.ShadowMapRTCreate();
+	m_shadowMap->ShadowMapRTCreate();
 
 	return true;
 }
@@ -252,6 +268,7 @@ bool GraphicsEngine::CreateD3DDevice( IDXGIFactory4* dxgiFactory )
 			break;
 		}
 	}
+
 	return m_d3dDevice != nullptr;
 }
 bool GraphicsEngine::CreateCommandQueue()

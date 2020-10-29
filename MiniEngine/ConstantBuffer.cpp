@@ -9,6 +9,7 @@ ConstantBuffer::~ConstantBuffer()
 		if (cb != nullptr) {
 			cb->Unmap(0, &readRange);
 			cb->Release();
+			cb = nullptr;
 		}
 	}
 }

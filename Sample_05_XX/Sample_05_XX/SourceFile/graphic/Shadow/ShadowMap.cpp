@@ -5,12 +5,16 @@ namespace Engine
 {
 	ShadowMap::ShadowMap()
 	{
-
+		for (auto& shadowmapRT : m_shadowMapRT)
+		{
+			shadowmapRT = std::make_unique<RenderTarget>();
+		}
+		m_shadowCb = std::make_unique<ConstantBuffer>();
 	}
 
 	ShadowMap::~ShadowMap()
 	{
-
+		g_graphicsEngine;
 	}
 
 	Vector3 ShadowMap::CalcLightPosition(float lightHeight, Vector3 viewFrustomCenterPosition)
@@ -34,7 +38,7 @@ namespace Engine
 		{
 			//シャドウマップ生成用のレンダリングターゲットを作る
 			//テクスチャのフォーマットはR成分のみの32ビットのfloat型
-			m_shadowMapRT[i].Create
+			m_shadowMapRT[i]->Create
 			(
 				wh[i][0],
 				wh[i][1],
@@ -45,8 +49,8 @@ namespace Engine
 				clearColor
 			);
 			//定数バッファを作成
-			m_shadowCb.Init(sizeof(m_shadowCbEntity),&m_shadowCbEntity);
-			g_graphicsEngine->GetRenderContext().SetConstantBuffer(2, m_shadowCb);
+			m_shadowCb->Init(sizeof(m_shadowCbEntity),&m_shadowCbEntity);
+			g_graphicsEngine->GetRenderContext().SetConstantBuffer(2, *m_shadowCb);
 		}
 	}
 
@@ -232,22 +236,22 @@ namespace Engine
 
 	void ShadowMap::RenderToShadowMap()
 	{
-		auto RenCon = g_graphicsEngine->GetRenderContext();
+		auto& RenCon = g_graphicsEngine->GetRenderContext();
 		for (int i = 0; i < CascadeShadow; i++)
 		{
 			if (ResourceInited[i] == false)
 			{
-				RenCon.WaitUntilToPossibleSetRenderTarget(m_shadowMapRT[i]);
+				RenCon.WaitUntilToPossibleSetRenderTarget(*m_shadowMapRT[i]);
 				ResourceInited[i] = true;
 			}
-			D3D12_VIEWPORT m_viewport = m_shadowMapRT[i].GetViewport();
+			D3D12_VIEWPORT m_viewport = m_shadowMapRT[i]->GetViewport();
 			//レンダリングターゲットを切り替える
-			RenCon.SetRenderTarget(m_shadowMapRT[i].GetRTVCpuDescriptorHandle(), m_shadowMapRT[i].GetDSVCpuDescriptorHandle(),&m_viewport);
+			RenCon.SetRenderTarget(m_shadowMapRT[i]->GetRTVCpuDescriptorHandle(), m_shadowMapRT[i]->GetDSVCpuDescriptorHandle(),&m_viewport);
 
 			//シャドウマップをクリア
 			float clearColor[4] = { 1.0f,1.0f,1.0f,1.0f };
-			RenCon.ClearRenderTargetView(m_shadowMapRT[i].GetRTVCpuDescriptorHandle(), clearColor);
-			RenCon.ClearDepthStencilView(m_shadowMapRT[i].GetDSVCpuDescriptorHandle(), 1.0f);
+			RenCon.ClearRenderTargetView(m_shadowMapRT[i]->GetRTVCpuDescriptorHandle(), clearColor);
+			RenCon.ClearDepthStencilView(m_shadowMapRT[i]->GetDSVCpuDescriptorHandle(), 1.0f);
 			
 
 			for (const auto& caster : m_shadowCasters)
@@ -274,6 +278,6 @@ namespace Engine
 
 	void ShadowMap::SendShadowRecieverParamToGpu()
 	{
-		m_shadowCb.CopyToVRAM(&m_shadowCbEntity);
+		m_shadowCb->CopyToVRAM(&m_shadowCbEntity);
 	}
 }
