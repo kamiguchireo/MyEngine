@@ -58,7 +58,24 @@ bool Game::Start()
 void Game::Update()
 {
 	m_animation.Update(1.0f / 60.0f);
+	if (GetAsyncKeyState(VK_UP))
+	{
+		pos.y -= 1.0f;
+	}
+	if (GetAsyncKeyState(VK_DOWN))
+	{
+		pos.y += 1.0f;
+	}
+	if (GetAsyncKeyState(VK_RIGHT))
+	{
+		pos.x -= 1.0f;
+	}
+	if (GetAsyncKeyState(VK_LEFT))
+	{
+		pos.x += 1.0f;
+	}
 
+	m_unityChan->SetPosition(pos);
 }
 
 void Game::Draw()
