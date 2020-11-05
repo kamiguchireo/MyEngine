@@ -1,5 +1,6 @@
 #pragma once
 #include "IPlayer.h"
+#include "SourceFile/graphic/ModelRender.h"
 
 class Player:public IGameObject
 {
@@ -12,5 +13,8 @@ public:
 	void Draw();
 
 private:
+	template<class T> void ChangeState();
+private:
 	IPlayer* currentState = nullptr;		//現在のステート
+	prefab::ModelRender* m_playerModel = nullptr;		//プレイヤーのモデル
 };

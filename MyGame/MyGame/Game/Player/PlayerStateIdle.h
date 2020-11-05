@@ -6,5 +6,6 @@ class PlayerStateIdle:public IPlayer
 public:
 	PlayerStateIdle();
 	~PlayerStateIdle();
+	void Update();
 };
 

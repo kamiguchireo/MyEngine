@@ -15,6 +15,7 @@ namespace Engine {
 	void DefferdRendering::CreateRT()
 	{
 		float clearColor[4] = { 0.0f,0.0f,0.0f,0.0f };
+		
 		//アルベド用のレンダーターゲットの作成
 		albedRT.Create(
 			FRAME_BUFFER_W, FRAME_BUFFER_H,

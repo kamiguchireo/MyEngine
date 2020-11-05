@@ -10,3 +10,8 @@ PlayerStateIdle::~PlayerStateIdle()
 {
 
 }
+
+void PlayerStateIdle::Update()
+{
+
+}
