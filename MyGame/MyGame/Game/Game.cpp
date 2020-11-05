@@ -5,9 +5,6 @@ Game::Game()
 {
 	m_animClip[0].Load("Assets/animData/idle.tka");
 	m_animClip[0].SetLoopFlag(true);
-	g_camera3D->SetPosition({ 0.0f, 100.0f, 500.0f });
-	g_camera3D->SetTarget({ 0.0f, 0.0f, 0.0f });
-	g_camera3D->Update();
 }
 
 Game::~Game()
@@ -36,11 +33,11 @@ bool Game::Start()
 	m_unityChan->SetRotation(q_rot);
 
 	m_map = Engine::NewGO<Engine::prefab::ModelRender>(2, nullptr);
-	m_map->SetTkmFilePath("Assets/modelData/bg/bg.tkm");
+	m_map->SetTkmFilePath("Assets/modelData/map.tkm");
 	m_map->SetVSEntryPoint("VSMain");
 	//m_map->SetPSEntryPoint("PSMain");
 	m_map->SetShadowRecieverFlag(true);
-	m_map->SetShadowCasterFlag(false);
+	m_map->SetShadowCasterFlag(true);
 	
 	//m_unityChanInitData.m_fxFilePath = "Assets/shader/NoAnimModel_LambertSpecularAmbient.fx";
 	//m_unityChanInitData.m_tkmFilePath = "Assets/modelData/unityChan.tkm";
@@ -52,6 +49,10 @@ bool Game::Start()
 	m_animation.Play(0);
 	//RC = g_graphicsEngine->GetRenderContext();
 	//m_unityChan.Init(m_unityChanInitData);
+
+	g_camera3D->SetPosition({ 0.0f, 100.0f, 1500.0f });
+	g_camera3D->SetTarget({ 0.0f, 0.0f, 0.0f });
+	g_camera3D->Update();
 	return true;
 }
 

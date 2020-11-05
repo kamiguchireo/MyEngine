@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "system/system.h"
-#include "Game.h"
+#include "Game/Game.h"
 #include "SourceFile/GameObject/GameObjectManager.h"
 #include "SourceFile/EngineProcessing.h"
 #include "SourceFile/graphic/DefferdRendering.h"

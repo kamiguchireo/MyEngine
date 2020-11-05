@@ -183,6 +183,7 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TkmFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
+    <ClCompile Include="Game\Player\IPlayer.cpp" />
     <ClCompile Include="SourceFile\graphic\Light\LightManager.cpp" />
     <ClCompile Include="SourceFile\EngineProcessing.cpp" />
     <ClCompile Include="SourceFile\graphic\DefferdRendering.cpp" />
@@ -193,7 +194,7 @@
     <ClCompile Include="SourceFile\graphic\Animation\Animation.cpp" />
     <ClCompile Include="SourceFile\graphic\Animation\AnimationPlayController.cpp" />
     <ClCompile Include="SourceFile\graphic\Animation\AnimationClip.cpp" />
-    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -233,6 +234,7 @@
     <ClInclude Include="..\..\MiniEngine\tkFile\TkmFile.h" />
     <ClInclude Include="..\..\MiniEngine\tkFile\TksFile.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
+    <ClInclude Include="Game\Player\IPlayer.h" />
     <ClInclude Include="SourceFile\graphic\Light\LightManager.h" />
     <ClInclude Include="SourceFile\EngineProcessing.h" />
     <ClInclude Include="SourceFile\graphic\DefferdRendering.h" />
@@ -244,7 +246,7 @@
     <ClInclude Include="SourceFile\graphic\Animation\Animation.h" />
     <ClInclude Include="SourceFile\graphic\Animation\AnimationPlayController.h" />
     <ClInclude Include="SourceFile\graphic\Animation\AnimationClip.h" />
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="Game\Game.h" />
     <ClInclude Include="SourceFile\Noncopyable.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />

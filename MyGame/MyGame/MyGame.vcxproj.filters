@@ -107,9 +107,6 @@
     <ClCompile Include="..\..\MiniEngine\tkEngine.cpp">
       <Filter>MiniEngine</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="SourceFile\graphic\Animation\AnimationClip.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -141,6 +138,12 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="SourceFile\graphic\Light\LightManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Game.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Player\IPlayer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -235,9 +238,6 @@
     <ClInclude Include="..\..\MiniEngine\tkEngine.h">
       <Filter>MiniEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="SourceFile\graphic\Animation\AnimationClip.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -275,6 +275,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="SourceFile\graphic\Light\SLight.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Game.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player\IPlayer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

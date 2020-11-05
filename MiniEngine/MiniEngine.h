@@ -45,5 +45,5 @@
 #include "Model.h"
 #include "HID/GamePad.h"
 
-const UINT FRAME_BUFFER_W = 1920;				//フレームバッファの幅。
-const UINT FRAME_BUFFER_H = 1080;				//フレームバッファの高さ。
+const UINT FRAME_BUFFER_W = 1280;				//フレームバッファの幅。
+const UINT FRAME_BUFFER_H = 720;				//フレームバッファの高さ。
