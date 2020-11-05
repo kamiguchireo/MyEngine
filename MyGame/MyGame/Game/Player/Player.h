@@ -1,4 +1,6 @@
 #pragma once
+#include "IPlayer.h"
+
 class Player:public IGameObject
 {
 public:
@@ -8,4 +10,7 @@ public:
 	bool Start();
 	void Update();
 	void Draw();
+
+private:
+	IPlayer* currentState = nullptr;		//現在のステート
 };

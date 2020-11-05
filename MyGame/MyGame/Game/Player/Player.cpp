@@ -8,7 +8,11 @@ Player::Player()
 
 Player::~Player()
 {
-
+	if (currentState != nullptr)
+	{
+		delete currentState;
+		currentState = nullptr;
+	}
 }
 
 bool Player::Start()
