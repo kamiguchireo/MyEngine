@@ -10,6 +10,8 @@ namespace Engine {
 
 			bool Start();
 			void Update();
+			void Draw();
+
 			//ディファード以外を使用する場合はコメントアウトを外してください
 			//まだ未実装です
 			//void Draw();

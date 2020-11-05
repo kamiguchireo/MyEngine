@@ -35,13 +35,13 @@ namespace Engine {
 	virtual void PreRender() {}
 
 	//‰Šú‰»
-	virtual bool Start() { return true; }
+	virtual bool Start() = 0;
 
 	//XV
-	virtual void Update() {}
+	virtual void Update() = 0;
 	
 	//•`‰æ
-	virtual void Draw() {}
+	virtual void Draw() = 0;
 
 	//RenderŠÖ”‚ªÀs‚³‚ê‚½Œã‚ÅŒÄ‚Î‚ê‚é•`‰æˆ—
 	virtual void PostRender() {}

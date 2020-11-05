@@ -53,6 +53,11 @@ namespace Engine {
 			g_graphicsEngine->GetDefferdRendering()->RegistCaster(&m_model);
 
 		}
+
+		void ModelRender::Draw()
+		{
+
+		}
 		//void ModelRender::Draw()
 		//{
 		//	m_model.Draw(RC);
