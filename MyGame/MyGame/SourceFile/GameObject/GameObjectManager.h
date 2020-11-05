@@ -148,7 +148,7 @@ namespace Engine {
 
 		typedef std::list<IGameObject*>GameObjectList;
 		std::vector<GameObjectList> m_gameObjectListArray;		//ゲームオブジェクトの優先度付きリスト
-		std::vector<GameObjectList> m_deleteObjectArray;		//削除するオブジェクトのリスト削除の途中にDeleteGameObjectが呼ばれる可能性が高いので、ダブルバッファ化
+		std::vector<GameObjectList> m_deleteObjectArray;		//削除するゲームオブジェクトの配列
 	};
 
 	static inline CGameObjectManager&GameObjectManager()
