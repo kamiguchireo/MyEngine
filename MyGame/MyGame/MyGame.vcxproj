@@ -184,6 +184,7 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
     <ClCompile Include="Game\Player\IPlayer.cpp" />
+    <ClCompile Include="Game\Player\Player.cpp" />
     <ClCompile Include="SourceFile\graphic\Light\LightManager.cpp" />
     <ClCompile Include="SourceFile\EngineProcessing.cpp" />
     <ClCompile Include="SourceFile\graphic\DefferdRendering.cpp" />
@@ -235,6 +236,7 @@
     <ClInclude Include="..\..\MiniEngine\tkFile\TksFile.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
     <ClInclude Include="Game\Player\IPlayer.h" />
+    <ClInclude Include="Game\Player\Player.h" />
     <ClInclude Include="SourceFile\graphic\Light\LightManager.h" />
     <ClInclude Include="SourceFile\EngineProcessing.h" />
     <ClInclude Include="SourceFile\graphic\DefferdRendering.h" />
