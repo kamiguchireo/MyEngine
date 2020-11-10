@@ -45,20 +45,20 @@ bool RenderTarget::Create(
 	m_viewport.MinDepth = D3D12_MIN_DEPTH;
 	m_viewport.MaxDepth = D3D12_MAX_DEPTH;
 	//レンダリングターゲットとなるテクスチャを作成する。
-	if (!CreateRenderTargetTexture(*g_graphicsEngine, d3dDevice, w, h, mipLevel, arraySize, colorFormat, clearColor)) {
+	if (!CreateRenderTargetTexture(d3dDevice, w, h, mipLevel, arraySize, colorFormat, clearColor)) {
 	//	TK_ASSERT(false, "レンダリングターゲットとなるテクスチャの作成に失敗しました。");
 		MessageBoxA(nullptr, "レンダリングターゲットとなるテクスチャの作成に失敗しました。", "エラー", MB_OK);
 		return false;
 	}
 	//深度ステンシルバッファとなるテクスチャを作成する。
 	if (depthStencilFormat != DXGI_FORMAT_UNKNOWN) {
-		if (!CreateDepthStencilTexture(*g_graphicsEngine, d3dDevice, w, h, depthStencilFormat)) {
+		if (!CreateDepthStencilTexture(d3dDevice, w, h, depthStencilFormat)) {
 			MessageBoxA(nullptr, "レンダリングターゲットとなるテクスチャの作成に失敗しました。", "エラー", MB_OK);
 			return false;
 		}
 	}
 
-	if (!CreateDescriptorHeap(*g_graphicsEngine, d3dDevice)) {
+	if (!CreateDescriptorHeap(d3dDevice)) {
 		//ディスクリプタヒープの作成に失敗した。
 		MessageBoxA(nullptr, "レンダリングターゲットとなるテクスチャの作成に失敗しました。", "エラー", MB_OK);
 		return false;
@@ -70,7 +70,7 @@ bool RenderTarget::Create(
 	}
 	return true;
 }
-bool RenderTarget::CreateDescriptorHeap(GraphicsEngine& ge, ID3D12Device*& d3dDevice)
+bool RenderTarget::CreateDescriptorHeap(ID3D12Device*& d3dDevice)
 {
 		
 	//RTV用のディスクリプタヒープを作成する。
@@ -101,7 +101,6 @@ bool RenderTarget::CreateDescriptorHeap(GraphicsEngine& ge, ID3D12Device*& d3dDe
 	return true;
 }
 bool RenderTarget::CreateRenderTargetTexture(
-	GraphicsEngine& ge,
 	ID3D12Device*& d3dDevice,
 	int w,
 	int h,
@@ -116,8 +115,8 @@ bool RenderTarget::CreateRenderTargetTexture(
 		0,
 		static_cast<UINT>(w),
 		static_cast<UINT>(h),
-		arraySize,
-		mipLevel,
+		static_cast<UINT16>(arraySize),
+		static_cast<UINT16>(mipLevel),
 		format,
 		1,
 		0,
@@ -157,7 +156,6 @@ bool RenderTarget::CreateRenderTargetTexture(
 	return true;
 }
 bool RenderTarget::CreateDepthStencilTexture(
-	GraphicsEngine& ge,
 	ID3D12Device*& d3dDevice,
 	int w,
 	int h,
