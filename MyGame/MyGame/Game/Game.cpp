@@ -3,17 +3,17 @@
 
 Game::Game()
 {
-	m_animClip[0].Load("Assets/animData/idle.tka");
-	m_animClip[0].SetLoopFlag(true);
+	//m_animClip[0].Load("Assets/animData/idle.tka");
+	//m_animClip[0].SetLoopFlag(true);
 }
 
 Game::~Game()
 {
-	if (m_unityChan != nullptr)
-	{
-		DeleteGO(m_unityChan);
-		m_unityChan = nullptr;
-	}
+	//if (m_unityChan != nullptr)
+	//{
+	//	DeleteGO(m_unityChan);
+	//	m_unityChan = nullptr;
+	//}
 	if (m_map != nullptr)
 	{
 		DeleteGO(m_map);
@@ -24,13 +24,13 @@ Game::~Game()
 
 bool Game::Start()
 {
-	m_unityChan = Engine::NewGO<Engine::prefab::ModelRender>(1, nullptr);
-	m_unityChan->SetTkmFilePath("Assets/modelData/unityChan.tkm");
-	m_unityChan->SetVSEntryPoint("VSMainSkin");
-	m_unityChan->SetSkeleton(m_skeleton);
-	Quaternion q_rot = Quaternion::Identity;
-	q_rot.SetRotationDeg(Vector3::AxisX, 90.0f);
-	m_unityChan->SetRotation(q_rot);
+	//m_unityChan = Engine::NewGO<Engine::prefab::ModelRender>(1, nullptr);
+	//m_unityChan->SetTkmFilePath("Assets/modelData/unityChan.tkm");
+	//m_unityChan->SetVSEntryPoint("VSMainSkin");
+	//m_unityChan->SetSkeleton(m_skeleton);
+	//Quaternion q_rot = Quaternion::Identity;
+	//q_rot.SetRotationDeg(Vector3::AxisX, 90.0f);
+	//m_unityChan->SetRotation(q_rot);
 
 	m_map = Engine::NewGO<Engine::prefab::ModelRender>(2, nullptr);
 	m_map->SetTkmFilePath("Assets/modelData/map.tkm");
@@ -43,10 +43,10 @@ bool Game::Start()
 	//m_unityChanInitData.m_tkmFilePath = "Assets/modelData/unityChan.tkm";
 
 	//スケルトンとアニメーションの初期化
-	m_skeleton.Init("Assets/modelData/unityChan.tks"); 
-	m_skeleton.Update(Matrix::Identity);
-	m_animation.Init(m_skeleton, m_animClip, 1);
-	m_animation.Play(0);
+	//m_skeleton.Init("Assets/modelData/unityChan.tks"); 
+	//m_skeleton.Update(Matrix::Identity);
+	//m_animation.Init(m_skeleton, m_animClip, 1);
+	//m_animation.Play(0);
 	//RC = g_graphicsEngine->GetRenderContext();
 	//m_unityChan.Init(m_unityChanInitData);
 
@@ -58,7 +58,7 @@ bool Game::Start()
 
 void Game::Update()
 {
-	m_animation.Update(1.0f / 60.0f);
+	//m_animation.Update(1.0f / 60.0f);
 	if (GetAsyncKeyState(VK_UP))
 	{
 		pos.y -= 1.0f;
@@ -76,7 +76,7 @@ void Game::Update()
 		pos.x += 1.0f;
 	}
 
-	m_unityChan->SetPosition(pos);
+	//m_unityChan->SetPosition(pos);
 }
 
 void Game::Draw()
