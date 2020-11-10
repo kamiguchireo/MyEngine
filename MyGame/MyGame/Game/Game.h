@@ -2,6 +2,8 @@
 #include "SourceFile/graphic/Animation/Animation.h"
 #include "SourceFile/graphic/Animation/AnimationClip.h"
 #include "SourceFile/graphic/ModelRender.h"
+#include "Player/Player.h"
+
 class Game:public IGameObject
 {
 public:
@@ -20,6 +22,7 @@ private:
 	//Engine::prefab::ModelRender* m_unityChan = nullptr;
 	Engine::prefab::ModelRender* m_map = nullptr;
 	Vector3 pos = Vector3::Zero;
+	Player* player = nullptr;
 	//Model m_unityChan;
 	//ModelInitData m_unityChanInitData;
 };

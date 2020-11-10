@@ -10,5 +10,4 @@ public:
 	void Update();
 
 private:
-	Player* m_Instance = nullptr;
 };

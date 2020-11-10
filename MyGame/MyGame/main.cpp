@@ -56,6 +56,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		g_engine->EndFrame();
 	}
 	
+	DeleteGO(g_game);
 	Engine::GameObjectManager().DeleteAllGameObject();
 	return 0;
 }

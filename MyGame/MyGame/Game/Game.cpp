@@ -5,6 +5,7 @@ Game::Game()
 {
 	//m_animClip[0].Load("Assets/animData/idle.tka");
 	//m_animClip[0].SetLoopFlag(true);
+	player = NewGO<Player>(0, nullptr);
 }
 
 Game::~Game()
@@ -18,6 +19,10 @@ Game::~Game()
 	{
 		DeleteGO(m_map);
 		m_map = nullptr;
+	}
+	if (player != nullptr)
+	{
+		DeleteGO(player);
 	}
 }
 
@@ -38,7 +43,7 @@ bool Game::Start()
 	//m_map->SetPSEntryPoint("PSMain");
 	m_map->SetShadowRecieverFlag(true);
 	m_map->SetShadowCasterFlag(true);
-	
+	m_map->SetPosition({ 0.0f,1500.0f,0.0f });
 	//m_unityChanInitData.m_fxFilePath = "Assets/shader/NoAnimModel_LambertSpecularAmbient.fx";
 	//m_unityChanInitData.m_tkmFilePath = "Assets/modelData/unityChan.tkm";
 
@@ -50,8 +55,8 @@ bool Game::Start()
 	//RC = g_graphicsEngine->GetRenderContext();
 	//m_unityChan.Init(m_unityChanInitData);
 
-	g_camera3D->SetPosition({ 0.0f, 100.0f, 1500.0f });
-	g_camera3D->SetTarget({ 0.0f, 0.0f, 0.0f });
+	g_camera3D->SetPosition({ 0.0f, 100.0f, 100.0f });
+	g_camera3D->SetTarget({ 0.0f, 100.0f, 0.0f });
 	g_camera3D->Update();
 	return true;
 }

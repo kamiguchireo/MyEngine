@@ -3,7 +3,7 @@
 
 PlayerStateIdle::PlayerStateIdle()
 {
-	m_Instance = Player::GetInstance();
+
 }
 
 PlayerStateIdle::~PlayerStateIdle()

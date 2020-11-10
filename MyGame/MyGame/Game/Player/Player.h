@@ -11,13 +11,6 @@ public:
 	void Update();
 	void Draw();
 
-	//ƒVƒ“ƒOƒ‹ƒgƒ“
-	static Player* m_instance;
-	static Player* GetInstance()
-	{
-		return m_instance;
-	}
-
 private:
 	template<class T> void ChangeState();
 private:
