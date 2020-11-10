@@ -11,7 +11,7 @@ PlayerStateMove::~PlayerStateMove()
 
 }
 
-void PlayerStateMove::Update(Vector3& pos, Quaternion& /*rot*/, Vector3& /*scale*/)
+void PlayerStateMove::Update(Vector3& pos, Quaternion& /*rot*/)
 {
 	if (GetAsyncKeyState(VK_RIGHT))
 	{

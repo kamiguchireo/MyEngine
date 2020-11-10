@@ -33,6 +33,7 @@ bool Player::Start()
 	m_playerModel->SetVSEntryPoint("VSMainSkin");
 	m_playerModel->SetSkeleton(m_skeleton);
 	m_rot.SetRotationDeg(Vector3::AxisX, 90.0f);
+	m_playerModel->SetScale(m_scale);
 
 	//スケルトンとアニメーションの初期化
 	m_skeleton.Init("Assets/modelData/unityChan.tks");
@@ -50,9 +51,8 @@ void Player::Update()
 	{
 		ChangeState(&m_stateMove);
 	}
-	currentState->Update(m_pos,m_rot,m_scale);
+	currentState->Update(m_pos,m_rot);
 
 	m_playerModel->SetPosition(m_pos);
 	m_playerModel->SetRotation(m_rot);
-	m_playerModel->SetScale(m_scale);
 }

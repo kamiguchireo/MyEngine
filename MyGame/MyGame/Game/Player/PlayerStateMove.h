@@ -7,7 +7,7 @@ public:
 	PlayerStateMove();
 	~PlayerStateMove();
 
-	void Update(Vector3& pos, Quaternion& /*rot*/, Vector3& /*scale*/);
+	void Update(Vector3& pos, Quaternion& /*rot*/);
 private:
 };
 

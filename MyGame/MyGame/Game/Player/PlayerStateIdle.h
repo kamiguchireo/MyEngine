@@ -6,7 +6,7 @@ class PlayerStateIdle:public IPlayer
 public:
 	PlayerStateIdle();
 	~PlayerStateIdle();
-	void Update(Vector3& /*pos*/, Quaternion& /*rot*/, Vector3& /*scale*/);
+	void Update(Vector3& /*pos*/, Quaternion& /*rot*/);
 
 private:
 };
