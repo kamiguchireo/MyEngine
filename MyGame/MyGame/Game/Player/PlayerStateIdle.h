@@ -1,13 +1,13 @@
 #pragma once
 #include "IPlayer.h"
-#include "Player.h"
+
 
 class PlayerStateIdle:public IPlayer
 {
 public:
 	PlayerStateIdle();
 	~PlayerStateIdle();
-	void Update();
+	void Update(Vector3& pos, Quaternion& rot, Vector3& scale);
 
 private:
 };

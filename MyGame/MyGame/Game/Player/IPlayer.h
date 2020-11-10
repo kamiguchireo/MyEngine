@@ -10,7 +10,7 @@ public:
 	{
 	}
 	//XVŠÖ”
-	virtual void Update() = 0;
+	virtual void Update(Vector3& pos,Quaternion& rot,Vector3& scale) = 0;
 
 };
 

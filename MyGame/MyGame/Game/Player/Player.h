@@ -1,5 +1,6 @@
 #pragma once
 #include "IPlayer.h"
+#include "PlayerStateIdle.h"
 
 class Player:public IGameObject
 {
@@ -12,7 +13,7 @@ public:
 	void Draw();
 
 private:
-	template<class T> void ChangeState();
+	void ChangeState(IPlayer* state);
 private:
 	IPlayer* currentState = nullptr;		//現在のステート
 	prefab::ModelRender* m_playerModel = nullptr;		//プレイヤーのモデル
@@ -22,4 +23,5 @@ private:
 	Vector3 m_pos = Vector3::Zero;
 	Vector3 m_scale = Vector3::One;
 	Quaternion m_rot = Quaternion::Identity;
+	PlayerStateIdle m_stateIdle;
 };

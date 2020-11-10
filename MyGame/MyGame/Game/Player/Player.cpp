@@ -1,20 +1,15 @@
 #include "stdafx.h"
 #include "Player.h"
-#include "PlayerStateIdle.h"
+
 Player::Player()
 {
 	//待機ステートに切り替える
-	ChangeState<PlayerStateIdle>();
+	ChangeState(&m_stateIdle);
 
 }
 
 Player::~Player()
 {
-	if (currentState != nullptr)
-	{
-		delete currentState;
-		currentState = nullptr;
-	}
 	if (m_playerModel != nullptr)
 	{
 		DeleteGO(m_playerModel);
@@ -23,14 +18,9 @@ Player::~Player()
 
 }
 
-template<class T>void Player::ChangeState()
+void Player::ChangeState(IPlayer* state)
 {
-	if (currentState != nullptr)
-	{
-		delete currentState;
-	}
-	//次の状態のインスタンスを作成する
-	currentState = new T;
+	currentState = state;
 }
 
 bool Player::Start()
@@ -43,8 +33,6 @@ bool Player::Start()
 	m_playerModel->SetVSEntryPoint("VSMainSkin");
 	m_playerModel->SetSkeleton(m_skeleton);
 	m_rot.SetRotationDeg(Vector3::AxisX, 90.0f);
-	m_playerModel->SetRotation(m_rot);
-	m_playerModel->SetPosition({0.0f,0.0f,0.0f});
 
 	//スケルトンとアニメーションの初期化
 	m_skeleton.Init("Assets/modelData/unityChan.tks");
@@ -59,7 +47,11 @@ void Player::Update()
 {
 	m_animation.Update(1.0f / 60.0f);
 
-	currentState->Update();
+	currentState->Update(m_pos,m_rot,m_scale);
+
+	m_playerModel->SetPosition(m_pos);
+	m_playerModel->SetRotation(m_rot);
+	m_playerModel->SetScale(m_scale);
 }
 
 void Player::Draw()
