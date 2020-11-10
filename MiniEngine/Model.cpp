@@ -37,7 +37,7 @@ void Model::UpdateWorldMatrix(Vector3 pos, Quaternion rot, Vector3 scale)
 	mTrans.MakeTranslation(pos);
 	mRot.MakeRotationFromQuaternion(rot);
 	mScale.MakeScaling(scale);
-	m_world = mScale * mRot * mTrans * mBias;
+	m_world = mBias * mScale * mRot * mTrans;
 }
 void Model::Draw(RenderContext& rc)
 {

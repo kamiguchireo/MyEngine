@@ -36,28 +36,26 @@ bool Game::Start()
 	//Quaternion q_rot = Quaternion::Identity;
 	//q_rot.SetRotationDeg(Vector3::AxisX, 90.0f);
 	//m_unityChan->SetRotation(q_rot);
-
+	//m_unityChan->SetPosition({ 0.0f,0.0f,-100.0f });
 	m_map = Engine::NewGO<Engine::prefab::ModelRender>(2, nullptr);
 	m_map->SetTkmFilePath("Assets/modelData/map.tkm");
 	m_map->SetVSEntryPoint("VSMain");
 	//m_map->SetPSEntryPoint("PSMain");
 	m_map->SetShadowRecieverFlag(true);
 	m_map->SetShadowCasterFlag(true);
-	m_map->SetPosition({ 0.0f,1500.0f,0.0f });
-	//m_unityChanInitData.m_fxFilePath = "Assets/shader/NoAnimModel_LambertSpecularAmbient.fx";
-	//m_unityChanInitData.m_tkmFilePath = "Assets/modelData/unityChan.tkm";
+	m_map->SetPosition({ 0.0f,0.0f,1500.0f });
+
 
 	//スケルトンとアニメーションの初期化
 	//m_skeleton.Init("Assets/modelData/unityChan.tks"); 
 	//m_skeleton.Update(Matrix::Identity);
 	//m_animation.Init(m_skeleton, m_animClip, 1);
 	//m_animation.Play(0);
-	//RC = g_graphicsEngine->GetRenderContext();
-	//m_unityChan.Init(m_unityChanInitData);
 
-	g_camera3D->SetPosition({ 0.0f, 100.0f, 100.0f });
+	g_camera3D->SetPosition({ 0.0f, 100.0f, -300.0f });
 	g_camera3D->SetTarget({ 0.0f, 100.0f, 0.0f });
-	g_camera3D->Update();
+	g_camera3D->SetUp(Vector3::Up);
+
 	return true;
 }
 

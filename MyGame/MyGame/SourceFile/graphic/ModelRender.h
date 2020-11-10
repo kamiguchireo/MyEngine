@@ -48,17 +48,17 @@ namespace Engine {
 				m_model.SetShadowRecieverFlag(flag);
 			}
 
-			void SetPosition(Vector3 pos)
+			void SetPosition(const Vector3& pos)
 			{
 				m_pos = pos;
 			}
 
-			void SetRotation(Quaternion rot)
+			void SetRotation(const Quaternion& rot)
 			{
 				m_rot = rot;
 			}
 
-			void SetScale(Vector3 scale)
+			void SetScale(const Vector3& scale)
 			{
 				m_scale = scale;
 			}

@@ -44,7 +44,7 @@ bool Player::Start()
 	m_playerModel->SetSkeleton(m_skeleton);
 	m_rot.SetRotationDeg(Vector3::AxisX, 90.0f);
 	m_playerModel->SetRotation(m_rot);
-	m_playerModel->SetPosition({0.0f,0.0f,-100.0f});
+	m_playerModel->SetPosition({0.0f,0.0f,0.0f});
 
 	//スケルトンとアニメーションの初期化
 	m_skeleton.Init("Assets/modelData/unityChan.tks");
@@ -57,7 +57,7 @@ bool Player::Start()
 
 void Player::Update()
 {
-	//m_animation.Update(1.0f / 60.0f);
+	m_animation.Update(1.0f / 60.0f);
 
 	currentState->Update();
 }

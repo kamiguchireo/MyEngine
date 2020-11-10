@@ -15,7 +15,6 @@ public:
 	void Draw();
 
 private:
-	//RenderContext RC;
 	//Skeleton m_skeleton;
 	//Engine::Animation m_animation;
 	//Engine::AnimationClip m_animClip[1];
