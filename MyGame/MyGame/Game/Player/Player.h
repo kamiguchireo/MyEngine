@@ -1,6 +1,7 @@
 #pragma once
 #include "IPlayer.h"
 #include "PlayerStateIdle.h"
+#include "PlayerStateMove.h"
 
 class Player:public IGameObject
 {
@@ -10,7 +11,6 @@ public:
 
 	bool Start();
 	void Update();
-	void Draw();
 
 private:
 	void ChangeState(IPlayer* state);
@@ -24,4 +24,5 @@ private:
 	Vector3 m_scale = Vector3::One;
 	Quaternion m_rot = Quaternion::Identity;
 	PlayerStateIdle m_stateIdle;
+	PlayerStateMove m_stateMove;
 };

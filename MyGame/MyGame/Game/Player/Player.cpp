@@ -46,15 +46,13 @@ bool Player::Start()
 void Player::Update()
 {
 	m_animation.Update(1.0f / 60.0f);
-
+	if (GetAsyncKeyState(VK_RIGHT))
+	{
+		ChangeState(&m_stateMove);
+	}
 	currentState->Update(m_pos,m_rot,m_scale);
 
 	m_playerModel->SetPosition(m_pos);
 	m_playerModel->SetRotation(m_rot);
 	m_playerModel->SetScale(m_scale);
-}
-
-void Player::Draw()
-{
-
 }

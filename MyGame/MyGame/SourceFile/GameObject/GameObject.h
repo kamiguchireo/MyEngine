@@ -41,7 +41,7 @@ namespace Engine {
 	virtual void Update() = 0;
 	
 	//•`‰æ
-	virtual void Draw() = 0;
+	virtual void Draw() {};
 
 	//RenderŠÖ”‚ªÀs‚³‚ê‚½Œã‚ÅŒÄ‚Î‚ê‚é•`‰æˆ—
 	virtual void PostRender() {}
