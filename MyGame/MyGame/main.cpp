@@ -4,7 +4,11 @@
 #include "SourceFile/GameObject/GameObjectManager.h"
 #include "SourceFile/EngineProcessing.h"
 #include "SourceFile/graphic/DefferdRendering.h"
+//ゲームの時間関係
+#include "SourceFile/Timer/StopWatch.h"
+#include "SourceFile/Timer/GameTime.h"
 
+GameTime g_gameTime;
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
 ///////////////////////////////////////////////////////////////////
@@ -40,9 +44,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	DefferdRendering DR;
 	g_graphicsEngine->GetDefferdRendering()->CreateRT();
+
+	StopWatch sw;
 	// ここからゲームループ。
 	while (DispatchWindowMessage())
 	{
+		//ストップウォッチの計測開始
+		sw.Start();
+
 		EP.Update();
 		//レンダリング開始。
 		g_engine->BeginFrame();
@@ -54,6 +63,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//////////////////////////////////////
 		//レンダリング終了。
 		g_engine->EndFrame();
+
+		//ストップウォッチの計測終了
+		sw.Stop();
+
+		//このフレームにかかった時間を記憶しておく
+		g_gameTime.PushFrameDeltaTime(sw.GetElapsed());
 	}
 	
 	DeleteGO(g_game);

@@ -5,7 +5,6 @@ Player::Player()
 {
 	//待機ステートに切り替える
 	ChangeState(&m_stateIdle);
-
 }
 
 Player::~Player()
@@ -15,7 +14,6 @@ Player::~Player()
 		DeleteGO(m_playerModel);
 		m_playerModel = nullptr;
 	}
-
 }
 
 void Player::ChangeState(IPlayer* state)
@@ -48,7 +46,7 @@ bool Player::Start()
 
 void Player::Update()
 {
-	m_animation.Update(1.0f / 60.0f);
+	m_animation.Update(g_gameTime.GetFrameDeltaTime());
 	if (g_pad[0]->GetLStickXF() != 0.0f||g_pad[0]->GetLStickYF() != 0.0f)
 	{
 		ChangeState(&m_stateMove);

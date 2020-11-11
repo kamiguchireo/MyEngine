@@ -30,6 +30,12 @@ public:
 			m_frameDeltaTimeQue.pop_front();
 		}
 	}
+
+	//FPS‚ğæ“¾
+	float GetFPS()
+	{
+		return 1.0f / m_frameDeltaTime;
+	}
 private:
 	std::list<float> m_frameDeltaTimeQue;
 	float m_frameDeltaTime = 1.0f / 60.0f;		//1ƒtƒŒ[ƒ€‚ÌŒo‰ßŠÔ
