@@ -27,6 +27,8 @@ bool Player::Start()
 {
 	m_animClip[0].Load("Assets/animData/idle.tka");
 	m_animClip[0].SetLoopFlag(true);
+	m_animClip[1].Load("Assets/animData/run.tka");
+	m_animClip[1].SetLoopFlag(true);
 
 	m_playerModel = NewGO<prefab::ModelRender>(0, nullptr);
 	m_playerModel->SetTkmFilePath("Assets/modelData/unityChan.tkm");
@@ -38,8 +40,8 @@ bool Player::Start()
 	//スケルトンとアニメーションの初期化
 	m_skeleton.Init("Assets/modelData/unityChan.tks");
 	m_skeleton.Update(Matrix::Identity);
-	m_animation.Init(m_skeleton, m_animClip, 1);
-	m_animation.Play(0);
+	m_animation.Init(m_skeleton, m_animClip, 2);
+	m_animation.Play(1);
 
 	return true;
 }
@@ -47,7 +49,7 @@ bool Player::Start()
 void Player::Update()
 {
 	m_animation.Update(1.0f / 60.0f);
-	if (GetAsyncKeyState(VK_RIGHT))
+	if (g_pad[0]->GetLStickXF() != 0.0f||g_pad[0]->GetLStickYF() != 0.0f)
 	{
 		ChangeState(&m_stateMove);
 	}

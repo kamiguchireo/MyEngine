@@ -13,8 +13,6 @@ PlayerStateMove::~PlayerStateMove()
 
 void PlayerStateMove::Update(Vector3& pos, Quaternion& /*rot*/)
 {
-	if (GetAsyncKeyState(VK_RIGHT))
-	{
-		pos.x++;
-	}
+	pos.x += g_pad[0]->GetLStickXF();
+	pos.z += g_pad[0]->GetLStickYF();
 }

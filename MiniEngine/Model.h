@@ -76,7 +76,6 @@ private:
 
 	Matrix m_world;			//ワールド行列。
 	TkmFile m_tkmFile;		//tkmファイル。
-	Skeleton m_skeleton;	//スケルトン。
 	MeshParts m_meshParts;	//メッシュパーツ。
 	bool IsShadowReciever = false;
 };

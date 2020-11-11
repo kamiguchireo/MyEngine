@@ -18,6 +18,7 @@ namespace Engine {
 		//初期化処理
 		//skeleton		スケルトン
 		//animClips		アニメーションクリップ
+		//numAnimClip	アニメーションクリップの数
 		void Init(Skeleton& skeleton,AnimationClip animClips[],int numAnimClip);
 
 		//アニメーションの再生
