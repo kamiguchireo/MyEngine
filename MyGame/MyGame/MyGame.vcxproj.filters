@@ -349,5 +349,8 @@
     <ClInclude Include="SourceFile\level\MapChipRender.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="SourceFile\NameKey.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,6 +2,11 @@
 #include "MapChipRender.h"
 #include "mbstring.h"
 
+MapChipRender::MapChipRender()
+{
+
+}
+
 MapChipRender::~MapChipRender()
 {
 	if (m_modelRender != nullptr)
@@ -12,12 +17,21 @@ MapChipRender::~MapChipRender()
 }
 bool MapChipRender::Start()
 {
+	return true;
+}
+
+void MapChipRender::Update()
+{
+}
+
+void MapChipRender::InitAfterAddAllRenderObjects()
+{
 	//スキンモデルレンダーを初期化する
-	m_modelRender = NewGO<prefab::ModelRender>(0,nullptr);
+	m_modelRender = NewGO<prefab::ModelRender>(0, nullptr);
 	//ファイルパスを作成
 	wchar_t filePath[256];
 	swprintf_s(filePath, L"modelData/%s.tkm", m_renderObjDatas[0].name);
-	
+
 	size_t origsize = wcslen(filePath) + 1;
 	size_t convertedChars = 0;
 	char strConcat[] = "";
@@ -36,9 +50,4 @@ bool MapChipRender::Start()
 	//影
 	m_modelRender->SetShadowCasterFlag(true);
 	m_modelRender->SetShadowRecieverFlag(true);
-	return true;
-}
-
-void MapChipRender::Update()
-{
 }

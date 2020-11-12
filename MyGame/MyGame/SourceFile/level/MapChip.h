@@ -1,7 +1,8 @@
 #pragma once
 #include "MapChipRender.h"
-#include "Level.h"
 
+struct LevelObjectData;
+//class MapChipRender;
 class MapChip:Noncopyable
 {
 public:

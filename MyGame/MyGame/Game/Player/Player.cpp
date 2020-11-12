@@ -53,7 +53,7 @@ bool Player::Start()
 
 void Player::Update()
 {
-	m_animation.Update(g_gameTime.GetFrameDeltaTime());
+	m_animation.Update(g_gameTime.GetFrameDeltaTime()*2);
 	if (g_pad[0]->GetLStickXF() != 0.0f||g_pad[0]->GetLStickYF() != 0.0f)
 	{
 		ChangeState(&m_stateMove);

@@ -7,12 +7,29 @@ struct LevelObjectData;
 class MapChipRender:public IGameObject
 {
 public:
-	MapChipRender() {}
+	MapChipRender();
 	~MapChipRender();
 
 	bool Start();
 	void Update();
 	
+	//描画するオブジェクトの数を追加
+	void AddRenderObject(const LevelObjectData& objData)
+	{
+		m_renderObjDatas.push_back(objData);
+	}
+
+	//すべての描画オブジェクトの追加が終わった後で呼び出す必要がある初期化処理
+	void InitAfterAddAllRenderObjects();
+
+	//描画オブジェクトデータにクエリを行う
+	void QueryRenderObjDatas(std::function<void(const LevelObjectData& objData)>queryFunc)
+	{
+		for (const auto& renderObjData : m_renderObjDatas)
+		{
+			queryFunc(renderObjData);
+		}
+	}
 private:
 	int m_numRenderObject = 0;
 	std::vector<LevelObjectData> m_renderObjDatas;		//描画するオブジェクトの配列

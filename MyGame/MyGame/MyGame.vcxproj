@@ -251,6 +251,7 @@
     <ClInclude Include="SourceFile\level\MapChipRender.h" />
     <ClInclude Include="SourceFile\level\Level.h" />
     <ClInclude Include="SourceFile\level\MapChip.h" />
+    <ClInclude Include="SourceFile\NameKey.h" />
     <ClInclude Include="SourceFile\Timer\GameTime.h" />
     <ClInclude Include="Game\Player\IPlayer.h" />
     <ClInclude Include="Game\Player\Player.h" />
