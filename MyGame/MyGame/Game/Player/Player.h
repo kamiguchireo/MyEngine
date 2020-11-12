@@ -2,6 +2,7 @@
 #include "IPlayer.h"
 #include "PlayerStateIdle.h"
 #include "PlayerStateMove.h"
+#include "Game/Camera/GameCamera.h"
 
 class Player:public IGameObject
 {
@@ -25,4 +26,5 @@ private:
 	Quaternion m_rot = Quaternion::Identity;
 	PlayerStateIdle m_stateIdle;
 	PlayerStateMove m_stateMove;
+	GameCamera* m_camera = nullptr;
 };

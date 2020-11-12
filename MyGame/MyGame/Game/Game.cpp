@@ -10,11 +10,6 @@ Game::Game()
 
 Game::~Game()
 {
-	//if (m_unityChan != nullptr)
-	//{
-	//	DeleteGO(m_unityChan);
-	//	m_unityChan = nullptr;
-	//}
 	if (m_map != nullptr)
 	{
 		DeleteGO(m_map);
@@ -54,36 +49,11 @@ bool Game::Start()
 
 	g_camera3D->SetPosition({ 0.0f, 100.0f, -300.0f });
 	g_camera3D->SetTarget({ 0.0f, 100.0f, 0.0f });
-	g_camera3D->SetUp(Vector3::Up);
 
 	return true;
 }
 
 void Game::Update()
 {
-	//m_animation.Update(1.0f / 60.0f);
-	if (GetAsyncKeyState(VK_UP))
-	{
-		pos.y -= 1.0f;
-	}
-	if (GetAsyncKeyState(VK_DOWN))
-	{
-		pos.y += 1.0f;
-	}
-	if (GetAsyncKeyState(VK_RIGHT))
-	{
-		pos.x -= 1.0f;
-	}
-	if (GetAsyncKeyState(VK_LEFT))
-	{
-		pos.x += 1.0f;
-	}
-
-	//m_unityChan->SetPosition(pos);
-}
-
-void Game::Draw()
-{
-	//m_unityChan.Draw(g_graphicsEngine->GetRenderContext());
 
 }

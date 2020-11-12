@@ -14,6 +14,11 @@ Player::~Player()
 		DeleteGO(m_playerModel);
 		m_playerModel = nullptr;
 	}
+	if (m_camera != nullptr)
+	{
+		DeleteGO(m_camera);
+		m_camera = nullptr;
+	}
 }
 
 void Player::ChangeState(IPlayer* state)
@@ -23,6 +28,8 @@ void Player::ChangeState(IPlayer* state)
 
 bool Player::Start()
 {
+	m_camera = NewGO<GameCamera>(0, nullptr);
+
 	m_animClip[0].Load("Assets/animData/idle.tka");
 	m_animClip[0].SetLoopFlag(true);
 	m_animClip[1].Load("Assets/animData/run.tka");
@@ -53,6 +60,7 @@ void Player::Update()
 	}
 	currentState->Update(m_pos,m_rot);
 
+	m_camera->SetTarget(m_pos);
 	m_playerModel->SetPosition(m_pos);
 	m_playerModel->SetRotation(m_rot);
 }

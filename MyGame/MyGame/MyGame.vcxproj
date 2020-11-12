@@ -183,6 +183,7 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TkmFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
+    <ClCompile Include="Game\Camera\GameCamera.cpp" />
     <ClCompile Include="SourceFile\Timer\GameTime.cpp" />
     <ClCompile Include="Game\Player\IPlayer.cpp" />
     <ClCompile Include="Game\Player\Player.cpp" />
@@ -239,6 +240,7 @@
     <ClInclude Include="..\..\MiniEngine\tkFile\TkmFile.h" />
     <ClInclude Include="..\..\MiniEngine\tkFile\TksFile.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
+    <ClInclude Include="Game\Camera\GameCamera.h" />
     <ClInclude Include="SourceFile\Timer\GameTime.h" />
     <ClInclude Include="Game\Player\IPlayer.h" />
     <ClInclude Include="Game\Player\Player.h" />

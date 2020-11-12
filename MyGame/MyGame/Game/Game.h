@@ -12,7 +12,6 @@ public:
 
 	bool Start();
 	void Update();
-	void Draw();
 
 private:
 	//Skeleton m_skeleton;

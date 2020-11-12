@@ -25,7 +25,7 @@ public:
 				totalTime += time;
 			}
 			//•½‹Ï’l‚ğ‚Æ‚é
-			m_frameDeltaTime = min(1.0f / 30.0f, totalTime / m_frameDeltaTimeQue.size());
+			m_frameDeltaTime = totalTime / m_frameDeltaTimeQue.size();
 			//æ“ª—v‘f‚ğíœ
 			m_frameDeltaTimeQue.pop_front();
 		}

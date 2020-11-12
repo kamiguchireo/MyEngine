@@ -433,8 +433,8 @@ void GraphicsEngine::BeginRender()
 	m_frameIndex = m_swapChain->GetCurrentBackBufferIndex();
 
 	//カメラを更新する。
-	m_camera2D.Update();
-	m_camera3D.Update();
+	//m_camera2D.Update();
+	//m_camera3D.Update();
 
 	//コマンドアロケータををリセット。
 	m_commandAllocator->Reset();

@@ -27,7 +27,7 @@ void Camera::Update()
 				m_projectionMatrix.MakeOrthoProjectionMatrix(m_width, m_height, m_near, m_far);
 			}
 		}
-		m_up = Cross(m_right, m_forward);
+		m_up = Cross(m_forward, m_right);
 		//ビュー行列の算出
 		m_viewMatrix.MakeLookAt(m_position, m_target, m_up);
 		//ビュープロジェクション行列の作成。

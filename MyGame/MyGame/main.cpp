@@ -37,10 +37,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_graphicsEngine->GetLightManager()->SetLightAmbinetLight({ 1.0f,1.0f,1.0f });
 	g_graphicsEngine->GetLightManager()->SetLightEyepos(g_camera3D->GetPosition());
 	g_graphicsEngine->GetLightManager()->SetLightSpecpow(5.0f);
-	//DirectionalLight DL2;
-	//DL2.direction = { -1.0f,0.0f,0.0f };
-	//DL2.color = {1.0f,0.0f,0.0f,0.0f};
-	//g_graphicsEngine->GetLightManager()->AddDirectionLight(DL2);
 
 	DefferdRendering DR;
 	g_graphicsEngine->GetDefferdRendering()->CreateRT();
@@ -49,6 +45,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	// ここからゲームループ。
 	while (DispatchWindowMessage())
 	{
+		g_camera2D->Update();
+		g_camera3D->Update();
 		//ストップウォッチの計測開始
 		sw.Start();
 
@@ -69,6 +67,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 		//このフレームにかかった時間を記憶しておく
 		g_gameTime.PushFrameDeltaTime(sw.GetElapsed());
+		float f = g_gameTime.GetFPS();
 	}
 	
 	DeleteGO(g_game);

@@ -124,16 +124,15 @@ namespace Engine
 		//遠平面の距離
 		float farPlaneZ = shadowAreaTbl[0];
 
-		//カメラの上方向
-		Vector3 cameraUp = Vector3::Up;
-		cameraUp = g_camera3D->GetUp();
-
 		//カメラの前方向
 		Vector3 cameraForward = Vector3::Front;
 		cameraForward = g_camera3D->GetForward();
 		//カメラの右方向
 		Vector3 cameraRight = Vector3::Right;
 		cameraRight = g_camera3D->GetRight();
+		//カメラの上方向
+		Vector3 cameraUp = Vector3::Up;
+		cameraUp = Cross(cameraForward, cameraRight);
 		//カメラの位置
 		Vector3 cameraPos = Vector3::Zero;
 		cameraPos = g_camera3D->GetPosition();
