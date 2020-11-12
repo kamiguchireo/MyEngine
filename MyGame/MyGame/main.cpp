@@ -45,12 +45,16 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	// ここからゲームループ。
 	while (DispatchWindowMessage())
 	{
-		g_camera2D->Update();
-		g_camera3D->Update();
+
 		//ストップウォッチの計測開始
 		sw.Start();
 
 		EP.Update();
+		
+		//カメラのアップデート
+		g_camera2D->Update();
+		g_camera3D->Update();
+
 		//レンダリング開始。
 		g_engine->BeginFrame();
 		EP.Rendering();
