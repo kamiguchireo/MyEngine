@@ -185,7 +185,7 @@
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
     <ClCompile Include="Game\Camera\CameraStateTPS.cpp" />
     <ClCompile Include="Game\Camera\GameCamera.cpp" />
-    <ClCompile Include="IGameCamera.cpp" />
+    <ClCompile Include="Game\Camera\IGameCamera.cpp" />
     <ClCompile Include="SourceFile\Timer\GameTime.cpp" />
     <ClCompile Include="Game\Player\IPlayer.cpp" />
     <ClCompile Include="Game\Player\Player.cpp" />
@@ -244,7 +244,7 @@
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
     <ClInclude Include="Game\Camera\CameraStateTPS.h" />
     <ClInclude Include="Game\Camera\GameCamera.h" />
-    <ClInclude Include="IGameCamera.h" />
+    <ClInclude Include="Game\Camera\IGameCamera.h" />
     <ClInclude Include="SourceFile\Timer\GameTime.h" />
     <ClInclude Include="Game\Player\IPlayer.h" />
     <ClInclude Include="Game\Player\Player.h" />

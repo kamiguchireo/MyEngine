@@ -3,7 +3,8 @@
 
 GameCamera::GameCamera()
 {
-
+	//TPSƒJƒƒ‰‚É‚·‚é
+	ChangeState(&TPScameraState);
 }
 
 GameCamera::~GameCamera()
@@ -19,7 +20,5 @@ bool GameCamera::Start()
 
 void GameCamera::Update()
 {
-	m_target.y += 50.0f;
-	g_camera3D->SetPosition(m_pos);
-	g_camera3D->SetTarget(m_target);
+	currentState->Update(m_pos, m_target);
 }
