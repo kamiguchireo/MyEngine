@@ -30,7 +30,7 @@ void MapChipRender::InitAfterAddAllRenderObjects()
 	m_modelRender = NewGO<prefab::ModelRender>(0, nullptr);
 	//ファイルパスを作成
 	wchar_t filePath[256];
-	swprintf_s(filePath, L"modelData/%s.tkm", m_renderObjDatas[0].name);
+	swprintf_s(filePath, L"Assets/modelData/%s.tkm", m_renderObjDatas[0].name);
 
 	size_t origsize = wcslen(filePath) + 1;
 	size_t convertedChars = 0;

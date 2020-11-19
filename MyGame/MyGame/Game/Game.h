@@ -18,7 +18,7 @@ private:
 	//Engine::Animation m_animation;
 	//Engine::AnimationClip m_animClip[1];
 	//Engine::prefab::ModelRender* m_unityChan = nullptr;
-	Engine::prefab::ModelRender* m_map = nullptr;
+	//Engine::prefab::ModelRender* m_map = nullptr;
 	Vector3 pos = Vector3::Zero;
 	Player* player = nullptr;
 	//Model m_unityChan;

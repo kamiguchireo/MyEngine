@@ -10,11 +10,11 @@ Game::Game()
 
 Game::~Game()
 {
-	if (m_map != nullptr)
-	{
-		DeleteGO(m_map);
-		m_map = nullptr;
-	}
+	//if (m_map != nullptr)
+	//{
+	//	DeleteGO(m_map);
+	//	m_map = nullptr;
+	//}
 	if (player != nullptr)
 	{
 		DeleteGO(player);
@@ -32,13 +32,13 @@ bool Game::Start()
 	//q_rot.SetRotationDeg(Vector3::AxisX, 90.0f);
 	//m_unityChan->SetRotation(q_rot);
 	//m_unityChan->SetPosition({ 0.0f,0.0f,-100.0f });
-	m_map = Engine::NewGO<Engine::prefab::ModelRender>(2, nullptr);
-	m_map->SetTkmFilePath("Assets/modelData/map.tkm");
-	m_map->SetVSEntryPoint("VSMain");
+	//m_map = Engine::NewGO<Engine::prefab::ModelRender>(2, nullptr);
+	//m_map->SetTkmFilePath("Assets/modelData/map.tkm");
+	//m_map->SetVSEntryPoint("VSMain");
 	//m_map->SetPSEntryPoint("PSMain");
-	m_map->SetShadowRecieverFlag(true);
-	m_map->SetShadowCasterFlag(true);
-	m_map->SetPosition({ 0.0f,0.0f,1500.0f });
+	//m_map->SetShadowRecieverFlag(true);
+	//m_map->SetShadowCasterFlag(true);
+	//m_map->SetPosition({ 0.0f,0.0f,1500.0f });
 
 
 	//スケルトンとアニメーションの初期化
