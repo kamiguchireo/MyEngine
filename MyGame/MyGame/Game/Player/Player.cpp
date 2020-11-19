@@ -47,7 +47,6 @@ bool Player::Start()
 	m_skeleton.Update(Matrix::Identity);
 	m_animation.Init(m_skeleton, m_animClip, 2);
 	m_animation.Play(1);
-
 	return true;
 }
 
@@ -63,4 +62,5 @@ void Player::Update()
 	m_camera->SetTarget(m_pos);
 	m_playerModel->SetPosition(m_pos);
 	m_playerModel->SetRotation(m_rot);
+	
 }

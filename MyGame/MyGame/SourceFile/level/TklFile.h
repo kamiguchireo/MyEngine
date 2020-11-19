@@ -25,7 +25,7 @@ public:
 	//filePath		ファイルパス
 	void Load(const char* filePath);
 
-	//ボーンに対してクエリを行う
+	//オブジェクトに対してクエリを行う
 	void QueryObject(std::function<void(SObject& obj)> query)
 	{
 		for (auto& obj : m_objects)

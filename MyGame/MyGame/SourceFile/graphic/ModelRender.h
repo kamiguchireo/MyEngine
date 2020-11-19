@@ -62,6 +62,11 @@ namespace Engine {
 			{
 				m_scale = scale;
 			}
+
+			void SetInstanceNum(int num)
+			{
+				m_numInstance = num;
+			}
 		private:
 			Model m_model;
 			Vector3 m_pos = Vector3::Zero;
@@ -76,6 +81,7 @@ namespace Engine {
 			ModelInitData InitData;
 			Skeleton* m_skeleton = nullptr;
 			bool m_ShadowCasterFlag = true;
+			int m_numInstance = 0;
 		};
 	}
 }

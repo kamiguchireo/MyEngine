@@ -30,9 +30,16 @@ public:
 			queryFunc(renderObjData);
 		}
 	}
+
+	void AddRenderObject()
+	{
+		m_numRenderObject++;
+	}
+
 private:
 	int m_numRenderObject = 0;
 	std::vector<LevelObjectData> m_renderObjDatas;		//描画するオブジェクトの配列
 	prefab::ModelRender* m_modelRender = nullptr;		//モデルレンダー
+	std::unique_ptr<Matrix[]> m_ObjMatrixs;
 };
 

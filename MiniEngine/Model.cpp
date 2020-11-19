@@ -2,8 +2,11 @@
 #include "Model.h"
 
 
-void Model::Init(const ModelInitData& initData)
+void Model::Init(const ModelInitData& initData,int maxInstance)
 {
+	//インスタンスの数を代入
+	m_maxInstance = maxInstance;
+	m_meshParts.SetInstanceNum(m_maxInstance);
 	//内部のシェーダーをロードする処理が求めているのが
 	//wchar_t型の文字列なので、ここで変換しておく。
 	wchar_t wfxFilePath[256];
@@ -18,8 +21,6 @@ void Model::Init(const ModelInitData& initData)
 		wfxFilePath, 
 		initData.m_vsEntryPointFunc,
 		initData.m_psEntryPointFunc,
-		//g_graphicsEngine->GetLightManager()->GetLight(),
-		//g_graphicsEngine->GetLightManager()->GetLightSize(),
 		initData.m_expandShaderResoruceView
 	);
 

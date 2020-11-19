@@ -32,6 +32,7 @@ MapChipRender* Level::CreateMapChipRenderOrAddRenderObject(const LevelObjectData
 	{
 		//描画すべきオブジェクトのインクリメント
 		pMapChipRender = itFind->second;
+		pMapChipRender->AddRenderObject();
 	}
 	pMapChipRender->AddRenderObject(objData);
 
@@ -53,8 +54,8 @@ void Level::Init(
 	std::vector<SParams>Params;
 	m_tklFile.QueryObject([&](TklFile::SObject& tklObj) {
 		SParams objParam;
-		objParam.isShadowCaster = true;
-		objParam.isShadowReciever = true;
+		objParam.isShadowCaster = tklObj.isShadowCaster;
+		objParam.isShadowReciever = tklObj.isShadowReciever;
 		Params.push_back(objParam);
 	});
 
@@ -152,7 +153,7 @@ void Level::BuildBoneMatrices()
 			//同名のボーンがみつかった
 			//カプセル化
 			_bstr_t b(boneName);
-			const char* c = b;
+			//const char* c = b;
 			//std::abort();
 		}
 

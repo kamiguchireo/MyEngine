@@ -17,11 +17,19 @@ MapChipRender::~MapChipRender()
 }
 bool MapChipRender::Start()
 {
+	m_ObjMatrixs = std::make_unique<Matrix[]>(m_renderObjDatas.size());
 	return true;
 }
 
 void MapChipRender::Update()
 {
+	//インスタンシング描画用にワールド行列を計算
+	for (const auto& ObjPtr : m_renderObjDatas)
+	{
+		Matrix mObj;
+		mObj.Multiply(ObjPtr.scale, ObjPtr.rotation);
+
+	}
 }
 
 void MapChipRender::InitAfterAddAllRenderObjects()
@@ -46,7 +54,7 @@ void MapChipRender::InitAfterAddAllRenderObjects()
 	m_modelRender->SetPosition(m_renderObjDatas[0].position);
 	m_modelRender->SetRotation(m_renderObjDatas[0].rotation);
 	m_modelRender->SetScale(m_renderObjDatas[0].scale);
-
+	m_modelRender->SetInstanceNum(m_numRenderObject);
 	//影
 	m_modelRender->SetShadowCasterFlag(true);
 	m_modelRender->SetShadowRecieverFlag(true);

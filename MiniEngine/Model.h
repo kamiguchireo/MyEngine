@@ -27,7 +27,7 @@ public:
 	/// tkmファイルから初期化。
 	/// </summary>
 	/// <param name="initData">初期化データ</param>
-	void Init( const ModelInitData& initData );
+	void Init(const ModelInitData& initData,int m_maxInstance = 0);
 	/// <summary>
 	/// ワールド行列の更新。
 	/// </summary>
@@ -60,22 +60,17 @@ public:
 		return m_world;
 	}
 
-	////シェーダーのエントリーポイントの設定
-	////vsEntryPoint		頂点シェーダーのエントリーポイント
-	////psEntryPoint		ピクセルシェーダーのエントリーポイント
-	//void SetShaderEntryPoint(const char* vsEntryPoint, const char* psEntryPoint)
-	//{
-	//	m_meshParts.SetShaders(vsEntryPoint, psEntryPoint);
-	//}
-
 	void SetShadowRecieverFlag(bool flag)
 	{
 		IsShadowReciever = flag;
 	}
+
 private:
 
 	Matrix m_world;			//ワールド行列。
 	TkmFile m_tkmFile;		//tkmファイル。
 	MeshParts m_meshParts;	//メッシュパーツ。
 	bool IsShadowReciever = false;
+	int m_numInstance = 0;
+	int m_maxInstance = 1;
 };

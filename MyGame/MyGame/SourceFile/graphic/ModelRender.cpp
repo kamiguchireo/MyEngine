@@ -31,7 +31,7 @@ namespace Engine {
 			{
 				m_model.BindSkeleton(*m_skeleton);
 			}
-			m_model.Init(InitData);
+			m_model.Init(InitData, m_numInstance);
 			//auto RC = g_graphicsEngine->GetRenderContext();
 			return true;
 		}

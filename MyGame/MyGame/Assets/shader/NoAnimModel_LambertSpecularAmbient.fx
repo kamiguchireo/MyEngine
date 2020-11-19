@@ -79,6 +79,9 @@ Texture2D<float4> g_normalMap : register(t1);
 Texture2D<float4> g_specularMap : register(t2);
 //ボーン行列
 StructuredBuffer<float4x4> boneMatrix : register(t3);
+//インスタンシング描画用
+StructuredBuffer<float4x4> instanceMatrix : register(t100);
+
 //シャドウテクスチャ
 Texture2D<float4>g_shadowMap0:register(t4);
 //シャドウテクスチャ
@@ -88,14 +91,11 @@ Texture2D<float4>g_shadowMap2:register(t6);
 //サンプラステート。
 sampler g_sampler : register(s0);
 
-/// <summary>
-/// モデル用の頂点シェーダーのエントリーポイント。
-/// </summary>
-SPSIn VSMain(SVSIn vsIn, uniform bool hasSkin)
+SPSIn VSMainCore(SVSIn vsIn, float4x4 worldMat)
 {
 	SPSIn psIn = (SPSIn)0;
 
-	psIn.pos = mul(mWorld, vsIn.pos);						//モデルの頂点をワールド座標系に変換。
+	psIn.pos = mul(worldMat, vsIn.pos);						//モデルの頂点をワールド座標系に変換。
 	psIn.worldPos = psIn.pos.xyz;
 	psIn.pos = mul(mView, psIn.pos);						//ワールド座標系からカメラ座標系に変換。
 	psIn.posInview = psIn.pos;
@@ -104,8 +104,16 @@ SPSIn VSMain(SVSIn vsIn, uniform bool hasSkin)
 	psIn.uv = vsIn.uv;
 
 	return psIn;
+
 }
 
+/// <summary>
+/// モデル用の頂点シェーダーのエントリーポイント。
+/// </summary>
+SPSIn VSMain(SVSIn vsIn)
+{
+	return VSMainCore(vsIn, mWorld);
+}
 
 //スキン行列を計算
 float4x4 CalcSkinMatrix(SVSInSkin vsIn)
@@ -388,7 +396,6 @@ PSInput_ShadowMap VSMain_ShadowMapSkin(SVSInSkin In)
 //ピクセルシェーダーのエントリ関数
 float4 PSMain_ShadowMap(PSInput_ShadowMap In) : SV_Target0
 {
-
 	//射影空間でのZ値を返す
 	return In.Position.z / In.Position.w;
 }
