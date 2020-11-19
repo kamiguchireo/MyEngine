@@ -7,6 +7,7 @@
 //ゲームの時間関係
 #include "SourceFile/Timer/StopWatch.h"
 #include "SourceFile/Timer/GameTime.h"
+#include "SourceFile/level/Level.h"
 
 GameTime g_gameTime;
 ///////////////////////////////////////////////////////////////////
@@ -20,7 +21,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//////////////////////////////////////
 	// ここから初期化を行うコードを記述する。
 	//////////////////////////////////////
-
+	Level m_level;
+	m_level.Init("Assets/Level/Ground.tkl",nullptr);
 	Game* g_game = nullptr;
 	g_game = Engine::NewGO<Game>(0, nullptr);
 	//////////////////////////////////////

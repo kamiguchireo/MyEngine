@@ -1,4 +1,5 @@
 #pragma once
+#include "TklFile.h"
 
 class MapChip;
 class MapChipRender;
@@ -39,7 +40,7 @@ private:
 private:
 	std::map<unsigned int, MapChipRender*>m_mapChipRenderPtrs;		//マップチップレンダーの配列
 	std::vector<MapChipPtr> m_mapChipPtrs;			//マップチップの配列
-	TksFile m_tklFile;
+	TklFile m_tklFile;
 	using BonePtr = std::unique_ptr<Bone>;
 	std::vector<BonePtr> m_bones;
 	std::unique_ptr<Matrix[]>	m_boneMatrixs;		//ボーン行列

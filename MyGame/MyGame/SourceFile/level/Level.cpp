@@ -51,7 +51,7 @@ void Level::Init(
 		bool isShadowReciever;
 	};
 	std::vector<SParams>Params;
-	m_tklFile.QueryBone([&](TksFile::SBone& tklObj) {
+	m_tklFile.QueryObject([&](TklFile::SObject& tklObj) {
 		SParams objParam;
 		objParam.isShadowCaster = true;
 		objParam.isShadowReciever = true;
@@ -112,7 +112,7 @@ void Level::Init(
 
 void Level::BuildBoneMatrices()
 {
-	m_tklFile.QueryBone([&](TksFile::SBone& tklObj)
+	m_tklFile.QueryObject([&](TklFile::SObject& tklObj)
 	{
 		//バインドポーズ
 		Matrix bindPoseMatrix;
@@ -151,9 +151,9 @@ void Level::BuildBoneMatrices()
 		{
 			//同名のボーンがみつかった
 			//カプセル化
-			//_bstr_t b(boneName);
-			//const char* c = b;
-			std::abort();
+			_bstr_t b(boneName);
+			const char* c = b;
+			//std::abort();
 		}
 
 		m_bones.push_back(std::move(bone));
