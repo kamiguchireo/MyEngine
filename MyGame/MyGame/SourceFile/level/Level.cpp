@@ -16,7 +16,7 @@ Level::~Level()
 
 }
 
-MapChipRender* Level::CreateMapChipRenderOrAddRenderObject(const LevelObjectData& objData)
+MapChipRender* Level::CreateMapChipRenderOrAddRenderObject(const LevelObjectData& objData,int i)
 {
 	WNameKey nameKey(objData.name);
 
@@ -34,7 +34,7 @@ MapChipRender* Level::CreateMapChipRenderOrAddRenderObject(const LevelObjectData
 		pMapChipRender = itFind->second;
 		pMapChipRender->AddRenderObject();
 	}
-	pMapChipRender->AddRenderObject(objData);
+	pMapChipRender->AddRenderObject(objData, m_bones[i].get()->GetWorldMatrix());
 
 	return pMapChipRender;
 }
@@ -93,7 +93,7 @@ void Level::Init(
 			if (isHook == false)
 			{
 				//マップチップレンダラーを作成する
-				CreateMapChipRenderOrAddRenderObject(objData);
+				CreateMapChipRenderOrAddRenderObject(objData,i);
 			}
 		}
 	}

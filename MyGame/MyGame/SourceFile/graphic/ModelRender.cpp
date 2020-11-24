@@ -31,6 +31,11 @@ namespace Engine {
 			{
 				m_model.BindSkeleton(*m_skeleton);
 			}
+			//レベルがセットされているとき
+			if (m_level != nullptr)
+			{
+				m_model.BindLevelObject(*m_level);
+			}
 			m_model.Init(InitData, m_numInstance);
 			//auto RC = g_graphicsEngine->GetRenderContext();
 			return true;

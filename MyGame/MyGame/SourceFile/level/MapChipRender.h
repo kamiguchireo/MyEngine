@@ -14,9 +14,10 @@ public:
 	void Update();
 	
 	//描画するオブジェクトの数を追加
-	void AddRenderObject(const LevelObjectData& objData)
+	void AddRenderObject(const LevelObjectData& objData,const Matrix& mat)
 	{
 		m_renderObjDatas.push_back(objData);
+		m_levelMatrixs.push_back(mat);
 	}
 
 	//すべての描画オブジェクトの追加が終わった後で呼び出す必要がある初期化処理
@@ -40,6 +41,6 @@ private:
 	int m_numRenderObject = 0;
 	std::vector<LevelObjectData> m_renderObjDatas;		//描画するオブジェクトの配列
 	prefab::ModelRender* m_modelRender = nullptr;		//モデルレンダー
-	std::unique_ptr<Matrix[]> m_ObjMatrixs;
+	std::vector<Matrix> m_levelMatrixs;
 };
 

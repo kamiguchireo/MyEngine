@@ -34,7 +34,7 @@ private:
 	//マップチップレンダーを作成するか、描画するオブジェクトをインクリメントする
 	//未登録のオブジェクトが渡されたら、レンダーを作成する
 	//登録済みの場合は、マップチップレンダーが描画すべきオブジェクトをインクリメントする
-	MapChipRender* CreateMapChipRenderOrAddRenderObject(const LevelObjectData& objData);
+	MapChipRender* CreateMapChipRenderOrAddRenderObject(const LevelObjectData& objData,int i);
 	//ボーン行列の構築
 	void BuildBoneMatrices();
 private:

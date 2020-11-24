@@ -67,6 +67,7 @@ void MeshParts::CreateDescriptorHeaps()
 			descriptorHeap.RegistShaderResource(4, g_graphicsEngine->GetShadowMap()->GetSRV(0));
 			descriptorHeap.RegistShaderResource(5, g_graphicsEngine->GetShadowMap()->GetSRV(1));
 			descriptorHeap.RegistShaderResource(6, g_graphicsEngine->GetShadowMap()->GetSRV(2));
+			descriptorHeap.RegistShaderResource(100, m_instancingMatricesStructureBuffer);		//ボーン行列
 
 			if (m_expandShaderResourceView){
 				descriptorHeap.RegistShaderResource(EXPAND_SRV_REG__START_NO, *m_expandShaderResourceView);
@@ -159,13 +160,18 @@ void MeshParts::BindSkeleton(Skeleton& skeleton)
 	);
 }
 
-void MeshParts::SetInstancingBuffer()
+void MeshParts::BindLevelWardlMatrix(std::vector<Matrix>& mat)
 {
-	//m_instancingMatricesStructureBuffer.Init(
-	//	sizeof(Matrix),
-	//	m_instanceNum,
-	//)
+	m_level = &mat;
+	m_instancingMatricesStructureBuffer.Init(
+		sizeof(Matrix),
+		m_level->size(),
+		m_level
+	);
+	m_instancingMatricesStructureBuffer.Update(m_skeleton->GetBoneMatricesTopAddress());
+
 }
+
 
 //void MeshParts::SetShaders(const char* vsEntryPoint,const char* psEntryPoint)
 //{
@@ -212,6 +218,7 @@ void MeshParts::Draw(
 		//ボーン行列を更新する。
 		m_boneMatricesStructureBuffer.Update(m_skeleton->GetBoneMatricesTopAddress());
 	}
+
 	int descriptorHeapNo = 0;
 	for (auto& mesh : m_meshs) {
 		//頂点バッファを設定。

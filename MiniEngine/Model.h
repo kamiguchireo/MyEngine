@@ -44,6 +44,12 @@ public:
 	{
 		m_meshParts.BindSkeleton(skeleton);
 	}
+
+	//ƒŒƒxƒ‹‚ðŠÖ˜A•t‚¯‚é
+	void BindLevelObject(std::vector<Matrix>& mat)
+	{
+		m_meshParts.BindLevelWardlMatrix(mat);
+	}
 	/// <summary>
 	/// •`‰æ
 	/// </summary>

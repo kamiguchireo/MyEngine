@@ -65,7 +65,9 @@ public:
 	/// <param name="skeleton">スケルトン</param>
 	void BindSkeleton(Skeleton& skeleton) ;
 
-	void SetInstancingBuffer();
+	//レベルの先頭要素のポインタを持ってくる
+	void BindLevelWardlMatrix(std::vector<Matrix>& mat);
+
 private:
 	/// <summary>
 	/// tkmメッシュからメッシュを作成。
@@ -120,6 +122,7 @@ private:
 	std::vector< SMesh* > m_meshs;							//メッシュ。
 	std::vector< DescriptorHeap > m_descriptorHeap;			//ディスクリプタヒープ。
 	Skeleton* m_skeleton = nullptr;							//スケルトン。
+	std::vector<Matrix>* m_level = nullptr;							//レベル
 	bool m_isCreateDescriptorHeap = false;					//ディスクリプタヒープを作成済み？
 	int m_instanceNum = 0;		//インスタンスの数
 };

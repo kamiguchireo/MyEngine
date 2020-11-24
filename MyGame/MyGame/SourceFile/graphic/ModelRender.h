@@ -80,6 +80,7 @@ namespace Engine {
 			IShaderResource* m_expandShaderResoruceView = nullptr;	//ユーザー拡張のシェーダーリソース。
 			ModelInitData InitData;
 			Skeleton* m_skeleton = nullptr;
+			std::vector<Matrix>* m_level = nullptr;
 			bool m_ShadowCasterFlag = true;
 			int m_numInstance = 0;
 		};
