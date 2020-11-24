@@ -38,6 +38,10 @@ namespace Engine {
 				m_skeleton = &SK;
 			}
 
+			void SetLevelMatrix(std::vector<Matrix>& mat)
+			{
+				m_level = &mat;
+			}
 			void SetShadowCasterFlag(bool flag)
 			{
 				m_ShadowCasterFlag = flag;

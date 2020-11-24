@@ -168,8 +168,7 @@ void MeshParts::BindLevelWardlMatrix(std::vector<Matrix>& mat)
 		m_level->size(),
 		m_level
 	);
-	m_instancingMatricesStructureBuffer.Update(m_skeleton->GetBoneMatricesTopAddress());
-
+	m_instancingMatricesStructureBuffer.Update(m_level);
 }
 
 

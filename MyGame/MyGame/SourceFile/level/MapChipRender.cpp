@@ -52,6 +52,8 @@ void MapChipRender::InitAfterAddAllRenderObjects()
 	m_modelRender->SetRotation(m_renderObjDatas[0].rotation);
 	m_modelRender->SetScale(m_renderObjDatas[0].scale);
 	m_modelRender->SetInstanceNum(m_numRenderObject);
+	m_modelRender->SetLevelMatrix(m_levelMatrixs);
+
 	//‰e
 	m_modelRender->SetShadowCasterFlag(true);
 	m_modelRender->SetShadowRecieverFlag(true);
