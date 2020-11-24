@@ -260,9 +260,9 @@ public:
 	/// インデックスつきプリミティブを描画。
 	/// </summary>
 	/// <param name="indexCount">インデックスの数。</param>
-	void DrawIndexed(UINT indexCount)
+	void DrawIndexed(UINT indexCount,UINT instanceNum = 1)
 	{
-		m_commandList->DrawIndexedInstanced(indexCount, 1, 0, 0, 0);
+		m_commandList->DrawIndexedInstanced(indexCount, instanceNum, 0, 0, 0);
 	}
 	/// <summary>
 	/// コンピュートシェーダーをディスパッチ。

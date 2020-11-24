@@ -147,16 +147,6 @@ void Level::BuildBoneMatrices()
 			tklObj.no
 			);
 
-		auto it = std::find_if(m_bones.begin(), m_bones.end(), [&](auto& bone) {return wcscmp(boneName, bone->GetName()) == 0; });
-		if (it != m_bones.end())
-		{
-			//同名のボーンがみつかった
-			//カプセル化
-			_bstr_t b(boneName);
-			//const char* c = b;
-			//std::abort();
-		}
-
 		m_bones.push_back(std::move(bone));
 	});
 

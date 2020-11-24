@@ -67,7 +67,7 @@ void MeshParts::CreateDescriptorHeaps()
 			descriptorHeap.RegistShaderResource(4, g_graphicsEngine->GetShadowMap()->GetSRV(0));
 			descriptorHeap.RegistShaderResource(5, g_graphicsEngine->GetShadowMap()->GetSRV(1));
 			descriptorHeap.RegistShaderResource(6, g_graphicsEngine->GetShadowMap()->GetSRV(2));
-			descriptorHeap.RegistShaderResource(100, m_instancingMatricesStructureBuffer);		//ボーン行列
+			descriptorHeap.RegistShaderResource(7, m_instancingMatricesStructureBuffer);		//インスタンシング描画のワールド行列
 
 			if (m_expandShaderResourceView){
 				descriptorHeap.RegistShaderResource(EXPAND_SRV_REG__START_NO, *m_expandShaderResourceView);
@@ -233,7 +233,15 @@ void MeshParts::Draw(
 			rc.SetIndexBuffer(*ib);
 
 			//ドロー。
-			rc.DrawIndexed(ib->GetCount());
+			if (m_level != nullptr)
+			{
+				//インスタンシング描画用
+				rc.DrawIndexed(ib->GetCount(),m_level->size());
+			}
+			else
+			{
+				rc.DrawIndexed(ib->GetCount());
+			}
 			descriptorHeapNo++;
 		}
 	}

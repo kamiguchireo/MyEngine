@@ -79,15 +79,15 @@ Texture2D<float4> g_normalMap : register(t1);
 Texture2D<float4> g_specularMap : register(t2);
 //ボーン行列
 StructuredBuffer<float4x4> boneMatrix : register(t3);
-//インスタンシング描画用
-StructuredBuffer<float4x4> instanceMatrix : register(t100);
-
 //シャドウテクスチャ
 Texture2D<float4>g_shadowMap0:register(t4);
 //シャドウテクスチャ
 Texture2D<float4>g_shadowMap1:register(t5);
 //シャドウテクスチャ
 Texture2D<float4>g_shadowMap2:register(t6);
+//インスタンシング描画用
+StructuredBuffer<float4x4> instanceMatrix : register(t7);
+
 //サンプラステート。
 sampler g_sampler : register(s0);
 
@@ -113,6 +113,14 @@ SPSIn VSMainCore(SVSIn vsIn, float4x4 worldMat)
 SPSIn VSMain(SVSIn vsIn)
 {
 	return VSMainCore(vsIn, mWorld);
+}
+
+/// <summary>
+/// モデル用の頂点シェーダーのエントリーポイント。
+/// </summary>
+SPSIn VSMainInstancing(SVSIn vsIn,uint instanceID : SV_InstanceID)
+{
+	return VSMainCore(vsIn, instanceMatrix[instanceID]);
 }
 
 //スキン行列を計算
@@ -348,10 +356,10 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 }
 
 //シャドウマップ生成用のスキンなしモデル頂点シェーダー
-PSInput_ShadowMap VSMain_ShadowMap(SVSIn In)
+PSInput_ShadowMap VSMain_ShadowMap(SVSIn In,uint instanceID : SV_InstanceID)
 {
 	PSInput_ShadowMap psInput = (PSInput_ShadowMap)0;
-	float4 pos = mul(mWorld, In.pos);
+	float4 pos = mul(instanceMatrix[instanceID], In.pos);
 	//pos = mul(mView, pos);
 	pos = mul(mProj, pos);
 	psInput.Position = pos;
