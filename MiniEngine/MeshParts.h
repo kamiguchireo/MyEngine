@@ -48,7 +48,9 @@ public:
 		const char* psEntryPointFunc,
 		//Engine::Light* expandData,
 		//int expandDataSize,
-		IShaderResource* expandShaderResourceView
+		IShaderResource* expandShaderResourceView,
+		StructuredBuffer* InstancinMat = nullptr,
+		int maxInstance = 1
 	) ;
 	/// <summary>
 	/// 描画。
@@ -64,9 +66,6 @@ public:
 	/// </summary>
 	/// <param name="skeleton">スケルトン</param>
 	void BindSkeleton(Skeleton& skeleton) ;
-
-	//レベルの先頭要素のポインタを持ってくる
-	void BindLevelWardlMatrix(std::vector<Matrix>& mat);
 
 private:
 	/// <summary>
@@ -95,11 +94,6 @@ private:
 //	//psEntryPoint		ピクセルシェーダーのエントリーポイント
 //	void SetShaders(const char* vsEntryPoint, const char* psEntryPoint);
 
-public:
-	void SetInstanceNum(int num)
-	{
-		m_instanceNum = num;
-	}
 private:
 	//拡張SRVが設定されるレジスタの開始番号。
 	const int EXPAND_SRV_REG__START_NO = 10;
@@ -118,11 +112,10 @@ private:
 	ConstantBuffer m_commonConstantBuffer;					//メッシュ共通の定数バッファ。
 	IShaderResource* m_expandShaderResourceView = nullptr;	//ユーザー拡張シェーダーリソースビュー。
 	StructuredBuffer m_boneMatricesStructureBuffer;			//ボーン行列の構造化バッファ。
-	StructuredBuffer m_instancingMatricesStructureBuffer;		//インスタンシング描画用のバッファ
+	StructuredBuffer* m_instancingMatricesStructureBuffer = nullptr;
 	std::vector< SMesh* > m_meshs;							//メッシュ。
 	std::vector< DescriptorHeap > m_descriptorHeap;			//ディスクリプタヒープ。
 	Skeleton* m_skeleton = nullptr;							//スケルトン。
-	std::vector<Matrix>* m_level = nullptr;							//レベル
 	bool m_isCreateDescriptorHeap = false;					//ディスクリプタヒープを作成済み？
-	int m_instanceNum = 0;		//インスタンスの数
+	int m_instanceNum = 1;		//インスタンスの数
 };

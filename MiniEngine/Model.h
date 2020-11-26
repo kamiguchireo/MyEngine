@@ -27,7 +27,7 @@ public:
 	/// tkmファイルから初期化。
 	/// </summary>
 	/// <param name="initData">初期化データ</param>
-	void Init(const ModelInitData& initData,int m_maxInstance = 0);
+	void Init(const ModelInitData& initData,int m_maxInstance = 1);
 	/// <summary>
 	/// ワールド行列の更新。
 	/// </summary>
@@ -35,6 +35,9 @@ public:
 	/// <param name="rot">回転</param>
 	/// <param name="scale">拡大率</param>
 	void UpdateWorldMatrix(Vector3 pos, Quaternion rot, Vector3 scale);
+
+	//インスタンシング描画用のデータの更新
+	void UpdateInstancingData(const Vector3& trans,const Quaternion& rot,const Vector3& scale);
 
 	/// <summary>
 	/// スケルトンを関連付ける。
@@ -45,11 +48,6 @@ public:
 		m_meshParts.BindSkeleton(skeleton);
 	}
 
-	//レベルを関連付ける
-	void BindLevelObject(std::vector<Matrix>& mat)
-	{
-		m_meshParts.BindLevelWardlMatrix(mat);
-	}
 	/// <summary>
 	/// 描画
 	/// </summary>
@@ -71,12 +69,19 @@ public:
 		IsShadowReciever = flag;
 	}
 
-private:
+	void Refresh()
+	{
+		m_numInstance = 0;
+	}
 
+	void InitLevelMat();
+private:
 	Matrix m_world;			//ワールド行列。
 	TkmFile m_tkmFile;		//tkmファイル。
 	MeshParts m_meshParts;	//メッシュパーツ。
 	bool IsShadowReciever = false;
 	int m_numInstance = 0;
 	int m_maxInstance = 1;
+	std::unique_ptr<Matrix[]> m_instancingMat;		//インスタンシング描画用の行列
+	StructuredBuffer m_instancingMatricesStructureBuffer;		//インスタンシング描画用のバッファ
 };

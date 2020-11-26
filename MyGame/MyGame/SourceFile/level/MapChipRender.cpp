@@ -22,11 +22,17 @@ bool MapChipRender::Start()
 
 void MapChipRender::Update()
 {
-	////インスタンシング描画用にワールド行列を計算
-	//for (const auto& ObjPtr : m_renderObjDatas)
-	//{
+	m_modelRender->ModelInstanceRefresh();
 
-	//}
+	if (m_renderObjDatas.size() > 1) {
+		for (auto& objData : m_renderObjDatas) {
+			m_modelRender->UpdateInstancingData(objData.position, objData.rotation, objData.scale);
+		}
+	}
+	else
+	{
+		m_modelRender->Update();
+	}
 }
 
 void MapChipRender::InitAfterAddAllRenderObjects()
@@ -53,7 +59,14 @@ void MapChipRender::InitAfterAddAllRenderObjects()
 	m_modelRender->SetScale(m_renderObjDatas[0].scale);
 	m_modelRender->SetInstanceNum(m_numRenderObject);
 	m_modelRender->SetLevelMatrix(m_levelMatrixs);
-	m_modelRender->SetVSEntryPoint("VSMainInstancing");
+	if (m_renderObjDatas.size() > 1)
+	{
+		m_modelRender->SetVSEntryPoint("VSMainInstancing");
+	}
+	else
+	{
+		m_modelRender->SetVSEntryPoint("VSMain");
+	}
 	//影
 	m_modelRender->SetShadowCasterFlag(true);
 	m_modelRender->SetShadowRecieverFlag(true);

@@ -38,7 +38,7 @@ public:
 	}
 
 private:
-	int m_numRenderObject = 0;
+	int m_numRenderObject = 1;
 	std::vector<LevelObjectData> m_renderObjDatas;		//描画するオブジェクトの配列
 	prefab::ModelRender* m_modelRender = nullptr;		//モデルレンダー
 	std::vector<Matrix> m_levelMatrixs;

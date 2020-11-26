@@ -23,9 +23,13 @@ void MeshParts::InitFromTkmFile(
 	const wchar_t* fxFilePath,
 	const char* vsEntryPointFunc,
 	const char* psEntryPointFunc,
-	IShaderResource* expandShaderResourceView
+	IShaderResource* expandShaderResourceView,
+	StructuredBuffer* InstancingMat,
+	int maxInstance
 )
 {
+	m_instanceNum = maxInstance;
+	m_instancingMatricesStructureBuffer = InstancingMat;
 	m_meshs.resize(tkmFile.GetNumMesh());
 	int meshNo = 0;
 	tkmFile.QueryMeshParts([&](const TkmFile::SMesh& mesh) {
@@ -67,7 +71,7 @@ void MeshParts::CreateDescriptorHeaps()
 			descriptorHeap.RegistShaderResource(4, g_graphicsEngine->GetShadowMap()->GetSRV(0));
 			descriptorHeap.RegistShaderResource(5, g_graphicsEngine->GetShadowMap()->GetSRV(1));
 			descriptorHeap.RegistShaderResource(6, g_graphicsEngine->GetShadowMap()->GetSRV(2));
-			descriptorHeap.RegistShaderResource(7, m_instancingMatricesStructureBuffer);		//インスタンシング描画のワールド行列
+			descriptorHeap.RegistShaderResource(7, *m_instancingMatricesStructureBuffer);		//インスタンシング描画のワールド行列
 
 			if (m_expandShaderResourceView){
 				descriptorHeap.RegistShaderResource(EXPAND_SRV_REG__START_NO, *m_expandShaderResourceView);
@@ -160,27 +164,6 @@ void MeshParts::BindSkeleton(Skeleton& skeleton)
 	);
 }
 
-void MeshParts::BindLevelWardlMatrix(std::vector<Matrix>& mat)
-{
-	m_level = &mat;
-	m_instancingMatricesStructureBuffer.Init(
-		sizeof(Matrix),
-		m_level->size(),
-		m_level
-	);
-}
-
-
-//void MeshParts::SetShaders(const char* vsEntryPoint,const char* psEntryPoint)
-//{
-//	for (auto& mesh : m_meshs)
-//	{
-//		for (int matNo = 0; matNo < mesh->m_materials.size(); matNo++)
-//		{
-//			mesh->m_materials[matNo]->InitShaders(L"Assets/shader/NoAnimModel_LambertSpecularAmbient.fx", vsEntryPoint, psEntryPoint);
-//		}
-//	}
-//}
 
 void MeshParts::Draw(
 	RenderContext& rc,
@@ -216,11 +199,6 @@ void MeshParts::Draw(
 		//ボーン行列を更新する。
 		m_boneMatricesStructureBuffer.Update(m_skeleton->GetBoneMatricesTopAddress());
 	}
-	if (m_instancingMatricesStructureBuffer.IsInited())
-	{
-		//インスタンシング描画のワールド行列を更新
-		m_instancingMatricesStructureBuffer.Update(m_level);
-	}
 	int descriptorHeapNo = 0;
 	for (auto& mesh : m_meshs) {
 		//頂点バッファを設定。
@@ -235,16 +213,11 @@ void MeshParts::Draw(
 			auto& ib = mesh->m_indexBufferArray[matNo];
 			rc.SetIndexBuffer(*ib);
 
-			//ドロー。
-			if (m_level != nullptr)
-			{
-				//インスタンシング描画用
-				rc.DrawIndexed(ib->GetCount(),m_level->size());
-			}
-			else
-			{
-				rc.DrawIndexed(ib->GetCount());
-			}
+			//インスタンシング描画用
+			rc.DrawIndexed(ib->GetCount(), m_instanceNum);
+
+			//rc.DrawIndexed(ib->GetCount());
+
 			descriptorHeapNo++;
 		}
 	}

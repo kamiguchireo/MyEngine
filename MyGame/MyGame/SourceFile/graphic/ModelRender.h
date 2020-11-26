@@ -71,6 +71,16 @@ namespace Engine {
 			{
 				m_numInstance = num;
 			}
+
+			void UpdateInstancingData(const Vector3& trans, const Quaternion& rot, const Vector3& scale)
+			{
+				m_model.UpdateInstancingData(trans, rot, scale);
+			}
+
+			void ModelInstanceRefresh()
+			{
+				m_model.Refresh();
+			}
 		private:
 			Model m_model;
 			Vector3 m_pos = Vector3::Zero;
@@ -86,7 +96,7 @@ namespace Engine {
 			Skeleton* m_skeleton = nullptr;
 			std::vector<Matrix>* m_level = nullptr;
 			bool m_ShadowCasterFlag = true;
-			int m_numInstance = 0;
+			int m_numInstance = 1;
 		};
 	}
 }
