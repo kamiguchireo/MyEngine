@@ -168,7 +168,6 @@ void MeshParts::BindLevelWardlMatrix(std::vector<Matrix>& mat)
 		m_level->size(),
 		m_level
 	);
-	m_instancingMatricesStructureBuffer.Update(m_level);
 }
 
 
@@ -217,7 +216,11 @@ void MeshParts::Draw(
 		//ボーン行列を更新する。
 		m_boneMatricesStructureBuffer.Update(m_skeleton->GetBoneMatricesTopAddress());
 	}
-
+	if (m_instancingMatricesStructureBuffer.IsInited())
+	{
+		//インスタンシング描画のワールド行列を更新
+		m_instancingMatricesStructureBuffer.Update(m_level);
+	}
 	int descriptorHeapNo = 0;
 	for (auto& mesh : m_meshs) {
 		//頂点バッファを設定。
