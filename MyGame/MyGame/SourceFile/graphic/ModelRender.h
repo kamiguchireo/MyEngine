@@ -81,6 +81,11 @@ namespace Engine {
 			{
 				m_model.Refresh();
 			}
+
+			void UpdateInstancingSTB()
+			{
+				m_model.UpdateInstancingSTB();
+			}
 		private:
 			Model m_model;
 			Vector3 m_pos = Vector3::Zero;

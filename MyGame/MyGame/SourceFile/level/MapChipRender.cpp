@@ -33,6 +33,10 @@ void MapChipRender::Update()
 	{
 		m_modelRender->Update();
 	}
+	if (m_renderObjDatas.size() > 1) {
+
+		m_modelRender->UpdateInstancingSTB();
+	}
 }
 
 void MapChipRender::InitAfterAddAllRenderObjects()

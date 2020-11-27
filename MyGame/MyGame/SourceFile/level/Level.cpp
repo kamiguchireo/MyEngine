@@ -78,7 +78,10 @@ void Level::Init(
 			objData.rotation.z = -t;
 			
 			objData.name = bone->GetName();
-
+			std::wstring hoge = objData.name;
+			//if (hoge !=  L"Ground" && hoge != L"Pillar") {
+			//	continue;
+			//}
 			std::swap(objData.scale.y, objData.scale.z);
 
 			objData.isShadowCaster = Params.at(i).isShadowCaster;

@@ -75,6 +75,11 @@ public:
 	}
 
 	void InitLevelMat();
+
+	void UpdateInstancingSTB()
+	{
+		m_instancingMatricesStructureBuffer.Update(m_instancingMat.get());
+	}
 private:
 	Matrix m_world;			//ワールド行列。
 	TkmFile m_tkmFile;		//tkmファイル。

@@ -76,7 +76,6 @@ void Model::UpdateInstancingData(const Vector3& trans, const Quaternion& rot, co
 		std::abort();
 	}
 
-	m_instancingMatricesStructureBuffer.Update(m_instancingMat.get());
 }
 
 void Model::InitLevelMat()
