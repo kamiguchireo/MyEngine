@@ -10,7 +10,7 @@ public:
 	void Update(Vector3& pos, Vector3& target);
 
 private:
-	float CameraDist = 300.0f;			//カメラからターゲットまでの距離
+	float CameraDist = 150.0f;			//カメラからターゲットまでの距離
 	float rot = 0.0f;			//回転量
 };
 

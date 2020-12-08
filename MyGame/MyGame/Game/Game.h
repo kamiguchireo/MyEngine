@@ -23,4 +23,5 @@ private:
 	Player* player = nullptr;
 	//Model m_unityChan;
 	//ModelInitData m_unityChanInitData;
+	prefab::ModelRender* m_building = nullptr;
 };

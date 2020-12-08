@@ -21,8 +21,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//////////////////////////////////////
 	// ここから初期化を行うコードを記述する。
 	//////////////////////////////////////
-	Level m_level;
-	m_level.Init("Assets/Level/Ground.tkl",nullptr);
+	//Level m_level;
+	//m_level.Init("Assets/Level/Ground.tkl",nullptr);
 	Game* g_game = nullptr;
 	g_game = Engine::NewGO<Game>(0, nullptr);
 	//////////////////////////////////////
@@ -32,11 +32,32 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	EP.Init();
 
 	g_graphicsEngine->GetLightManager()->InitCB();
-	DirectionalLight DL;
-	DL.direction = { 1.0f,0.0f,0.0f };
-	DL.color = Vector4::White;
-	g_graphicsEngine->GetLightManager()->AddDirectionLight(DL);
-	g_graphicsEngine->GetLightManager()->SetLightAmbinetLight({ 1.0f,1.0f,1.0f });
+	DirectionalLight DL1;
+	DL1.direction = { 1.0f,-1.0f,-1.0f };
+	DL1.direction.Normalize();
+	DL1.color = {5.8f,5.8f,5.8f,1.0f};
+
+	DirectionalLight DL2;
+	DL2.direction = { 1.0f,1.0f,-1.0f };
+	DL2.direction.Normalize();
+	DL2.color = { 0.8f,0.8f,0.8f,1.0f };
+
+	DirectionalLight DL3;
+	DL3.direction = { 0.0f,0.0f,1.0f };
+	DL3.direction.Normalize();
+	DL3.color = { 1.2f,1.2f,1.2f,1.0f };
+
+	DirectionalLight DL4;
+	DL4.direction = { 0.0f,1.0f,0.0f };
+	DL4.direction.Normalize();
+	DL4.color = { 1.2f,1.2f,1.2f,1.0f };
+
+	g_graphicsEngine->GetLightManager()->AddDirectionLight(DL1);
+	g_graphicsEngine->GetLightManager()->AddDirectionLight(DL2);
+	g_graphicsEngine->GetLightManager()->AddDirectionLight(DL3);
+	g_graphicsEngine->GetLightManager()->AddDirectionLight(DL4);
+
+	g_graphicsEngine->GetLightManager()->SetLightAmbinetLight({ 0.6f,0.6f,0.6f });
 	g_graphicsEngine->GetLightManager()->SetLightEyepos(g_camera3D->GetPosition());
 	g_graphicsEngine->GetLightManager()->SetLightSpecpow(5.0f);
 

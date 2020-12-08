@@ -241,46 +241,48 @@ SPSIn VSMainSkin(SVSInSkin In)
 
 float Beckmann(float m, float t)
 {
-	float M = m * m;
-	float T = t * t;
-	return exp((T - 1) / (M * T)) / (M * T * T);
+	float t2 = t * t;
+	float t4 = t * t * t * t;
+	float m2 = m * m;
+	float D = 1.0f / (4.0f * m2 * t4);
+	D *= exp((-1.0f / m2) * (1.0f - t2) / t2);
+	return D;
 }
 
 float spcFresnel(float f0, float u)
 {
-	return f0 + (1 - f0) * pow(1 - u, 5.0f);
+	return f0 + (1 - f0) * pow(1 - u, 5);
 }
 
 //L		光源に向かうベクトル
 //V		視線に向かうベクトル
 //N		法線
-float BRDF(float3 L, float3 V, float3 N)
+float BRDF(float3 L, float3 V, float3 N, float metaric)
 {
 	float microfacet = 0.3f;
-	float f0 = 0.5f;
+	float f0 = metaric;		//鏡面反射の度合い
 	bool include_F = 0;
 	bool include_G = 0;
 	//光源に向かうベクトルと視線に向かうベクトルのハーフベクトルを求める
 	float3 H = normalize(L + V);
 
-	float NdotH = dot(N, H);
-	float VdotH = dot(V, H);
-	float NdotL = dot(N, L);
-	float NdotV = dot(N, V);
+	float NdotH = max(0.0f, dot(N, H));
+	float VdotH = max(0.0f, dot(V, H));
+	float NdotL = max(0.0f, dot(N, L));
+	float NdotV = max(0.0f, dot(N, V));
 
 	float D = Beckmann(microfacet, NdotH);
 	float F = spcFresnel(f0, VdotH);
 
-	float t = 2.0f * NdotH / VdotH;
-	float G = max(0.0f, min(1.0f, min(t * NdotV, t * NdotL)));
-	float m = 3.14159265 * NdotV * NdotL;
+	float G = min(1.0f, min(2 * NdotH * NdotV / VdotH, 2 * NdotH * NdotL / VdotH));
+	float m = PI * NdotV * NdotL;
 
 	return max(F * D * G / m, 0.0f);
 }
 
-float SchlickFresnel(float u, float f0, float f90)
+float SchlickFresnel(float f0, float f90)
 {
-	return f0 + (f90 - f0) * pow(1.0f - u, 5.0f);
+	return f0 + (f90 - f0);
 }
 //N		法線
 //L		光源に向かうベクトル
@@ -290,7 +292,7 @@ float3 NormalizedDisneyDiffuse(float3 N, float3 L, float3 V, float roughness)
 {
 	//光源に向かうベクトルと視線に向かうベクトルのハーフベクトルを求める
 	float3 H = normalize(L + V);
-	
+
 	float energyBias = lerp(0.0f, 0.5f, roughness);
 	float energyFactor = lerp(1.0f, 1.0f / 1.51f, roughness);
 	//光源に向かうベクトルとハーフベクトルがどれだけ似ているかを内積で求める
@@ -302,8 +304,8 @@ float3 NormalizedDisneyDiffuse(float3 N, float3 L, float3 V, float roughness)
 
 	float Fd90 = energyBias + 2.0 * dotLH * dotLH * roughness;
 
-	float FL = SchlickFresnel(1.0f, Fd90, dotNL);
-	float FV = SchlickFresnel(1.0f, Fd90, dotNV);
+	float FL = SchlickFresnel(Fd90, dotNL);
+	float FV = SchlickFresnel(Fd90, dotNV);
 
 	return (FL * FV) / PI;
 }
@@ -315,6 +317,9 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 {
 	float3 lig = 0.0f;
 	float metaric = g_specularMap.Sample(g_sampler, psIn.uv).a;
+	//ライトをあてる物体から視点に向かって伸びるベクトルを計算する。
+	float3 eyeToPixel = eyePos - psIn.worldPos;
+
 	//////////////////////////////////////////////////////
 	// 拡散反射を計算
 	//////////////////////////////////////////////////////
@@ -324,26 +329,26 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 			if( NdotL < 0.0f){	//内積の計算結果はマイナスになるので、if文で判定する。
 				NdotL = 0.0f;
 			}			
-			//ライトをあてる物体から視点に向かって伸びるベクトルを計算する。
-			float3 eyeToPixel = eyePos - psIn.worldPos;
 			eyeToPixel = normalize(eyeToPixel);
 			
 			//拡散反射光を求める
-			float3 Diffuse = NormalizedDisneyDiffuse(psIn.normal, directionalLight[i].direction, eyeToPixel, 1.0f - metaric);
-			Diffuse *= directionalLight[i].color * (1.0f - metaric) * NdotL;
+			float3 Diffuse = NormalizedDisneyDiffuse(psIn.normal, directionalLight[i].direction, eyeToPixel, 1.0f);
+			Diffuse *= directionalLight[i].color * NdotL * Diffuse / PI;
 
 			//スペキュラ反射を求める
-			float3 Spec = BRDF(-directionalLight[i].direction, eyeToPixel, psIn.normal);
-			Spec *= directionalLight[i].color * metaric;
-			//スペキュラ反射の光を足し算する。
-			lig += (Diffuse + Spec);
+			float3 Spec = BRDF(-directionalLight[i].direction, eyeToPixel, psIn.normal, metaric);
+			Spec *= directionalLight[i].color;
+			lig += lerp(Diffuse, Spec, metaric);
 		}
 	}
 	
 	//////////////////////////////////////////////////////
 	// 環境光を計算
 	//////////////////////////////////////////////////////
-	lig += ambinentLight; //足し算するだけ
+	lig += ambinentLight;
+	//環境光による鏡面反射を計算する。
+	//光が法線方向から入射していると考えて鏡面反射を計算する。
+	lig += BRDF(psIn.normal, eyeToPixel, psIn.normal, metaric) * ambinentLight * metaric;
 
 	float f;
 	f = CalcShadow(psIn.worldPos, psIn.posInview.z);
