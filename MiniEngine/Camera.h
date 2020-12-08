@@ -85,10 +85,10 @@ public:
 	/// </summary>
 	const Matrix& GetViewMatrix() 
 	{
-		if (m_isDirty) {
-			//更新する必要がある。
-			Update();
-		}
+		//if (m_isDirty) {
+		//	//更新する必要がある。
+		//	Update();
+		//}
 		return m_viewMatrix;
 	}
 	/// <summary>
@@ -96,10 +96,10 @@ public:
 	/// </summary>
 	const Matrix& GetProjectionMatrix() 
 	{
-		if (m_isDirty) {
-			//更新する必要がある。
-			Update();
-		}
+		//if (m_isDirty) {
+		//	//更新する必要がある。
+		//	Update();
+		//}
 		return m_projectionMatrix;
 	}
 	/// <summary>

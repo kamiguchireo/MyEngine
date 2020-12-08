@@ -57,9 +57,11 @@ void Player::Update()
 	{
 		ChangeState(&m_stateMove);
 	}
-	currentState->Update(m_pos,m_rot);
 
+	currentState->Update(m_pos,m_rot);
+	
 	m_camera->SetTarget(m_pos);
+
 	m_playerModel->SetPosition(m_pos);
 	m_playerModel->SetRotation(m_rot);
 	

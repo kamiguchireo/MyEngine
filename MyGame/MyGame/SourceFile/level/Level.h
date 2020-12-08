@@ -45,5 +45,5 @@ private:
 	std::vector<BonePtr> m_bones;
 	std::unique_ptr<Matrix[]>	m_boneMatrixs;		//ボーン行列
 	bool m_isInited = false;						//初期化フラグ
-
+	unsigned int DummyHash = 0;
 };

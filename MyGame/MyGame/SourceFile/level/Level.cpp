@@ -8,7 +8,8 @@
 
 Level::Level()
 {
-
+	WNameKey Dummy(L"Dummy");
+	DummyHash = Dummy.GetHashCode();
 }
 
 Level::~Level()
@@ -19,7 +20,11 @@ Level::~Level()
 MapChipRender* Level::CreateMapChipRenderOrAddRenderObject(const LevelObjectData& objData,int i)
 {
 	WNameKey nameKey(objData.name);
-
+	if (nameKey.GetHashCode() == DummyHash)
+	{
+		//É_É~Å[ÇîÚÇŒÇ∑
+		return nullptr;
+	}
 	auto itFind = m_mapChipRenderPtrs.find(nameKey.GetHashCode());
 	MapChipRender* pMapChipRender = nullptr;
 	if (itFind == m_mapChipRenderPtrs.end())

@@ -51,9 +51,9 @@ bool Game::Start()
 	m_building->SetTkmFilePath("Assets/modelData/old_building.tkm");
 	g_camera3D->SetPosition({ 0.0f, 100.0f, -300.0f });
 	g_camera3D->SetTarget({ 0.0f, 100.0f, 0.0f });
-	Vector3 scale = Vector3::One;
-	scale *= 5.0f;
-	m_building->SetScale(scale);
+	//Vector3 scale = Vector3::One;
+	//scale *= 5.0f;
+	//m_building->SetScale(scale);
 	return true;
 }
 
