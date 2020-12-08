@@ -28,14 +28,14 @@ void Player::ChangeState(IPlayer* state)
 
 bool Player::Start()
 {
-	m_camera = NewGO<GameCamera>(1, nullptr);
+	m_camera = NewGO<GameCamera>(0, nullptr);
 
 	m_animClip[0].Load("Assets/animData/Idle.tka");
 	m_animClip[0].SetLoopFlag(true);
 	//m_animClip[1].Load("Assets/animData/run.tka");
 	//m_animClip[1].SetLoopFlag(true);
 
-	m_playerModel = NewGO<prefab::ModelRender>(2, nullptr);
+	m_playerModel = NewGO<prefab::ModelRender>(1, nullptr);
 	m_playerModel->SetTkmFilePath("Assets/modelData/unityChan.tkm");
 	m_playerModel->SetVSEntryPoint("VSMainSkin");
 	m_playerModel->SetSkeleton(m_skeleton);
