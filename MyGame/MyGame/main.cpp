@@ -57,7 +57,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_graphicsEngine->GetLightManager()->AddDirectionLight(DL3);
 	g_graphicsEngine->GetLightManager()->AddDirectionLight(DL4);
 
-	g_graphicsEngine->GetLightManager()->SetLightAmbinetLight({ 1.0f,1.0f,1.0f });
+	g_graphicsEngine->GetLightManager()->SetLightAmbinetLight({ 0.6f,0.6f,0.6f });
 	//g_graphicsEngine->GetLightManager()->SetLightEyepos(g_camera3D->GetPosition());
 	g_graphicsEngine->GetLightManager()->SetLightSpecpow(5.0f);
 

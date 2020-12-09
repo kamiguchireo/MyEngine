@@ -49,6 +49,7 @@ bool Game::Start()
 
 	m_building = NewGO<prefab::ModelRender>(1);
 	m_building->SetTkmFilePath("Assets/modelData/old_building.tkm");
+	m_building->SetShadowRecieverFlag(true);
 	g_camera3D->SetPosition({ 0.0f, 100.0f, -300.0f });
 	g_camera3D->SetTarget({ 0.0f, 100.0f, 0.0f });
 	//Vector3 scale = Vector3::One;
