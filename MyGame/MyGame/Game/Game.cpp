@@ -46,15 +46,21 @@ bool Game::Start()
 	//m_skeleton.Update(Matrix::Identity);
 	//m_animation.Init(m_skeleton, m_animClip, 1);
 	//m_animation.Play(0);
-
-	m_building = NewGO<prefab::ModelRender>(1);
-	m_building->SetTkmFilePath("Assets/modelData/old_building.tkm");
-	m_building->SetShadowRecieverFlag(true);
 	g_camera3D->SetPosition({ 0.0f, 100.0f, -300.0f });
 	g_camera3D->SetTarget({ 0.0f, 100.0f, 0.0f });
+
+	//m_building = NewGO<prefab::ModelRender>(1);
+	//m_building->SetTkmFilePath("Assets/modelData/Old_Building.tkm");
+	//m_building->SetShadowRecieverFlag(true);
 	//Vector3 scale = Vector3::One;
-	//scale *= 5.0f;
+	//scale *= 1.0f;
 	//m_building->SetScale(scale);
+
+	//m_ground = NewGO<prefab::ModelRender>(1);
+	//m_ground->SetTkmFilePath("Assets/modelData/Ground.tkm");
+	//m_ground->SetShadowRecieverFlag(true);
+	//m_ground->SetScale(scale);
+
 	return true;
 }
 

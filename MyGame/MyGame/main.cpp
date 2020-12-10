@@ -21,8 +21,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//////////////////////////////////////
 	// ここから初期化を行うコードを記述する。
 	//////////////////////////////////////
-	//Level m_level;
-	//m_level.Init("Assets/Level/Ground.tkl",nullptr);
+	Level m_level;
+	m_level.Init("Assets/Level/Map.tkl",nullptr);
 	Game* g_game = nullptr;
 	g_game = Engine::NewGO<Game>(0, nullptr);
 	//////////////////////////////////////

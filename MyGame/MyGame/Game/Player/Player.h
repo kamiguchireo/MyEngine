@@ -21,7 +21,7 @@ private:
 	Skeleton m_skeleton;
 	Engine::Animation m_animation;
 	Engine::AnimationClip m_animClip[1];
-	Vector3 m_pos = {0.0f,70.0f,-1700.0f};
+	Vector3 m_pos = {0.0f,0.0f,-1700.0f};
 	Vector3 m_scale = Vector3::One;
 	Quaternion m_rot = Quaternion::Identity;
 	PlayerStateIdle m_stateIdle;
