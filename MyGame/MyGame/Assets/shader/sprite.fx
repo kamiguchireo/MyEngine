@@ -159,7 +159,7 @@ float4 PSDefferd(PSInput In) : SV_Target0
 
 	if (shadow.x == 1.0f)
 	{
-		lig *= 0.3f;
+		lig *= 0.5f;
 	}
 	finalColor.xyz *= lig;
 	return finalColor;

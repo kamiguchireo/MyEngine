@@ -3,7 +3,7 @@
 #include "Game/Game.h"
 #include "SourceFile/GameObject/GameObjectManager.h"
 #include "SourceFile/EngineProcessing.h"
-#include "SourceFile/graphic/DefferdRendering.h"
+#include "SourceFile/graphic/PostEffect/DefferdRendering.h"
 //ÉQÅ[ÉÄÇÃéûä‘ä÷åW
 #include "SourceFile/Timer/StopWatch.h"
 #include "SourceFile/Timer/GameTime.h"

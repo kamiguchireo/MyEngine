@@ -70,26 +70,38 @@ namespace Engine
 		lightDir.Normalize();
 
 		//ライトの方向によって、ライトカメラの上方向を決める
-		Vector3 lightCameraUpAxis = Vector3::Up;
-		const float UpBoundary = 0.99998f;		//真上かどうかの境界
-		if (fabsf(lightDir.y) > UpBoundary)
-		{
-			//ほぼ真上or真下を向いている
-			lightCameraUpAxis = Vector3::AxisX;
-			lightCameraUpAxis.Cross(lightDir, Vector3::Right);
-		}
-		else
-		{
-			//真上を向いていない
-			lightCameraUpAxis = Vector3::AxisY;
-			lightCameraUpAxis = Cross(lightDir, Vector3::Up);
-		}
+		//Vector3 lightCameraUpAxis = Vector3::Up;
+		//const float UpBoundary = 0.99998f;		//真上かどうかの境界
+		//if (fabsf(lightDir.y) > UpBoundary)
+		//{
+		//	//ほぼ真上or真下を向いている
+		//	lightCameraUpAxis = Vector3::AxisX;
+		//	lightCameraUpAxis.Cross(lightDir, Vector3::Right);
+		//}
+		//else
+		//{
+		//	//真上を向いていない
+		//	lightCameraUpAxis = Vector3::AxisY;
+		//	lightCameraUpAxis = Cross(lightDir, Vector3::Up);
+		//}
+		//g_camera3D->GetUp();
 
 		//ライトの右方向
 		Vector3 lightViewRight = Vector3::Right;
-		lightViewRight.Cross(lightCameraUpAxis, lightDir);
+		//カメラの前方向
+		Vector3 cameraForward = Vector3::Front;
+		cameraForward = g_camera3D->GetForward();
+		//lightViewRight.Cross(lightCameraUpAxis, lightDir);
+		lightViewRight.Cross(lightDir,cameraForward);
 		//正規化
 		lightViewRight.Normalize();
+
+		//ライトの上方向
+		Vector3 lightCameraUpAxis = Vector3::Up;
+		lightCameraUpAxis.Cross(lightViewRight, lightDir);
+		//正規化
+		lightCameraUpAxis.Normalize();
+
 
 		//ライトビューの回転
 		Matrix lightViewRot;
@@ -123,10 +135,7 @@ namespace Engine
 		float nearPlaneZ = g_camera3D->GetNear();
 		//遠平面の距離
 		float farPlaneZ = shadowAreaTbl[0];
-
-		//カメラの前方向
-		Vector3 cameraForward = Vector3::Front;
-		cameraForward = g_camera3D->GetForward();
+	
 		//カメラの右方向
 		Vector3 cameraRight = Vector3::Right;
 		cameraRight = g_camera3D->GetRight();
@@ -213,8 +222,9 @@ namespace Engine
 					//最小値を設定
 					vMin.Min(vInLight);
 				}
-				w = vMax.x - vMin.x;
-				h = vMax.y - vMin.y;
+				//ギリギリだとマップ間に描画できてない場所ができる場合がある
+				w = vMax.x - vMin.x+50.0f;
+				h = vMax.y - vMin.y+50.0f;
 				far_z = vMax.z;
 			}
 

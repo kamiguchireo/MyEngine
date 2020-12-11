@@ -157,7 +157,7 @@ int GetCascadeIndex(float zInView)
 float CalcShadowPercent(Texture2D<float4> tex, float2 uv, float depth)
 {
 	float shadow_val = tex.Sample(g_sampler, uv).r;
-	if (depth > shadow_val.r + 0.005f) {
+	if (depth > shadow_val.r + 0.0001f) {
 		return 1.0f;
 	}
 	return 0.0f;

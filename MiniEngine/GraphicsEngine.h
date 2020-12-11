@@ -14,7 +14,7 @@
 
 #include "Camera.h"
 #include "SourceFile/graphic/Shadow/ShadowMap.h"
-#include "SourceFile/graphic/DefferdRendering.h"
+#include "SourceFile/graphic/PostEffect/DefferdRendering.h"
 #include "SourceFile/graphic/Light/LightManager.h"
 
 enum EnRenderMode {

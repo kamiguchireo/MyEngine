@@ -60,7 +60,7 @@ bool Game::Start()
 	//m_ground->SetTkmFilePath("Assets/modelData/Ground.tkm");
 	//m_ground->SetShadowRecieverFlag(true);
 	//m_ground->SetScale(scale);
-
+	//g_graphicsEngine->GetShadowMap()->SetLigPos({ 100.0f, 100.0f, 0.0f });
 	return true;
 }
 

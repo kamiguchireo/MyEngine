@@ -197,7 +197,7 @@
     <ClCompile Include="Game\Player\PlayerStateMove.cpp" />
     <ClCompile Include="SourceFile\graphic\Light\LightManager.cpp" />
     <ClCompile Include="SourceFile\EngineProcessing.cpp" />
-    <ClCompile Include="SourceFile\graphic\DefferdRendering.cpp" />
+    <ClCompile Include="SourceFile\graphic\PostEffect\DefferdRendering.cpp" />
     <ClCompile Include="SourceFile\graphic\ModelRender.cpp" />
     <ClCompile Include="SourceFile\graphic\Shadow\ShadowMap.cpp" />
     <ClCompile Include="SourceFile\GameObject\GameObject.cpp" />
@@ -262,7 +262,7 @@
     <ClInclude Include="Game\Player\PlayerStateMove.h" />
     <ClInclude Include="SourceFile\graphic\Light\LightManager.h" />
     <ClInclude Include="SourceFile\EngineProcessing.h" />
-    <ClInclude Include="SourceFile\graphic\DefferdRendering.h" />
+    <ClInclude Include="SourceFile\graphic\PostEffect\DefferdRendering.h" />
     <ClInclude Include="SourceFile\graphic\Light\SLight.h" />
     <ClInclude Include="SourceFile\graphic\ModelRender.h" />
     <ClInclude Include="SourceFile\graphic\Shadow\ShadowMap.h" />

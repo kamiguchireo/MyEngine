@@ -134,9 +134,6 @@
     <ClCompile Include="SourceFile\EngineProcessing.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="SourceFile\graphic\DefferdRendering.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="SourceFile\graphic\Light\LightManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -183,6 +180,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="SourceFile\level\LevelMatrix.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFile\graphic\PostEffect\DefferdRendering.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -307,9 +307,6 @@
     <ClInclude Include="SourceFile\EngineProcessing.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="SourceFile\graphic\DefferdRendering.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="SourceFile\graphic\Light\LightManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -362,6 +359,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="SourceFile\level\LevelMatrix.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceFile\graphic\PostEffect\DefferdRendering.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
