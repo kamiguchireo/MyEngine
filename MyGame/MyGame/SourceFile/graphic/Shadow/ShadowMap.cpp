@@ -226,6 +226,14 @@ namespace Engine
 				far_z
 			);
 
+			//proj.MakeProjectionMatrix
+			//(
+			//	g_camera3D->GetViewAngle(),
+			//	g_camera3D->GetAspect(),
+			//	far_z / 100.0f,
+			//	far_z
+			//);
+
 			m_lightProMatrix[i].Multiply(mLightView, proj);
 			m_shadowCbEntity.mLVP[i] = m_lightProMatrix[i];
 			m_shadowCbEntity.shadowAreaDepthInViewSpace[i] = farPlaneZ;
