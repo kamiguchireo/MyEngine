@@ -39,6 +39,8 @@ struct SVSIn{
 	float4 pos 		: POSITION;		//モデルの頂点座標。
 	float3 normal	: NORMAL;		//法線。
 	float2 uv 		: TEXCOORD0;	//UV座標。
+	float3 tangent	: TANGENT;			//接ベクトル
+	float3 biNormal : BINORMAL;
 };
 
 //スキンありモデルの頂点シェーダーへの入力
@@ -49,6 +51,7 @@ struct SVSInSkin {
 	float3 tangent	: TANGENT;			//接ベクトル
 	uint4 Indices	: BLENDINDICES0;	//この頂点に関連付けされているボーン番号
 	float4 Weights	: BLENDWEIGHT0;		//この頂点に関連付けされているボーンウェイト
+	float4 biNormal : BINORMAL;
 };
 //ピクセルシェーダーへの入力。
 struct SPSIn{
@@ -58,6 +61,7 @@ struct SPSIn{
 	float3 worldPos		: TEXCOORD1;	//ワールド空間でのピクセルの座標。
 	float3 tangent		: TANGENT;		//接ベクトル
 	float4 posInview	: TEXCOORD2;
+	float3 biNormal		: BINORMAL;
 };
 
 //シャドウマップ用のピクセルシェーダーへの入力構造体
@@ -154,10 +158,10 @@ int GetCascadeIndex(float zInView)
 	return -1;
 }
 
-float CalcShadowPercent(Texture2D<float4> tex, float2 uv, float depth)
+float CalcShadowPercent(Texture2D<float4> tex, float2 uv, float depth/*, float bias*/)
 {
 	float shadow_val = tex.Sample(g_sampler, uv).r;
-	if (depth > shadow_val.r + 0.0001f) {
+	if (depth > shadow_val.r + /*bias*/0.0001f) {
 		return 1.0f;
 	}
 	return 0.0f;
@@ -183,20 +187,29 @@ float CalcShadow(float3 worldPos, float zInView)
 		float4 posInLVP = mul(mLVP[cascadeIndex], float4(worldPos, 1.0f));
 		posInLVP.xyz /= posInLVP.w;
 		
+		////最大深度傾斜を求める
+		//float maxDepthSlope = max(abs(ddx(posInLVP.z)), abs(ddy(posInLVP.z)));
+		//float bias = 0.0001f;		//固定バイアス
+		//float slopeScaleBias = 0.0001f;		//深度傾斜
+		//float depthBiasClamp = 0.1f;		//バイアスクランプ値
+
+		//float shadowBias = bias + slopeScaleBias * maxDepthSlope;
+		//shadowBias = min(shadowBias, depthBiasClamp);
+
 		//深度値を取得
 		float depth = min(posInLVP.z, 1.0f);
 		//uv座標に変換。
 		float2 shadowMapUV = float2(0.5f, -0.5f) * posInLVP.xy + float2(0.5f, 0.5f);
 
 		if (cascadeIndex == 0) {
-			shadow = CalcShadowPercent(g_shadowMap0, shadowMapUV, depth);
+			shadow = CalcShadowPercent(g_shadowMap0, shadowMapUV, depth/*, shadowBias*/);
 		}
 		else if (cascadeIndex == 1) {
-			shadow = CalcShadowPercent(g_shadowMap1, shadowMapUV, depth);
+			shadow = CalcShadowPercent(g_shadowMap1, shadowMapUV, depth/*, shadowBias*/);
 		}
 		else if (cascadeIndex == 2) {
 
-			shadow = CalcShadowPercent(g_shadowMap2, shadowMapUV, depth);
+			shadow = CalcShadowPercent(g_shadowMap2, shadowMapUV, depth/*, shadowBias*/);
 		}
 
 	}
@@ -413,18 +426,32 @@ float4 PSMain_ShadowMap(PSInput_ShadowMap In) : SV_Target0
 	return In.Position.z / In.Position.w;
 }
 
+float3 GetNormal(float3 normal, float3 tangent, float3 biNormal, float2 uv)
+{
+
+	float3 binSpaceNormal = g_normalMap.Sample(g_sampler, uv).xyz;
+	binSpaceNormal = (binSpaceNormal * 2.0f) - 1.0f;
+
+	float3 newNormal = tangent * binSpaceNormal.x + biNormal * binSpaceNormal.y + normal * binSpaceNormal.z;
+
+	return newNormal;
+}
+
 SPSOUT PSDefferdMain(SPSIn psIn)
 {
 	SPSOUT psOut;
 	psOut.albedo = g_texture.Sample(g_sampler, psIn.uv);
 	//法線は0～1
-	psOut.normal.xyz = (psIn.normal / 2.0f) + 0.5f;
+	//float3 Normalmap = (psIn.normal / 2.0f) + 0.5f;
+	//psOut.normal.xyz = (psIn.normal / 2.0f) + 0.5f;
+	float3 Normal = GetNormal(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
+	psOut.normal.xyz = Normal.xyz;
 	//シャドウ用
 	float f = 0.0f;
 	f = CalcShadow(psIn.worldPos, psIn.posInview.z);
 	psOut.shadow = f;
 	psOut.worldPos.xyz = psIn.worldPos;
-	float metaric = g_specularMap.Sample(g_sampler, psIn.uv).a;
-	psOut.specularMap = metaric;
+	float metaric = g_specularMap.Sample(g_sampler, psIn.uv).g;
+	psOut.specularMap = float4(metaric, metaric, metaric, 1.0f);
 	return psOut;
 }

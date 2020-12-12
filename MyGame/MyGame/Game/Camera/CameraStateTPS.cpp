@@ -18,7 +18,7 @@ void CameraStateTPS::Update(Vector3& /*pos*/, Vector3& target)
 	Vector3 pos = target;
 	Vector3 addPos = Vector3::Zero;
 	addPos.x = sinf(rot) * CameraDist;
-	addPos.y = 50.0f;
+	addPos.y = 80.0f;
 	addPos.z -= cosf(rot) * CameraDist;
 	pos += addPos;
 	g_camera3D->SetPosition(pos);

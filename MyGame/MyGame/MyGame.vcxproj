@@ -216,6 +216,7 @@
     <ClCompile Include="SourceFile\Timer\StopWatch.cpp" />
     <ClCompile Include="system\system.cpp" />
     <ClCompile Include="SourceFile\level\TklFile.cpp" />
+    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\MiniEngine\Camera.h" />
@@ -277,6 +278,7 @@
     <ClInclude Include="SourceFile\Timer\StopWatch.h" />
     <ClInclude Include="system\system.h" />
     <ClInclude Include="SourceFile\level\TklFile.h" />
+    <ClInclude Include="Test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

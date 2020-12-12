@@ -27,7 +27,7 @@ namespace Engine {
 		normalRT.Create(
 			FRAME_BUFFER_W, FRAME_BUFFER_H,
 			1, 1,
-			DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_FORMAT_UNKNOWN,
+			DXGI_FORMAT_R32G32B32A32_FLOAT, DXGI_FORMAT_UNKNOWN,
 			clearColor
 		);
 		//シャドウ用のレンダーターゲットの作成

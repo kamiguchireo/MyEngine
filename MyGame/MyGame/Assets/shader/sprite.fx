@@ -125,11 +125,10 @@ float4 PSDefferd(PSInput In) : SV_Target0
 {
 	float4 albedo = colorTexture.Sample(Sampler,In.uv);
 	float3 normal = normalTexture.Sample(Sampler, In.uv);
-	normal = (normal * 2.0f) - 1.0f;
 	float4 finalColor = albedo;
 	float4 shadow = shadowTexture.Sample(Sampler, In.uv);
 	float3 worldPos = worldPosTexture.Sample(Sampler, In.uv);
-	float metaric = g_specularMap.Sample(Sampler, In.uv).a;
+	float metaric = g_specularMap.Sample(Sampler, In.uv).r;
 
 	//ランバート拡散反射
 	float3 lig = 0;

@@ -96,7 +96,7 @@ void Material::InitPipelineState()
 	psoDesc.RTVFormats[1] = DXGI_FORMAT_R16G16B16A16_FLOAT;	//法線出力用。	
 	psoDesc.RTVFormats[2] = DXGI_FORMAT_R32_FLOAT;						//Z値。
 #else
-	psoDesc.RTVFormats[1] = DXGI_FORMAT_R8G8B8A8_UNORM;			//法線出力用。	
+	psoDesc.RTVFormats[1] = DXGI_FORMAT_R32G32B32A32_FLOAT;			//法線出力用。	
 	psoDesc.RTVFormats[2] = DXGI_FORMAT_R8G8B8A8_UNORM;	//Z値。
 	psoDesc.RTVFormats[3] = DXGI_FORMAT_R32G32B32A32_FLOAT;		//ワールド座標用
 	psoDesc.RTVFormats[4] = DXGI_FORMAT_R8G8B8A8_UNORM;			//スペキュラマップ用	
