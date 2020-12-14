@@ -9,6 +9,8 @@
 #include "SourceFile/Timer/GameTime.h"
 #include "SourceFile/level/Level.h"
 
+#include "Game/Test.h"
+
 GameTime g_gameTime;
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
@@ -21,10 +23,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//////////////////////////////////////
 	// ここから初期化を行うコードを記述する。
 	//////////////////////////////////////
-	Level m_level;
-	m_level.Init("Assets/Level/Map.tkl",nullptr);
+	//Level m_level;
+	//m_level.Init("Assets/Level/Map.tkl",nullptr);
 	Game* g_game = nullptr;
-	g_game = Engine::NewGO<Game>(0, nullptr);
+	//g_game = Engine::NewGO<Game>(0, nullptr);
+	Test* m_Test = nullptr;
+	m_Test = Engine::NewGO<Test>(0, nullptr);
 	//////////////////////////////////////
 	// 初期化を行うコードを書くのはここまで！！！
 	//////////////////////////////////////
@@ -99,7 +103,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		float f = g_gameTime.GetFPS();
 	}
 	
-	DeleteGO(g_game);
+	if (g_game != nullptr)
+	{
+		DeleteGO(g_game);
+	}
+	if (m_Test != nullptr)
+	{
+		DeleteGO(m_Test);
+	}
 	Engine::GameObjectManager().DeleteAllGameObject();
 	return 0;
 }

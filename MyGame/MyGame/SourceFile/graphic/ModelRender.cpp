@@ -38,6 +38,9 @@ namespace Engine {
 
 		void ModelRender::Update()
 		{
+			auto& RC = g_graphicsEngine->GetRenderContext();
+			m_model.UpdateWorldMatrix(m_pos, m_rot, m_scale);
+
 			//スケルトンがセットされているとき
 			if (m_skeleton != nullptr)
 			{
@@ -48,10 +51,7 @@ namespace Engine {
 			{
 				g_graphicsEngine->GetShadowMap()->RegistShadowCaster(&m_model);
 			}
-			m_model.UpdateWorldMatrix(m_pos, m_rot, m_scale);
-
 			g_graphicsEngine->GetDefferdRendering()->RegistCaster(&m_model);
-
 		}
 
 		void ModelRender::Draw()

@@ -323,6 +323,17 @@ float3 NormalizedDisneyDiffuse(float3 N, float3 L, float3 V, float roughness)
 	return (FL * FV) / PI;
 }
 
+float3 GetNormal(float3 normal, float3 tangent, float3 biNormal, float2 uv)
+{
+
+	float3 binSpaceNormal = g_normalMap.Sample(g_sampler, uv).xyz;
+	binSpaceNormal = (binSpaceNormal * 2.0f) - 1.0f;
+
+	float3 newNormal = tangent * binSpaceNormal.x + biNormal * binSpaceNormal.y + normal * binSpaceNormal.z;
+
+	return newNormal;
+}
+
 /// <summary>
 /// モデル用のピクセルシェーダーのエントリーポイント
 /// </summary>
@@ -332,24 +343,25 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 	float metaric = g_specularMap.Sample(g_sampler, psIn.uv).a;
 	//ライトをあてる物体から視点に向かって伸びるベクトルを計算する。
 	float3 eyeToPixel = eyePos - psIn.worldPos;
+	eyeToPixel = normalize(eyeToPixel);
+	float3 Normal = GetNormal(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
 
 	//////////////////////////////////////////////////////
 	// 拡散反射を計算
 	//////////////////////////////////////////////////////
 	{
 		for( int i = 0; i < NUM_DIRECTIONAL_LIGHT; i++){
-			float NdotL = dot( psIn.normal, -directionalLight[i].direction);	//ライトの逆方向と法線で内積を計算する。
-			if( NdotL < 0.0f){	//内積の計算結果はマイナスになるので、if文で判定する。
-				NdotL = 0.0f;
-			}			
-			eyeToPixel = normalize(eyeToPixel);
+			float NdotL = saturate(dot(Normal, -directionalLight[i].direction));	//ライトの逆方向と法線で内積を計算する。
+			//if( NdotL < 0.0f){	//内積の計算結果はマイナスになるので、if文で判定する。
+			//	NdotL = 0.0f;
+			//}			
 			
 			//拡散反射光を求める
-			float3 Diffuse = NormalizedDisneyDiffuse(psIn.normal, directionalLight[i].direction, eyeToPixel, 1.0f);
-			Diffuse *= directionalLight[i].color * NdotL * Diffuse / PI;
+			float disneyDiffuse = NormalizedDisneyDiffuse(Normal, -directionalLight[i].direction, eyeToPixel, 1.0f);
+			float3 Diffuse = directionalLight[i].color * NdotL * disneyDiffuse / PI;
 
 			//スペキュラ反射を求める
-			float3 Spec = BRDF(-directionalLight[i].direction, eyeToPixel, psIn.normal, metaric);
+			float3 Spec = BRDF(-directionalLight[i].direction, eyeToPixel, Normal, metaric);
 			Spec *= directionalLight[i].color;
 			lig += lerp(Diffuse, Spec, metaric);
 		}
@@ -361,12 +373,15 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 	lig += ambinentLight;
 	//環境光による鏡面反射を計算する。
 	//光が法線方向から入射していると考えて鏡面反射を計算する。
-	lig += BRDF(psIn.normal, eyeToPixel, psIn.normal, metaric) * ambinentLight * metaric;
+	lig += BRDF(Normal, eyeToPixel, Normal, metaric) * ambinentLight * metaric;
 
 	float f;
 	f = CalcShadow(psIn.worldPos, psIn.posInview.z);
 	//線形補完
-	lig *= lerp(1.0f, 0.5f, f);
+	if (f == 1.0f)
+	{
+		lig *= 0.5f;
+	}
 
 	float4 texColor = g_texture.Sample(g_sampler, psIn.uv);
 	texColor.xyz *= lig; //光をテクスチャカラーに乗算する。
@@ -424,17 +439,6 @@ float4 PSMain_ShadowMap(PSInput_ShadowMap In) : SV_Target0
 {
 	//射影空間でのZ値を返す
 	return In.Position.z / In.Position.w;
-}
-
-float3 GetNormal(float3 normal, float3 tangent, float3 biNormal, float2 uv)
-{
-
-	float3 binSpaceNormal = g_normalMap.Sample(g_sampler, uv).xyz;
-	binSpaceNormal = (binSpaceNormal * 2.0f) - 1.0f;
-
-	float3 newNormal = tangent * binSpaceNormal.x + biNormal * binSpaceNormal.y + normal * binSpaceNormal.z;
-
-	return newNormal;
 }
 
 SPSOUT PSDefferdMain(SPSIn psIn)
