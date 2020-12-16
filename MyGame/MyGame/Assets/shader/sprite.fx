@@ -60,15 +60,13 @@ float BRDF(float3 L, float3 V, float3 N, float metaric)
 {
 	float microfacet = 0.3f;
 	float f0 = metaric;		//鏡面反射の度合い
-	bool include_F = 0;
-	bool include_G = 0;
 	//光源に向かうベクトルと視線に向かうベクトルのハーフベクトルを求める
 	float3 H = normalize(L + V);
 
-	float NdotH = max(0.0f, dot(N, H));
-	float VdotH = max(0.0f, dot(V, H));
-	float NdotL = max(0.0f, dot(N, L));
-	float NdotV = max(0.0f, dot(N, V));
+	float NdotH = max(0.01f, dot(N, H));
+	float VdotH = max(0.01f, dot(V, H));
+	float NdotL = max(0.01f, dot(N, L));
+	float NdotV = max(0.01f, dot(N, V));
 
 	float D = Beckmann(microfacet, NdotH);
 	float F = spcFresnel(f0, VdotH);
@@ -106,7 +104,7 @@ float3 NormalizedDisneyDiffuse(float3 N, float3 L, float3 V, float roughness)
 	float FL = SchlickFresnel(Fd90, dotNL);
 	float FV = SchlickFresnel(Fd90, dotNV);
 
-	return (FL * FV) / PI;
+	return max(0.2f, (FL * FV) / PI);
 }
 
 PSInput VSMain(VSInput In) 
@@ -129,7 +127,8 @@ float4 PSDefferd(PSInput In) : SV_Target0
 	float4 shadow = shadowTexture.Sample(Sampler, In.uv);
 	float3 worldPos = worldPosTexture.Sample(Sampler, In.uv);
 	float metaric = g_specularMap.Sample(Sampler, In.uv).r;
-
+	//float4 metaricorigin = g_specularMap.Sample(Sampler, In.uv);
+	//float metaric = (metaricorigin.r + metaricorigin.g + metaricorigin.b + metaricorigin.a) / 4;
 	//ランバート拡散反射
 	float3 lig = 0;
 	//ライトをあてる物体から視点に向かって伸びるベクトルを計算する。
@@ -137,29 +136,29 @@ float4 PSDefferd(PSInput In) : SV_Target0
 	eyeToPixel = normalize(eyeToPixel);
 
 	for (int i = 0; i < NUM_DIRECTIONAL_LIGHT; i++) {
-		float NdotL = saturate(dot(normal, -directionalLight[i].direction));	//ライトの逆方向と法線で内積を計算する。
-		//if (NdotL < 0.0f) {	//内積の計算結果はマイナスになるので、if文で判定する。
-		//	NdotL = 0.0f;
-		//}
-		//拡散反射光を求める
-		float disneyDiffuse = NormalizedDisneyDiffuse(normal, -directionalLight[i].direction, eyeToPixel, 1.0f);
-		float3 Diffuse = directionalLight[i].color * NdotL * disneyDiffuse / PI;
-		//return float4(Diffuse, 1.0f);
-		//スペキュラ反射を求める
-		float3 Spec = BRDF(-directionalLight[i].direction, eyeToPixel, normal, metaric);
-		Spec *= directionalLight[i].color;
-		lig += lerp(Diffuse, Spec, metaric);
-	}
+		if (shadow.x < 1.0f || i != 0) {
+			float NdotL = saturate(dot(normal, -directionalLight[i].direction));	//ライトの逆方向と法線で内積を計算する。
+			//if (NdotL < 0.0f) {	//内積の計算結果はマイナスになるので、if文で判定する。
+			//	NdotL = 0.0f;
+			//}
+			//拡散反射光を求める
 
-	lig += ambinentLight;
+			float disneyDiffuse = NormalizedDisneyDiffuse(normal, -directionalLight[i].direction, eyeToPixel, 1.0f);
+			float3 Diffuse = directionalLight[i].color * NdotL * disneyDiffuse / PI;
+			//return float4(Diffuse, 1.0f);
+			//スペキュラ反射を求める
+			float3 Spec = BRDF(-directionalLight[i].direction, eyeToPixel, normal, metaric);
+			Spec *= directionalLight[i].color;
+			lig += lerp(Diffuse, Spec, metaric);
+		}
+	}
+	//正規化ランバート拡散反射が起きていると考える。
+	lig += ambinentLight / PI * (1.0f - metaric);
 	//環境光による鏡面反射を計算する。
 	//光が法線方向から入射していると考えて鏡面反射を計算する。
 	lig += BRDF(normal, eyeToPixel, normal, metaric) * ambinentLight * metaric;
 
-	if (shadow.x == 1.0f)
-	{
-		lig *= 0.5f;
-	}
+
 	finalColor.xyz *= lig;
 	return finalColor;
 }

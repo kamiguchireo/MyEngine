@@ -84,7 +84,7 @@ namespace Engine {
 		std::vector<Model*> m_shadowCasters;		//シャドウキャスターの配列
 		ModelInitData InitData;
 		bool ResourceInited[3] = {false};
-		Vector3 ligPos = { 0.0f,1000.0f,0.0f };
-		Vector3 ligTarget = Vector3::Zero;
+		Vector3 ligPos = Vector3::Zero;
+		Vector3 ligTarget = { 1.0f,-1.0f,-1.0f };
 	};
 }

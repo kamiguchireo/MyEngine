@@ -105,6 +105,8 @@ SPSIn VSMainCore(SVSIn vsIn, float4x4 worldMat)
 	psIn.posInview = psIn.pos;
 	psIn.pos = mul(mProj, psIn.pos);						//カメラ座標系からスクリーン座標系に変換。
 	psIn.normal = normalize(mul(mWorld, vsIn.normal));		//法線をワールド座標系に変換。
+	psIn.tangent = normalize(mul(mWorld, vsIn.tangent));
+	psIn.biNormal = normalize(mul(mWorld, vsIn.biNormal));
 	psIn.uv = vsIn.uv;
 
 	return psIn;
@@ -279,10 +281,10 @@ float BRDF(float3 L, float3 V, float3 N, float metaric)
 	//光源に向かうベクトルと視線に向かうベクトルのハーフベクトルを求める
 	float3 H = normalize(L + V);
 
-	float NdotH = max(0.0f, dot(N, H));
-	float VdotH = max(0.0f, dot(V, H));
-	float NdotL = max(0.0f, dot(N, L));
-	float NdotV = max(0.0f, dot(N, V));
+	float NdotH = max(0.01f, dot(N, H));
+	float VdotH = max(0.01f, dot(V, H));
+	float NdotL = max(0.01f, dot(N, L));
+	float NdotV = max(0.01f, dot(N, V));
 
 	float D = Beckmann(microfacet, NdotH);
 	float F = spcFresnel(f0, VdotH);
@@ -457,5 +459,7 @@ SPSOUT PSDefferdMain(SPSIn psIn)
 	psOut.worldPos.xyz = psIn.worldPos;
 	float metaric = g_specularMap.Sample(g_sampler, psIn.uv).g;
 	psOut.specularMap = float4(metaric, metaric, metaric, 1.0f);
+	//float4 metaric = g_specularMap.Sample(g_sampler, psIn.uv);
+	//psOut.specularMap = float4(metaric.r, metaric.g, metaric.b, metaric.a);
 	return psOut;
 }

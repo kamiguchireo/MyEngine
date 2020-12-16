@@ -238,8 +238,8 @@ namespace Engine
 
 			m_lightProMatrix[i].Multiply(mLightView, proj);
 			m_shadowCbEntity.mLVP[i] = m_lightProMatrix[i];
-			m_shadowCbEntity.shadowAreaDepthInViewSpace[i] = farPlaneZ;
-			nearPlaneZ = farPlaneZ;		//ƒMƒŠƒMƒŠ‚¾‚Æ‹«ŠEü‚ª‚Å‚«‚é
+			m_shadowCbEntity.shadowAreaDepthInViewSpace[i] = farPlaneZ*0.85f;
+			nearPlaneZ = farPlaneZ*0.85f;		//ƒMƒŠƒMƒŠ‚¾‚Æ‹«ŠEü‚ª‚Å‚«‚é
 		}
 	}
 

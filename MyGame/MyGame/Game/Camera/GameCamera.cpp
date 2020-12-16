@@ -21,4 +21,7 @@ bool GameCamera::Start()
 void GameCamera::Update()
 {
 	currentState->Update(m_pos, m_target);
+	g_camera2D->Update();
+	g_camera3D->Update();
+
 }

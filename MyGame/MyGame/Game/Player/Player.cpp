@@ -36,11 +36,12 @@ bool Player::Start()
 	//m_animClip[1].SetLoopFlag(true);
 
 	m_playerModel = NewGO<prefab::ModelRender>(1, nullptr);
-	m_playerModel->SetTkmFilePath("Assets/modelData/monster.tkm");
+	m_playerModel->SetTkmFilePath("Assets/modelData/unityChan.tkm");
 	m_playerModel->SetVSEntryPoint("VSMainSkin");
 	m_playerModel->SetSkeleton(m_skeleton);
-	m_rot.SetRotationDeg(Vector3::AxisX, 180.0f);
-	m_playerModel->SetScale(/*m_scale*/{0.8f, 0.8f, 0.8f});
+	m_rot.SetRotationDeg(Vector3::AxisX, 90.0f);
+	//m_playerModel->SetScale(/*m_scale*/{0.8f, 0.8f, 0.8f});
+	m_playerModel->SetShadowRecieverFlag(true);
 
 	//スケルトンとアニメーションの初期化
 	m_skeleton.Init("Assets/modelData/unityChan.tks");
