@@ -30,13 +30,15 @@ bool Player::Start()
 {
 	m_camera = NewGO<GameCamera>(0, nullptr);
 
-	m_animClip[0].Load("Assets/animData/Idle.tka");
+	m_animClip[0].Load("Assets/animData/Rifle_Idle.tka");
 	m_animClip[0].SetLoopFlag(true);
-	//m_animClip[1].Load("Assets/animData/run.tka");
-	//m_animClip[1].SetLoopFlag(true);
+	m_animClip[1].Load("Assets/animData/Rifle_fire.tka");
+	m_animClip[1].SetLoopFlag(true);
+	m_animClip[2].Load("Assets/animData/Rifle_walk.tka");
+	m_animClip[2].SetLoopFlag(true);
 
 	m_playerModel = NewGO<prefab::ModelRender>(1, nullptr);
-	m_playerModel->SetTkmFilePath("Assets/modelData/unityChan.tkm");
+	m_playerModel->SetTkmFilePath("Assets/modelData/soldier_bs01.tkm");
 	m_playerModel->SetVSEntryPoint("VSMainSkin");
 	m_playerModel->SetSkeleton(m_skeleton);
 	m_rot.SetRotationDeg(Vector3::AxisX, 90.0f);
@@ -44,16 +46,16 @@ bool Player::Start()
 	m_playerModel->SetShadowRecieverFlag(true);
 
 	//スケルトンとアニメーションの初期化
-	m_skeleton.Init("Assets/modelData/unityChan.tks");
+	m_skeleton.Init("Assets/modelData/soldier_bs01.tks");
 	m_skeleton.Update(Matrix::Identity);
-	m_animation.Init(m_skeleton, m_animClip, 1);
-	m_animation.Play(1);
+	m_animation.Init(m_skeleton, m_animClip, 3);
+	m_animation.Play(2);
 	return true;
 }
 
 void Player::Update()
 {
-	m_animation.Update(g_gameTime.GetFrameDeltaTime()*2);
+	m_animation.Update(g_gameTime.GetFrameDeltaTime());
 	if (g_pad[0]->GetLStickXF() != 0.0f||g_pad[0]->GetLStickYF() != 0.0f)
 	{
 		ChangeState(&m_stateMove);
@@ -64,6 +66,6 @@ void Player::Update()
 	m_camera->SetTarget(m_pos);
 
 	m_playerModel->SetPosition(m_pos);
-	m_playerModel->SetRotation(m_rot);
+	//m_playerModel->SetRotation(m_rot);
 	
 }
