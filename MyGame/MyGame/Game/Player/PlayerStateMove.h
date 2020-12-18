@@ -4,10 +4,10 @@
 class PlayerStateMove:public IPlayer
 {
 public:
-	PlayerStateMove();
+	PlayerStateMove(Player* pl) :IPlayer(pl) {}
 	~PlayerStateMove();
 
-	void Update(Vector3& pos, Quaternion& /*rot*/);
+	void Update();
 private:
 };
 

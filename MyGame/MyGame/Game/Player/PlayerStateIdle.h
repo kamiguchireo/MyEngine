@@ -4,9 +4,9 @@
 class PlayerStateIdle:public IPlayer
 {
 public:
-	PlayerStateIdle();
+	PlayerStateIdle(Player* pl) :IPlayer(pl) {}
 	~PlayerStateIdle();
-	void Update(Vector3& /*pos*/, Quaternion& /*rot*/);
+	void Update();
 
 private:
 };

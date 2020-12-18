@@ -1,16 +1,20 @@
 #pragma once
 #include "SourceFile/graphic/ModelRender.h"
 
+class Player;
 //プレイヤーの基底クラス
 class IPlayer
 {
 public:
-	IPlayer();
+	IPlayer(Player* pl) :
+		m_Player(pl) {}
 	virtual ~IPlayer()
 	{
 	}
 	//更新関数
-	virtual void Update(Vector3& pos,Quaternion& rot) = 0;
+	virtual void Update() = 0;
 
+protected:
+	Player* m_Player;
 };
 

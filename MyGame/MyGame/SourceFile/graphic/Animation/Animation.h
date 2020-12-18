@@ -35,7 +35,8 @@ namespace Engine {
 		//アニメーションを進める
 		//エンジン内部で使用します
 		//deltaTime		アニメーションを進める時間(単位：秒)
-		void Update(float deltaTime);
+		//戻り値はfootstepの移動量
+		Vector3 Update(float deltaTime);
 
 	private:
 		////////////////////////////////////
@@ -51,7 +52,8 @@ namespace Engine {
 		void UpdateLocalPose(float deltaTime);
 
 		//グローバルポーズの更新
-		void UpdateGlobalPose();
+		//戻り値はfootstepの移動量
+		Vector3 UpdateGlobalPose();
 	private:
 		////////////////////////////////////////////////////
 		////アニメーションコントローラのインデックス取得////
@@ -81,6 +83,6 @@ namespace Engine {
 		float m_deltaTimeOnUpdate = 0.0f;		//Update関数を実行したときのデルタタイム。
 		Vector3 m_footstepDeltaValue = g_vec3Zero;		//footstepボーンの移動量
 		bool m_isInited = false;
-
+		int m_footStepBoneNo = -1;		//footstepのボーン番号
 	};
 }

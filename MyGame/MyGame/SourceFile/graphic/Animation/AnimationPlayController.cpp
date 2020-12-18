@@ -161,8 +161,8 @@ namespace Engine {
 				const auto& mat = m_boneMatrix[bone->GetNo()];
 				Vector3 footstepBonePos;
 				footstepBonePos.x = mat.m[3][0];
-				footstepBonePos.x = mat.m[3][1];
-				footstepBonePos.x = mat.m[3][2];
+				footstepBonePos.y = mat.m[3][1];
+				footstepBonePos.z = mat.m[3][2];
 				//このフレームでのfootstepの移動量を計算する
 				m_footstepDeltaValue = footstepBonePos - m_footstepPos;
 				//このフレームでのfootstepの座標を更新する

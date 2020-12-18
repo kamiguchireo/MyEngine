@@ -13,6 +13,10 @@ public:
 	bool Start();
 	void Update();
 
+	void AddPosition(Vector3 pos)
+	{
+		m_pos += pos;
+	}
 private:
 	void ChangeState(IPlayer* state);
 private:
@@ -20,11 +24,11 @@ private:
 	prefab::ModelRender* m_playerModel = nullptr;		//プレイヤーのモデル
 	Skeleton m_skeleton;
 	Engine::Animation m_animation;
-	Engine::AnimationClip m_animClip[3];
+	Engine::AnimationClip m_animClip[1];
 	Vector3 m_pos = {0.0f,0.0f,-1700.0f};
 	Vector3 m_scale = Vector3::One;
 	Quaternion m_rot = Quaternion::Identity;
-	PlayerStateIdle m_stateIdle;
-	PlayerStateMove m_stateMove;
+	PlayerStateIdle* m_stateIdle = nullptr;
+	PlayerStateMove* m_stateMove = nullptr;
 	GameCamera* m_camera = nullptr;
 };

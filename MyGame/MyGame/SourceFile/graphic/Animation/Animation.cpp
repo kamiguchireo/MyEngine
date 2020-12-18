@@ -99,7 +99,7 @@ namespace Engine
 
 	}
 
-	void Animation::UpdateGlobalPose()
+	Vector3 Animation::UpdateGlobalPose()
 	{
 		//グローバルポーズ計算用のメモリを確保
 		int numBone = m_skeleton->GetNumBones();
@@ -231,9 +231,11 @@ namespace Engine
 			}
 		}
 		m_numAnimationPlayController = numAnimationPlayController;
+
+		return m_footstepDeltaValue;
 	}
 
-	void Animation::Update(float deltaTime)
+	Vector3 Animation::Update(float deltaTime)
 	{
 		if (m_numAnimationPlayController == 0)
 		{
@@ -245,6 +247,6 @@ namespace Engine
 		UpdateLocalPose(deltaTime);
 
 		//グローバルポーズを計算
-		UpdateGlobalPose();
+		return UpdateGlobalPose();
 	}
 }

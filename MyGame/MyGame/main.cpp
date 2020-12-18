@@ -99,7 +99,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		sw.Stop();
 
 		//‚±‚ÌƒtƒŒ[ƒ€‚É‚©‚©‚Á‚½ŠÔ‚ğ‹L‰¯‚µ‚Ä‚¨‚­
-		g_gameTime.PushFrameDeltaTime(sw.GetElapsed());
+		g_gameTime.PushFrameDeltaTime(static_cast<float>(sw.GetElapsed()));
 		float f = g_gameTime.GetFPS();
 	}
 	
