@@ -28,7 +28,7 @@ void PlayerStateMove::Update()
 	//まずはカメラの移動方向を計算
 	Vector3 KeyDir = movedir * g_pad[0]->GetLStickYF();
 	//カメラの右方向をゲット
-	Vector3 playerRight = Cross({ 0.0f,1.0f,0.0f }, movedir);
+	Vector3 playerRight = Cross(Vector3::Up, movedir);
 	//カメラの左右の移動方向を計算
 	KeyDir += playerRight* g_pad[0]->GetLStickXF();
 	KeyDir.Normalize();
