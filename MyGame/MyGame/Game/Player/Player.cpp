@@ -36,8 +36,8 @@ bool Player::Start()
 	m_animClip[0].SetLoopFlag(true);
 	m_animClip[1].Load("Assets/animData/Rifle_Walk.tka");
 	m_animClip[1].SetLoopFlag(true);
-	//m_animClip[2].Load("Assets/animData/Rifle_walk.tka");
-	//m_animClip[2].SetLoopFlag(true);
+	m_animClip[2].Load("Assets/animData/Rifle_Run.tka");
+	m_animClip[2].SetLoopFlag(true);
 
 	m_playerModel = NewGO<prefab::ModelRender>(1, nullptr);
 	m_playerModel->SetTkmFilePath("Assets/modelData/soldier_bs01.tkm");
@@ -50,7 +50,7 @@ bool Player::Start()
 	//スケルトンとアニメーションの初期化
 	m_skeleton.Init("Assets/modelData/soldier_bs01.tks");
 	m_skeleton.Update(Matrix::Identity);
-	m_animation.Init(m_skeleton, m_animClip, 2);
+	m_animation.Init(m_skeleton, m_animClip, 3);
 	m_animation.Play(0);
 	return true;
 }

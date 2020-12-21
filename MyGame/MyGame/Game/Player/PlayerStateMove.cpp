@@ -9,7 +9,14 @@ PlayerStateMove::~PlayerStateMove()
 
 void PlayerStateMove::Update()
 {
-	m_Player->PlayAnimation(1);
+	if (GetAsyncKeyState(VK_LSHIFT))
+	{
+		m_Player->PlayAnimation(2);
+	}
+	else
+	{
+		m_Player->PlayAnimation(1);
+	}
 	//回転
 	Quaternion q_rot = Quaternion::Identity;
 	//プレイヤーの前方向
