@@ -9,15 +9,33 @@ PlayerStateMove::~PlayerStateMove()
 
 void PlayerStateMove::Update()
 {
-	Vector3 pos = Vector3::Zero;
-	Vector3 CameraFront = g_camera3D->GetForward();
-	Vector3 CameraRight = g_camera3D->GetRight();
-	CameraFront.y = 0.0f;
-	CameraRight.y = 0.0f;
-	CameraFront.Normalize();
-	CameraRight.Normalize();
+	m_Player->PlayAnimation(1);
+	//回転
+	Quaternion q_rot = Quaternion::Identity;
+	//プレイヤーの前方向
+	Vector3 playerforward = Vector3::Zero;
+	//移動方向
+	Vector3 movedir = Vector3::Zero;
+	
+	//プレイヤーの前方向をゲット
+	playerforward = m_Player->GetForward();
+	//カメラの前方向をゲット
+	movedir = g_camera3D->GetForward();
+	movedir.y = 0.0f;
+	movedir.Normalize();
 
-	pos.x += g_pad[0]->GetLStickXF() * 2.0f * CameraRight.x + g_pad[0]->GetLStickYF() * 2.0f * CameraFront.x;
-	pos.z += g_pad[0]->GetLStickXF() * 2.0f * CameraRight.z + g_pad[0]->GetLStickYF() * 2.0f * CameraFront.z;
-	m_Player->AddPosition(pos);
+	//キー入力による移動方向の計算
+	//まずはカメラの移動方向を計算
+	Vector3 KeyDir = playerforward * g_pad[0]->GetLStickYF();
+	//カメラの右方向をゲット
+	Vector3 playerRight = Cross(playerforward, { 0.0f,1.0f,0.0f });
+	//カメラの左右の移動方向を計算
+	KeyDir += playerRight* g_pad[0]->GetLStickXF();
+	KeyDir.Normalize();
+
+	//回転を計算
+	q_rot.SetRotation(KeyDir, movedir);
+
+	//プレイヤーに回転をセット
+	m_Player->SetRotation(q_rot);
 }

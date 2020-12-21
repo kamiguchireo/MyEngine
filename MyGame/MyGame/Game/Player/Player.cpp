@@ -32,10 +32,10 @@ bool Player::Start()
 {
 	m_camera = NewGO<GameCamera>(0, nullptr);
 
-	m_animClip[0].Load("Assets/animData/Rifle_Walk.tka");
+	m_animClip[0].Load("Assets/animData/Rifle_Idle.tka");
 	m_animClip[0].SetLoopFlag(true);
-	//m_animClip[1].Load("Assets/animData/Rifle_fire.tka");
-	//m_animClip[1].SetLoopFlag(true);
+	m_animClip[1].Load("Assets/animData/Rifle_Walk.tka");
+	m_animClip[1].SetLoopFlag(true);
 	//m_animClip[2].Load("Assets/animData/Rifle_walk.tka");
 	//m_animClip[2].SetLoopFlag(true);
 
@@ -43,20 +43,23 @@ bool Player::Start()
 	m_playerModel->SetTkmFilePath("Assets/modelData/soldier_bs01.tkm");
 	m_playerModel->SetVSEntryPoint("VSMainSkin");
 	m_playerModel->SetSkeleton(m_skeleton);
-	m_rot.SetRotationDeg(Vector3::AxisX, 90.0f);
+	m_rot.SetRotationDeg(Vector3::AxisY, 90.0f);
 	m_playerModel->SetScale(/*m_scale*/{0.8f, 0.8f, 0.8f});
 	m_playerModel->SetShadowRecieverFlag(true);
 
 	//スケルトンとアニメーションの初期化
 	m_skeleton.Init("Assets/modelData/soldier_bs01.tks");
 	m_skeleton.Update(Matrix::Identity);
-	m_animation.Init(m_skeleton, m_animClip, 1);
+	m_animation.Init(m_skeleton, m_animClip, 2);
 	m_animation.Play(0);
 	return true;
 }
 
 void Player::Update()
 {
+	//待機ステートに切り替える
+	ChangeState(m_stateIdle);
+
 	float DeltaTime = g_gameTime.GetFrameDeltaTime();
 	Vector3 footStepValue = Vector3::Zero;
 	//アニメーションからfootstepの移動量を持ってくる
@@ -66,7 +69,7 @@ void Player::Update()
 	footStepValue.y = footStepValue.z;
 	footStepValue.z = -value;
 	footStepValue *= 30*DeltaTime;
-	m_pos += footStepValue;
+
 
 	if (g_pad[0]->GetLStickXF() != 0.0f||g_pad[0]->GetLStickYF() != 0.0f)
 	{
@@ -75,8 +78,11 @@ void Player::Update()
 
 	currentState->Update();
 	
+	m_rot.Apply(footStepValue);
+	m_pos += footStepValue;
+
 	m_camera->SetTarget(m_pos);
 
 	m_playerModel->SetPosition(m_pos);
-	//m_playerModel->SetRotation(m_rot);
+	m_playerModel->SetRotation(m_rot);
 }

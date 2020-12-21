@@ -9,5 +9,6 @@ public:
 
 	void Update();
 private:
+	Vector3 m_forward = Vector3::Zero;
 };
 
