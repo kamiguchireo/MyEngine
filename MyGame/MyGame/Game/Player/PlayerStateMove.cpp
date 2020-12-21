@@ -26,15 +26,15 @@ void PlayerStateMove::Update()
 
 	//キー入力による移動方向の計算
 	//まずはカメラの移動方向を計算
-	Vector3 KeyDir = playerforward * g_pad[0]->GetLStickYF();
+	Vector3 KeyDir = movedir * g_pad[0]->GetLStickYF();
 	//カメラの右方向をゲット
-	Vector3 playerRight = Cross(playerforward, { 0.0f,1.0f,0.0f });
+	Vector3 playerRight = Cross({ 0.0f,1.0f,0.0f }, movedir);
 	//カメラの左右の移動方向を計算
 	KeyDir += playerRight* g_pad[0]->GetLStickXF();
 	KeyDir.Normalize();
 
-	//回転を計算
-	q_rot.SetRotation(KeyDir, movedir);
+	//プレイヤーの前方向からキー入力方向への回転を計算
+	q_rot.SetRotation(playerforward, KeyDir);
 
 	//プレイヤーに回転をセット
 	m_Player->SetRotation(q_rot);
