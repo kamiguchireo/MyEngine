@@ -12,5 +12,6 @@ public:
 private:
 	float CameraDist = 300.0f;			//カメラからターゲットまでの距離
 	float rot = 0.0f;			//回転量
+	float AddTargetPosY = 0.0f;		//ターゲットに加算する上方向の値
 };
 
