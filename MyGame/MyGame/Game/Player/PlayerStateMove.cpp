@@ -11,11 +11,15 @@ void PlayerStateMove::Update()
 {
 	if (GetAsyncKeyState(VK_LSHIFT))
 	{
-		m_Player->PlayAnimation(2);
+		m_Player->PlayAnimation(3);
+	}
+	else if (GetAsyncKeyState(VK_LCONTROL))
+	{
+		m_Player->PlayAnimation(1);
 	}
 	else
 	{
-		m_Player->PlayAnimation(1);
+		m_Player->PlayAnimation(2);
 	}
 	//‰ñ“]
 	Quaternion q_rot = Quaternion::Identity;

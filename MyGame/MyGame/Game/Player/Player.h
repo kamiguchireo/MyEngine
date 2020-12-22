@@ -39,7 +39,7 @@ private:
 	prefab::ModelRender* m_playerModel = nullptr;		//プレイヤーのモデル
 	Skeleton m_skeleton;
 	Engine::Animation m_animation;
-	Engine::AnimationClip m_animClip[3];
+	Engine::AnimationClip m_animClip[4];
 	Vector3 m_pos = {0.0f,0.0f,-1700.0f};
 	Vector3 m_scale = Vector3::One;
 	Quaternion m_rot = Quaternion::Identity;

@@ -36,21 +36,23 @@ bool Player::Start()
 	m_animClip[0].SetLoopFlag(true);
 	m_animClip[1].Load("Assets/animData/Rifle_Walk.tka");
 	m_animClip[1].SetLoopFlag(true);
-	m_animClip[2].Load("Assets/animData/Rifle_Run.tka");
+	m_animClip[2].Load("Assets/animData/Rifle_Run_60.tka");
 	m_animClip[2].SetLoopFlag(true);
+	m_animClip[3].Load("Assets/animData/Rifle_Sprint.tka");
+	m_animClip[3].SetLoopFlag(true);
 
 	m_playerModel = NewGO<prefab::ModelRender>(1, nullptr);
 	m_playerModel->SetTkmFilePath("Assets/modelData/soldier_bs01.tkm");
 	m_playerModel->SetVSEntryPoint("VSMainSkin");
 	m_playerModel->SetSkeleton(m_skeleton);
-	m_rot.SetRotationDeg(Vector3::AxisY, 90.0f);
-	m_playerModel->SetScale(/*m_scale*/{0.8f, 0.8f, 0.8f});
+	m_scale *= 0.8f;
+	m_playerModel->SetScale(m_scale);
 	m_playerModel->SetShadowRecieverFlag(true);
 
 	//スケルトンとアニメーションの初期化
 	m_skeleton.Init("Assets/modelData/soldier_bs01.tks");
 	m_skeleton.Update(Matrix::Identity);
-	m_animation.Init(m_skeleton, m_animClip, 3);
+	m_animation.Init(m_skeleton, m_animClip, 4);
 	m_animation.Play(0);
 	return true;
 }
@@ -68,16 +70,15 @@ void Player::Update()
 	float value = footStepValue.y;
 	footStepValue.y = footStepValue.z;
 	footStepValue.z = -value;
-	footStepValue *= 30*DeltaTime;
+	footStepValue *= 24 * DeltaTime;
 
-
-	if (g_pad[0]->GetLStickXF() != 0.0f||g_pad[0]->GetLStickYF() != 0.0f)
+	if (g_pad[0]->GetLStickXF() != 0.0f || g_pad[0]->GetLStickYF() != 0.0f)
 	{
 		ChangeState(m_stateMove);
 	}
 
 	currentState->Update();
-	
+
 	m_rot.Apply(footStepValue);
 	m_pos += footStepValue;
 
