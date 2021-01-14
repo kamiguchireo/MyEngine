@@ -186,6 +186,7 @@
     <ClCompile Include="Game\Camera\CameraStateTPS.cpp" />
     <ClCompile Include="Game\Camera\GameCamera.cpp" />
     <ClCompile Include="Game\Camera\IGameCamera.cpp" />
+    <ClCompile Include="Game\Player\PlayerWeapon.cpp" />
     <ClCompile Include="SourceFile\level\LevelMatrix.cpp" />
     <ClCompile Include="SourceFile\level\MapChipRender.cpp" />
     <ClCompile Include="SourceFile\level\Level.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="Game\Camera\CameraStateTPS.h" />
     <ClInclude Include="Game\Camera\GameCamera.h" />
     <ClInclude Include="Game\Camera\IGameCamera.h" />
+    <ClInclude Include="Game\Player\PlayerWeapon.h" />
     <ClInclude Include="SourceFile\level\LevelMatrix.h" />
     <ClInclude Include="SourceFile\level\MapChipRender.h" />
     <ClInclude Include="SourceFile\level\Level.h" />

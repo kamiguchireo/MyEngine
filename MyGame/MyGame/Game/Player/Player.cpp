@@ -5,12 +5,14 @@ Player::Player()
 {
 	m_stateIdle = new PlayerStateIdle(this);
 	m_stateMove = new PlayerStateMove(this);
+	m_PlayerWeapon = new PlayerWeapon(this);
 	//待機ステートに切り替える
 	ChangeState(m_stateIdle);
 }
 
 Player::~Player()
 {
+	//解放処理
 	if (m_playerModel != nullptr)
 	{
 		DeleteGO(m_playerModel);
@@ -20,6 +22,16 @@ Player::~Player()
 	{
 		DeleteGO(m_camera);
 		m_camera = nullptr;
+	}
+	if (m_stateIdle != nullptr)
+	{
+		delete m_stateIdle;
+		m_stateIdle = nullptr;
+	}
+	if (m_stateMove != nullptr)
+	{
+		delete m_stateMove;
+		m_stateMove = nullptr;
 	}
 }
 
@@ -54,6 +66,9 @@ bool Player::Start()
 	m_skeleton.Update(Matrix::Identity);
 	m_animation.Init(m_skeleton, m_animClip, 4);
 	m_animation.Play(0);
+
+	m_PlayerWeapon->Start();
+
 	return true;
 }
 
@@ -61,7 +76,7 @@ void Player::Update()
 {
 	//待機ステートに切り替える
 	ChangeState(m_stateIdle);
-
+	
 	float DeltaTime = g_gameTime.GetFrameDeltaTime();
 	Vector3 footStepValue = Vector3::Zero;
 	//アニメーションからfootstepの移動量を持ってくる
@@ -86,4 +101,6 @@ void Player::Update()
 
 	m_playerModel->SetPosition(m_pos);
 	m_playerModel->SetRotation(m_rot);
+	m_PlayerWeapon->Update();
+
 }

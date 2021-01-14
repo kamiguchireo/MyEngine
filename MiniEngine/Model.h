@@ -36,6 +36,10 @@ public:
 	/// <param name="scale">拡大率</param>
 	void UpdateWorldMatrix(Vector3 pos, Quaternion rot, Vector3 scale);
 
+	void SetWorldMatrix(const Matrix& WorldMat)
+	{
+		m_world = WorldMat;
+	}
 	//インスタンシング描画用のデータの更新
 	void UpdateInstancingData(const Vector3& trans,const Quaternion& rot,const Vector3& scale);
 

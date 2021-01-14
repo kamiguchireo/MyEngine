@@ -122,7 +122,17 @@ public:
 	*@param[out]	scale		拡大率の格納先。
 	*/
 	void CalcWorldTRS(Vector3& trans, Quaternion& rot, Vector3& scale);
-		
+	
+	const Vector3& GetPosition()
+	{
+		return m_positoin;
+	}
+
+	const Quaternion& GetRotation()
+	{
+		return m_rotation;
+	}
+	
 private:
 	
 	std::wstring	m_boneName;
@@ -229,6 +239,35 @@ public:
 	{
 		m_isPlayAnimation = true;
 	}
+
+	//weaponBoneのポジションを取得
+	Vector3 GetWeaponBonePos()
+	{
+		if (WeaponBoneNum != -1)
+		{
+			return m_bones[WeaponBoneNum].get()->GetPosition();
+		}
+	}
+
+	//weaponBoneのrotationを取得
+	Quaternion GetWeaponBoneRot()
+	{
+		{
+			if (WeaponBoneNum != -1)
+			{
+				return m_bones[WeaponBoneNum].get()->GetRotation();
+			}
+		}
+	}
+
+	//weaponBoneのworldMatrixを取得
+	const Matrix& GetWeaponMatrix()
+	{
+		if (WeaponBoneNum != -1)
+		{
+			return m_bones[WeaponBoneNum].get()->GetWorldMatrix();
+		}
+	}
 public:
 		
 
@@ -256,4 +295,5 @@ private:
 	std::unique_ptr<Matrix[]>	m_boneMatrixs;		//ボーン行列。
 	bool m_isInited = false;						//初期化済み？
 	bool m_isPlayAnimation = false;		//アニメーションが流し込まれている？
+	int WeaponBoneNum = -1;		//weaponBoneの番号
 };

@@ -86,6 +86,16 @@ namespace Engine {
 			{
 				m_model.UpdateInstancingSTB();
 			}
+
+			void SetWorldMatrix(const Matrix& WorldMat)
+			{
+				m_model.SetWorldMatrix(WorldMat);
+			}
+
+			void SetUpdateFlag(bool flag)
+			{
+				UpdateFlag = flag;
+			}
 		private:
 			Model m_model;
 			Vector3 m_pos = Vector3::Zero;
@@ -102,6 +112,7 @@ namespace Engine {
 			std::vector<Matrix>* m_level = nullptr;
 			bool m_ShadowCasterFlag = true;
 			int m_numInstance = 1;
+			bool UpdateFlag = true;
 		};
 	}
 }

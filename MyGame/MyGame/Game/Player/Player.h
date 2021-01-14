@@ -3,6 +3,7 @@
 #include "PlayerStateIdle.h"
 #include "PlayerStateMove.h"
 #include "Game/Camera/GameCamera.h"
+#include "PlayerWeapon.h"
 
 class Player:public IGameObject
 {
@@ -32,6 +33,21 @@ public:
 	{
 		return m_forward;
 	}
+
+	Vector3 GetWeaponBonePos()
+	{
+		return m_skeleton.GetWeaponBonePos();
+	}
+
+	Quaternion GetWeaponBoneRot()
+	{
+		return m_skeleton.GetWeaponBoneRot();
+	}
+
+	const Matrix& GetWeaponBoneMat()
+	{
+		return m_skeleton.GetWeaponMatrix();
+	}
 private:
 	void ChangeState(IPlayer* state);
 private:
@@ -45,6 +61,7 @@ private:
 	Quaternion m_rot = Quaternion::Identity;
 	PlayerStateIdle* m_stateIdle = nullptr;
 	PlayerStateMove* m_stateMove = nullptr;
+	PlayerWeapon* m_PlayerWeapon = nullptr;
 	GameCamera* m_camera = nullptr;
 	Vector3 m_forward = Vector3::AxisZ;
 };

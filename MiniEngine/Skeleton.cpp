@@ -49,6 +49,9 @@ bool Skeleton::Init(const char* tksFilePath)
 {
 	m_tksFile.Load(tksFilePath);
 	BuildBoneMatrices();
+
+	WeaponBoneNum = FindBoneID(L"weaponBone");
+
 	return true;
 }
 void Skeleton::BuildBoneMatrices()
