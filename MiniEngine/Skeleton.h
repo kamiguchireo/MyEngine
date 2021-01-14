@@ -240,26 +240,6 @@ public:
 		m_isPlayAnimation = true;
 	}
 
-	//weaponBone‚Ìƒ|ƒWƒVƒ‡ƒ“‚ðŽæ“¾
-	Vector3 GetWeaponBonePos()
-	{
-		if (WeaponBoneNum != -1)
-		{
-			return m_bones[WeaponBoneNum].get()->GetPosition();
-		}
-	}
-
-	//weaponBone‚Ìrotation‚ðŽæ“¾
-	Quaternion GetWeaponBoneRot()
-	{
-		{
-			if (WeaponBoneNum != -1)
-			{
-				return m_bones[WeaponBoneNum].get()->GetRotation();
-			}
-		}
-	}
-
 	//weaponBone‚ÌworldMatrix‚ðŽæ“¾
 	const Matrix& GetWeaponMatrix()
 	{

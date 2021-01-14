@@ -34,16 +34,6 @@ public:
 		return m_forward;
 	}
 
-	Vector3 GetWeaponBonePos()
-	{
-		return m_skeleton.GetWeaponBonePos();
-	}
-
-	Quaternion GetWeaponBoneRot()
-	{
-		return m_skeleton.GetWeaponBoneRot();
-	}
-
 	const Matrix& GetWeaponBoneMat()
 	{
 		return m_skeleton.GetWeaponMatrix();
