@@ -36,7 +36,7 @@ bool Player::Start()
 	m_animClip[0].SetLoopFlag(true);
 	m_animClip[1].Load("Assets/animData/Rifle_Walk.tka");
 	m_animClip[1].SetLoopFlag(true);
-	m_animClip[2].Load("Assets/animData/Rifle_Run_60.tka");
+	m_animClip[2].Load("Assets/animData/Rifle_Run.tka");
 	m_animClip[2].SetLoopFlag(true);
 	m_animClip[3].Load("Assets/animData/Rifle_Sprint.tka");
 	m_animClip[3].SetLoopFlag(true);

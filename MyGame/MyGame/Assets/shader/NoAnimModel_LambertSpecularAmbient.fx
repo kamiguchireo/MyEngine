@@ -452,6 +452,7 @@ SPSOUT PSDefferdMain(SPSIn psIn)
 	//psOut.normal.xyz = (psIn.normal / 2.0f) + 0.5f;
 	float3 Normal = GetNormal(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
 	psOut.normal.xyz = Normal.xyz;
+	//psOut.normal.xyz = psIn.normal;
 	//シャドウ用
 	float f = 0.0f;
 	f = CalcShadow(psIn.worldPos, psIn.posInview.z);
