@@ -19,6 +19,9 @@ void PlayerWeapon::Update()
 	m_weaponPos = m_Player->GetWeaponBonePos();
 	m_weaponRot = m_Player->GetWeaponBoneRot();
 	m_weaponMat = m_Player->GetWeaponBoneMat();
+	Matrix mBias = Matrix::Identity;
+	mBias.MakeRotationX(Math::PI * -0.5f);
+	m_weaponMat = mBias * m_weaponMat;
 	m_Model->SetWorldMatrix(m_weaponMat);
 	m_Model->SetUpdateFlag(false);
 	//m_Model->SetPosition({ 0.0f, 100.0f, 0.0f });
