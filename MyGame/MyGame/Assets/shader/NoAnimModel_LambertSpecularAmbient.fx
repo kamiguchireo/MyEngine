@@ -390,16 +390,28 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 	return float4(texColor.xyz, 1.0f);	
 }
 
-//シャドウマップ生成用のスキンなしモデル頂点シェーダー
-PSInput_ShadowMap VSMain_ShadowMap(SVSIn In,uint instanceID : SV_InstanceID)
+PSInput_ShadowMap VSMain_ShadowMapCore(SVSIn In, float4x4 worldMat)
 {
 	PSInput_ShadowMap psInput = (PSInput_ShadowMap)0;
-	float4 pos = mul(instanceMatrix[instanceID], In.pos);
-	//pos = mul(mView, pos);
+
+	float4 pos = mul(worldMat, In.pos);
 	pos = mul(mProj, pos);
 	psInput.Position = pos;
 	return psInput;
 }
+
+//シャドウマップ生成用のスキンなしモデル頂点シェーダー
+PSInput_ShadowMap VSMain_ShadowMap(SVSIn In)
+{
+	return VSMain_ShadowMapCore(In, mWorld);
+}
+//シャドウマップ生成用インスタンシングのスキンなしモデル頂点シェーダー
+PSInput_ShadowMap VSMain_ShadowMapInstancing(SVSIn In,uint instanceID : SV_InstanceID)
+{
+	return VSMain_ShadowMapCore(In, instanceMatrix[instanceID]);
+}
+
+
 
 //シャドウマップ生成用のスキンモデル頂点シェーダー
 PSInput_ShadowMap VSMain_ShadowMapSkin(SVSInSkin In)

@@ -206,7 +206,7 @@ void MeshParts::Draw(
 		//マテリアルごとにドロー。
 		for (int matNo = 0; matNo < mesh->m_materials.size(); matNo++) {
 			//このマテリアルが貼られているメッシュの描画開始。
-			mesh->m_materials[matNo]->BeginRender(rc, mesh->skinFlags[matNo], rendermode);
+			mesh->m_materials[matNo]->BeginRender(rc, mesh->skinFlags[matNo], rendermode, m_instanceNum);
 			//ディスクリプタヒープを登録。
 			rc.SetDescriptorHeap(m_descriptorHeap.at(descriptorHeapNo));
 			//インデックスバッファを設定。

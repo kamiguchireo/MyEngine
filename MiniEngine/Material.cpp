@@ -115,13 +115,18 @@ void Material::InitPipelineState()
 	psoDesc.RTVFormats[0] = DXGI_FORMAT_R32_FLOAT;		//アルベドカラー出力用。
 	psoDesc.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;
 	m_ShadowSkinModelPipelineState.Init(psoDesc);
-	//スキンなしシャドウマップ用
+	//スキンなしシャドウマップインスタンシング用
 	//psoDesc.InputLayout = { inputElementShadowDescs, _countof(inputElementShadowDescs) };
+	psoDesc.VS = CD3DX12_SHADER_BYTECODE(m_vsshadowModelInstancing.GetCompiledBlob());
+	psoDesc.PS = CD3DX12_SHADER_BYTECODE(m_psshadowModel.GetCompiledBlob());
+	psoDesc.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;
+	m_ShadownonSkinModelPipelineStateInstancing.Init(psoDesc);
+	//スキンなしシャドウマップ用
 	psoDesc.VS = CD3DX12_SHADER_BYTECODE(m_vsshadowModel.GetCompiledBlob());
 	psoDesc.PS = CD3DX12_SHADER_BYTECODE(m_psshadowModel.GetCompiledBlob());
 	psoDesc.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;
 	m_ShadownonSkinModelPipelineState.Init(psoDesc);
-
+	
 	//続いてスキンなしモデル用を作成。
 	//psoDesc.InputLayout = { inputElementDescs, _countof(inputElementDescs) };
 	psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;		//アルベドカラー出力用。
@@ -160,12 +165,13 @@ void Material::InitShaders(
 	m_vsNonSkinModel.LoadVS(fxFilePath, vsEntryPointFunc);
 	m_vsSkinModel.LoadVS(fxFilePath, vsEntryPointFunc);
 	m_psModel.LoadPS(fxFilePath, psEntryPointFunc);
+	m_vsshadowModelInstancing.LoadVS(fxFilePath, "VSMain_ShadowMapInstancing");
 	m_vsshadowModel.LoadVS(fxFilePath, "VSMain_ShadowMap");
 	m_vsshadowSkinModel.LoadVS(fxFilePath, "VSMain_ShadowMapSkin");
 	m_psshadowModel.LoadPS(fxFilePath, "PSMain_ShadowMap");
 }
 
-void Material::BeginRender(RenderContext& rc, int hasSkin,int renderMode)
+void Material::BeginRender(RenderContext& rc, int hasSkin,int renderMode,int instanceNum)
 {
 	rc.SetRootSignature(m_rootSignature);
 	
@@ -186,8 +192,12 @@ void Material::BeginRender(RenderContext& rc, int hasSkin,int renderMode)
 			//スキンありシャドウマップ用のパイプラインステート
 			rc.SetPipelineState(m_ShadowSkinModelPipelineState);
 		}
-		else {
+		else if(instanceNum != 1){
 			//スキンなしシャドウマップ用のパイプラインステート
+			rc.SetPipelineState(m_ShadownonSkinModelPipelineStateInstancing);
+		}
+		else
+		{
 			rc.SetPipelineState(m_ShadownonSkinModelPipelineState);
 		}
 
