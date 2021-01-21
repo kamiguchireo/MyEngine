@@ -4,6 +4,7 @@
 #include "PlayerStateMove.h"
 #include "Game/Camera/GameCamera.h"
 #include "PlayerWeapon.h"
+#include "PlayerStateAim.h"
 
 class Player:public IGameObject
 {
@@ -45,12 +46,13 @@ private:
 	prefab::ModelRender* m_playerModel = nullptr;		//プレイヤーのモデル
 	Skeleton m_skeleton;
 	Engine::Animation m_animation;
-	Engine::AnimationClip m_animClip[4];
+	Engine::AnimationClip m_animClip[5];
 	Vector3 m_pos = {0.0f,0.0f,-1700.0f};
 	Vector3 m_scale = Vector3::One;
 	Quaternion m_rot = Quaternion::Identity;
 	PlayerStateIdle* m_stateIdle = nullptr;
 	PlayerStateMove* m_stateMove = nullptr;
+	PlayerStateAim* m_stateAim = nullptr;
 	PlayerWeapon* m_PlayerWeapon = nullptr;
 	GameCamera* m_camera = nullptr;
 	Vector3 m_forward = Vector3::AxisZ;
