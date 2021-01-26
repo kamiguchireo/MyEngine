@@ -9,7 +9,12 @@ public:
 	void Update();
 	void Draw();
 
+	void AddInstance()
+	{
+		m_instanceNum++;
+	}
 private:
 	Model m_Glass;
 	ModelInitData m_InitData;
+	int m_instanceNum = 1;		//インスタンスの数
 };

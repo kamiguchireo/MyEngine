@@ -16,82 +16,87 @@ namespace Engine {
 			//まだ未実装です
 			//void Draw();
 
+			//tkmのファイルパスをセット
 			void SetTkmFilePath(const char*filePath)
 			{
 				m_tkmFilePath = filePath;
 			}
+			//頂点シェーダーのエントリーポイントをセット
 			void SetVSEntryPoint(const char* EntryPoint)
 			{
 				m_vsEntryPointFunc = EntryPoint;
 			}
+			//ピクセルシェーダーのエントリーポイントをセット
 			void SetPSEntryPoint(const char* EntryPoint)
 			{
 				m_psEntryPointFunc = EntryPoint;
 			}
+			//シェーダーのファイルパスをセット
 			void SetfxFilePath(const char* FilePath)
 			{
 				m_fxFilePath = FilePath;
 			}
-
+			//スケルトンをセット
 			void SetSkeleton(Skeleton& SK)
 			{
 				m_skeleton = &SK;
 			}
-
+			//レベルで描画するオブジェクトのワールド行列をセット
 			void SetLevelMatrix(std::vector<Matrix>& mat)
 			{
 				m_level = &mat;
 			}
+			//シャドウキャスターにするかどうかのフラグをセット
 			void SetShadowCasterFlag(bool flag)
 			{
 				m_ShadowCasterFlag = flag;
 			}
-
+			//シャドウレシーバーにするかどうかのフラグをセット
 			void SetShadowRecieverFlag(bool flag)
 			{
 				m_model.SetShadowRecieverFlag(flag);
 			}
-
+			//位置をセット
 			void SetPosition(const Vector3& pos)
 			{
 				m_pos = pos;
 			}
-
+			//回転をセット
 			void SetRotation(const Quaternion& rot)
 			{
 				m_rot = rot;
 			}
-
+			//拡大率をセット
 			void SetScale(const Vector3& scale)
 			{
 				m_scale = scale;
 			}
-
+			//インスタンスの数をセット
 			void SetInstanceNum(int num)
 			{
 				m_numInstance = num;
 			}
-
+			//インスタンシング描画するオブジェクトのワールド行列をアップデート
 			void UpdateInstancingData(const Vector3& trans, const Quaternion& rot, const Vector3& scale)
 			{
 				m_model.UpdateInstancingData(trans, rot, scale);
 			}
-
+			//UpdateInstancingDataを呼ぶフレームに一回呼んでください。
 			void ModelInstanceRefresh()
 			{
 				m_model.Refresh();
 			}
-
+			//インスタンシング描画するモデルのストラクチャーバッファをアップデート
 			void UpdateInstancingSTB()
 			{
 				m_model.UpdateInstancingSTB();
 			}
-
+			//ワールド行列を直接セット
 			void SetWorldMatrix(const Matrix& WorldMat)
 			{
 				m_model.SetWorldMatrix(WorldMat);
 			}
-
+			//ワールド行列を自動でアップデートするかどうかのフラグ
 			void SetUpdateFlag(bool flag)
 			{
 				UpdateFlag = flag;
@@ -101,7 +106,6 @@ namespace Engine {
 			Vector3 m_pos = Vector3::Zero;
 			Quaternion m_rot = Quaternion::Identity;
 			Vector3 m_scale = Vector3::One;
-			//RenderContext RC;
 			const char* m_tkmFilePath = nullptr;
 			const char* m_vsEntryPointFunc = "VSMain";	//頂点シェーダーのエントリーポイント。
 			const char* m_psEntryPointFunc = "PSDefferdMain";	//ピクセルシェーダーのエントリーポイント。

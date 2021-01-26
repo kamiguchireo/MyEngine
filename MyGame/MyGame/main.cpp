@@ -7,10 +7,9 @@
 //ゲームの時間関係
 #include "SourceFile/Timer/StopWatch.h"
 #include "SourceFile/Timer/GameTime.h"
-#include "SourceFile/level/Level.h"
 
 #include "Game/Test.h"
-
+#include "Game/Stage.h"
 #include "Game/Glass/Glass_1.h"
 
 GameTime g_gameTime;
@@ -25,15 +24,20 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//////////////////////////////////////
 	// ここから初期化を行うコードを記述する。
 	//////////////////////////////////////
-	Glass_1* m_Glass = nullptr;
-	m_Glass = NewGO<Glass_1>(0);
-
-	Level m_level;
-	m_level.Init("Assets/Level/Map.tkl",nullptr);
+		
+	//ゲーム本体
 	Game* g_game = nullptr;
 	g_game = Engine::NewGO<Game>(0, nullptr);
-	Test* m_Test = nullptr;
+	//草
+	Glass_1* m_Glass = nullptr;
+	m_Glass = NewGO<Glass_1>(0);
+	//ステージ
+	Stage m_Stage;
+
+	//テスト用のクラス
+	//Test* m_Test = nullptr;
 	//m_Test = Engine::NewGO<Test>(0, nullptr);
+
 	//////////////////////////////////////
 	// 初期化を行うコードを書くのはここまで！！！
 	//////////////////////////////////////
@@ -67,7 +71,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_graphicsEngine->GetLightManager()->AddDirectionLight(DL4);*/
 
 	g_graphicsEngine->GetLightManager()->SetLightAmbinetLight({ 1.2f,1.2f,1.2f });
-	//g_graphicsEngine->GetLightManager()->SetLightEyepos(g_camera3D->GetPosition());
 	g_graphicsEngine->GetLightManager()->SetLightSpecpow(5.0f);
 
 	DefferdRendering DR;
@@ -80,15 +83,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//カメラのアップデート
 		g_camera2D->Update();
 		g_camera3D->Update();
-		g_graphicsEngine->GetLightManager()->SetLightEyepos(g_camera3D->GetPosition());
 
+		//ライトの計算用に視点をセット
+		g_graphicsEngine->GetLightManager()->SetLightEyepos(g_camera3D->GetPosition());
 
 		//ストップウォッチの計測開始
 		sw.Start();
 
 		EP.Update();
 		
-
 		//レンダリング開始。
 		g_engine->BeginFrame();
 		EP.Rendering();
@@ -112,14 +115,17 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		float f = g_gameTime.GetFPS();
 	}
 	
+	//ゲームの削除
 	if (g_game != nullptr)
 	{
 		DeleteGO(g_game);
 	}
-	if (m_Test != nullptr)
-	{
-		DeleteGO(m_Test);
-	}
+	//if (m_Test != nullptr)
+	//{
+	//	DeleteGO(m_Test);
+	//}
+
+	//すべてのゲームオブジェクトを削除
 	Engine::GameObjectManager().DeleteAllGameObject();
 	return 0;
 }
