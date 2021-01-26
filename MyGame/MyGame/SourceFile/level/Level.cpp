@@ -81,13 +81,13 @@ void Level::Init(
 			t = objData.rotation.y;
 			objData.rotation.y = objData.rotation.z;
 			objData.rotation.z = -t;
+		
+			//値の入れ替え
+			std::swap(objData.scale.y, objData.scale.z);
 			
+			//オブジェクトの名前取得
 			objData.name = bone->GetName();
 			std::wstring hoge = objData.name;
-			//if (hoge !=  L"Ground" && hoge != L"Pillar") {
-			//	continue;
-			//}
-			std::swap(objData.scale.y, objData.scale.z);
 
 			objData.isShadowCaster = Params.at(i).isShadowCaster;
 			objData.isShadowReciever = Params.at(i).isShadowReciever;

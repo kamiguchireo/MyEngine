@@ -17,7 +17,7 @@ bool Glass_1::Start()
 	m_InitData.m_psEntryPointFunc = "PSMain";
 	m_InitData.m_fxFilePath = "Assets/shader/NoAnimModel_LambertSpecularAmbient.fx";
 	m_Glass.Init(m_InitData,m_instanceNum);
-	
+	m_Glass.SetShadowRecieverFlag(false);
 	return true;
 }
 

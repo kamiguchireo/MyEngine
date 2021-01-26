@@ -9,9 +9,11 @@ public:
 	void Update();
 	void Draw();
 
-	void AddInstance()
+	//インスタンシング描画するオブジェクトの追加
+	void AddInstance(const Vector3& trans, const Quaternion& rot, const Vector3& scale)
 	{
 		m_instanceNum++;
+		m_Glass.UpdateInstancingData(trans, rot, scale);
 	}
 private:
 	Model m_Glass;
