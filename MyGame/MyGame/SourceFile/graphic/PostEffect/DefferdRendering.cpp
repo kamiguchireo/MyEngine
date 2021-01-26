@@ -95,5 +95,11 @@ namespace Engine {
 		g_graphicsEngine->ChangeRenderTargetToFrameBuffer(RenCon);
 		defferdLightingSprite.Update(Vector3::Zero, Quaternion::Identity, Vector3::One);
 		defferdLightingSprite.Draw(RenCon);
+		
+		//レンダーターゲットを変更
+		RenCon.SetRenderTarget(
+			g_graphicsEngine->GetCurrentFrameBuffuerRTV(),
+			rts[0]->GetDSVCpuDescriptorHandle()
+		);
 	}
 }

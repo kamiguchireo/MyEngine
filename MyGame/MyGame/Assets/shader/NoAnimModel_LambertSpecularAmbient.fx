@@ -387,7 +387,8 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 
 	float4 texColor = g_texture.Sample(g_sampler, psIn.uv);
 	texColor.xyz *= lig; //光をテクスチャカラーに乗算する。
-	return float4(texColor.xyz, 1.0f);	
+	//return float4(texColor.xyz, 1.0f);	
+	return texColor;
 }
 
 PSInput_ShadowMap VSMain_ShadowMapCore(SVSIn In, float4x4 worldMat)

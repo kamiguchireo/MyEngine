@@ -32,8 +32,8 @@ void EngineProcessing::Rendering()
 	//シャドウマップの描画
 	g_graphicsEngine->GetShadowMap()->RenderToShadowMap();
 	g_graphicsEngine->GetLightManager()->SendLigParamToGpu();
-	//ゲームオブジェクトの描画
-	Engine::GameObjectManager().Draw();
-	//ゲームオブジェクトのポストレンダー
-	Engine::GameObjectManager().PostRender();
+	////ゲームオブジェクトの描画
+	//Engine::GameObjectManager().Draw();
+	////ゲームオブジェクトのポストレンダー
+	//Engine::GameObjectManager().PostRender();
 }

@@ -127,13 +127,13 @@ void Material::InitPipelineState()
 	psoDesc.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;
 	m_ShadownonSkinModelPipelineState.Init(psoDesc);
 	
-	//続いてスキンなしモデル用を作成。
-	//psoDesc.InputLayout = { inputElementDescs, _countof(inputElementDescs) };
-	psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;		//アルベドカラー出力用。
-	psoDesc.VS = CD3DX12_SHADER_BYTECODE(m_vsNonSkinModel.GetCompiledBlob());
-	psoDesc.PS = CD3DX12_SHADER_BYTECODE(m_psModel.GetCompiledBlob());
-	psoDesc.RasterizerState.CullMode = D3D12_CULL_MODE_BACK;
-	m_nonSkinModelPipelineState.Init(psoDesc);
+	////続いてスキンなしモデル用を作成。
+	////psoDesc.InputLayout = { inputElementDescs, _countof(inputElementDescs) };
+	//psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;		//アルベドカラー出力用。
+	//psoDesc.VS = CD3DX12_SHADER_BYTECODE(m_vsNonSkinModel.GetCompiledBlob());
+	//psoDesc.PS = CD3DX12_SHADER_BYTECODE(m_psModel.GetCompiledBlob());
+	//psoDesc.RasterizerState.CullMode = D3D12_CULL_MODE_BACK;
+	//m_nonSkinModelPipelineState.Init(psoDesc);
 
 	//続いて半透明マテリアル用。
 	//psoDesc.InputLayout = { inputElementDescs, _countof(inputElementDescs) };

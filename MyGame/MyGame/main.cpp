@@ -11,6 +11,8 @@
 
 #include "Game/Test.h"
 
+#include "Game/Glass/Glass_1.h"
+
 GameTime g_gameTime;
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
@@ -23,6 +25,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//////////////////////////////////////
 	// ここから初期化を行うコードを記述する。
 	//////////////////////////////////////
+	Glass_1* m_Glass = nullptr;
+	m_Glass = NewGO<Glass_1>(0);
+
 	Level m_level;
 	m_level.Init("Assets/Level/Map.tkl",nullptr);
 	Game* g_game = nullptr;
@@ -88,6 +93,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		g_engine->BeginFrame();
 		EP.Rendering();
 		g_graphicsEngine->GetDefferdRendering()->DrawRT();
+		//ゲームオブジェクトの描画
+		Engine::GameObjectManager().Draw();
+		//ゲームオブジェクトのポストレンダー
+		Engine::GameObjectManager().PostRender();
 
 		//////////////////////////////////////
 		//絵を描くコードを書くのはここまで！！！
