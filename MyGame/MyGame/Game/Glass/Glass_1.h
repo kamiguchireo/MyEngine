@@ -16,6 +16,16 @@ public:
 	void Draw();
 
 	//インスタンシング描画するオブジェクトの追加
+	void InitInstance(const Vector3& trans, const Quaternion& rot, const Vector3& scale)
+	{
+		m_instanceNum = 1;
+		ObjData data;
+		data.position = trans;
+		data.rotation = rot;
+		data.scale = scale;
+		m_renderObjDatas.push_back(data);
+	}
+	//インスタンシング描画するオブジェクトの追加
 	void AddInstance(const Vector3& trans, const Quaternion& rot, const Vector3& scale)
 	{
 		m_instanceNum++;

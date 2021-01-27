@@ -28,14 +28,11 @@ void MapChipRender::Update()
 		for (auto& objData : m_renderObjDatas) {
 			m_modelRender->UpdateInstancingData(objData.position, objData.rotation, objData.scale);
 		}
+		m_modelRender->UpdateInstancingSTB();
 	}
 	else
 	{
 		m_modelRender->Update();
-	}
-	if (m_renderObjDatas.size() > 1) {
-
-		m_modelRender->UpdateInstancingSTB();
 	}
 }
 

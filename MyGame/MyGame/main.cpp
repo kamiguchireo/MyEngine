@@ -29,8 +29,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	Game* g_game = nullptr;
 	g_game = Engine::NewGO<Game>(0, nullptr);
 	//草
-	Glass_1* m_Glass = nullptr;
-	m_Glass = NewGO<Glass_1>(0);
+	//Glass_1* m_Glass = nullptr;
+	//m_Glass = NewGO<Glass_1>(0);
 	//ステージ
 	Stage m_Stage;
 
