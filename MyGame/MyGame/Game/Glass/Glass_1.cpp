@@ -26,18 +26,12 @@ void Glass_1::Update()
 {
 	m_Glass.Refresh();
 
-	//インスタンシング描画するとき
-	if (m_instanceNum > 1)
+	//インスタンシング描画
+	for (auto& objData : m_renderObjDatas) 
 	{
-		for (auto& objData : m_renderObjDatas) {
-			m_Glass.UpdateInstancingData(objData.position, objData.rotation, objData.scale);
-		}
-		m_Glass.UpdateInstancingSTB();
+		m_Glass.UpdateInstancingData(objData.position, objData.rotation, objData.scale);
 	}
-	else
-	{
-		m_Glass.UpdateWorldMatrix({ 0.0f,0.0f,-1200.0f }, Quaternion::Identity, Vector3::One);
-	}
+	m_Glass.UpdateInstancingSTB();
 
 }
 
