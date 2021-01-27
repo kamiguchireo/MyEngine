@@ -10,7 +10,7 @@ Stage::Stage()
 			//ëê
 			if (m_Glass == nullptr)
 			{
-				m_Glass = NewGO<Glass_1>(0);
+				m_Glass = NewGO<Grass_03>(0);
 				m_Glass->InitInstance(objData.position, objData.rotation, objData.scale);
 			}
 			else

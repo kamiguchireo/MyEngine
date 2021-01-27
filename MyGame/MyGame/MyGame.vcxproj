@@ -188,7 +188,7 @@
     <ClCompile Include="Game\Camera\IGameCamera.cpp" />
     <ClCompile Include="Game\Player\PlayerWeapon.cpp" />
     <ClCompile Include="Game\Player\PlayerStateAim.cpp" />
-    <ClCompile Include="Game\Glass\Glass_1.cpp" />
+    <ClCompile Include="Game\Grass\Grass_03.cpp" />
     <ClCompile Include="SourceFile\level\LevelMatrix.cpp" />
     <ClCompile Include="SourceFile\level\MapChipRender.cpp" />
     <ClCompile Include="SourceFile\level\Level.cpp" />
@@ -257,7 +257,7 @@
     <ClInclude Include="Game\Camera\IGameCamera.h" />
     <ClInclude Include="Game\Player\PlayerWeapon.h" />
     <ClInclude Include="Game\Player\PlayerStateAim.h" />
-    <ClInclude Include="Game\Glass\Glass_1.h" />
+    <ClInclude Include="Game\Grass\Grass_03.h" />
     <ClInclude Include="SourceFile\level\LevelMatrix.h" />
     <ClInclude Include="SourceFile\level\MapChipRender.h" />
     <ClInclude Include="SourceFile\level\Level.h" />

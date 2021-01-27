@@ -1,17 +1,17 @@
 #include "stdafx.h"
-#include "Glass_1.h"
+#include "Grass_03.h"
 
-Glass_1::Glass_1()
+Grass_03::Grass_03()
 {
 
 }
 
-Glass_1::~Glass_1()
+Grass_03::~Grass_03()
 {
 
 }
 
-bool Glass_1::Start()
+bool Grass_03::Start()
 {
 	m_InitData.m_tkmFilePath = "Assets/modelData/SM_Grass_03.tkm";
 	m_InitData.m_vsEntryPointFunc = "VSMainInstancing";
@@ -22,7 +22,7 @@ bool Glass_1::Start()
 	return true;
 }
 
-void Glass_1::Update()
+void Grass_03::Update()
 {
 	m_Glass.Refresh();
 
@@ -35,7 +35,7 @@ void Glass_1::Update()
 
 }
 
-void Glass_1::Draw()
+void Grass_03::Draw()
 {
 	auto& RenCon = g_graphicsEngine->GetRenderContext();
 	m_Glass.Draw(RenCon);

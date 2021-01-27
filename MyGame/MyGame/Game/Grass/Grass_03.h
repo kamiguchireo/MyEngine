@@ -5,11 +5,11 @@ struct ObjData {
 	Quaternion rotation;	//‰ñ“]
 	Vector3 scale;		//Šg‘å—¦
 };
-class Glass_1:public IGameObject
+class Grass_03:public IGameObject
 {
 public:
-	Glass_1();
-	~Glass_1();
+	Grass_03();
+	~Grass_03();
 
 	bool Start();
 	void Update();

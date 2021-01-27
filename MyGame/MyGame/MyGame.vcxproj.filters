@@ -194,10 +194,10 @@
     <ClCompile Include="Game\Player\PlayerStateAim.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Glass\Glass_1.cpp">
+    <ClCompile Include="Game\Stage.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Stage.cpp">
+    <ClCompile Include="Game\Grass\Grass_03.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -388,10 +388,10 @@
     <ClInclude Include="Game\Player\PlayerStateAim.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Glass\Glass_1.h">
+    <ClInclude Include="Game\Stage.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Stage.h">
+    <ClInclude Include="Game\Grass\Grass_03.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
