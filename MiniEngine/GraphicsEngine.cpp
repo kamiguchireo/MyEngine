@@ -160,9 +160,10 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 	//シザリング矩形を初期化。
 	m_scissorRect.left = 0;
 	m_scissorRect.top = 0;
-	m_scissorRect.right = frameBufferWidth*4;
-	m_scissorRect.bottom = frameBufferHeight*4;
-
+	//m_scissorRect.right = frameBufferWidth*4;
+	//m_scissorRect.bottom = frameBufferHeight*4;
+	m_scissorRect.right = 2048;
+	m_scissorRect.bottom = 2048;
 	//CBR_SVRのディスクリプタのサイズを取得。
 	m_cbrSrvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 

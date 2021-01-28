@@ -70,12 +70,12 @@ namespace Engine {
 			Matrix mLVP[3] = {Matrix::Identity};
 			float shadowAreaDepthInViewSpace[3] = {500.0f,1000.0f,2000.0f};	//カメラ空間での影を落とすエリアの深度テーブル。
 		};
-		const int TexResolutionW = 2560*2;		//シャドウマップテクスチャの解像度
-		const int TexResolutionH = 1440*2;		//シャドウマップテクスチャの解像度
+		const int TexResolutionW = 2048;		//シャドウマップテクスチャの解像度
+		const int TexResolutionH = 2048;		//シャドウマップテクスチャの解像度
 		std::unique_ptr<RenderTarget> m_shadowMapRT[3];
 		std::unique_ptr<ConstantBuffer> m_shadowCb;		//影を落とす時に使用する定数バッファ
 		SShadowCb m_shadowCbEntity;
-		Vector3 m_range = { 700.0f,1000.0f,2000.0f };		//シャドウマップを設定する範囲
+		Vector3 m_range = { 500.0f,1000.0f,2000.0f };		//シャドウマップを設定する範囲
 		float m_lightHeight = 1000.0f;				//ライトの高さ。
 		Matrix m_lightProMatrix[3] = { Matrix::Identity };
 		float maxheight = 1000.0f;		//影に含める最大の高さ
