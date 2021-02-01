@@ -19,6 +19,20 @@ Stage::Stage()
 			}
 			return true;
 		}
+		else if (wcscmp(objData.name, L"SM_Tree_Tropic_02_novines") == 0)
+		{
+			//–Ø
+			if (m_Tree == nullptr)
+			{
+				m_Tree = NewGO<Tree1>(0);
+				m_Tree->InitInstance(objData.position, objData.rotation, objData.scale);
+			}
+			else
+			{
+				m_Tree->AddInstance(objData.position, objData.rotation, objData.scale);
+			}
+			return true;
+		}
 		return false;
 	});
 

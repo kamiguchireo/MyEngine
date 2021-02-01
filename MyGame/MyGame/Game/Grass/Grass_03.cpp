@@ -19,6 +19,7 @@ bool Grass_03::Start()
 	m_InitData.m_fxFilePath = "Assets/shader/NoAnimModel_LambertSpecularAmbient.fx";
 	m_Glass.Init(m_InitData,m_instanceNum);
 	m_Glass.SetShadowRecieverFlag(false);
+	
 	return true;
 }
 
@@ -32,7 +33,6 @@ void Grass_03::Update()
 		m_Glass.UpdateInstancingData(objData.position, objData.rotation, objData.scale);
 	}
 	m_Glass.UpdateInstancingSTB();
-
 }
 
 void Grass_03::Draw()

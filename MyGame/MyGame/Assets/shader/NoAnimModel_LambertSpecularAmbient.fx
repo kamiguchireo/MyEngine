@@ -67,6 +67,7 @@ struct SPSIn{
 //シャドウマップ用のピクセルシェーダーへの入力構造体
 struct PSInput_ShadowMap {
 	float4 Position:SV_POSITION;		//座標
+	float2 uv 		: TEXCOORD0;	//UV座標。
 };
 
 //ピクセルシェーダーからの出力
@@ -346,22 +347,21 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 	//ライトをあてる物体から視点に向かって伸びるベクトルを計算する。
 	float3 eyeToPixel = eyePos - psIn.worldPos;
 	eyeToPixel = normalize(eyeToPixel);
-	float3 Normal = GetNormal(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
 
-	//////////////////////////////////////////////////////
-	// 拡散反射を計算
-	//////////////////////////////////////////////////////
-	{
-		for( int i = 0; i < NUM_DIRECTIONAL_LIGHT; i++){
+	float3 Normal = GetNormal(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
+	float shadow = CalcShadow(psIn.worldPos, psIn.posInview.z);
+	
+	for (int i = 0; i < NUM_DIRECTIONAL_LIGHT; i++) {
+		if (shadow < 1.0f || i != 0) {
 			float NdotL = saturate(dot(Normal, -directionalLight[i].direction));	//ライトの逆方向と法線で内積を計算する。
-			//if( NdotL < 0.0f){	//内積の計算結果はマイナスになるので、if文で判定する。
+			//if (NdotL < 0.0f) {	//内積の計算結果はマイナスになるので、if文で判定する。
 			//	NdotL = 0.0f;
-			//}			
-			
+			//}
 			//拡散反射光を求める
+
 			float disneyDiffuse = NormalizedDisneyDiffuse(Normal, -directionalLight[i].direction, eyeToPixel, 1.0f);
 			float3 Diffuse = directionalLight[i].color * NdotL * disneyDiffuse / PI;
-
+			//return float4(Diffuse, 1.0f);
 			//スペキュラ反射を求める
 			float3 Spec = BRDF(-directionalLight[i].direction, eyeToPixel, Normal, metaric);
 			Spec *= directionalLight[i].color;
@@ -369,25 +369,23 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 		}
 	}
 	
-	//////////////////////////////////////////////////////
-	// 環境光を計算
-	//////////////////////////////////////////////////////
-	lig += ambinentLight;
+	//正規化ランバート拡散反射が起きていると考える。
+	lig += ambinentLight / PI * (1.0f - metaric);
 	//環境光による鏡面反射を計算する。
 	//光が法線方向から入射していると考えて鏡面反射を計算する。
 	lig += BRDF(Normal, eyeToPixel, Normal, metaric) * ambinentLight * metaric;
 
-	float f;
-	f = CalcShadow(psIn.worldPos, psIn.posInview.z);
-	//線形補完
-	if (f == 1.0f)
-	{
-		lig *= 0.5f;
-	}
+	//float f;
+	//f = CalcShadow(psIn.worldPos, psIn.posInview.z);
+	////線形補完
+	//if (f == 1.0f)
+	//{
+	//	lig *= 0.5f;
+	//}
 
 	float4 texColor = g_texture.Sample(g_sampler, psIn.uv);
 	texColor.xyz *= lig; //光をテクスチャカラーに乗算する。
-	//return float4(texColor.xyz, 1.0f);	
+	//return float4(texColor.xyz, 1.0f);
 	return texColor;
 }
 
@@ -398,6 +396,8 @@ PSInput_ShadowMap VSMain_ShadowMapCore(SVSIn In, float4x4 worldMat)
 	float4 pos = mul(worldMat, In.pos);
 	pos = mul(mProj, pos);
 	psInput.Position = pos;
+	float4 texColor = g_texture.Sample(g_sampler, In.uv);
+	psInput.uv = In.uv;
 	return psInput;
 }
 
@@ -446,12 +446,18 @@ PSInput_ShadowMap VSMain_ShadowMapSkin(SVSInSkin In)
 	//pos = mul(mView, pos);
 	pos = mul(mProj,pos );
 	psInput.Position = pos;
+	psInput.uv = In.uv;
+
 	return psInput;
 }
 
 //ピクセルシェーダーのエントリ関数
 float4 PSMain_ShadowMap(PSInput_ShadowMap In) : SV_Target0
 {
+	//テクスチャのαを参照して透過ならピクセルキル
+	float4 texColor = g_texture.Sample(g_sampler, In.uv);
+	clip(texColor.a - 1.0f);
+
 	//射影空間でのZ値を返す
 	return In.Position.z / In.Position.w;
 }

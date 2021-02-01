@@ -1,7 +1,6 @@
 #pragma once
 
-
-class Grass_03:public IGameObject
+class Tree1:public IGameObject
 {
 	struct ObjData {
 		Vector3 position;		//座標
@@ -9,8 +8,8 @@ class Grass_03:public IGameObject
 		Vector3 scale;		//拡大率
 	};
 public:
-	Grass_03();
-	~Grass_03();
+	Tree1();
+	~Tree1();
 
 	bool Start();
 	void Update();
@@ -37,8 +36,10 @@ public:
 		m_renderObjDatas.push_back(data);
 	}
 private:
-	Model m_Glass;
+	Model m_Tree;
 	ModelInitData m_InitData;
 	int m_instanceNum = 1;		//インスタンスの数
 	std::vector<ObjData> m_renderObjDatas;		//描画するオブジェクトの配列
+
 };
+
