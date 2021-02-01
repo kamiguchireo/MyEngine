@@ -77,34 +77,18 @@ float BRDF(float3 L, float3 V, float3 N, float metaric)
 	return max(F * D * G / m, 0.0f);
 }
 
-float SchlickFresnel(float f0, float f90)
-{
-	return f0 + (f90 - f0);
-}
 //N		法線
 //L		光源に向かうベクトル
 //V		視線に向かうベクトル
 //roughness		スペキュラ
 float3 NormalizedDisneyDiffuse(float3 N, float3 L, float3 V, float roughness)
 {
-	//光源に向かうベクトルと視線に向かうベクトルのハーフベクトルを求める
-	float3 H = normalize(L + V);
-
-	float energyBias = lerp(0.0f, 0.5f, roughness);
-	float energyFactor = lerp(1.0f, 1.0f / 1.51f, roughness);
-	//光源に向かうベクトルとハーフベクトルがどれだけ似ているかを内積で求める
-	float dotLH = saturate(dot(L, H));
 	//法線と光源に向かうベクトルがどれだけ似ているかを内積で求める
 	float dotNL = saturate(dot(N, L));
 	//法線と視線に向かうベクトルがどれだけ似ているかを内積で求める
 	float dotNV = saturate(dot(N, V));
 
-	float Fd90 = energyBias + 2.0f * dotLH * dotLH * roughness;
-
-	float FL = SchlickFresnel(Fd90, dotNL);
-	float FV = SchlickFresnel(Fd90, dotNV);
-
-	return max(0.2f, (FL * FV) / PI);
+	return max(0.2f, (dotNL * dotNV) / PI);
 }
 
 PSInput VSMain(VSInput In) 
