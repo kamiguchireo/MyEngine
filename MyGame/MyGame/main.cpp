@@ -9,7 +9,7 @@
 #include "SourceFile/Timer/GameTime.h"
 
 #include "Game/Test.h"
-#include "Game/Stage.h"
+#include "Game/Stage/Stage.h"
 
 GameTime g_gameTime;
 ///////////////////////////////////////////////////////////////////
@@ -44,6 +44,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_graphicsEngine->GetLightManager()->InitCB();
 	DirectionalLight DL1;
 	DL1.direction = { 1.0f,-1.0f,-1.0f };
+	//DL1.direction = { 1.0f,0.0f,0.0f };
 	DL1.direction.Normalize();
 	DL1.color = {10.8f,10.8f,10.8f,1.0f};
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "SourceFile/level/Level.h"
-#include "Game/Grass/Grass_03.h"
-#include "Game/Tree/Tree1.h"
+#include "Grass/Grass_03.h"
+#include "Tree/Tree1.h"
 
 class Stage
 {

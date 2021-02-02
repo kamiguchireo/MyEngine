@@ -183,12 +183,13 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TkmFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
+    <ClCompile Include="Game\Stage\Bush\Bush_02.cpp" />
     <ClCompile Include="Game\Camera\CameraStateTPS.cpp" />
     <ClCompile Include="Game\Camera\GameCamera.cpp" />
     <ClCompile Include="Game\Camera\IGameCamera.cpp" />
     <ClCompile Include="Game\Player\PlayerWeapon.cpp" />
     <ClCompile Include="Game\Player\PlayerStateAim.cpp" />
-    <ClCompile Include="Game\Grass\Grass_03.cpp" />
+    <ClCompile Include="Game\Stage\Grass\Grass_03.cpp" />
     <ClCompile Include="SourceFile\level\LevelMatrix.cpp" />
     <ClCompile Include="SourceFile\level\MapChipRender.cpp" />
     <ClCompile Include="SourceFile\level\Level.cpp" />
@@ -210,7 +211,7 @@
     <ClCompile Include="SourceFile\graphic\Animation\AnimationClip.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Game\Stage.cpp" />
+    <ClCompile Include="Game\Stage\Stage.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -221,7 +222,7 @@
     <ClCompile Include="system\system.cpp" />
     <ClCompile Include="SourceFile\level\TklFile.cpp" />
     <ClCompile Include="Game\Test.cpp" />
-    <ClCompile Include="Game\Tree\Tree1.cpp" />
+    <ClCompile Include="Game\Stage\Tree\Tree1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\MiniEngine\Camera.h" />
@@ -253,12 +254,13 @@
     <ClInclude Include="..\..\MiniEngine\tkFile\TkmFile.h" />
     <ClInclude Include="..\..\MiniEngine\tkFile\TksFile.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
+    <ClInclude Include="Game\Stage\Bush\Bush_02.h" />
     <ClInclude Include="Game\Camera\CameraStateTPS.h" />
     <ClInclude Include="Game\Camera\GameCamera.h" />
     <ClInclude Include="Game\Camera\IGameCamera.h" />
     <ClInclude Include="Game\Player\PlayerWeapon.h" />
     <ClInclude Include="Game\Player\PlayerStateAim.h" />
-    <ClInclude Include="Game\Grass\Grass_03.h" />
+    <ClInclude Include="Game\Stage\Grass\Grass_03.h" />
     <ClInclude Include="SourceFile\level\LevelMatrix.h" />
     <ClInclude Include="SourceFile\level\MapChipRender.h" />
     <ClInclude Include="SourceFile\level\Level.h" />
@@ -282,13 +284,13 @@
     <ClInclude Include="SourceFile\graphic\Animation\AnimationClip.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="SourceFile\Noncopyable.h" />
-    <ClInclude Include="Game\Stage.h" />
+    <ClInclude Include="Game\Stage\Stage.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SourceFile\Timer\StopWatch.h" />
     <ClInclude Include="system\system.h" />
     <ClInclude Include="SourceFile\level\TklFile.h" />
     <ClInclude Include="Game\Test.h" />
-    <ClInclude Include="Game\Tree\Tree1.h" />
+    <ClInclude Include="Game\Stage\Tree\Tree1.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

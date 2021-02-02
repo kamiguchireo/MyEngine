@@ -194,13 +194,16 @@
     <ClCompile Include="Game\Player\PlayerStateAim.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Stage.cpp">
+    <ClCompile Include="Game\Stage\Stage.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Grass\Grass_03.cpp">
+    <ClCompile Include="Game\Stage\Grass\Grass_03.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Tree\Tree1.cpp">
+    <ClCompile Include="Game\Stage\Bush\Bush_02.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Stage\Tree\Tree1.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -391,13 +394,16 @@
     <ClInclude Include="Game\Player\PlayerStateAim.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Stage.h">
+    <ClInclude Include="Game\Stage\Stage.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Grass\Grass_03.h">
+    <ClInclude Include="Game\Stage\Grass\Grass_03.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Tree\Tree1.h">
+    <ClInclude Include="Game\Stage\Bush\Bush_02.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Stage\Tree\Tree1.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

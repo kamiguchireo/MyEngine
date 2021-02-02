@@ -38,6 +38,8 @@ Texture2D<float4> g_specularMap : register(t4); //スペキュラマップ
 
 sampler Sampler : register(s0);
 
+//ベックマン分布
+//分散ぐあいがわかる
 float Beckmann(float m, float t)
 {
 	float t2 = t * t;
@@ -63,6 +65,7 @@ float BRDF(float3 L, float3 V, float3 N, float metaric)
 	//光源に向かうベクトルと視線に向かうベクトルのハーフベクトルを求める
 	float3 H = normalize(L + V);
 
+	//各ベクトルがどれだけ似ているか
 	float NdotH = max(0.01f, dot(N, H));
 	float VdotH = max(0.01f, dot(V, H));
 	float NdotL = max(0.01f, dot(N, L));
