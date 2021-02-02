@@ -29,7 +29,10 @@ void MeshParts::InitFromTkmFile(
 )
 {
 	m_instanceNum = maxInstance;
-	m_instancingMatricesStructureBuffer = InstancingMat;
+	if (InstancingMat != nullptr)
+	{
+		m_instancingMatricesStructureBuffer = InstancingMat;
+	}
 	m_meshs.resize(tkmFile.GetNumMesh());
 	int meshNo = 0;
 	tkmFile.QueryMeshParts([&](const TkmFile::SMesh& mesh) {
@@ -42,7 +45,10 @@ void MeshParts::InitFromTkmFile(
 	//共通定数バッファの作成。
 	m_commonConstantBuffer.Init(sizeof(SConstantBuffer), nullptr);
 
-	m_expandShaderResourceView = expandShaderResourceView;
+	if (expandShaderResourceView != nullptr)
+	{
+		m_expandShaderResourceView = expandShaderResourceView;
+	}
 	//ディスクリプタヒープを作成。
 	CreateDescriptorHeaps();
 }

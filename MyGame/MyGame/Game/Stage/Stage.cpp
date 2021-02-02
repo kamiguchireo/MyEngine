@@ -33,6 +33,20 @@ Stage::Stage()
 			}
 			return true;
 		}
+		else if (wcscmp(objData.name, L"SM_BushA_02") == 0)
+		{
+			//–Ø
+			if (m_Bush == nullptr)
+			{
+				m_Bush = NewGO<Bush_02>(0);
+				m_Bush->InitInstance(objData.position, objData.rotation, objData.scale);
+			}
+			else
+			{
+				m_Bush->AddInstance(objData.position, objData.rotation, objData.scale);
+			}
+			return true;
+		}
 		return false;
 	});
 

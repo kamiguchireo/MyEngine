@@ -137,6 +137,8 @@ void Material::InitPipelineState()
 
 	//続いて半透明マテリアル用。
 	//psoDesc.InputLayout = { inputElementDescs, _countof(inputElementDescs) };
+	psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;		//アルベドカラー出力用。
+
 	psoDesc.VS = CD3DX12_SHADER_BYTECODE(m_vsSkinModel.GetCompiledBlob());
 	psoDesc.PS = CD3DX12_SHADER_BYTECODE(m_psModel.GetCompiledBlob());
 	psoDesc.BlendState.IndependentBlendEnable = TRUE;

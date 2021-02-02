@@ -33,6 +33,7 @@ void Tree1::Update()
 		m_Tree.UpdateInstancingData(objData.position, objData.rotation, objData.scale);
 	}
 	m_Tree.UpdateInstancingSTB();
+	//g_graphicsEngine->GetShadowMap()->RegistShadowCaster(&m_Tree);
 }
 
 void Tree1::Draw()
