@@ -183,6 +183,8 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TkmFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
+    <ClCompile Include="SourceFile\Physics\CapsuleCollider.cpp" />
+    <ClCompile Include="SourceFile\Physics\CharacterController.cpp" />
     <ClCompile Include="Game\Stage\Bush\Bush_02.cpp" />
     <ClCompile Include="Game\Camera\CameraStateTPS.cpp" />
     <ClCompile Include="Game\Camera\GameCamera.cpp" />
@@ -256,6 +258,8 @@
     <ClInclude Include="..\..\MiniEngine\tkFile\TkmFile.h" />
     <ClInclude Include="..\..\MiniEngine\tkFile\TksFile.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
+    <ClInclude Include="SourceFile\Physics\CapsuleCollider.h" />
+    <ClInclude Include="SourceFile\Physics\CharacterController.h" />
     <ClInclude Include="Game\Stage\Bush\Bush_02.h" />
     <ClInclude Include="Game\Camera\CameraStateTPS.h" />
     <ClInclude Include="Game\Camera\GameCamera.h" />
