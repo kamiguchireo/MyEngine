@@ -3,7 +3,6 @@
 
 Stage::Stage()
 {
-	//m_level.Init("Assets/Level/Map.tkl", nullptr);
 	m_level.Init("Assets/Level/Map.tkl", [&](const LevelObjectData& objData) {
 		if (wcscmp(objData.name, L"SM_Grass_03") == 0)
 		{	
