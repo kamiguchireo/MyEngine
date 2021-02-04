@@ -84,6 +84,13 @@ public:
 	{
 		m_instancingMatricesStructureBuffer.Update(m_instancingMat.get());
 	}
+
+	//tkmファイルを取得
+	const TkmFile& GetTkmFile()const
+	{
+		return m_tkmFile;
+	}
+
 private:
 	Matrix m_world;			//ワールド行列。
 	TkmFile m_tkmFile;		//tkmファイル。

@@ -194,6 +194,7 @@
     <ClCompile Include="SourceFile\level\MapChipRender.cpp" />
     <ClCompile Include="SourceFile\level\Level.cpp" />
     <ClCompile Include="SourceFile\level\MapChip.cpp" />
+    <ClCompile Include="SourceFile\Physics\MeshCollider.cpp" />
     <ClCompile Include="SourceFile\Timer\GameTime.cpp" />
     <ClCompile Include="Game\Player\IPlayer.cpp" />
     <ClCompile Include="Game\Player\Player.cpp" />
@@ -267,6 +268,8 @@
     <ClInclude Include="SourceFile\level\Level.h" />
     <ClInclude Include="SourceFile\level\MapChip.h" />
     <ClInclude Include="SourceFile\NameKey.h" />
+    <ClInclude Include="SourceFile\Physics\ICollider.h" />
+    <ClInclude Include="SourceFile\Physics\MeshCollider.h" />
     <ClInclude Include="SourceFile\Timer\GameTime.h" />
     <ClInclude Include="Game\Player\IPlayer.h" />
     <ClInclude Include="Game\Player\Player.h" />
