@@ -22,14 +22,28 @@ Stage::Stage()
 		else if (wcscmp(objData.name, L"SM_Tree_Tropic_02_novines") == 0)
 		{
 			//–Ø
-			if (m_Tree == nullptr)
+			if (m_Tree1 == nullptr)
 			{
-				m_Tree = NewGO<Tree1>(0);
-				m_Tree->InitInstance(objData.position, objData.rotation, objData.scale);
+				m_Tree1 = NewGO<Tree1>(0);
+				m_Tree1->InitInstance(objData.position, objData.rotation, objData.scale);
 			}
 			else
 			{
-				m_Tree->AddInstance(objData.position, objData.rotation, objData.scale);
+				m_Tree1->AddInstance(objData.position, objData.rotation, objData.scale);
+			}
+			return true;
+		}
+		else if (wcscmp(objData.name, L"SM_Tree_Tropic_02") == 0)
+		{
+			//–Ø
+			if (m_Tree2 == nullptr)
+			{
+				m_Tree2 = NewGO<Tree2>(0);
+				m_Tree2->InitInstance(objData.position, objData.rotation, objData.scale);
+			}
+			else
+			{
+				m_Tree2->AddInstance(objData.position, objData.rotation, objData.scale);
 			}
 			return true;
 		}
@@ -47,6 +61,7 @@ Stage::Stage()
 			}
 			return true;
 		}
+
 		return false;
 	});
 

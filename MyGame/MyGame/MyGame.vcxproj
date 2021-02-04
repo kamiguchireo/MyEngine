@@ -223,6 +223,7 @@
     <ClCompile Include="SourceFile\level\TklFile.cpp" />
     <ClCompile Include="Game\Test.cpp" />
     <ClCompile Include="Game\Stage\Tree\Tree1.cpp" />
+    <ClCompile Include="Game\Stage\Tree\Tree2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\MiniEngine\Camera.h" />
@@ -291,6 +292,7 @@
     <ClInclude Include="SourceFile\level\TklFile.h" />
     <ClInclude Include="Game\Test.h" />
     <ClInclude Include="Game\Stage\Tree\Tree1.h" />
+    <ClInclude Include="Game\Stage\Tree\Tree2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
