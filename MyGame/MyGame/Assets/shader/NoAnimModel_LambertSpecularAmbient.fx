@@ -242,16 +242,6 @@ SPSIn VSMainSkin(SVSInSkin In)
 	psInput.pos = pos;
 	psInput.uv = In.uv;
 	
-	//SPSIn psIn;
-
-	//psIn.pos = mul(mWorld, vsIn.pos);						//モデルの頂点をワールド座標系に変換。
-	//psIn.worldPos = psIn.pos.xyz;
-	//psIn.pos = mul(mView, psIn.pos);						//ワールド座標系からカメラ座標系に変換。
-	//psIn.pos = mul(mProj, psIn.pos);						//カメラ座標系からスクリーン座標系に変換。
-	//psIn.normal = normalize(mul(mWorld, vsIn.normal));		//法線をワールド座標系に変換。
-	//psIn.uv = vsIn.uv;
-
-
 	return psInput;
 }
 
@@ -324,8 +314,13 @@ float3 GetNormal(float3 normal, float3 tangent, float3 biNormal, float2 uv)
 /// <summary>
 /// モデル用のピクセルシェーダーのエントリーポイント
 /// </summary>
-float4 PSMain( SPSIn psIn ) : SV_Target0
+float4 PSMain(SPSIn psIn) : SV_Target0
 {
+	//テクスチャのカラーをサンプル
+	float4 texColor = g_texture.Sample(g_sampler, psIn.uv);
+	//αの値が0.5以下だとピクセルキル
+	clip(texColor.a - 0.5f);
+
 	float3 lig = 0.0f;
 	float metaric = g_specularMap.Sample(g_sampler, psIn.uv).a;
 	//ライトをあてる物体から視点に向かって伸びるベクトルを計算する。
@@ -338,11 +333,7 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 	for (int i = 0; i < NUM_DIRECTIONAL_LIGHT; i++) {
 		if (shadow < 1.0f || i != 0) {
 			float NdotL = saturate(dot(Normal, -directionalLight[i].direction));	//ライトの逆方向と法線で内積を計算する。
-			//if (NdotL < 0.0f) {	//内積の計算結果はマイナスになるので、if文で判定する。
-			//	NdotL = 0.0f;
-			//}
 			//拡散反射光を求める
-
 			float disneyDiffuse = NormalizedDisneyDiffuse(Normal, -directionalLight[i].direction, eyeToPixel, 1.0f);
 			float3 Diffuse = directionalLight[i].color * NdotL * disneyDiffuse / PI;
 			//return float4(Diffuse, 1.0f);
@@ -359,17 +350,7 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 	//光が法線方向から入射していると考えて鏡面反射を計算する。
 	lig += BRDF(Normal, eyeToPixel, Normal, metaric) * ambinentLight * metaric;
 
-	//float f;
-	//f = CalcShadow(psIn.worldPos, psIn.posInview.z);
-	////線形補完
-	//if (f == 1.0f)
-	//{
-	//	lig *= 0.5f;
-	//}
-
-	float4 texColor = g_texture.Sample(g_sampler, psIn.uv);
 	texColor.xyz *= lig; //光をテクスチャカラーに乗算する。
-	//return float4(texColor.xyz, 1.0f);
 	return texColor;
 }
 
@@ -427,7 +408,6 @@ PSInput_ShadowMap VSMain_ShadowMapSkin(SVSInSkin In)
 		pos = mul(skinning,In.pos );
 	}
 
-	//pos = mul(mView, pos);
 	pos = mul(mProj,pos );
 	psInput.Position = pos;
 	psInput.uv = In.uv;
@@ -450,12 +430,8 @@ SPSOUT PSDefferdMain(SPSIn psIn)
 {
 	SPSOUT psOut;
 	psOut.albedo = g_texture.Sample(g_sampler, psIn.uv);
-	//法線は0～1
-	//float3 Normalmap = (psIn.normal / 2.0f) + 0.5f;
-	//psOut.normal.xyz = (psIn.normal / 2.0f) + 0.5f;
 	float3 Normal = GetNormal(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
 	psOut.normal.xyz = Normal.xyz;
-	//psOut.normal.xyz = psIn.normal;
 	//シャドウ用
 	float f = 0.0f;
 	f = CalcShadow(psIn.worldPos, psIn.posInview.z);
@@ -463,7 +439,5 @@ SPSOUT PSDefferdMain(SPSIn psIn)
 	psOut.worldPos.xyz = psIn.worldPos;
 	float metaric = g_specularMap.Sample(g_sampler, psIn.uv).g;
 	psOut.specularMap = float4(metaric, metaric, metaric, 1.0f);
-	//float4 metaric = g_specularMap.Sample(g_sampler, psIn.uv);
-	//psOut.specularMap = float4(metaric.r, metaric.g, metaric.b, metaric.a);
 	return psOut;
 }
