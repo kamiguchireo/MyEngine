@@ -2,7 +2,7 @@
 #include "ICollider.h"
 
 namespace Engine {
-	class CapsuleCollider
+	class CapsuleCollider : public ICollider
 	{
 	public:
 		//作成
@@ -11,7 +11,14 @@ namespace Engine {
 
 		}
 
-	private:
+		btCollisionShape* GetBody() const
+		{
+			return m_shape.get();
+		}
 
+	private:
+		std::unique_ptr<btCapsuleShape> m_shape;		//カプセルコライダー
+		float m_radius = 0.0f;		//半径
+		float m_height = 0.0f;		//高さ
 	};
 }
