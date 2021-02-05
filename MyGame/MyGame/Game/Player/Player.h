@@ -5,6 +5,7 @@
 #include "Game/Camera/GameCamera.h"
 #include "PlayerWeapon.h"
 #include "PlayerStateAim.h"
+#include "SourceFile/Physics/CharacterController.h"
 
 class Player:public IGameObject
 {
@@ -56,4 +57,5 @@ private:
 	PlayerWeapon* m_PlayerWeapon = nullptr;
 	GameCamera* m_camera = nullptr;
 	Vector3 m_forward = Vector3::AxisZ;
+	CharacterController characon;
 };

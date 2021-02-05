@@ -15,6 +15,9 @@ void EngineProcessing::Init()
 	//g_camera2D->SetUp(Vector3::Up);
 	g_camera2D->SetFar(100.0f);
 	g_camera2D->Update();
+
+	//フィジックスワールドを初期化
+	g_graphicsEngine->GetPhysicsWorld().Init();
 }
 
 void EngineProcessing::Update()
@@ -22,6 +25,9 @@ void EngineProcessing::Update()
 	Engine::GameObjectManager().Start();
 	Engine::GameObjectManager().PreRender();
 	Engine::GameObjectManager().Update();
+
+	//フィジックスワールドの更新
+	g_graphicsEngine->GetPhysicsWorld().Update();
 
 	//シャドウマップのアップデート
 	g_graphicsEngine->GetShadowMap()->Update();

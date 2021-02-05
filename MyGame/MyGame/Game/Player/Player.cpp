@@ -49,7 +49,7 @@ void Player::ChangeState(IPlayer* state)
 bool Player::Start()
 {
 	m_camera = NewGO<GameCamera>(0, nullptr);
-
+	//characon.Init(10.0f, 50.0f, m_pos);
 	//待機状態のアニメーション
 	m_animClip[0].Load("Assets/animData/Rifle_Idle.tka");
 	m_animClip[0].SetLoopFlag(true);
@@ -117,7 +117,7 @@ void Player::Update()
 	m_camera->SetTarget(m_pos);
 
 	m_playerModel->SetPosition(m_pos);
+	//characon.Execute(m_pos);
 	m_playerModel->SetRotation(m_rot);
 	m_PlayerWeapon->Update();
-
 }

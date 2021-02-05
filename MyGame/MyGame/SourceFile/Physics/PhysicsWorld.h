@@ -8,7 +8,12 @@ namespace Engine {
 	{
 	public:
 		~PhysicsWorld();
-
+		//初期化処理
+		void Init();
+		//更新処理
+		void Update();
+		//解放処理
+		void Release();
 		//剛体を追加
 		void AddRigidBody(RigidBody& rb)
 		{
@@ -40,7 +45,11 @@ namespace Engine {
 			m_dynamicWorld->convexSweepTest(castShape, convexFromWorld, convexToWorld, resultCallback, allowedCcdPenetration);
 		}
 
-	private:
+	private:		
+		std::unique_ptr<btDefaultCollisionConfiguration> m_collisionConfig;		//コリジョンの設定
+		std::unique_ptr<btCollisionDispatcher> m_collisionDispatcher;		//衝突解決処理。
+		std::unique_ptr<btBroadphaseInterface> m_overlappingPairCache;		//ブロードフェーズ。計算コストの低い大まかな衝突判定
+		std::unique_ptr<btSequentialImpulseConstraintSolver> m_constraintSolver;		//コンストレイントソルバー。拘束条件の解決処理。
 		std::unique_ptr<btDiscreteDynamicsWorld> m_dynamicWorld;		//ワールド。
 	};
 }
