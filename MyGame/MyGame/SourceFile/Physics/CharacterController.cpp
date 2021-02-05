@@ -239,8 +239,8 @@ namespace Engine {
 		m_position.z = nextPosition.z;
 		
 		//‰º•ûŒü‚ğ’²‚×‚é
-		Vector3 addPos;
-		addPos.Subtract(nextPosition, m_position);
+		Vector3 AddPos;
+		AddPos.Subtract(nextPosition, m_position);
 		m_position = nextPosition;		//ˆÚ“®‚Ì‰¼Šm’è
 		//ƒŒƒC‚ğì¬
 		btTransform start, end;
@@ -257,15 +257,15 @@ namespace Engine {
 		if (m_isOnGround == false)
 		{
 			//ã¸’†
-			if (addPos.y > 0.0f)
+			if (AddPos.y > 0.0f)
 			{
 				//ã¸’†‚Å‚àXZ‚ÉˆÚ“®‚µ‚½Œ‹‰Ê‚ß‚è‚ñ‚Å‚¢‚é‰Â”\«‚ª‚ ‚é‚Ì‚Å‰º‚ğ’²‚×‚é
-				endPos.y -= addPos.y * 0.01f;
+				endPos.y -= AddPos.y * 0.01f;
 			}
 			else
 			{
 				//—‰º‚µ‚Ä‚¢‚é‚Æ‚«
-				endPos.y += addPos.y;
+				endPos.y += AddPos.y;
 			}
 		}
 		else
