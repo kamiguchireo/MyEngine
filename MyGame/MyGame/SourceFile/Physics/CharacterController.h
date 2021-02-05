@@ -23,6 +23,15 @@ namespace Engine {
 		//position		初期位置
 		void Init(float radius, float height, const Vector3& position);
 
+		//実行
+		//moveSpeed		移動速度
+		//deltaTime		経過時間。単位は秒。デフォルトでは1フレームの経過時間が渡されている
+		//return		移動後のキャラクターの座標
+		const Vector3& Execute(Vector3& moveSpeed, float deltaTime = g_gameTime.GetFrameDeltaTime());
+
+		//剛体をフィジックスワールドから削除
+		void RemoveRigidBody();
+
 	private:
 		bool m_isInited = false;		//初期化フラグ
 		Vector3 m_position = Vector3::Zero;		//座標
