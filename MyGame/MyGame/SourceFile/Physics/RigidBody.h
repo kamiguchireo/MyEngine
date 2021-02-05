@@ -12,9 +12,11 @@ namespace Engine {
 		{
 			pos = Vector3::Zero;
 			rot = Quaternion::Identity;
+			localInteria = Vector3::Zero;
 		}
 		Vector3 pos;		//座標
 		Quaternion rot;		//回転
+		Vector3 localInteria;		//慣性テンソル
 		ICollider* collider;		//コライダー
 		float mass;		//質量
 	};

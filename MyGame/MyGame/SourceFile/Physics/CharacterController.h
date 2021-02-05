@@ -1,5 +1,6 @@
 #pragma once
 #include "CapsuleCollider.h"
+#include "RigidBody.h"
 
 //キャラクターコントローラー
 //キャラクターと背景の衝突解決を行う
@@ -30,6 +31,6 @@ namespace Engine {
 		CapsuleCollider m_collider;		//コライダー
 		float m_radius = 0.0f;		//カプセルコライダーの半径
 		float m_height = 0.0f;		//カプセルコライダーの高さ
-
+		RigidBody m_rigidBody;		//剛体
 	};
 }
