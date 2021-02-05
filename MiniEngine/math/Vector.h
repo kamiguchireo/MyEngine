@@ -147,6 +147,13 @@ public:
 		dst.y = y;
 		dst.z = z;
 	}
+	void CopyTo(btVector3& dst) const
+	{
+		dst.setX(x);
+		dst.setY(y);
+		dst.setZ(z);
+	}
+
 	/// <summary>
 	/// ベクトルの設定。
 	/// </summary>
@@ -163,6 +170,12 @@ public:
 	void Set(TVector& _v)
 	{
 		Set(_v.x, _v.y, _v.z);
+	}
+	void Set(btVector3& _v)
+	{
+		this->x = _v.x();
+		this->y = _v.y();
+		this->z = _v.z();
 	}
 		
 	/// <summary>
@@ -465,7 +478,14 @@ public:
 		dst.z = z;
 		dst.w = w;
 	}
-	
+	void CopyTo(btQuaternion& dst) const
+	{
+		dst.setX(x);
+		dst.setY(y);
+		dst.setZ(z);
+		dst.setW(w);
+	}
+
 	/// <summary>
 	/// 代入演算子。
 	/// </summary>
