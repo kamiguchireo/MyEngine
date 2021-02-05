@@ -22,6 +22,11 @@ namespace Engine {
 
 		}
 
+		//メッシュ形状のゴーストオブジェクトを作成
+		//pos		座標
+		//rot		回転
+		//skinModel	モデル
+		void CreateMesh(Vector3 pos, Quaternion rot, const Model& skinModel);
 	protected:
 		std::unique_ptr<ICollider> m_collider;		//コライダー
 	};
