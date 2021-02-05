@@ -184,6 +184,7 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TkmFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
+    <ClCompile Include="SourceFile\Physics\PhysicsWorld.cpp" />
     <ClCompile Include="SourceFile\Physics\RigidBody.cpp" />
     <ClCompile Include="SourceFile\Physics\CapsuleCollider.cpp" />
     <ClCompile Include="SourceFile\Physics\CharacterController.cpp" />
@@ -260,6 +261,7 @@
     <ClInclude Include="..\..\MiniEngine\tkFile\TkmFile.h" />
     <ClInclude Include="..\..\MiniEngine\tkFile\TksFile.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
+    <ClInclude Include="SourceFile\Physics\PhysicsWorld.h" />
     <ClInclude Include="SourceFile\Physics\RigidBody.h" />
     <ClInclude Include="SourceFile\Physics\CapsuleCollider.h" />
     <ClInclude Include="SourceFile\Physics\CharacterController.h" />

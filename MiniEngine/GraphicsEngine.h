@@ -17,6 +17,8 @@
 #include "SourceFile/graphic/PostEffect/DefferdRendering.h"
 #include "SourceFile/graphic/Light/LightManager.h"
 
+#include "SourceFile/Physics/PhysicsWorld.h"
+
 enum EnRenderMode {
 	enRenderMode_CreateShadowMap,		//シャドウマップ生成
 	enRenderMode_Normal,				//通常レンダリング
@@ -156,6 +158,8 @@ public:
 	{
 		return m_LM;
 	}
+	
+
 private:
 	/// <summary>
 	/// D3Dデバイスの作成。
@@ -221,6 +225,13 @@ private:
 	/// 描画の完了待ち。
 	/// </summary>
 	void WaitDraw();
+
+public:
+	//物理ワールドの取得
+	Engine::PhysicsWorld& GetPhysicsWorld()
+	{
+		return m_physicsWorld;
+	}
 public:
 	enum { FRAME_BUFFER_COUNT = 2 };						//フレームバッファの数。
 private:
@@ -263,6 +274,7 @@ private:
 	std::unique_ptr<Engine::ShadowMap> m_shadowMap = nullptr;
 	std::unique_ptr<Engine::DefferdRendering> m_DefferdRendering = nullptr;
 	std::unique_ptr<Engine::LightManager> m_LM = nullptr;
+	Engine::PhysicsWorld m_physicsWorld;		//物理ワールド。
 };
 extern GraphicsEngine* g_graphicsEngine;	//グラフィックスエンジン
 extern Camera* g_camera2D;					//2Dカメラ。

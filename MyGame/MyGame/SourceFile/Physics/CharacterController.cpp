@@ -52,6 +52,75 @@ namespace Engine {
 	//衝突した時に呼ばれる関数オブジェクト(壁用)
 	struct SweepResultWall : public btCollisionWorld::ConvexResultCallback
 	{
+		bool isHit = false;						//衝突フラグ。
+		Vector3 hitPos = Vector3::Zero;		//衝突点。
+		Vector3 startPos = Vector3::Zero;		//レイの始点。
+		float dist = FLT_MAX;					//衝突点までの距離。一番近い衝突点を求めるため。FLT_MAXは単精度の浮動小数点が取りうる最大の値。
+		Vector3 hitNormal = Vector3::Zero;	//衝突点の法線。
+		btCollisionObject* me = nullptr;		//自分自身。自分自身との衝突を除外するためのメンバ。
 
+		//衝突したときに呼ばれるコールバック関数。
+		virtual btScalar addSignalResult(btCollisionWorld::LocalConvexResult& convexResult, bool normalInWorldSpace)
+		{
+			//自分か地面に衝突したとき
+			if (convexResult.m_hitCollisionObject == me
+				|| convexResult.m_hitCollisionObject->getInternalType() == btCollisionObject::CO_GHOST_OBJECT
+				)
+			{
+				return 0.0f;
+			}
+			//衝突点の法線
+			Vector3 hitNormalTmp;
+			hitNormalTmp.Set(convexResult.m_hitNormalLocal);
+			//上方向と衝突点の法線のなす角度を求める。
+			float angle = fabsf(acosf(hitNormalTmp.Dot(Vector3::Up)));
+			//地面の傾斜が54度以上なので壁とみなす。
+			if (angle >= Math::PI * 0.3f)
+			{
+				isHit = true;
+				Vector3 hitPosTmp;
+				hitPosTmp.Set(convexResult.m_hitPointLocal);
+				//交点との距離を調べる。
+				Vector3 vDist;
+				vDist.Subtract(hitPosTmp, startPos);
+				vDist.y = 0.0f;
+				float distTmp = vDist.Length();
+				if (distTmp < dist) 
+				{
+					//この衝突点の方が近いので、最近傍の衝突点を更新する。
+					hitPos = hitPosTmp;
+					dist = distTmp;
+					hitNormal = hitNormalTmp;
+				}
+			}
+			return 0.0f;
+		}
 	};
+
+	void CharacterController::Init(float radius, float height, const Vector3& position)
+	{
+		//位置を代入
+		m_position = position;
+		//半径を代入
+		m_radius = radius;
+		//高さを代入
+		m_height = height;
+		//コリジョン作成
+		m_collider.Create(radius, height);
+
+		//剛体を初期化
+		RigidBodyInfo rbInfo;
+		//コライダーを代入
+		rbInfo.collider = &m_collider;
+		//質量を代入
+		rbInfo.mass = 0.0f;
+		//剛体を作成
+		m_rigidBody.Create(rbInfo);
+		btTransform& trans = m_rigidBody.GetBody()->getWorldTransform();
+		//剛体の位置を更新
+		trans.setOrigin(btVector3(position.x, position.y + m_height * 0.5f + m_radius, position.z));
+		m_rigidBody.GetBody()->setCollisionFlags(btCollisionObject::CF_CHARACTER_OBJECT);
+		//g_graphicsEngine->GetPhysicsWorld() .AddRigidBody(m_rigidBody);
+		m_isInited = true;
+	}
 }
