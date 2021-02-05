@@ -309,6 +309,6 @@ namespace Engine {
 	//Ž€–S‚µ‚½‚±‚Æ‚ð’Ê’m
 	void CharacterController::RemoveRigidBody()
 	{
-
+		g_graphicsEngine->GetPhysicsWorld().RemoveRigidBody(m_rigidBody);
 	}
 }

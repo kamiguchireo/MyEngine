@@ -19,7 +19,16 @@ namespace Engine {
 				rb.SetMarkAddPhysicsWorld();
 			}
 		}
-
+		//剛体を削除
+		void RemoveRigidBody(RigidBody& rb)
+		{
+			//フィジックスワールドに登録されているとき
+			if (rb.IsAddPhysicsWorld() == true)
+			{
+				m_dynamicWorld->removeRigidBody(rb.GetBody());
+				rb.SetUnmarkAddPhysicsWorld();
+			}
+		}
 		void ConvexSweepTest(
 			const btConvexShape* castShape,
 			const btTransform& convexFromWorld,
