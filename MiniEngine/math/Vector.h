@@ -851,6 +851,15 @@ public:
 		DirectX::XMVECTOR xmv = DirectX::XMVector3Rotate(_v, *this);
 		DirectX::XMStoreFloat3(&_v.vec, xmv);
 	}
+
+	//btQuaternionの値からセット
+	void Set(const btQuaternion& rot)
+	{
+		x = rot.x();
+		y = rot.y();
+		z = rot.z();
+		w = rot.w();
+	}
 };
 	
 //整数型のベクトルクラス。
