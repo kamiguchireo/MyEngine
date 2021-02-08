@@ -1,7 +1,7 @@
 #pragma once
 #include "ICollider.h"
-#include "BulletCollision/CollisionDispatch/btCollisionWorldImporter.h"
-#include "BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h"
+//#include "BulletCollision/CollisionDispatch/btCollisionWorldImporter.h"
+//#include "BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h"
 
 namespace Engine {
 	class MeshCollider :public ICollider

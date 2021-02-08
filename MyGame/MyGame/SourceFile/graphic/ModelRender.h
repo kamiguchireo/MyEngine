@@ -54,7 +54,7 @@ namespace Engine {
 			//シャドウレシーバーにするかどうかのフラグをセット
 			void SetShadowRecieverFlag(bool flag)
 			{
-				m_model.SetShadowRecieverFlag(flag);
+				m_model->SetShadowRecieverFlag(flag);
 			}
 			//位置をセット
 			void SetPosition(const Vector3& pos)
@@ -79,30 +79,35 @@ namespace Engine {
 			//インスタンシング描画するオブジェクトのワールド行列をアップデート
 			void UpdateInstancingData(const Vector3& trans, const Quaternion& rot, const Vector3& scale)
 			{
-				m_model.UpdateInstancingData(trans, rot, scale);
+				m_model->UpdateInstancingData(trans, rot, scale);
 			}
 			//UpdateInstancingDataを呼ぶフレームに一回呼んでください。
 			void ModelInstanceRefresh()
 			{
-				m_model.Refresh();
+				m_model->Refresh();
 			}
 			//インスタンシング描画するモデルのストラクチャーバッファをアップデート
 			void UpdateInstancingSTB()
 			{
-				m_model.UpdateInstancingSTB();
+				m_model->UpdateInstancingSTB();
 			}
 			//ワールド行列を直接セット
 			void SetWorldMatrix(const Matrix& WorldMat)
 			{
-				m_model.SetWorldMatrix(WorldMat);
+				m_model->SetWorldMatrix(WorldMat);
 			}
 			//ワールド行列を自動でアップデートするかどうかのフラグ
 			void SetUpdateFlag(bool flag)
 			{
 				UpdateFlag = flag;
 			}
+			//スキンモデルを取得
+			const Model& GetModel()const
+			{
+				return *m_model;
+			}
 		private:
-			Model m_model;
+			Model* m_model = nullptr;
 			Vector3 m_pos = Vector3::Zero;
 			Quaternion m_rot = Quaternion::Identity;
 			Vector3 m_scale = Vector3::One;

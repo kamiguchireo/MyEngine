@@ -26,7 +26,7 @@ namespace Engine {
 		//メッシュの番号
 		int numMesh = 0;
 		//メッシュに対してクエリ
-		tkmFile.QueryMeshParts([&numMesh, &mBias](const TkmFile::SMesh& mesh) {
+		tkmFile.QueryMeshParts([&](const TkmFile::SMesh& mesh) {
 			//モデルの頂点バッファから、物理エンジン用の頂点バッファを作成
 			VertexBufferPtr vertexBuffer = std::make_unique<VertexBuffer>();
 			//メッシュの頂点バッファ分回す
@@ -36,6 +36,7 @@ namespace Engine {
 				//バイアスをかける
 				mBias.Apply(pos);
 				vertexBuffer->push_back(pos);
+
 			}
 			//モデルのインデックスバッファから、物理エンジン用のインデックスバッファを作成
 			IndexBufferPtr indexBuffer = std::make_unique<IndexBuffer>();
@@ -62,21 +63,26 @@ namespace Engine {
 					}
 				}
 			}
+			m_vertexBufferArray.push_back(std::move(vertexBuffer));
+			m_indexBufferArray.push_back(std::move(indexBuffer));
 			//次のメッシュへ
 			numMesh++;
 		});
 
 		//BulletPhysicsのインデックスメッシュを作成
 		btIndexedMesh indexedMesh;
-		IndexBuffer* ib = m_indexBufferArray.back().get();
-		VertexBuffer* vb = m_vertexBufferArray.back().get();
-		indexedMesh.m_numTriangles = (int)ib->size() / 3;
-		indexedMesh.m_triangleIndexBase = (unsigned char*)(&ib->front());
-		indexedMesh.m_triangleIndexStride = 12;
-		indexedMesh.m_numVertices = (int)vb->size();
-		indexedMesh.m_vertexBase = (unsigned char*)(&vb->front());
-		indexedMesh.m_vertexStride = sizeof(Vector3);
-		m_stridingMeshInterface->addIndexedMesh(indexedMesh);
+		if (m_indexBufferArray.size() > 0)
+		{
+			IndexBuffer* ib = m_indexBufferArray.back().get();
+			VertexBuffer* vb = m_vertexBufferArray.back().get();
+			indexedMesh.m_numTriangles = (int)ib->size() / 3;
+			indexedMesh.m_triangleIndexBase = (unsigned char*)(&ib->front());
+			indexedMesh.m_triangleIndexStride = 12;
+			indexedMesh.m_numVertices = (int)vb->size();
+			indexedMesh.m_vertexBase = (unsigned char*)(&vb->front());
+			indexedMesh.m_vertexStride = sizeof(Vector3);
+			m_stridingMeshInterface->addIndexedMesh(indexedMesh);
+		}
 	}
 
 	//モデルからメッシュコライダーを生成

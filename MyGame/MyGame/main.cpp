@@ -24,13 +24,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	// ここから初期化を行うコードを記述する。
 	//////////////////////////////////////
 		
-	//ゲーム本体
-	Game* g_game = nullptr;
-	g_game = Engine::NewGO<Game>(0, nullptr);
-
-	//ステージ
-	Stage m_Stage;
-
 	//テスト用のクラス
 	//Test* m_Test = nullptr;
 	//m_Test = Engine::NewGO<Test>(0, nullptr);
@@ -75,6 +68,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_graphicsEngine->GetDefferdRendering()->CreateRT();
 
 	StopWatch sw;
+
+	//ゲーム本体
+	Game* g_game = nullptr;
+	g_game = Engine::NewGO<Game>(0, nullptr);
+
+	//ステージ
+	Stage m_Stage;
+
 	// ここからゲームループ。
 	while (DispatchWindowMessage())
 	{

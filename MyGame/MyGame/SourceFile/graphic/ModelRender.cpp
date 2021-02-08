@@ -5,12 +5,16 @@ namespace Engine {
 	namespace prefab {
 		ModelRender::ModelRender()
 		{
-
+			m_model = new Model;
 		}
 
 		ModelRender::~ModelRender()
 		{
-
+			if (m_model != nullptr)
+			{
+				delete m_model;
+				m_model = nullptr;
+			}
 		}
 
 		bool ModelRender::Start()
@@ -29,10 +33,10 @@ namespace Engine {
 			//スケルトンがセットされているとき
 			if (m_skeleton != nullptr)
 			{
-				m_model.BindSkeleton(*m_skeleton);
+				m_model->BindSkeleton(*m_skeleton);
 			}
 
-			m_model.Init(InitData, m_numInstance);
+			m_model->Init(InitData, m_numInstance);
 			return true;
 		}
 
@@ -41,20 +45,20 @@ namespace Engine {
 			auto& RC = g_graphicsEngine->GetRenderContext();
 			if (UpdateFlag)
 			{
-				m_model.UpdateWorldMatrix(m_pos, m_rot, m_scale);
+				m_model->UpdateWorldMatrix(m_pos, m_rot, m_scale);
 			}
 
 			//スケルトンがセットされているとき
 			if (m_skeleton != nullptr)
 			{
-				m_skeleton->Update(m_model.GetWorldMatrix());
+				m_skeleton->Update(m_model->GetWorldMatrix());
 			}
 			//シャドウキャスターに登録されているとき
 			if (m_ShadowCasterFlag == true)
 			{
-				g_graphicsEngine->GetShadowMap()->RegistShadowCaster(&m_model);
+				g_graphicsEngine->GetShadowMap()->RegistShadowCaster(m_model);
 			}
-			g_graphicsEngine->GetDefferdRendering()->RegistCaster(&m_model);
+			g_graphicsEngine->GetDefferdRendering()->RegistCaster(m_model);
 		}
 
 		void ModelRender::Draw()

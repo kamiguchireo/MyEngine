@@ -37,6 +37,11 @@ public:
 		m_numRenderObject++;
 	}
 
+	const Model& GetModel()const
+	{
+		return m_modelRender->GetModel();
+	}
+
 private:
 	int m_numRenderObject = 1;
 	std::vector<LevelObjectData> m_renderObjDatas;		//描画するオブジェクトの配列

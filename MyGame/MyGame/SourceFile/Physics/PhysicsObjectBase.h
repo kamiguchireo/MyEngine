@@ -1,4 +1,5 @@
 #pragma once
+#include "SourceFile/graphic/ModelRender.h"
 
 namespace Engine {
 	//物理オブジェクトのベースクラス

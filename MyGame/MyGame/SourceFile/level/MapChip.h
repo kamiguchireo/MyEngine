@@ -1,5 +1,6 @@
 #pragma once
 #include "MapChipRender.h"
+#include "SourceFile/Physics/PhysicsStaticObject.h"
 
 struct LevelObjectData;
 //class MapChipRender;
@@ -13,5 +14,6 @@ public:
 
 private:
 	MapChipRender* m_mapChipRender = nullptr;		//マップチップレンダー
+	PhysicsStaticObject m_physicsStaticObject;		//静的物理オブジェクト
 };
 

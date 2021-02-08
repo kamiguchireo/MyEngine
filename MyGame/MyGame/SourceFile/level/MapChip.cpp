@@ -9,5 +9,10 @@ MapChip::MapChip(const LevelObjectData& objData, MapChipRender* mapChipRender)
 	//ファイルパスを作成
 	wchar_t filePath[256];
 	swprintf_s(filePath, L"Assets/modelData/%s.tkm", objData.name);
-	m_mapChipRender = mapChipRender;
+
+	m_physicsStaticObject.CreateMesh(
+		objData.position,
+		objData.rotation,
+		mapChipRender->GetModel()
+	);
 }
