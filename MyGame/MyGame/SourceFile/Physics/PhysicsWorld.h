@@ -45,7 +45,7 @@ namespace Engine {
 			m_dynamicWorld->convexSweepTest(castShape, convexFromWorld, convexToWorld, resultCallback, allowedCcdPenetration);
 		}
 
-	private:		
+	private:
 		std::unique_ptr<btDefaultCollisionConfiguration> m_collisionConfig;		//コリジョンの設定
 		std::unique_ptr<btCollisionDispatcher> m_collisionDispatcher;		//衝突解決処理。
 		std::unique_ptr<btBroadphaseInterface> m_overlappingPairCache;		//ブロードフェーズ。計算コストの低い大まかな衝突判定

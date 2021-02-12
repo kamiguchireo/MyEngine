@@ -4,7 +4,7 @@
 namespace Engine {
 	void PhysicsStaticObject::Release()
 	{
-		g_graphicsEngine->GetPhysicsWorld().RemoveRigidBody(m_rigidBody);
+		g_engine->GetPhysicsWorld().RemoveRigidBody(m_rigidBody);
 	}
 
 	void PhysicsStaticObject::CreateCommon(Vector3 pos, Quaternion rot)
@@ -15,6 +15,6 @@ namespace Engine {
 		rbInfo.pos = pos;
 		rbInfo.rot = rot;
 		m_rigidBody.Create(rbInfo);
-		g_graphicsEngine->GetPhysicsWorld().AddRigidBody(m_rigidBody);
+		g_engine->GetPhysicsWorld().AddRigidBody(m_rigidBody);
 	}
 }

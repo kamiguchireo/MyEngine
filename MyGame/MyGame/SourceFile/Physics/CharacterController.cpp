@@ -123,7 +123,7 @@ namespace Engine {
 		trans.setOrigin(btVector3(position.x, position.y + m_height * 0.5f + m_radius, position.z));
 		m_rigidBody.GetBody()->setCollisionFlags(btCollisionObject::CF_CHARACTER_OBJECT);
 		//フィジックスワールドに登録
-		g_graphicsEngine->GetPhysicsWorld() .AddRigidBody(m_rigidBody);
+		g_engine->GetPhysicsWorld() .AddRigidBody(m_rigidBody);
 		m_isInited = true;
 	}
 
@@ -186,7 +186,7 @@ namespace Engine {
 			callback.me = m_rigidBody.GetBody();
 			callback.startPos = posTmp;
 			//衝突検出
-			g_graphicsEngine->GetPhysicsWorld().ConvexSweepTest((const btConvexShape*)m_collider.GetBody(), start, end, callback);
+			g_engine->GetPhysicsWorld().ConvexSweepTest((const btConvexShape*)m_collider.GetBody(), start, end, callback);
 
 			//当たったとき
 			if (callback.isHit)
@@ -280,7 +280,7 @@ namespace Engine {
 		//衝突検出
 		if (fabsf(endPos.y - callback.startPos.y) > FLT_EPSILON)
 		{
-			g_graphicsEngine->GetPhysicsWorld().ConvexSweepTest((const btConvexShape*)m_collider.GetBody(), start, end, callback);
+			g_engine->GetPhysicsWorld().ConvexSweepTest((const btConvexShape*)m_collider.GetBody(), start, end, callback);
 			if (callback.isHit)
 			{
 				//当たった
@@ -309,6 +309,6 @@ namespace Engine {
 	//死亡したことを通知
 	void CharacterController::RemoveRigidBody()
 	{
-		g_graphicsEngine->GetPhysicsWorld().RemoveRigidBody(m_rigidBody);
+		g_engine->GetPhysicsWorld().RemoveRigidBody(m_rigidBody);
 	}
 }

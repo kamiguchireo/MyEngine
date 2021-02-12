@@ -91,6 +91,14 @@ public:
 		return m_tkmFile;
 	}
 
+	void LoadTkm(const char* tkmFilePath)
+	{
+		if (IsTkmInited != true)
+		{
+			m_tkmFile.Load(tkmFilePath);
+			IsTkmInited = true;
+		}
+	}
 private:
 	Matrix m_world;			//ワールド行列。
 	TkmFile m_tkmFile;		//tkmファイル。
@@ -100,4 +108,5 @@ private:
 	int m_maxInstance = 1;
 	std::unique_ptr<Matrix[]> m_instancingMat;		//インスタンシング描画用の行列
 	StructuredBuffer m_instancingMatricesStructureBuffer;		//インスタンシング描画用のバッファ
+	bool IsTkmInited = false;
 };

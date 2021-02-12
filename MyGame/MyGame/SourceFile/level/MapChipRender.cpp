@@ -55,6 +55,7 @@ void MapChipRender::InitAfterAddAllRenderObjects()
 
 	//ƒ‚ƒfƒ‹ƒŒƒ“ƒ_[‚Ì‰Šú‰»
 	m_modelRender->SetTkmFilePath(nstring);
+	m_modelRender->InitTkmFile(nstring);
 	m_modelRender->SetPosition(m_renderObjDatas[0].position);
 	m_modelRender->SetRotation(m_renderObjDatas[0].rotation);
 	m_modelRender->SetScale(m_renderObjDatas[0].scale);
@@ -71,4 +72,6 @@ void MapChipRender::InitAfterAddAllRenderObjects()
 	//‰e
 	m_modelRender->SetShadowCasterFlag(true);
 	m_modelRender->SetShadowRecieverFlag(true);
+
+	m_modelRender->Start();
 }

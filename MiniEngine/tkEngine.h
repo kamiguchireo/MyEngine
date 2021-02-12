@@ -1,6 +1,7 @@
 #pragma once
 
 #include "HID/GamePad.h"
+#include "SourceFile/Physics/PhysicsWorld.h"
 
 class GraphicsEngine;
 
@@ -22,10 +23,17 @@ public:
 	/// ゲームエンジンの初期化。
 	/// </summary>
 	void Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeight);
+
+	//物理ワールドの取得
+	Engine::PhysicsWorld& GetPhysicsWorld()
+	{
+		return m_physicsWorld;
+	}
+
 private:
 	GraphicsEngine* m_graphicsEngine = nullptr;		//グラフィックエンジン。
 	GamePad m_pad[GamePad::CONNECT_PAD_MAX];		//ゲームパッド。
-	
+	Engine::PhysicsWorld m_physicsWorld;		//物理ワールド。	
 };
 
 extern TkEngine* g_engine;	//TKエンジン。

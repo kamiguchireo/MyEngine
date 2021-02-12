@@ -17,7 +17,7 @@ void EngineProcessing::Init()
 	g_camera2D->Update();
 
 	//フィジックスワールドを初期化
-	g_graphicsEngine->GetPhysicsWorld().Init();
+	g_engine->GetPhysicsWorld().Init();
 }
 
 void EngineProcessing::Update()
@@ -27,7 +27,7 @@ void EngineProcessing::Update()
 	Engine::GameObjectManager().Update();
 
 	//フィジックスワールドの更新
-	g_graphicsEngine->GetPhysicsWorld().Update();
+	g_engine->GetPhysicsWorld().Update();
 
 	//シャドウマップのアップデート
 	g_graphicsEngine->GetShadowMap()->Update();

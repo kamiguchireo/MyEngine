@@ -3,6 +3,7 @@
 #include "SourceFile/graphic/Animation/AnimationClip.h"
 #include "SourceFile/graphic/ModelRender.h"
 #include "Player/Player.h"
+#include "Stage/Stage.h"
 
 class Game:public IGameObject
 {
@@ -14,16 +15,9 @@ public:
 	void Update();
 
 private:
-	//Skeleton m_skeleton;
-	//Engine::Animation m_animation;
-	//Engine::AnimationClip m_animClip[1];
-	//Engine::prefab::ModelRender* m_unityChan = nullptr;
-	//Engine::prefab::ModelRender* m_map = nullptr;
 	Vector3 pos = Vector3::Zero;
 	Player* player = nullptr;
-	//Model m_unityChan;
-	//ModelInitData m_unityChanInitData;
 	prefab::ModelRender* m_building = nullptr;
 	prefab::ModelRender* m_ground = nullptr;
-
+	Stage* m_Stage = nullptr;		//ステージ
 };

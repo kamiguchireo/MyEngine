@@ -41,25 +41,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	DL1.direction.Normalize();
 	DL1.color = {10.8f,10.8f,10.8f,1.0f};
 
-/*	DirectionalLight DL2;
-	DL2.direction = { 1.0f,1.0f,-1.0f };
-	DL2.direction.Normalize();
-	DL2.color = { 0.2f,0.2f,0.2f,1.0f };
-
-	DirectionalLight DL3;
-	DL3.direction = { 0.0f,0.0f,1.0f };
-	DL3.direction.Normalize();
-	DL3.color = { 0.2f,0.2f,0.2f,1.0f };
-
-	DirectionalLight DL4;
-	DL4.direction = { 0.0f,1.0f,0.0f };
-	DL4.direction.Normalize();
-	DL4.color = { 0.2f,0.2f,0.2f,1.0f };*/
-
 	g_graphicsEngine->GetLightManager()->AddDirectionLight(DL1);
-/*	g_graphicsEngine->GetLightManager()->AddDirectionLight(DL2);
-	g_graphicsEngine->GetLightManager()->AddDirectionLight(DL3);
-	g_graphicsEngine->GetLightManager()->AddDirectionLight(DL4);*/
 
 	g_graphicsEngine->GetLightManager()->SetLightAmbinetLight({ 1.2f,1.2f,1.2f });
 	g_graphicsEngine->GetLightManager()->SetLightSpecpow(5.0f);
@@ -72,9 +54,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//ゲーム本体
 	Game* g_game = nullptr;
 	g_game = Engine::NewGO<Game>(0, nullptr);
-
-	//ステージ
-	Stage m_Stage;
 
 	// ここからゲームループ。
 	while (DispatchWindowMessage())
@@ -124,7 +103,5 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//	DeleteGO(m_Test);
 	//}
 
-	//すべてのゲームオブジェクトを削除
-	Engine::GameObjectManager().DeleteAllGameObject();
 	return 0;
 }

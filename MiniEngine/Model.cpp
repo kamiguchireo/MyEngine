@@ -2,7 +2,7 @@
 #include "Model.h"
 
 
-void Model::Init(const ModelInitData& initData,int maxInstance)
+void Model::Init(const ModelInitData& initData, int maxInstance)
 {
 
 	//内部のシェーダーをロードする処理が求めているのが
@@ -13,8 +13,12 @@ void Model::Init(const ModelInitData& initData,int maxInstance)
 		std::abort();
 	}
 	mbstowcs(wfxFilePath, initData.m_fxFilePath, 256);
-	m_tkmFile.Load(initData.m_tkmFilePath);
 
+	if (IsTkmInited != true)
+	{
+		m_tkmFile.Load(initData.m_tkmFilePath);
+		IsTkmInited = true;
+	}
 	//インスタンスの数を代入
 	m_maxInstance = maxInstance;
 	//インスタンスの数が1より多いとき

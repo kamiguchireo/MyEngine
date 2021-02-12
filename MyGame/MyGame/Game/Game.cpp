@@ -3,64 +3,30 @@
 
 Game::Game()
 {
-	//m_animClip[0].Load("Assets/animData/idle.tka");
-	//m_animClip[0].SetLoopFlag(true);
 	player = NewGO<Player>(0, nullptr);
+	m_Stage = new Stage();
 }
 
 Game::~Game()
 {
-	//if (m_map != nullptr)
+	//if (player != nullptr)
 	//{
-	//	DeleteGO(m_map);
-	//	m_map = nullptr;
+	//	DeleteGO(player);
+	//	player = nullptr;
 	//}
-	if (player != nullptr)
+	if (m_Stage != nullptr)
 	{
-		DeleteGO(player);
+		delete m_Stage;
+		m_Stage = nullptr;
 	}
 }
 
 
 bool Game::Start()
 {
-	//m_unityChan = Engine::NewGO<Engine::prefab::ModelRender>(1, nullptr);
-	//m_unityChan->SetTkmFilePath("Assets/modelData/unityChan.tkm");
-	//m_unityChan->SetVSEntryPoint("VSMainSkin");
-	//m_unityChan->SetSkeleton(m_skeleton);
-	//Quaternion q_rot = Quaternion::Identity;
-	//q_rot.SetRotationDeg(Vector3::AxisX, 90.0f);
-	//m_unityChan->SetRotation(q_rot);
-	//m_unityChan->SetPosition({ 0.0f,0.0f,-100.0f });
-	//m_map = Engine::NewGO<Engine::prefab::ModelRender>(2, nullptr);
-	//m_map->SetTkmFilePath("Assets/modelData/map.tkm");
-	//m_map->SetVSEntryPoint("VSMain");
-	//m_map->SetPSEntryPoint("PSMain");
-	//m_map->SetShadowRecieverFlag(true);
-	//m_map->SetShadowCasterFlag(true);
-	//m_map->SetPosition({ 0.0f,0.0f,1500.0f });
-
-
-	//スケルトンとアニメーションの初期化
-	//m_skeleton.Init("Assets/modelData/unityChan.tks"); 
-	//m_skeleton.Update(Matrix::Identity);
-	//m_animation.Init(m_skeleton, m_animClip, 1);
-	//m_animation.Play(0);
 	g_camera3D->SetPosition({ 0.0f, 100.0f, -300.0f });
 	g_camera3D->SetTarget({ 0.0f, 100.0f, 0.0f });
 
-	//m_building = NewGO<prefab::ModelRender>(1);
-	//m_building->SetTkmFilePath("Assets/modelData/Old_Building.tkm");
-	//m_building->SetShadowRecieverFlag(true);
-	//Vector3 scale = Vector3::One;
-	//scale *= 1.0f;
-	//m_building->SetScale(scale);
-
-	//m_ground = NewGO<prefab::ModelRender>(1);
-	//m_ground->SetTkmFilePath("Assets/modelData/Ground.tkm");
-	//m_ground->SetShadowRecieverFlag(true);
-	//m_ground->SetScale(scale);
-	//g_graphicsEngine->GetShadowMap()->SetLigPos({ 100.0f, 100.0f, 0.0f });
 	return true;
 }
 

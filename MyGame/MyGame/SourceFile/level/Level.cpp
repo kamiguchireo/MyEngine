@@ -115,8 +115,10 @@ void Level::Init(
 			//フックされなかったので、マップチップを作成
 			auto mapChip = std::make_unique<MapChip>(objData, mapChipRender.second);
 			m_mapChipPtrs.push_back(std::move(mapChip));
+
 		});
 	}
+
 }
 
 void Level::BuildBoneMatrices()

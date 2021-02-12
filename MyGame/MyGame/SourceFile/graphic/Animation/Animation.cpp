@@ -133,9 +133,6 @@ namespace Engine
 			int index = GetAnimationControllerIndecx(startIndex, i);
 			float interpolateRate = m_animationPlayController[index].GetInterpolateRate();
 			const auto& localBoneMatrix = m_animationPlayController[index].GetBoneLocalMatrix();
-			auto deltaValueFootStep = m_animationPlayController[index].GetFootStepDeltaValueOnUpdate();
-			//footstepの移動量の補完
-			m_footstepDeltaValue.Lerp(interpolateRate, m_footstepDeltaValue, deltaValueFootStep);
 			for (int boneNo = 0; boneNo < numBone; boneNo++)
 			{
 				//平行移動の補完
@@ -182,6 +179,10 @@ namespace Engine
 				{
 					qGlobalPose[boneNo].Slerp(interpolateRate, qGlobalPose[boneNo], qBone);
 				}
+
+				auto deltaValueFootStep = m_animationPlayController[index].GetFootStepDeltaValueOnUpdate();
+				//footstepの移動量の補完
+				m_footstepDeltaValue.Lerp(interpolateRate, m_footstepDeltaValue, deltaValueFootStep);
 			}
 		}
 		//グローバルポーズをスケルトンに反映させる

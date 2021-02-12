@@ -42,6 +42,11 @@ public:
 		return m_modelRender->GetModel();
 	}
 
+	void ModelStart()
+	{
+		m_modelRender->Start();
+	}
+
 private:
 	int m_numRenderObject = 1;
 	std::vector<LevelObjectData> m_renderObjDatas;		//描画するオブジェクトの配列

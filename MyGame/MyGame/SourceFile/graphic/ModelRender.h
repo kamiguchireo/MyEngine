@@ -106,6 +106,11 @@ namespace Engine {
 			{
 				return *m_model;
 			}
+
+			void InitTkmFile(const char* tkmFilePath)
+			{
+				m_model->LoadTkm(tkmFilePath);
+			}
 		private:
 			Model* m_model = nullptr;
 			Vector3 m_pos = Vector3::Zero;
@@ -122,6 +127,7 @@ namespace Engine {
 			bool m_ShadowCasterFlag = true;
 			int m_numInstance = 1;
 			bool UpdateFlag = true;
+			bool IsInited = false;
 		};
 	}
 }

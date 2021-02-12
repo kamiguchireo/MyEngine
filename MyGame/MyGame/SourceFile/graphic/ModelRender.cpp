@@ -19,25 +19,29 @@ namespace Engine {
 
 		bool ModelRender::Start()
 		{
-			if (m_tkmFilePath == nullptr)
+			if (IsInited != true)
 			{
-				std::abort();
-				//ファイルパスをセットしてください。
-			}
-			InitData.m_tkmFilePath = m_tkmFilePath;
-			InitData.m_vsEntryPointFunc = m_vsEntryPointFunc;
-			InitData.m_psEntryPointFunc = m_psEntryPointFunc;
-			InitData.m_fxFilePath = m_fxFilePath;
-			InitData.m_expandShaderResoruceView = m_expandShaderResoruceView;
+				if (m_tkmFilePath == nullptr)
+				{
+					std::abort();
+					//ファイルパスをセットしてください。
+				}
+				InitData.m_tkmFilePath = m_tkmFilePath;
+				InitData.m_vsEntryPointFunc = m_vsEntryPointFunc;
+				InitData.m_psEntryPointFunc = m_psEntryPointFunc;
+				InitData.m_fxFilePath = m_fxFilePath;
+				InitData.m_expandShaderResoruceView = m_expandShaderResoruceView;
 
-			//スケルトンがセットされているとき
-			if (m_skeleton != nullptr)
-			{
-				m_model->BindSkeleton(*m_skeleton);
-			}
+				//スケルトンがセットされているとき
+				if (m_skeleton != nullptr)
+				{
+					m_model->BindSkeleton(*m_skeleton);
+				}
 
-			m_model->Init(InitData, m_numInstance);
-			return true;
+				m_model->Init(InitData, m_numInstance);
+				IsInited = true;
+				return true;
+			}
 		}
 
 		void ModelRender::Update()

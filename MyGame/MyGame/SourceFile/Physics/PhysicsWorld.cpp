@@ -2,6 +2,22 @@
 #include "PhysicsWorld.h"
 
 namespace Engine {
+
+	namespace {
+		struct MyContactResultCallback :public btCollisionWorld::ContactResultCallback {
+			using ContantTestCallback = std::function<void(const btCollisionObject& contactCollisionObject)>;
+			ContantTestCallback m_cb;
+			btCollisionObject* m_me = nullptr;
+			virtual btScalar addSingleResult(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper* colObj1Wrap, int partId1, int index1)
+			{
+				if (m_me == colObj0Wrap->getCollisionObject())
+				{
+					m_cb(*colObj1Wrap->getCollisionObject());
+				}
+				return 0.0f;
+			}
+		};
+	}
 	PhysicsWorld::~PhysicsWorld()
 	{
 		Release();

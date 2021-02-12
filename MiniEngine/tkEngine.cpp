@@ -6,6 +6,10 @@ TkEngine* g_engine = nullptr;
 
 TkEngine::~TkEngine()
 {
+
+	//すべてのゲームオブジェクトを削除
+	Engine::GameObjectManager().DeleteAllGameObject();
+
 	if (m_graphicsEngine) {
 		delete m_graphicsEngine;
 	}
