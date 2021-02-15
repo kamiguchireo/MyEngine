@@ -14,7 +14,7 @@ namespace Engine {
 		}
 		~CharacterController()
 		{
-
+			RemoveRigidBody();
 		}
 
 		//初期化
@@ -32,6 +32,10 @@ namespace Engine {
 		//剛体をフィジックスワールドから削除
 		void RemoveRigidBody();
 
+		RigidBody* GetRigidBody()
+		{
+			return &m_rigidBody;
+		}
 	private:
 		bool m_isInited = false;		//初期化フラグ
 		Vector3 m_position = Vector3::Zero;		//座標

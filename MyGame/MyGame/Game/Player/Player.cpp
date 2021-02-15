@@ -98,7 +98,8 @@ void Player::Update()
 	float value = footStepValue.y;
 	footStepValue.y = footStepValue.z;
 	footStepValue.z = -value;
-	footStepValue *= 24 * DeltaTime;
+	footStepValue.y = -0.01;
+	footStepValue *= 24;
 
 	if (g_pad[0]->GetLStickXF() != 0.0f || g_pad[0]->GetLStickYF() != 0.0f)
 	{
@@ -114,8 +115,8 @@ void Player::Update()
 	m_rot.Apply(footStepValue);
 	Vector3 returnPos = characon.Execute(footStepValue, DeltaTime);
 
-	//m_pos = returnPos;
-	m_pos += footStepValue;
+	m_pos = returnPos;
+	//m_pos += footStepValue;
 
 	m_camera->SetTarget(m_pos);
 

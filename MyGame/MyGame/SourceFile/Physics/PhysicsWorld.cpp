@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "PhysicsWorld.h"
+#include "CharacterController.h"
 
 namespace Engine {
 
@@ -61,4 +62,5 @@ namespace Engine {
 	{
 		m_dynamicWorld->stepSimulation(g_gameTime.GetFrameDeltaTime());
 	}
+
 }

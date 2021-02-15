@@ -70,9 +70,9 @@ namespace Engine {
 		});
 
 		//BulletPhysicsのインデックスメッシュを作成
-		btIndexedMesh indexedMesh;
 		if (m_indexBufferArray.size() > 0)
 		{
+			btIndexedMesh indexedMesh;
 			IndexBuffer* ib = m_indexBufferArray.back().get();
 			VertexBuffer* vb = m_vertexBufferArray.back().get();
 			indexedMesh.m_numTriangles = (int)ib->size() / 3;
@@ -83,6 +83,8 @@ namespace Engine {
 			indexedMesh.m_vertexStride = sizeof(Vector3);
 			m_stridingMeshInterface->addIndexedMesh(indexedMesh);
 		}
+
+		m_meshShape = std::make_unique<btBvhTriangleMeshShape>(m_stridingMeshInterface.get(),true);
 	}
 
 	//モデルからメッシュコライダーを生成
