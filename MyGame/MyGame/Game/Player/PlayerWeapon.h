@@ -8,7 +8,7 @@ public:
 	~PlayerWeapon();
 	void Start();
 	void Update();
-
+	void Init();
 private:
 	Vector3 m_weaponPos = Vector3::Zero;
 	Quaternion m_weaponRot = Quaternion::Identity;

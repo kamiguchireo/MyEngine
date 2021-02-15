@@ -7,11 +7,17 @@ PlayerWeapon::~PlayerWeapon()
 
 }
 
-void PlayerWeapon::Start()
+void PlayerWeapon::Init()
 {
-	m_Model = NewGO<prefab::ModelRender>(0);
+	m_Model = NewGO<prefab::ModelRender>(2);
 	m_Model->SetTkmFilePath("Assets/modelData/AK_74M.tkm");
 }
+
+void PlayerWeapon::Start()
+{
+
+}
+
 void PlayerWeapon::Update()
 {
 	m_weaponMat = m_Player->GetWeaponBoneMat();

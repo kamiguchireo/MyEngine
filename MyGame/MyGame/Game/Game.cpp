@@ -4,7 +4,7 @@
 Game::Game()
 {
 	player = NewGO<Player>(0, nullptr);
-	m_Stage = new Stage();
+	//m_Stage = new Stage();
 }
 
 Game::~Game()

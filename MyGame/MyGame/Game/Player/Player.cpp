@@ -80,7 +80,7 @@ bool Player::Start()
 	m_animation.Init(m_skeleton, m_animClip, 5);
 	m_animation.Play(0);
 
-	m_PlayerWeapon->Start();
+	m_PlayerWeapon->Init();
 
 	return true;
 }
@@ -98,7 +98,7 @@ void Player::Update()
 	float value = footStepValue.y;
 	footStepValue.y = footStepValue.z;
 	footStepValue.z = -value;
-	footStepValue.y = -0.01;
+	footStepValue.y = -1.0f;
 	footStepValue *= 24;
 
 	if (g_pad[0]->GetLStickXF() != 0.0f || g_pad[0]->GetLStickYF() != 0.0f)
