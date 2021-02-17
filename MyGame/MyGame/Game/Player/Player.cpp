@@ -111,8 +111,9 @@ void Player::Update()
 		ChangeState(m_stateAim);
 	}
 	currentState->Update();
-
+	//footStepValueに回転を適用
 	m_rot.Apply(footStepValue);
+	//キャラコンの計算
 	Vector3 returnPos = characon.Execute(footStepValue, DeltaTime);
 
 	m_pos = returnPos;
