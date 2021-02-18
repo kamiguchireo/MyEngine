@@ -4,6 +4,7 @@
 #include "SourceFile/graphic/ModelRender.h"
 #include "Player/Player.h"
 #include "Stage/Stage.h"
+#include "Enemy/Enemy.h"
 
 class Game:public IGameObject
 {
@@ -15,6 +16,7 @@ public:
 	void Update();
 
 private:
+	Enemy* enemy = nullptr;
 	Vector3 pos = Vector3::Zero;
 	Player* player = nullptr;
 	prefab::ModelRender* m_building = nullptr;

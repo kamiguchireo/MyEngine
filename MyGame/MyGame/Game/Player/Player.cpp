@@ -6,7 +6,6 @@ Player::Player()
 	m_stateIdle = new PlayerStateIdle(this);
 	m_stateMove = new PlayerStateMove(this);
 	m_stateAim = new PlayerStateAim(this);
-	m_PlayerWeapon = new PlayerWeapon(this);
 	//待機ステートに切り替える
 	ChangeState(m_stateIdle);
 }
@@ -38,6 +37,11 @@ Player::~Player()
 	{
 		delete m_stateAim;
 		m_stateAim = nullptr;
+	}
+	if (m_PlayerWeapon != nullptr)
+	{
+		DeleteGO(m_PlayerWeapon);
+		m_PlayerWeapon = nullptr;
 	}
 }
 
@@ -80,7 +84,8 @@ bool Player::Start()
 	m_animation.Init(m_skeleton, m_animClip, 5);
 	m_animation.Play(0);
 
-	m_PlayerWeapon->Init();
+	m_PlayerWeapon = NewGO <PlayerWeapon>(2);
+	m_PlayerWeapon->Init(this);
 
 	return true;
 }
@@ -123,5 +128,6 @@ void Player::Update()
 
 	m_playerModel->SetPosition(m_pos);
 	m_playerModel->SetRotation(m_rot);
+
 	m_PlayerWeapon->Update();
 }

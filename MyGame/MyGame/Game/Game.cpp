@@ -3,6 +3,7 @@
 
 Game::Game()
 {
+	enemy = NewGO<Enemy>(0, nullptr);
 	player = NewGO<Player>(0, nullptr);
 	m_Stage = new Stage();
 }

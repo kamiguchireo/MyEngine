@@ -7,15 +7,16 @@ PlayerWeapon::~PlayerWeapon()
 
 }
 
-void PlayerWeapon::Init()
+void PlayerWeapon::Init(Player*pl)
 {
-	m_Model = NewGO<prefab::ModelRender>(2);
+	m_Player = pl;
+	m_Model = NewGO<prefab::ModelRender>(3);
 	m_Model->SetTkmFilePath("Assets/modelData/AK_74M.tkm");
 }
 
-void PlayerWeapon::Start()
+bool PlayerWeapon::Start()
 {
-
+	return true;
 }
 
 void PlayerWeapon::Update()
