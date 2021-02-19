@@ -5,7 +5,7 @@ Enemy::Enemy()
 {
 	m_path = Path::GetInstance();
 	m_position = m_path->GetPosition();
-	m_PassSize = m_position.size();
+	m_PassSize = m_position.size() - 1;
 }
 
 Enemy::~Enemy()
@@ -63,6 +63,8 @@ bool Enemy::Start()
 	m_animation.Init(m_skeleton, m_animClip, 5);
 	m_animation.Play(0);
 	m_rot.SetRotationDegY(0.0f);
+
+	m_pos = m_position[0];
 	return true;
 }
 
