@@ -3,9 +3,10 @@
 
 Game::Game()
 {
+	m_Stage = new Stage();
+
 	enemy = NewGO<Enemy>(0, nullptr);
 	player = NewGO<Player>(0, nullptr);
-	m_Stage = new Stage();
 }
 
 Game::~Game()

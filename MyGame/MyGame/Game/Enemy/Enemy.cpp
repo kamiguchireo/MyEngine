@@ -3,7 +3,7 @@
 
 Enemy::Enemy()
 {
-
+	m_pass = Pass::GetInstance();
 }
 
 Enemy::~Enemy()

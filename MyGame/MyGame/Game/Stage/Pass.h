@@ -2,7 +2,7 @@
 class Pass
 {
 public:
-	Pass(){}
+	Pass();
 	~Pass(){}
 
 	//パスの追加
@@ -10,7 +10,12 @@ public:
 	{
 		m_position.push_back(pos);
 	}
+
+	static Pass* GetInstance()
+	{
+		return instance;
+	}
 private:
 	std::vector<Vector3> m_position;		//Passのポジション
+	static Pass* instance;
 };
-
