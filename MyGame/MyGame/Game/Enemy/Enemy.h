@@ -31,5 +31,5 @@ private:
 	std::vector<Vector3> m_position;
 	int m_PassSize = 0;
 	int CurrentPass = 0;		//現在のパス
-	int NextPass = 7;		//次のパス
+	int NextPass = 0;		//次のパス
 };

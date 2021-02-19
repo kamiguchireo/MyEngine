@@ -52,7 +52,7 @@ void Player::ChangeState(IPlayer* state)
 
 bool Player::Start()
 {
-	//m_camera = NewGO<GameCamera>(0, nullptr);
+	m_camera = NewGO<GameCamera>(0, nullptr);
 	characon.Init(10.0f, 50.0f, m_pos);
 	//待機状態のアニメーション
 	m_animClip[0].Load("Assets/animData/Rifle_Idle.tka");
@@ -111,9 +111,12 @@ void Player::Update()
 		ChangeState(m_stateMove);
 	}
 
-	if (GetKeyState(VK_RBUTTON) & 0x80) {
+	if (GetKeyState(VK_RBUTTON)) {
 		//マウスの右ボタンが押された"
 		ChangeState(m_stateAim);
+		Vector3 aimForward = g_camera3D->GetForward();
+		aimForward.y = 0.0f;
+		m_rot.SetRotation(m_forward, aimForward);
 	}
 	currentState->Update();
 	//footStepValueに回転を適用
@@ -124,7 +127,7 @@ void Player::Update()
 	m_pos = returnPos;
 	//m_pos += footStepValue;
 
-	//m_camera->SetTarget(m_pos);
+	m_camera->SetTarget(m_pos);
 
 	m_playerModel->SetPosition(m_pos);
 	m_playerModel->SetRotation(m_rot);
