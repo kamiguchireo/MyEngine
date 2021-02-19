@@ -4,6 +4,7 @@
 #include "Tree/Tree1.h"
 #include "Tree/Tree2.h"
 #include "Bush/Bush_02.h"
+#include "Pass.h"
 
 class Stage
 {
@@ -17,5 +18,6 @@ private:
 	Tree1* m_Tree1 = nullptr;
 	Tree2* m_Tree2 = nullptr;
 	Bush_02* m_Bush = nullptr;
+	Pass* m_Pass = nullptr;
 };
 

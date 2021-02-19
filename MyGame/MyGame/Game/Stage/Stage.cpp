@@ -60,6 +60,20 @@ Stage::Stage()
 			}
 			return true;
 		}
+		else if (wcscmp(objData.name, L"Pass") == 0)
+		{
+			if (m_Pass == nullptr)
+			{
+				m_Pass = new Pass();
+				m_Pass->AddPosition(objData.position);
+			}
+			else
+			{
+				m_Pass->AddPosition(objData.position);
+			}
+			return true;
+		}
+
 
 		return false;
 	});
@@ -68,5 +82,9 @@ Stage::Stage()
 
 Stage::~Stage()
 {
-
+	if (m_Pass != nullptr)
+	{
+		delete m_Pass;
+		m_Pass = nullptr;
+	}
 }

@@ -19,7 +19,8 @@ bool Tree1::Start()
 	m_InitData.m_fxFilePath = "Assets/shader/NoAnimModel_LambertSpecularAmbient.fx";
 	m_Tree.Init(m_InitData,m_instanceNum);
 	m_Tree.SetShadowRecieverFlag(true);
-	
+
+
 	return true;
 }
 

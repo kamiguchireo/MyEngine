@@ -8,15 +8,28 @@ Enemy::Enemy()
 
 Enemy::~Enemy()
 {
+
 	if (m_enemyModel != nullptr)
 	{
 		DeleteGO(m_enemyModel);
 		m_enemyModel = nullptr;
 	}
+	if (m_camera != nullptr)
+	{
+		DeleteGO(m_camera);
+		m_camera = nullptr;
+	}
+	if (m_pass != nullptr)
+	{
+		delete m_pass;
+		m_pass = nullptr;
+	}
 }
 
 bool Enemy::Start()
 {
+	m_camera = NewGO<GameCamera>(0, nullptr);
+
 	characon.Init(10.0f, 50.0f, m_pos);
 
 	//待機状態のアニメーション
@@ -50,8 +63,8 @@ bool Enemy::Start()
 	m_skeleton.Init("Assets/modelData/soldier_bs01.tks");
 	m_skeleton.Update(Matrix::Identity);
 	m_animation.Init(m_skeleton, m_animClip, 5);
-	m_animation.Play(0);
-
+	m_animation.Play(1);
+	m_rot.SetRotationDegY(180.0f);
 	return true;
 }
 
@@ -68,8 +81,22 @@ void Enemy::Update()
 	footStepValue.y = -1.0f;
 	footStepValue *= 24;
 
+	m_rot.Apply(footStepValue);
+
 	Vector3 returnPos = characon.Execute(footStepValue, DeltaTime);
+	Vector3 move_vec = returnPos - m_pos;
+	if (move_vec.Length() < 0.01f)
+	{
+		m_rot.SetRotationDegY(rot);
+		rot += 180.0f;
+		if (rot >= 360)
+		{
+			rot = 0.0f;
+		}
+	}
 	m_pos = returnPos;
+
+	m_camera->SetTarget(m_pos);
 
 	m_enemyModel->SetPosition(m_pos);
 	m_enemyModel->SetRotation(m_rot);
