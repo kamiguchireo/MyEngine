@@ -14,6 +14,9 @@ public:
 	void Update();
 
 private:
+	void StopPass();
+	void ChangeNextPass();
+private:
 	prefab::ModelRender* m_enemyModel = nullptr;		//エネミーのモデル
 	Skeleton m_skeleton;
 	Engine::Animation m_animation;		//アニメーション
@@ -25,4 +28,8 @@ private:
 	GameCamera* m_camera = nullptr;
 	float rot = 0.0f;
 	Pass* m_pass = nullptr;		//パス
+	std::vector<Vector3> m_position;
+	int m_PassSize = 0;
+	int CurrentPass = 0;		//現在のパス
+	int NextPass = 1;		//次のパス
 };

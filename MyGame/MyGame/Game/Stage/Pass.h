@@ -15,6 +15,11 @@ public:
 	{
 		return instance;
 	}
+
+	std::vector<Vector3>& GetPosition()
+	{
+		return m_position;
+	}
 private:
 	std::vector<Vector3> m_position;		//Pass‚Ìƒ|ƒWƒVƒ‡ƒ“
 	static Pass* instance;

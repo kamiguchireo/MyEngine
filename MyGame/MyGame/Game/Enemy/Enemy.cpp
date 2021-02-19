@@ -4,6 +4,8 @@
 Enemy::Enemy()
 {
 	m_pass = Pass::GetInstance();
+	m_position = m_pass->GetPosition();
+	m_PassSize = m_position.size();
 }
 
 Enemy::~Enemy()
@@ -19,11 +21,7 @@ Enemy::~Enemy()
 		DeleteGO(m_camera);
 		m_camera = nullptr;
 	}
-	if (m_pass != nullptr)
-	{
-		delete m_pass;
-		m_pass = nullptr;
-	}
+
 }
 
 bool Enemy::Start()
@@ -63,13 +61,55 @@ bool Enemy::Start()
 	m_skeleton.Init("Assets/modelData/soldier_bs01.tks");
 	m_skeleton.Update(Matrix::Identity);
 	m_animation.Init(m_skeleton, m_animClip, 5);
-	m_animation.Play(1);
-	m_rot.SetRotationDegY(180.0f);
+	m_animation.Play(0);
+	m_rot.SetRotationDegY(0.0f);
 	return true;
+}
+
+void Enemy::ChangeNextPass()
+{
+	if (NextPass < m_PassSize)
+	{
+		NextPass++;
+	}
+	else
+	{
+		NextPass = 0;
+	}
+}
+void Enemy::StopPass()
+{
+	static float f = 5.0f;
+	f -= g_gameTime.GetFrameDeltaTime();
+	m_animation.Play(0);
+	if (f <= 0.0f)
+	{
+		ChangeNextPass();
+		f = 5.0f;
+	}
 }
 
 void Enemy::Update()
 {
+	m_animation.Play(1);
+
+	if (CurrentPass == NextPass)
+	{
+		StopPass();
+	}
+	//次のポジションを設定
+	Vector3 NextPosition = m_position[NextPass];
+	//Vector3 NextPosition = Vector3::Zero;
+	if (m_pos.x > NextPosition.x - 10.0f && m_pos.x < NextPosition.x + 10.0f)
+	{
+		if (m_pos.z > NextPosition.z - 10.0f && m_pos.z < NextPosition.z + 10.0f)
+		{
+			CurrentPass = NextPass;
+		}
+	}
+	Vector3 moveVec = NextPosition - m_pos;
+	moveVec.Normalize();
+	m_rot.SetRotation(Vector3::AxisZ, moveVec);
 	float DeltaTime = g_gameTime.GetFrameDeltaTime();
 	Vector3 footStepValue = Vector3::Zero;
 	//アニメーションからfootstepの移動量を持ってくる
@@ -85,15 +125,7 @@ void Enemy::Update()
 
 	Vector3 returnPos = characon.Execute(footStepValue, DeltaTime);
 	Vector3 move_vec = returnPos - m_pos;
-	if (move_vec.Length() < 0.01f)
-	{
-		m_rot.SetRotationDegY(rot);
-		rot += 180.0f;
-		if (rot >= 360)
-		{
-			rot = 0.0f;
-		}
-	}
+
 	m_pos = returnPos;
 
 	m_camera->SetTarget(m_pos);
