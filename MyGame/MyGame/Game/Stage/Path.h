@@ -1,9 +1,9 @@
 #pragma once
-class Pass
+class Path
 {
 public:
-	Pass();
-	~Pass(){}
+	Path();
+	~Path(){}
 
 	//パスの追加
 	void AddPosition(const Vector3& pos)
@@ -11,7 +11,7 @@ public:
 		m_position.push_back(pos);
 	}
 
-	static Pass* GetInstance()
+	static Path* GetInstance()
 	{
 		return instance;
 	}
@@ -22,5 +22,5 @@ public:
 	}
 private:
 	std::vector<Vector3> m_position;		//Passのポジション
-	static Pass* instance;
+	static Path* instance;
 };

@@ -3,8 +3,8 @@
 
 Enemy::Enemy()
 {
-	m_pass = Pass::GetInstance();
-	m_position = m_pass->GetPosition();
+	m_path = Path::GetInstance();
+	m_position = m_path->GetPosition();
 	m_PassSize = m_position.size();
 }
 

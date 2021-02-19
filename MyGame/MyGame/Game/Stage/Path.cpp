@@ -1,9 +1,9 @@
 #include "stdafx.h"
-#include "Pass.h"
+#include "Path.h"
 
-Pass*Pass::instance = nullptr;
+Path*Path::instance = nullptr;
 
-Pass::Pass()
+Path::Path()
 {
 	//インスタンスに自分自身を入れる
 	instance = this;

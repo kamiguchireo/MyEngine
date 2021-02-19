@@ -2,7 +2,7 @@
 #include "SourceFile/graphic/ModelRender.h"
 #include "SourceFile/Physics/CharacterController.h"
 #include "Game/Camera/GameCamera.h"
-#include "Game/Stage/Pass.h"
+#include "Game/Stage/Path.h"
 
 class Enemy:public IGameObject
 {
@@ -27,7 +27,7 @@ private:
 	CharacterController characon;
 	GameCamera* m_camera = nullptr;
 	float rot = 0.0f;
-	Pass* m_pass = nullptr;		//パス
+	Path* m_path = nullptr;		//パス
 	std::vector<Vector3> m_position;
 	int m_PassSize = 0;
 	int CurrentPass = 0;		//現在のパス
