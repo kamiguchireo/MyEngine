@@ -69,6 +69,9 @@ bool Player::Start()
 	//エイム状態のアニメーション
 	m_animClip[4].Load("Assets/animData/Rifle_Down_To_Aim.tka");
 	m_animClip[4].SetLoopFlag(false);
+	//エイム状態のアニメーション
+	m_animClip[5].Load("Assets/animData/Rifle_fire.tka");
+	m_animClip[5].SetLoopFlag(true);
 
 	m_playerModel = NewGO<prefab::ModelRender>(1, nullptr);
 	m_playerModel->SetTkmFilePath("Assets/modelData/soldier_bs01.tkm");
@@ -81,7 +84,7 @@ bool Player::Start()
 	//スケルトンとアニメーションの初期化
 	m_skeleton.Init("Assets/modelData/soldier_bs01.tks");
 	m_skeleton.Update(Matrix::Identity);
-	m_animation.Init(m_skeleton, m_animClip, 5);
+	m_animation.Init(m_skeleton, m_animClip, 6);
 	m_animation.Play(0);
 
 	m_PlayerWeapon = NewGO <PlayerWeapon>(2);
@@ -112,11 +115,12 @@ void Player::Update()
 	}
 
 	if (GetKeyState(VK_RBUTTON)) {
-		//マウスの右ボタンが押された"
+
 		ChangeState(m_stateAim);
 		Vector3 aimForward = g_camera3D->GetForward();
 		aimForward.y = 0.0f;
-		m_rot.SetRotation(m_forward, aimForward);
+		//m_rot.SetRotation(m_forward, aimForward);
+
 	}
 	currentState->Update();
 	//footStepValueに回転を適用

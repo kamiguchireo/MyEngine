@@ -9,5 +9,13 @@ PlayerStateAim::~PlayerStateAim()
 
 void PlayerStateAim::Update()
 {
-	m_Player->PlayAnimation(4);
+	//マウスの右ボタンが押された"
+	if (GetKeyState(VK_LBUTTON) & (0x80))
+	{
+		m_Player->PlayAnimation(5);
+	}
+	else
+	{
+		m_Player->PlayAnimation(4);
+	}
 }
