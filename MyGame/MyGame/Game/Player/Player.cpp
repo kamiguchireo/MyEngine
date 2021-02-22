@@ -115,19 +115,22 @@ void Player::Update()
 		ChangeState(m_stateMove);
 	}
 
-	if (GetKeyState(VK_RBUTTON)) {
-
+	if (GetKeyState(VK_RBUTTON))
+	{
+		//エイムカメラに切り替え
+		m_camera->SetCameraState(CameraState::AIM);
 		ChangeState(m_stateAim);
 		Vector3 aimForward = g_camera3D->GetForward();
 		aimForward.y = 0.0f;
 		m_rot.SetRotation(m_forward, aimForward);
-		//エイムカメラに切り替え
-		m_camera->SetCameraState(CameraState::AIM);
 	}
 	else
 	{
 		//TPSカメラに切り替え
 		m_camera->SetCameraState(CameraState::TPS);
+		Vector3 aimForward = g_camera3D->GetForward();
+		aimForward.y = 0.0f;
+		m_rot.SetRotation(m_forward, aimForward);
 	}
 	currentState->Update();
 	//footStepValueに回転を適用

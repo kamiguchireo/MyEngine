@@ -33,7 +33,8 @@ void GameCamera::Update()
 	default:
 		break;
 	}
-	currentState->Update(m_pos, m_target);
+	currentState->SetAddPosY(&AddPosY);
+	currentState->Update(m_pos, m_target,rot);
 	g_camera2D->Update();
 	g_camera3D->Update();
 
