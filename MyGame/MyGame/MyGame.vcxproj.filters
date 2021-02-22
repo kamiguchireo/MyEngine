@@ -242,7 +242,7 @@
     <ClCompile Include="SourceFile\Physics\SphereCollider.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="CameraCollisionSolver.cpp">
+    <ClCompile Include="Game\Camera\CameraCollisionSolver.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -484,7 +484,7 @@
     <ClInclude Include="SourceFile\Physics\SphereCollider.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="CameraCollisionSolver.h">
+    <ClInclude Include="Game\Camera\CameraCollisionSolver.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
