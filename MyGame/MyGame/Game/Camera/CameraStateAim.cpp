@@ -39,6 +39,9 @@ void CameraStateAim::Update(Vector3& /*pos*/, Vector3& target,float&rot)
 	addPos.z -= cosf(rot) * CameraDist;
 	pos += addPos;
 
+	pos += g_camera3D->GetForward() * 225.0f;
+	pos.y = 130.0f;
+	targetPos = pos - addPos;
 	//マウスカーソルの位置をセット
 	SetCursorPos(500, 300);
 
