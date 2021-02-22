@@ -3,6 +3,7 @@
 #include "SourceFile/Physics/CharacterController.h"
 #include "Game/Camera/GameCamera.h"
 #include "Game/Stage/Path.h"
+#include "Game/Weapon.h"
 
 class Enemy:public IGameObject
 {
@@ -32,4 +33,5 @@ private:
 	int m_PassSize = 0;
 	int CurrentPass = 0;		//現在のパス
 	int NextPass = 0;		//次のパス
+	Weapon* m_weapon = nullptr;
 };

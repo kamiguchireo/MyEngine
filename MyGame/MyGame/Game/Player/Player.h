@@ -3,7 +3,7 @@
 #include "PlayerStateIdle.h"
 #include "PlayerStateMove.h"
 #include "Game/Camera/GameCamera.h"
-#include "Weapon.h"
+#include "Game/Weapon.h"
 #include "PlayerStateAim.h"
 #include "SourceFile/Physics/CharacterController.h"
 

@@ -21,7 +21,11 @@ Enemy::~Enemy()
 		DeleteGO(m_camera);
 		m_camera = nullptr;
 	}
-
+	if (m_weapon != nullptr)
+	{
+		DeleteGO(m_weapon);
+		m_weapon = nullptr;
+	}
 }
 
 bool Enemy::Start()
@@ -67,6 +71,10 @@ bool Enemy::Start()
 	m_animation.Init(m_skeleton, m_animClip, 5);
 	m_animation.Play(0);
 	m_rot.SetRotationDegY(0.0f);
+
+	//ïêäÌÇÃNewGOÇ∆Init
+	m_weapon = NewGO<Weapon>(1);
+	m_weapon->Init(&m_skeleton);
 
 	return true;
 }

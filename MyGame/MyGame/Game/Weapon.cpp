@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Weapon.h"
-#include "Player.h"
 
 Weapon::~Weapon()
 {
