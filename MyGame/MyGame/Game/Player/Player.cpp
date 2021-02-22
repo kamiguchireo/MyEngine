@@ -53,6 +53,7 @@ void Player::ChangeState(IPlayer* state)
 bool Player::Start()
 {
 	m_camera = NewGO<GameCamera>(0, nullptr);
+
 	characon.Init(10.0f, 50.0f, m_pos);
 	//待機状態のアニメーション
 	m_animClip[0].Load("Assets/animData/Rifle_Idle.tka");
@@ -120,7 +121,13 @@ void Player::Update()
 		Vector3 aimForward = g_camera3D->GetForward();
 		aimForward.y = 0.0f;
 		m_rot.SetRotation(m_forward, aimForward);
-
+		//エイムカメラに切り替え
+		m_camera->SetCameraState(CameraState::AIM);
+	}
+	else
+	{
+		//TPSカメラに切り替え
+		m_camera->SetCameraState(CameraState::TPS);
 	}
 	currentState->Update();
 	//footStepValueに回転を適用

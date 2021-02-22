@@ -8,7 +8,10 @@ public:
 	~CameraStateTPS();
 
 	void Update(Vector3& pos, Vector3& target);
-
+	void SetCameraDist(float f)
+	{
+		CameraDist = f;
+	}
 private:
 	float CameraDist = 200.0f;			//カメラからターゲットまでの距離
 	float rot = 0.0f;			//回転量
