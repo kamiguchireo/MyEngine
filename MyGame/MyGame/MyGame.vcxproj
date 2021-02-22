@@ -196,7 +196,7 @@
     <ClCompile Include="Game\Camera\CameraStateTPS.cpp" />
     <ClCompile Include="Game\Camera\GameCamera.cpp" />
     <ClCompile Include="Game\Camera\IGameCamera.cpp" />
-    <ClCompile Include="Game\Player\PlayerWeapon.cpp" />
+    <ClCompile Include="Game\Player\Weapon.cpp" />
     <ClCompile Include="Game\Player\PlayerStateAim.cpp" />
     <ClCompile Include="Game\Stage\Grass\Grass_03.cpp" />
     <ClCompile Include="SourceFile\level\LevelMatrix.cpp" />
@@ -277,7 +277,7 @@
     <ClInclude Include="Game\Camera\CameraStateTPS.h" />
     <ClInclude Include="Game\Camera\GameCamera.h" />
     <ClInclude Include="Game\Camera\IGameCamera.h" />
-    <ClInclude Include="Game\Player\PlayerWeapon.h" />
+    <ClInclude Include="Game\Player\Weapon.h" />
     <ClInclude Include="Game\Player\PlayerStateAim.h" />
     <ClInclude Include="Game\Stage\Grass\Grass_03.h" />
     <ClInclude Include="SourceFile\level\LevelMatrix.h" />

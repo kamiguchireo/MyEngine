@@ -1,28 +1,27 @@
 #include "stdafx.h"
-#include "PlayerWeapon.h"
+#include "Weapon.h"
 #include "Player.h"
 
-PlayerWeapon::~PlayerWeapon()
+Weapon::~Weapon()
 {
 
 }
 
-void PlayerWeapon::Init(Player*pl)
+void Weapon::Init(Skeleton* sk)
 {
-	m_Player = pl;
+	m_skeleton = sk;
 	m_Model = NewGO<prefab::ModelRender>(3);
 	m_Model->SetTkmFilePath("Assets/modelData/AK_74M.tkm");
-}
 
-bool PlayerWeapon::Start()
+}
+bool Weapon::Start()
 {
 	return true;
 }
 
-void PlayerWeapon::Update()
+void Weapon::Update()
 {
-	m_weaponMat = m_Player->GetWeaponBoneMat();
-
+	m_weaponMat = m_skeleton->GetWeaponMatrix();
 	m_Model->SetWorldMatrix(m_weaponMat);
 	m_Model->SetUpdateFlag(false);
 }

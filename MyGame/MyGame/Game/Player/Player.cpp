@@ -87,8 +87,8 @@ bool Player::Start()
 	m_animation.Init(m_skeleton, m_animClip, 6);
 	m_animation.Play(0);
 
-	m_PlayerWeapon = NewGO <PlayerWeapon>(2);
-	m_PlayerWeapon->Init(this);
+	m_PlayerWeapon = NewGO <Weapon>(2);
+	m_PlayerWeapon->Init(&m_skeleton);
 
 	return true;
 }
@@ -119,7 +119,7 @@ void Player::Update()
 		ChangeState(m_stateAim);
 		Vector3 aimForward = g_camera3D->GetForward();
 		aimForward.y = 0.0f;
-		//m_rot.SetRotation(m_forward, aimForward);
+		m_rot.SetRotation(m_forward, aimForward);
 
 	}
 	currentState->Update();

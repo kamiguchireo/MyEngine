@@ -482,6 +482,8 @@ void GraphicsEngine::EndRender()
 	m_swapChain->Present(0, 0);
 #else
 	// Present the frame.
+	//ティアリングを回避
+	//第一引数は垂直同期の回数
 	m_swapChain->Present(1, 0);
 #endif
 	//描画完了待ち。

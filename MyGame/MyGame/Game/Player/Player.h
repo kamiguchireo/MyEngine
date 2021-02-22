@@ -3,7 +3,7 @@
 #include "PlayerStateIdle.h"
 #include "PlayerStateMove.h"
 #include "Game/Camera/GameCamera.h"
-#include "PlayerWeapon.h"
+#include "Weapon.h"
 #include "PlayerStateAim.h"
 #include "SourceFile/Physics/CharacterController.h"
 
@@ -54,7 +54,7 @@ private:
 	PlayerStateIdle* m_stateIdle = nullptr;
 	PlayerStateMove* m_stateMove = nullptr;
 	PlayerStateAim* m_stateAim = nullptr;
-	PlayerWeapon* m_PlayerWeapon = nullptr;
+	Weapon* m_PlayerWeapon = nullptr;
 	GameCamera* m_camera = nullptr;
 	Vector3 m_forward = Vector3::AxisZ;
 	CharacterController characon;

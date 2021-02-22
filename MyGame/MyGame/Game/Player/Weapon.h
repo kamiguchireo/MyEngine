@@ -1,17 +1,16 @@
 #pragma once
 #include "SourceFile/graphic/ModelRender.h"
 
-class Player;
-class PlayerWeapon:public IGameObject
+class Weapon:public IGameObject
 {
 public:
-	PlayerWeapon() {}
-	~PlayerWeapon();
+	Weapon() {}
+	~Weapon();
 	bool Start();
 	void Update();
-	void Init(Player*pl);
+	void Init(Skeleton* sk);
 private:
-	Player* m_Player = nullptr;
+	Skeleton* m_skeleton = nullptr;
 	Vector3 m_weaponPos = Vector3::Zero;
 	Quaternion m_weaponRot = Quaternion::Identity;
 	Matrix m_weaponMat = Matrix::Identity;
