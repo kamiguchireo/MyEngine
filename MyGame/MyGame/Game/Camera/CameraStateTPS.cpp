@@ -3,6 +3,8 @@
 
 CameraStateTPS::CameraStateTPS()
 {
+	//カメラコリジョンの初期化
+	m_cameraCollisionSolver.Init(Col_Radius);
 	//マウスカーソルの表示を消す
 	ShowCursor(false);
 }
@@ -43,7 +45,10 @@ void CameraStateTPS::Update(Vector3& /*pos*/, Vector3& target,float& rot)
 	//マウスカーソルの位置をセット
 	SetCursorPos(500, 300);
 
+	//コリジョン解決後の位置
+	Vector3 solve_pos = Vector3::Zero;
+	m_cameraCollisionSolver.Execute(solve_pos, pos, targetPos);
 	//カメラにセット
-	g_camera3D->SetPosition(pos);
+	g_camera3D->SetPosition(solve_pos);
 	g_camera3D->SetTarget(targetPos);
 }

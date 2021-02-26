@@ -1,5 +1,6 @@
 #pragma once
 #include "IGameCamera.h"
+#include "CameraCollisionSolver.h"
 
 class CameraStateTPS :public IGameCamera
 {
@@ -26,5 +27,7 @@ private:
 	int DefaultPoint[2] = { 500,300 };
 	float sensiX = 0.00025f;
 	float sensiY = 0.1f;
+	CameraCollisionSolver m_cameraCollisionSolver;
+	float Col_Radius = 5.0f;		//スフィアコライダーの半径
 };
 
