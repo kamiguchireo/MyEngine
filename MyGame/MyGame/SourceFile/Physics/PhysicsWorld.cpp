@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "PhysicsWorld.h"
 #include "CharacterController.h"
+#include "PhysicsDebugDraw.h"
 
 namespace Engine {
 
@@ -22,6 +23,10 @@ namespace Engine {
 	PhysicsWorld::~PhysicsWorld()
 	{
 		Release();
+		if (m_physicsDebugDraw != nullptr)
+		{
+			delete m_physicsDebugDraw;
+		}
 	}
 
 	void PhysicsWorld::Release()
@@ -56,17 +61,20 @@ namespace Engine {
 		//d—Í‚ÌÝ’è
 		m_dynamicWorld->setGravity(btVector3(0, -10, 0));
 
+		m_physicsDebugDraw = new Engine::PhysicsDebugDraw();
+		m_physicsDebugDraw->Init();
 	}
 
 	void PhysicsWorld::Update()
 	{
 		m_dynamicWorld->stepSimulation(g_gameTime.GetFrameDeltaTime());
-		DebugDrawWorld();
 	}
 
 	void PhysicsWorld::DebugDrawWorld()
 	{
-		//m_dynamicWorld->setDebugDrawer();
+		m_physicsDebugDraw->BeginDraw();
+		m_dynamicWorld->setDebugDrawer(m_physicsDebugDraw);
 		m_dynamicWorld->debugDrawWorld();
+		m_physicsDebugDraw->EndDraw();
 	}
 }

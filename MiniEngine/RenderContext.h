@@ -196,12 +196,15 @@ public:
 	void WaitUntilFinishDrawingToRenderTarget(RenderTarget& renderTarget);
 	void WaitUntilFinishDrawingToRenderTarget( ID3D12Resource* renderTarget )
 	{
+		CD3DX12_RESOURCE_BARRIER m_barrier;
+		m_barrier = m_barrier.Transition(
+			renderTarget,
+			D3D12_RESOURCE_STATE_RENDER_TARGET,
+			D3D12_RESOURCE_STATE_PRESENT);
+
 		m_commandList->ResourceBarrier(
 			1,
-			&CD3DX12_RESOURCE_BARRIER::Transition(
-				renderTarget,
-				D3D12_RESOURCE_STATE_RENDER_TARGET,
-				D3D12_RESOURCE_STATE_PRESENT));
+			&m_barrier);
 	}
 	/// <summary>
 	/// レンダリングターゲットとして使用可能になるまで待つ。
@@ -214,9 +217,12 @@ public:
 	void WaitUntilToPossibleSetRenderTarget(RenderTarget& renderTarget);
 	void WaitUntilToPossibleSetRenderTarget( ID3D12Resource* renderTarget)
 	{
+		CD3DX12_RESOURCE_BARRIER m_barrier;
+		m_barrier = m_barrier.Transition(renderTarget, D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
+
 		m_commandList->ResourceBarrier(
 			1,
-			&CD3DX12_RESOURCE_BARRIER::Transition(renderTarget, D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET)
+			&m_barrier
 		);
 	}
 	/// <summary>
@@ -235,9 +241,11 @@ public:
 	/// <param name="afterState"></param>
 	void TransitionResourceState(ID3D12Resource* resrouce , D3D12_RESOURCE_STATES beforeState, D3D12_RESOURCE_STATES afterState)
 	{
+		CD3DX12_RESOURCE_BARRIER m_barrier;
+		m_barrier = m_barrier.Transition(resrouce, beforeState, afterState);
 		m_commandList->ResourceBarrier(
 			1,
-			&CD3DX12_RESOURCE_BARRIER::Transition(resrouce, beforeState, afterState)
+			&m_barrier
 		);
 	}
 	/// <summary>
@@ -263,6 +271,11 @@ public:
 	void DrawIndexed(UINT indexCount,UINT instanceNum = 1)
 	{
 		m_commandList->DrawIndexedInstanced(indexCount, instanceNum, 0, 0, 0);
+	}
+	//インデックスバッファなしで描画
+	void Draw(UINT vertexCount, UINT startVertexLocation = 0)
+	{
+		m_commandList->DrawInstanced(vertexCount, 1, startVertexLocation, 0);
 	}
 	/// <summary>
 	/// コンピュートシェーダーをディスパッチ。

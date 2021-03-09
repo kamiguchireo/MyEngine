@@ -21,10 +21,13 @@ void StructuredBuffer::Init(int sizeOfElement, int numElement, void* initData)
 
 	int bufferNo = 0;
 	for (auto& buffer : m_buffersOnGPU) {
+		CD3DX12_HEAP_PROPERTIES m_properties(D3D12_HEAP_TYPE_UPLOAD);
+		CD3DX12_RESOURCE_DESC m_desc;
+		m_desc = m_desc.Buffer(static_cast<long long>(m_sizeOfElement) * m_numElement);
 		HRESULT hr = device->CreateCommittedResource(
-			&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),
+			&m_properties,
 			D3D12_HEAP_FLAG_NONE,
-			&CD3DX12_RESOURCE_DESC::Buffer(static_cast<long long>(m_sizeOfElement)* m_numElement),
+			&m_desc,
 			D3D12_RESOURCE_STATE_GENERIC_READ,
 			nullptr,
 			IID_PPV_ARGS(&buffer)

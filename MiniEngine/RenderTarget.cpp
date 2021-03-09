@@ -139,8 +139,9 @@ bool RenderTarget::CreateRenderTargetTexture(
 		clearValue.Color[3] = 1.0f;
 	}
 	//リソースを作成。
+	CD3DX12_HEAP_PROPERTIES m_properties(D3D12_HEAP_TYPE_DEFAULT);
 	auto hr = d3dDevice->CreateCommittedResource(
-		&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
+		&m_properties,
 		D3D12_HEAP_FLAG_NONE,
 		&desc,
 		D3D12_RESOURCE_STATE_COMMON,
@@ -178,8 +179,9 @@ bool RenderTarget::CreateDepthStencilTexture(
 		0,
 		D3D12_TEXTURE_LAYOUT_UNKNOWN,
 		D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL | D3D12_RESOURCE_FLAG_DENY_SHADER_RESOURCE);
+	CD3DX12_HEAP_PROPERTIES m_properties(D3D12_HEAP_TYPE_DEFAULT);
 	auto hr = d3dDevice->CreateCommittedResource(
-		&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
+		&m_properties,
 		D3D12_HEAP_FLAG_NONE,
 		&desc,
 		D3D12_RESOURCE_STATE_DEPTH_WRITE,

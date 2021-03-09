@@ -4,6 +4,7 @@
 namespace Engine {
 	
 	class CharacterController;
+	class PhysicsDebugDraw;
 	class PhysicsWorld
 	{
 	public:
@@ -53,5 +54,6 @@ namespace Engine {
 		std::unique_ptr<btBroadphaseInterface> m_overlappingPairCache;		//ブロードフェーズ。計算コストの低い大まかな衝突判定
 		std::unique_ptr<btSequentialImpulseConstraintSolver> m_constraintSolver;		//コンストレイントソルバー。拘束条件の解決処理。
 		std::unique_ptr<btDiscreteDynamicsWorld> m_dynamicWorld;		//ワールド。
+		Engine::PhysicsDebugDraw* m_physicsDebugDraw = nullptr;
 	};
 }

@@ -76,6 +76,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		g_graphicsEngine->GetDefferdRendering()->DrawRT();
 		//ゲームオブジェクトの描画
 		Engine::GameObjectManager().Draw();
+		g_engine->GetPhysicsWorld().DebugDrawWorld();
 		//ゲームオブジェクトのポストレンダー
 		Engine::GameObjectManager().PostRender();
 
