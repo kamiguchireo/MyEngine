@@ -188,6 +188,7 @@
     <ClCompile Include="Game\Camera\CameraStateAim.cpp" />
     <ClCompile Include="Game\Enemy\Enemy.cpp" />
     <ClCompile Include="Game\Stage\Path.cpp" />
+    <ClCompile Include="SourceFile\Physics\PhysicsDebugDraw.cpp" />
     <ClCompile Include="SourceFile\Physics\PhysicsObjectBase.cpp" />
     <ClCompile Include="SourceFile\Physics\PhysicsStaticObject.cpp" />
     <ClCompile Include="SourceFile\Physics\PhysicsWorld.cpp" />
@@ -272,6 +273,7 @@
     <ClInclude Include="Game\Camera\CameraStateAim.h" />
     <ClInclude Include="Game\Enemy\Enemy.h" />
     <ClInclude Include="Game\Stage\Path.h" />
+    <ClInclude Include="SourceFile\Physics\PhysicsDebugDraw.h" />
     <ClInclude Include="SourceFile\Physics\PhysicsObjectBase.h" />
     <ClInclude Include="SourceFile\Physics\PhysicsStaticObject.h" />
     <ClInclude Include="SourceFile\Physics\PhysicsWorld.h" />

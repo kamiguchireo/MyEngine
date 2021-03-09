@@ -61,6 +61,12 @@ namespace Engine {
 	void PhysicsWorld::Update()
 	{
 		m_dynamicWorld->stepSimulation(g_gameTime.GetFrameDeltaTime());
+		DebugDrawWorld();
 	}
 
+	void PhysicsWorld::DebugDrawWorld()
+	{
+		//m_dynamicWorld->setDebugDrawer();
+		m_dynamicWorld->debugDrawWorld();
+	}
 }
