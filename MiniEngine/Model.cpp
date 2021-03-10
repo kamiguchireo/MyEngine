@@ -63,6 +63,10 @@ void Model::UpdateWorldMatrix(Vector3 pos, Quaternion rot, Vector3 scale)
 	mRot.MakeRotationFromQuaternion(rot);
 	mScale.MakeScaling(scale);
 	m_world = mBias * mScale * mRot * mTrans;
+	Vector3 ToCameraDist = g_camera3D->GetPosition() - g_camera3D->GetTarget();
+	//ディザリングに使用する距離を計算
+	//4で割っているところは好きな数字にいい感じの距離にするため
+	DitherDist = ToCameraDist.Length()/4;
 }
 
 void Model::UpdateInstancingData(const Vector3& trans, const Quaternion& rot, const Vector3& scale)
@@ -100,7 +104,8 @@ void Model::Draw(RenderContext& rc)
 		g_camera3D->GetProjectionMatrix(),
 		enRenderMode_Normal,
 		IsShadowReciever,
-		IsDither
+		IsDither,
+		DitherDist
 	);
 }
 
@@ -113,7 +118,8 @@ void Model::Draw(RenderContext& rc,Matrix viewMat,Matrix proMat,int rendermode)
 		proMat,
 		rendermode,
 		IsShadowReciever,
-		IsDither
+		IsDither,
+		DitherDist
 	);
 }
 

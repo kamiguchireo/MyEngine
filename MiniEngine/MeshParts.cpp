@@ -178,7 +178,8 @@ void MeshParts::Draw(
 	const Matrix& mProj,
 	int rendermode,
 	int IsShadowRecieverFlag,
-	int IsDitherFlag
+	int IsDitherFlag,
+	int Ditherdist
 )
 {
 #if 1
@@ -197,6 +198,7 @@ void MeshParts::Draw(
 	cb.mProj = mProj;
 	cb.IsShadowReciever = IsShadowRecieverFlag;
 	cb.IsDither = IsDitherFlag;
+	cb.DitherDist = Ditherdist;
 	m_commonConstantBuffer.CopyToVRAM(&cb);
 
 	//if (m_expandData) {

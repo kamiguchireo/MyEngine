@@ -60,7 +60,7 @@ public:
 	/// <param name="mView">ビュー行列</param>
 	/// <param name="mProj">プロジェクション行列</param>
 	/// <param name="light">ライト</param>
-	void Draw(RenderContext& rc, const Matrix& mWorld, const Matrix& mView, const Matrix& mProj, int rendermode = 1, int IsShadowResieverFlag = 0,int IsDitherFlag = 0);
+	void Draw(RenderContext& rc, const Matrix& mWorld, const Matrix& mView, const Matrix& mProj, int rendermode = 1, int IsShadowResieverFlag = 0,int IsDitherFlag = 0,int DitherDist = 250);
 	/// <summary>
 	/// スケルトンを関連付ける。
 	/// </summary>
@@ -109,6 +109,7 @@ private:
 		Matrix mProj;		//プロジェクション行列。
 		int IsShadowReciever;		//シャドウレシーバーにするかどうかのフラグ
 		int IsDither;		//ディザリングするかどうかのフラグ
+		int DitherDist;		//ディザリングの計算のためのカメラとモデルの距離
 	};
 	ConstantBuffer m_commonConstantBuffer;					//メッシュ共通の定数バッファ。
 	IShaderResource* m_expandShaderResourceView = nullptr;	//ユーザー拡張シェーダーリソースビュー。

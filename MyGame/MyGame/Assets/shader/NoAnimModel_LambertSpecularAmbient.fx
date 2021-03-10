@@ -6,6 +6,17 @@ static const int NUM_DIRECTIONAL_LIGHT = 4;	//ディレクションライトの�
 static const int NUM_SHADOW_MAP = 3;
 static const float PI = 3.14159265358979323846;
 
+static const int DitherPattern[8][8] = {
+	{ 0, 32,  8, 40,  2, 34, 10, 42 },   /* 8x8 Bayer ordered dithering  */
+	{ 48, 16, 56, 24, 50, 18, 58, 26 },  /* pattern.  Each input pixel   */
+	{ 12, 44,  4, 36, 14, 46,  6, 38 },  /* is scaled to the 0..63 range */
+	{ 60, 28, 52, 20, 62, 30, 54, 22 },  /* before looking in this table */
+	{ 3, 35, 11, 43,  1, 33,  9, 41 },   /* to determine the action.     */
+	{ 51, 19, 59, 27, 49, 17, 57, 25 },
+	{ 15, 47,  7, 39, 13, 45,  5, 37 },
+	{ 63, 31, 55, 23, 61, 29, 53, 21 }
+};
+
 //モデル用の定数バッファ
 cbuffer ModelCb : register(b0){
 	float4x4 mWorld: packoffset(c0);
@@ -13,6 +24,7 @@ cbuffer ModelCb : register(b0){
 	float4x4 mProj: packoffset(c8);
 	int IsShadowReciever : packoffset(c12.x);
 	int IsDither : packoffset(c12.y);
+	int DitherDist : packoffset(c12.z);
 };
 
 //ディレクションライト。
@@ -429,6 +441,14 @@ float4 PSMain_ShadowMap(PSInput_ShadowMap In) : SV_Target0
 
 SPSOUT PSDefferdMain(SPSIn psIn)
 {
+	if (IsDither == 1)
+	{
+		float2 fIndex = fmod(psIn.pos.xy * 10, 8);
+		if (DitherPattern[(int)fIndex.x][(int)fIndex.y] > DitherDist)
+		{
+			clip(-1);
+		}
+	}
 	SPSOUT psOut;
 	psOut.albedo = g_texture.Sample(g_sampler, psIn.uv);
 	float3 Normal = GetNormal(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);

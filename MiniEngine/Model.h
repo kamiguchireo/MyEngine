@@ -115,4 +115,5 @@ private:
 	std::unique_ptr<Matrix[]> m_instancingMat;		//インスタンシング描画用の行列
 	StructuredBuffer m_instancingMatricesStructureBuffer;		//インスタンシング描画用のバッファ
 	bool IsTkmInited = false;
+	int DitherDist = 250;
 };
