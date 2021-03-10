@@ -20,6 +20,14 @@ bool Tree1::Start()
 	m_Tree.Init(m_InitData,m_instanceNum);
 	m_Tree.SetShadowRecieverFlag(true);
 
+	for (auto& objData : m_renderObjDatas)
+	{
+		auto boxCol = std::make_unique<PhysicsStaticObject>();
+		Vector3 size = Vector3::One;
+		size = { 40.0f,200.0f,40.0f };
+		boxCol->CreateBox(objData.position, objData.rotation, size);
+		m_boxCol.push_back(std::move(boxCol));
+	}
 
 	return true;
 }

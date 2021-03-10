@@ -27,7 +27,7 @@ namespace Engine {
 		}
 
 	private:
-		//性的物理オブジェクト作成処理の共通処理
+		//静的物理オブジェクト作成処理の共通処理
 		void CreateCommon(Vector3 pos, Quaternion rot)override final;
 
 	private:

@@ -154,6 +154,6 @@ void Enemy::Update()
 	//m_camera->SetTarget(m_pos);
 
 	m_enemyModel->SetPosition(m_pos);
-	//m_enemyModel->SetRotation(m_rot);
+	m_enemyModel->SetRotation(m_rot);
 
 }
