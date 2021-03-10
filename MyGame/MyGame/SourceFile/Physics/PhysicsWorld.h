@@ -36,6 +36,19 @@ namespace Engine {
 				rb.SetUnmarkAddPhysicsWorld();
 			}
 		}
+
+		//コリジョンオブジェクトをワールドに登録
+		void AddCollisionObject(btCollisionObject& colliObj)
+		{
+			m_dynamicWorld->addCollisionObject(&colliObj);
+		}
+
+		//コリジョンオブジェクトをワールドから削除
+		void RemoveCollisionObject(btCollisionObject& colliObj)
+		{
+			m_dynamicWorld->removeCollisionObject(&colliObj);
+		}
+
 		void ConvexSweepTest(
 			const btConvexShape* castShape,
 			const btTransform& convexFromWorld,

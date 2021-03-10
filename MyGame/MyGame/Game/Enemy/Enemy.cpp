@@ -10,7 +10,7 @@ Enemy::Enemy()
 	}
 	else
 	{
-		m_position.push_back(Vector3::Zero);
+		m_position.push_back(m_pos);
 	}
 
 	m_PassSize = m_position.size() - 1;
@@ -46,7 +46,7 @@ bool Enemy::Start()
 		m_pos = m_position[0];
 	}
 	//キャラコンの初期化
-	characon.Init(10.0f, 50.0f, m_pos);
+	characon.Init(15.0f, 115.0f, m_pos);
 
 	//待機状態のアニメーション
 	m_animClip[0].Load("Assets/animData/Rifle_Idle.tka");
