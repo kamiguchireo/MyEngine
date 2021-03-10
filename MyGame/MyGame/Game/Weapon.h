@@ -8,7 +8,8 @@ public:
 	~Weapon();
 	bool Start();
 	void Update();
-	void Init(Skeleton* sk);
+	void Init(Skeleton* sk,bool DitherFlag = false);
+
 private:
 	Skeleton* m_skeleton = nullptr;
 	Vector3 m_weaponPos = Vector3::Zero;

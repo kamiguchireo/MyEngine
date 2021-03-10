@@ -89,8 +89,8 @@ bool Player::Start()
 	m_animation.Play(0);
 
 	m_PlayerWeapon = NewGO <Weapon>(2);
-	m_PlayerWeapon->Init(&m_skeleton);
-	
+	m_PlayerWeapon->Init(&m_skeleton,true);
+
 	return true;
 }
 
