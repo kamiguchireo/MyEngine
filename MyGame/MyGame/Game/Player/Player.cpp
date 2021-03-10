@@ -81,7 +81,7 @@ bool Player::Start()
 	m_scale *= 0.8f;
 	m_playerModel->SetScale(m_scale);
 	m_playerModel->SetShadowRecieverFlag(true);
-
+	m_playerModel->SetDitherFlag(true);
 	//スケルトンとアニメーションの初期化
 	m_skeleton.Init("Assets/modelData/soldier_bs01.tks");
 	m_skeleton.Update(Matrix::Identity);
@@ -90,7 +90,7 @@ bool Player::Start()
 
 	m_PlayerWeapon = NewGO <Weapon>(2);
 	m_PlayerWeapon->Init(&m_skeleton);
-
+	
 	return true;
 }
 

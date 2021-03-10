@@ -60,7 +60,7 @@ public:
 	/// <param name="mView">ビュー行列</param>
 	/// <param name="mProj">プロジェクション行列</param>
 	/// <param name="light">ライト</param>
-	void Draw(RenderContext& rc, const Matrix& mWorld, const Matrix& mView, const Matrix& mProj, int rendermode = 1, int IsShadowResieverFlag = 0);
+	void Draw(RenderContext& rc, const Matrix& mWorld, const Matrix& mView, const Matrix& mProj, int rendermode = 1, int IsShadowResieverFlag = 0,int IsDitherFlag = 0);
 	/// <summary>
 	/// スケルトンを関連付ける。
 	/// </summary>
@@ -107,7 +107,8 @@ private:
 		Matrix mWorld;		//ワールド行列。
 		Matrix mView;		//ビュー行列。
 		Matrix mProj;		//プロジェクション行列。
-		int IsShadowReciever;
+		int IsShadowReciever;		//シャドウレシーバーにするかどうかのフラグ
+		int IsDither;		//ディザリングするかどうかのフラグ
 	};
 	ConstantBuffer m_commonConstantBuffer;					//メッシュ共通の定数バッファ。
 	IShaderResource* m_expandShaderResourceView = nullptr;	//ユーザー拡張シェーダーリソースビュー。

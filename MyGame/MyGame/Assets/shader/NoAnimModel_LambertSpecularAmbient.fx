@@ -8,10 +8,11 @@ static const float PI = 3.14159265358979323846;
 
 //モデル用の定数バッファ
 cbuffer ModelCb : register(b0){
-	float4x4 mWorld;
-	float4x4 mView;
-	float4x4 mProj;
-	int IsShadowReciever;
+	float4x4 mWorld: packoffset(c0);
+	float4x4 mView: packoffset(c4);
+	float4x4 mProj: packoffset(c8);
+	int IsShadowReciever : packoffset(c12.x);
+	int IsDither : packoffset(c12.y);
 };
 
 //ディレクションライト。

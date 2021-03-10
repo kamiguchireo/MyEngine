@@ -56,6 +56,11 @@ namespace Engine {
 			{
 				m_model->SetShadowRecieverFlag(flag);
 			}
+			//ディザリングをするかどうかのフラグ
+			void SetDitherFlag(bool flag)
+			{
+				m_model->SetDitherFlag(flag);
+			}
 			//位置をセット
 			void SetPosition(const Vector3& pos)
 			{

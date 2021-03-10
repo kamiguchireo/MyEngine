@@ -99,7 +99,8 @@ void Model::Draw(RenderContext& rc)
 		g_camera3D->GetViewMatrix(), 
 		g_camera3D->GetProjectionMatrix(),
 		enRenderMode_Normal,
-		IsShadowReciever
+		IsShadowReciever,
+		IsDither
 	);
 }
 
@@ -111,7 +112,8 @@ void Model::Draw(RenderContext& rc,Matrix viewMat,Matrix proMat,int rendermode)
 		viewMat,
 		proMat,
 		rendermode,
-		IsShadowReciever
+		IsShadowReciever,
+		IsDither
 	);
 }
 

@@ -73,6 +73,11 @@ public:
 		IsShadowReciever = flag;
 	}
 
+	void SetDitherFlag(bool flag)
+	{
+		IsDither = flag;
+	}
+
 	void Refresh()
 	{
 		m_numInstance = 0;
@@ -104,6 +109,7 @@ private:
 	TkmFile m_tkmFile;		//tkmファイル。
 	MeshParts m_meshParts;	//メッシュパーツ。
 	bool IsShadowReciever = false;
+	bool IsDither = false;
 	int m_numInstance = 0;
 	int m_maxInstance = 1;
 	std::unique_ptr<Matrix[]> m_instancingMat;		//インスタンシング描画用の行列
