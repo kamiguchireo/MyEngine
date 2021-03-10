@@ -4,6 +4,7 @@
 #include "BoxCollider.h"
 #include "CapsuleCollider.h"
 #include "SphereCollider.h"
+#include "CylinderCollider.h"
 
 namespace Engine {
 
@@ -31,6 +32,15 @@ namespace Engine {
 		auto sphereCollider = std::make_unique<SphereCollider>();
 		sphereCollider->Create(radius);
 		m_collider = move(sphereCollider);
+		CreateCommon(pos, rot);
+	}
+
+	void PhysicsObjectBase::CreateCylinder(Vector3 pos, Quaternion rot, Vector3 size)
+	{
+		Release();
+		auto cylinderCollider = std::make_unique<CylinderCollider>();
+		cylinderCollider->Create(size);
+		m_collider = move(cylinderCollider);
 		CreateCommon(pos, rot);
 	}
 

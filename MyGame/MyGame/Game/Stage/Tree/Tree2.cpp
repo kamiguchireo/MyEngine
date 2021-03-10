@@ -19,6 +19,17 @@ bool Tree2::Start()
 	m_InitData.m_fxFilePath = "Assets/shader/NoAnimModel_LambertSpecularAmbient.fx";
 	m_Tree.Init(m_InitData, m_instanceNum);
 	m_Tree.SetShadowRecieverFlag(true);
+	
+	for (auto& objData : m_renderObjDatas)
+	{
+		auto boxCol = std::make_unique<PhysicsStaticObject>();
+		Vector3 size = Vector3::One;
+		size = { 65.0f,200.0f,65.0f };
+		Vector3 colPos = objData.position;
+		colPos.y += size.y / 2.0f;
+		boxCol->CreateCylinder(colPos, objData.rotation, size);
+		m_Col.push_back(std::move(boxCol));
+	}
 
 	return true;
 }

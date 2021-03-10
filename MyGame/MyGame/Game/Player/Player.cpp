@@ -107,7 +107,7 @@ void Player::Update()
 	float value = footStepValue.y;
 	footStepValue.y = footStepValue.z;
 	footStepValue.z = -value;
-	footStepValue.y = -1.0f;
+	//footStepValue.y = -1.0f;
 	footStepValue *= 24;
 
 	if (g_pad[0]->GetLStickXF() != 0.0f || g_pad[0]->GetLStickYF() != 0.0f)

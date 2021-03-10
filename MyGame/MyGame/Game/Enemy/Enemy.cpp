@@ -11,6 +11,7 @@ Enemy::Enemy()
 	else
 	{
 		m_position.push_back(m_pos);
+		m_position.push_back(Vector3{ 100.0f,0.0f,0.0f });
 	}
 
 	m_PassSize = m_position.size() - 1;

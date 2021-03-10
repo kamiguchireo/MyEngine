@@ -1,4 +1,5 @@
 #pragma once
+#include "SourceFile/Physics/PhysicsStaticObject.h"
 
 class Tree2 :public IGameObject
 {
@@ -40,5 +41,6 @@ private:
 	ModelInitData m_InitData;
 	int m_instanceNum = 1;		//インスタンスの数
 	std::vector<ObjData> m_renderObjDatas;		//描画するオブジェクトの配列
+	std::vector <std::unique_ptr<PhysicsStaticObject>> m_Col;	//ボックスコライダー
 };
 

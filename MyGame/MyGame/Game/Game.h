@@ -16,6 +16,7 @@ public:
 	void Update();
 
 private:
+	Tree1* m_Tree1 = nullptr;
 	Enemy* enemy = nullptr;
 	Vector3 pos = Vector3::Zero;
 	Player* player = nullptr;

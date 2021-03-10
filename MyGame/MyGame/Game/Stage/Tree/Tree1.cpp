@@ -24,9 +24,11 @@ bool Tree1::Start()
 	{
 		auto boxCol = std::make_unique<PhysicsStaticObject>();
 		Vector3 size = Vector3::One;
-		size = { 40.0f,200.0f,40.0f };
-		boxCol->CreateBox(objData.position, objData.rotation, size);
-		m_boxCol.push_back(std::move(boxCol));
+		size = { 60.0f,200.0f,60.0f };
+		Vector3 colPos = objData.position;
+		colPos.y += size.y / 2.0f;
+		boxCol->CreateCylinder(colPos, objData.rotation, size);
+		m_Col.push_back(std::move(boxCol));
 	}
 
 	return true;

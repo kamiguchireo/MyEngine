@@ -41,6 +41,12 @@ namespace Engine {
 		//rot		回転
 		//radius		球体の半径
 		void CreateSphere(Vector3 pos, Quaternion rot, float radius);
+
+		//円柱形状のゴーストオブジェクトを作成
+		//pos		座標
+		//rot		回転
+		//size		円柱のサイズ
+		void CreateCylinder(Vector3 pos, Quaternion rot, Vector3 size);
 		//メッシュ形状のゴーストオブジェクトを作成
 		//pos		座標
 		//rot		回転

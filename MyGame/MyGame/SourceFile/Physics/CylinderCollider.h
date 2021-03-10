@@ -11,6 +11,10 @@ namespace Engine {
 		//円柱コライダーを作成
 		void Create(Vector3&vec);
 
+		btCollisionShape* GetBody()const
+		{
+			return shape;
+		}
 	private:
 		btCylinderShape* shape = NULL;
 
