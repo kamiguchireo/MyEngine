@@ -4,7 +4,15 @@
 Enemy::Enemy()
 {
 	m_path = Path::GetInstance();
-	m_position = m_path->GetPosition();
+	if (m_path != nullptr)
+	{
+		m_position = m_path->GetPosition();
+	}
+	else
+	{
+		m_position.push_back(Vector3::Zero);
+	}
+
 	m_PassSize = m_position.size() - 1;
 }
 
@@ -33,8 +41,10 @@ bool Enemy::Start()
 	//m_camera = NewGO<GameCamera>(0, nullptr);
 
 	//ポジションをパスの0番目に合わせる
-	m_pos = m_position[0];
-
+	if (m_position.size() >= 1)
+	{
+		m_pos = m_position[0];
+	}
 	//キャラコンの初期化
 	characon.Init(10.0f, 50.0f, m_pos);
 
@@ -144,6 +154,6 @@ void Enemy::Update()
 	//m_camera->SetTarget(m_pos);
 
 	m_enemyModel->SetPosition(m_pos);
-	m_enemyModel->SetRotation(m_rot);
+	//m_enemyModel->SetRotation(m_rot);
 
 }

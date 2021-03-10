@@ -13,7 +13,11 @@ public:
 
 	static Path* GetInstance()
 	{
-		return instance;
+		if (instance != nullptr)
+		{
+			return instance;
+		}
+		return nullptr;
 	}
 
 	std::vector<Vector3>& GetPosition()

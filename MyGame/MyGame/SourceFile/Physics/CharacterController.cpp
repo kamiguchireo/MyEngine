@@ -11,7 +11,7 @@ namespace Engine {
 			Vector3 startPos = Vector3::Zero;		//レイの始点
 			Vector3 hitNormal = Vector3::Zero;		//衝突点の法線
 			btCollisionObject* me = nullptr;		//自分自身。自分自身との衝突を回避するためのメンバ
-			float dist = FLT_MAX;		//衝突店までの距離。一番近い衝突点を求めるため。
+			float dist = FLT_MAX;		//衝突点までの距離。一番近い衝突点を求めるため。
 
 			//衝突したときに呼ばれるコールバック関数
 			virtual btScalar addSingleResult(btCollisionWorld::LocalConvexResult& convexResult, bool normalInWorldSpace)
@@ -122,6 +122,8 @@ namespace Engine {
 		//剛体の位置を更新
 		trans.setOrigin(btVector3(position.x, position.y + m_height * 0.5f + m_radius, position.z));
 		m_rigidBody.GetBody()->setCollisionFlags(btCollisionObject::CF_CHARACTER_OBJECT);
+		//属性をキャラコンにする
+		m_rigidBody.GetBody()->setUserIndex(enCollisionAttr_Character);
 		//フィジックスワールドに登録
 		g_engine->GetPhysicsWorld() .AddRigidBody(m_rigidBody);
 		m_isInited = true;

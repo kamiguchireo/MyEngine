@@ -54,7 +54,7 @@ bool Player::Start()
 {
 	m_camera = NewGO<GameCamera>(0, nullptr);
 
-	characon.Init(10.0f, 50.0f, m_pos);
+	characon.Init(15.0f,115.0f, m_pos);
 	//待機状態のアニメーション
 	m_animClip[0].Load("Assets/animData/Rifle_Idle.tka");
 	m_animClip[0].SetLoopFlag(true);
@@ -107,7 +107,7 @@ void Player::Update()
 	float value = footStepValue.y;
 	footStepValue.y = footStepValue.z;
 	footStepValue.z = -value;
-	footStepValue.y = -1.0f;
+	//footStepValue.y = -1.0f;
 	footStepValue *= 24;
 
 	if (g_pad[0]->GetLStickXF() != 0.0f || g_pad[0]->GetLStickYF() != 0.0f)
@@ -130,7 +130,6 @@ void Player::Update()
 		m_camera->SetCameraState(CameraState::TPS);
 		Vector3 aimForward = g_camera3D->GetForward();
 		aimForward.y = 0.0f;
-		m_rot.SetRotation(m_forward, aimForward);
 	}
 	currentState->Update();
 	//footStepValueに回転を適用
@@ -139,7 +138,6 @@ void Player::Update()
 	Vector3 returnPos = characon.Execute(footStepValue, DeltaTime);
 
 	m_pos = returnPos;
-	//m_pos += footStepValue;
 
 	m_camera->SetTarget(m_pos);
 

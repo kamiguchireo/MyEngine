@@ -16,6 +16,10 @@ namespace Engine {
 			Vector3 normal;
 			normal.Set(convexResult.m_hitNormalLocal);
 
+			if (convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Character)
+			{
+				return 1.0f;
+			}
 			return btCollisionWorld::ClosestConvexResultCallback::addSingleResult(convexResult, normalInWorldSpace);
 		}
 	};
