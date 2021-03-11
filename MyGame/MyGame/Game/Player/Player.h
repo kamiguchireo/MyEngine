@@ -40,6 +40,14 @@ public:
 	{
 		return m_skeleton.GetWeaponMatrix();
 	}
+
+	void AddDecale()
+	{
+		if (m_PlayerWeapon != nullptr)
+		{
+			m_PlayerWeapon->AddDecale();
+		}
+	}
 private:
 	void ChangeState(IPlayer* state);
 private:

@@ -1,13 +1,13 @@
 #pragma once
 
 namespace Engine {
-	class Decale
+	class Decale : public IGameObject
 	{
 	public:
 		Decale();
 		~Decale();
 
-		void AddStartPos(Vector3& pos,Vector3& dir)
+		void AddStartPos(const Vector3& pos,const Vector3& dir)
 		{
 			m_StartPos.push_back(pos);
 			m_Direction.push_back(dir);
@@ -19,6 +19,7 @@ namespace Engine {
 			Distance = dist;
 		}
 
+		bool Start();
 		void Update();
 	private:
 		std::vector<Vector3> m_StartPos;

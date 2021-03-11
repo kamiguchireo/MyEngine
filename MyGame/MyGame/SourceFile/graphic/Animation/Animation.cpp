@@ -218,6 +218,9 @@ namespace Engine
 				boneNo,
 				boneMatrix
 			);
+
+			m_skeleton->GetBone(boneNo)->CalcWorldTRS(vGlobalPose[boneNo], qGlobalPose[boneNo], vGlobalScale[boneNo]);
+			
 		}
 		//最終アニメーション以外は補完完了していたら除去する
 		int numAnimationPlayController = m_numAnimationPlayController;

@@ -13,6 +13,7 @@ void PlayerStateAim::Update()
 	if (GetKeyState(VK_LBUTTON) & (0x80))
 	{
 		m_Player->PlayAnimation(5);
+		m_Player->AddDecale();
 	}
 	else
 	{

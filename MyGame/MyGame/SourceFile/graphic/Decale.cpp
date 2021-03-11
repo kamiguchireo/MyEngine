@@ -10,7 +10,7 @@ namespace Engine {
 		Vector3 startPos = Vector3::Zero;		//レイの始点
 		Vector3 hitNormal = Vector3::Zero;		//衝突点の法線
 		float dist = FLT_MAX;		//衝突点までの距離。一番近い衝突点を求めるため。
-
+		
 		//衝突したときに呼ばれるコールバック関数
 		virtual btScalar addSingleResult(btCollisionWorld::LocalRayResult& rayResult, bool normalInWorldSpace)
 		{
@@ -104,8 +104,14 @@ namespace Engine {
 
 	}
 
+	bool Decale::Start()
+	{
+		return true;
+	}
+
 	void Decale::Update()
 	{
+		//並行投影行列を作成
 		Matrix m_proj = Matrix::Identity;
 		m_proj.MakeOrthoProjectionMatrix(10.0f, 10.0f, 0.0f, 10.0f);
 		//レイを作成
@@ -137,6 +143,42 @@ namespace Engine {
 			//衝突検出
 			g_engine->GetPhysicsWorld().RayTest(start, end, callback);
 
+			if (callback.isHit)
+			{
+				btVector3 hitPosTmp = start + (end - start) * callback.m_closestHitFraction;
+				//物理オブジェクトと衝突した
+				Vector3 hitPos;
+				hitPos.Set(hitPosTmp);
+				//カメラを設置するために少し近づける
+				hitPos -= Direction * 5.0f;
+				//カメラ行列を作るためにターゲットポジションを作成
+				Vector3 targetPos = callback.hitPos;
+				//ターゲットは少し離す
+				targetPos += Direction * 5.0f;
+				//カメラ行列を作成
+				Matrix m_view = Matrix::Identity;
+				//カメラの前方向
+				Vector3 cameraForward = Vector3::Front;
+				cameraForward = g_camera3D->GetForward();
+				//カメラの右方向
+				Vector3 ViewRight = Vector3::Right;
+				ViewRight.Cross(Direction, cameraForward);
+				//正規化
+				ViewRight.Normalize();
+				//カメラの上方向
+				Vector3 CameraUpAxis = Vector3::Up;
+				CameraUpAxis.Cross(ViewRight, Direction);
+				//正規化
+				CameraUpAxis.Normalize();
+
+				//カメラ行列を作成
+				m_view.MakeLookAt(hitPos, targetPos, CameraUpAxis);
+
+				Matrix m_VP = Matrix::Identity;
+				m_proj.Multiply(m_view, m_proj);
+				m_VP = m_proj;
+				m_DecaleVP.push_back(m_VP);
+			}
 		}
 	}
 }

@@ -248,6 +248,11 @@ public:
 			return m_bones[WeaponBoneNum].get()->GetWorldMatrix();
 		}
 	}
+
+	const int GetWeaponBoneNum()
+	{
+		return WeaponBoneNum;
+	}
 public:
 		
 
