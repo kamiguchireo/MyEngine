@@ -49,6 +49,7 @@ namespace Engine {
 			m_dynamicWorld->removeCollisionObject(&colliObj);
 		}
 
+		//コリジョンの衝突検出
 		void ConvexSweepTest(
 			const btConvexShape* castShape,
 			const btTransform& convexFromWorld,
@@ -60,6 +61,15 @@ namespace Engine {
 			m_dynamicWorld->convexSweepTest(castShape, convexFromWorld, convexToWorld, resultCallback, allowedCcdPenetration);
 		}
 
+		//レイの衝突検出
+		void RayTest(
+			const btVector3& rayFromWorld,
+			const btVector3& rayToWorld,
+			btCollisionWorld::RayResultCallback& resultCallback
+		)
+		{
+			m_dynamicWorld->rayTest(rayFromWorld, rayToWorld, resultCallback);
+		}
 	private:
 		class btIDebugDraw* m_debugDraw;
 		std::unique_ptr<btDefaultCollisionConfiguration> m_collisionConfig;		//コリジョンの設定
