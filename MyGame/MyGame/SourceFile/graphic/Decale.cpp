@@ -104,11 +104,6 @@ namespace Engine {
 
 	}
 
-	bool Decale::Start()
-	{
-		return true;
-	}
-
 	void Decale::Update()
 	{
 		//•Às“Š‰es—ñ‚ğì¬

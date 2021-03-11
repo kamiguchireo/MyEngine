@@ -31,6 +31,9 @@ void EngineProcessing::Update()
 
 	//シャドウマップのアップデート
 	g_graphicsEngine->GetShadowMap()->Update();
+
+	//デカールのアップデート
+	g_graphicsEngine->GetDecale()->Update();
 }
 
 void EngineProcessing::Rendering()

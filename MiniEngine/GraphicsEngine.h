@@ -16,7 +16,7 @@
 #include "SourceFile/graphic/Shadow/ShadowMap.h"
 #include "SourceFile/graphic/PostEffect/DefferdRendering.h"
 #include "SourceFile/graphic/Light/LightManager.h"
-
+#include "SourceFile/graphic/Decale.h"
 
 enum EnRenderMode {
 	enRenderMode_CreateShadowMap,		//シャドウマップ生成
@@ -158,7 +158,10 @@ public:
 		return m_LM;
 	}
 	
-
+	std::unique_ptr<Engine::Decale>& GetDecale()
+	{
+		return m_Decale;
+	}
 private:
 	/// <summary>
 	/// D3Dデバイスの作成。
@@ -268,6 +271,7 @@ private:
 	std::unique_ptr<Engine::ShadowMap> m_shadowMap = nullptr;
 	std::unique_ptr<Engine::DefferdRendering> m_DefferdRendering = nullptr;
 	std::unique_ptr<Engine::LightManager> m_LM = nullptr;
+	std::unique_ptr<Engine::Decale> m_Decale = nullptr;
 };
 extern GraphicsEngine* g_graphicsEngine;	//グラフィックスエンジン
 extern Camera* g_camera2D;					//2Dカメラ。

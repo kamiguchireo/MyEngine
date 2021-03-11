@@ -9,11 +9,6 @@ Weapon::~Weapon()
 		m_Model = nullptr;
 	}
 
-	if (m_Decale != nullptr)
-	{
-		DeleteGO(m_Decale);
-		m_Decale = nullptr;
-	}
 }
 
 void Weapon::Init(Skeleton* sk,bool DitherFlag)
@@ -22,8 +17,6 @@ void Weapon::Init(Skeleton* sk,bool DitherFlag)
 	m_Model = NewGO<prefab::ModelRender>(3);
 	m_Model->SetTkmFilePath("Assets/modelData/AK_74M.tkm");
 	m_Model->SetDitherFlag(DitherFlag);
-	m_Decale = NewGO<Decale>(4);
-
 }
 bool Weapon::Start()
 {
@@ -47,7 +40,7 @@ void Weapon::AddDecale()
 	WeaponToLeftHand = g_camera3D->GetTarget() - WeaponPos;
 	//³‹K‰»
 	WeaponToLeftHand.Normalize();
-	m_Decale->AddStartPos(m_skeleton->GetBone(m_skeleton->GetWeaponBoneNum())->GetPosition(), WeaponToLeftHand);
+	g_graphicsEngine->GetDecale()->AddStartPos(m_skeleton->GetBone(m_skeleton->GetWeaponBoneNum())->GetPosition(), WeaponToLeftHand);
 }
 
 void Weapon::Update()

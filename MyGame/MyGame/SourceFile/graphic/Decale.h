@@ -1,7 +1,7 @@
 #pragma once
 
 namespace Engine {
-	class Decale : public IGameObject
+	class Decale
 	{
 	public:
 		Decale();

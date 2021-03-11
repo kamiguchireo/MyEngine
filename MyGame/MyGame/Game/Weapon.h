@@ -1,6 +1,5 @@
 #pragma once
 #include "SourceFile/graphic/ModelRender.h"
-#include "SourceFile/graphic/Decale.h"
 
 class Weapon:public IGameObject
 {
@@ -17,7 +16,6 @@ private:
 	Quaternion m_weaponRot = Quaternion::Identity;
 	Matrix m_weaponMat = Matrix::Identity;
 	prefab::ModelRender* m_Model = nullptr;
-	Decale* m_Decale = nullptr;
 	int LeftHandBoneNo = -1;
 };
 

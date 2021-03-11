@@ -80,6 +80,7 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 	m_shadowMap = std::make_unique<Engine::ShadowMap>();
 	m_DefferdRendering = std::make_unique<Engine::DefferdRendering>();
 	m_LM = std::make_unique<Engine::LightManager>();
+	m_Decale = std::make_unique<Engine::Decale>();
 
 	m_frameBufferWidth = frameBufferWidth;
 	m_frameBufferHeight = frameBufferHeight;
