@@ -33,6 +33,10 @@ void MeshParts::InitFromTkmFile(
 	{
 		m_instancingMatricesStructureBuffer = InstancingMat;
 	}
+	if (g_graphicsEngine->GetDecale()->GetSTB() != nullptr)
+	{
+		m_DecaleStructureBuffer = g_graphicsEngine->GetDecale()->GetSTB();
+	}
 	m_meshs.resize(tkmFile.GetNumMesh());
 	int meshNo = 0;
 	tkmFile.QueryMeshParts([&](const TkmFile::SMesh& mesh) {
@@ -78,7 +82,7 @@ void MeshParts::CreateDescriptorHeaps()
 			descriptorHeap.RegistShaderResource(5, g_graphicsEngine->GetShadowMap()->GetSRV(1));
 			descriptorHeap.RegistShaderResource(6, g_graphicsEngine->GetShadowMap()->GetSRV(2));
 			descriptorHeap.RegistShaderResource(7, *m_instancingMatricesStructureBuffer);		//インスタンシング描画のワールド行列
-
+			descriptorHeap.RegistShaderResource(8, *m_DecaleStructureBuffer);		//デカール用のストラクチャーバッファ
 			if (m_expandShaderResourceView){
 				descriptorHeap.RegistShaderResource(EXPAND_SRV_REG__START_NO, *m_expandShaderResourceView);
 			}

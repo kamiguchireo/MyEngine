@@ -96,7 +96,7 @@ namespace Engine {
 
 	Decale::Decale()
 	{
-
+		m_DecaleTex = std::make_unique<Texture>();
 	}
 
 	Decale::~Decale()
@@ -104,6 +104,18 @@ namespace Engine {
 
 	}
 
+	void Decale::Init()
+	{
+		//ユニークポインタを作成
+		m_DecaleVP.reset(new Matrix[m_maxNum]);
+		//ストラクチャーバッファを初期化
+		m_STB.Init(
+			sizeof(Matrix),
+			m_maxNum,
+			m_DecaleVP.get()
+		);
+		m_DecaleTex->InitFromDDSFile(L"Assets/Image/Bullet_hole.dds");
+	}
 	void Decale::Update()
 	{
 		//並行投影行列を作成
@@ -172,8 +184,17 @@ namespace Engine {
 				Matrix m_VP = Matrix::Identity;
 				m_proj.Multiply(m_view, m_proj);
 				m_VP = m_proj;
-				m_DecaleVP.push_back(m_VP);
+				m_DecaleVP[num] = m_VP;
+				if (num == m_maxNum)
+				{
+					num = 0;
+				}
+				else
+				{
+					num++;
+				}
 			}
 		}
+		m_STB.Update(m_DecaleVP.get());
 	}
 }

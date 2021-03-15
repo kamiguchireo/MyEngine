@@ -105,7 +105,8 @@ Texture2D<float4>g_shadowMap1:register(t5);
 Texture2D<float4>g_shadowMap2:register(t6);
 //インスタンシング描画用
 StructuredBuffer<float4x4> instanceMatrix : register(t7);
-
+//デカール用
+StructuredBuffer<float4x4> decaleMatrix : register(t8);
 //サンプラステート。
 sampler g_sampler : register(s0);
 
@@ -441,6 +442,9 @@ float4 PSMain_ShadowMap(PSInput_ShadowMap In) : SV_Target0
 
 SPSOUT PSDefferdMain(SPSIn psIn)
 {
+	//float2 DecaleInWorld = mul(decaleMatrix[0],float4(psIn.pos));
+	//float4 decale = g_texture.Sample(g_sampler, DecaleInWorld);
+
 	if (IsDither == 1)
 	{
 		float2 fIndex = fmod(psIn.pos.xy * 10, 8);
@@ -450,7 +454,10 @@ SPSOUT PSDefferdMain(SPSIn psIn)
 		}
 	}
 	SPSOUT psOut;
+	
 	psOut.albedo = g_texture.Sample(g_sampler, psIn.uv);
+	//psOut.albedo = lerp(psOut.albedo, float4(0,0,0,1), decale.a);
+
 	float3 Normal = GetNormal(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
 	psOut.normal.xyz = Normal.xyz;
 	//シャドウ用

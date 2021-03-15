@@ -7,6 +7,7 @@ namespace Engine {
 		Decale();
 		~Decale();
 
+		void Init();
 		void AddStartPos(const Vector3& pos,const Vector3& dir)
 		{
 			m_StartPos.push_back(pos);
@@ -19,13 +20,21 @@ namespace Engine {
 			Distance = dist;
 		}
 
-		bool Start();
 		void Update();
+
+		StructuredBuffer* GetSTB()
+		{
+			return &m_STB;
+		}
 	private:
 		std::vector<Vector3> m_StartPos;
 		std::vector<Vector3> m_Direction;
-		std::vector<Matrix> m_DecaleVP;
+		std::unique_ptr<Matrix[]> m_DecaleVP;
 		int PosNum = 0;
 		float Distance = 1000;
+		StructuredBuffer m_STB;
+		const int m_maxNum = 50;
+		int num = 0;
+		std::unique_ptr<Texture> m_DecaleTex;
 	};
 }

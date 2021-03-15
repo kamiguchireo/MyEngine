@@ -188,6 +188,7 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 	//
 	g_graphicsEngine = this;
 	m_shadowMap->ShadowMapRTCreate();
+	m_Decale->Init();
 
 	return true;
 }
