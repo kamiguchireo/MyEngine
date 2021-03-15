@@ -48,11 +48,12 @@ void Material::InitFromTkmMaterila(
 	m_constantBuffer.Init(sizeof(SMaterialParam), &matParam);
 
 	//ルートシグネチャを初期化。
+	//UV座標外のテクスチャは引き延ばし
 	m_rootSignature.Init(
 		D3D12_FILTER_MIN_MAG_MIP_LINEAR,
-		D3D12_TEXTURE_ADDRESS_MODE_WRAP,
-		D3D12_TEXTURE_ADDRESS_MODE_WRAP,
-		D3D12_TEXTURE_ADDRESS_MODE_WRAP);
+		D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
+		D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
+		D3D12_TEXTURE_ADDRESS_MODE_CLAMP);
 
 	if (wcslen(fxFilePath) > 0) {
 		//シェーダーを初期化。

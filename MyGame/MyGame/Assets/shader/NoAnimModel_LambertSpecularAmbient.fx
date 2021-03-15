@@ -107,6 +107,9 @@ Texture2D<float4>g_shadowMap2:register(t6);
 StructuredBuffer<float4x4> instanceMatrix : register(t7);
 //デカール用
 StructuredBuffer<float4x4> decaleMatrix : register(t8);
+//デカールのテクスチャ
+Texture2D<float4>decaleTex:register(t9);
+
 //サンプラステート。
 sampler g_sampler : register(s0);
 
@@ -442,9 +445,6 @@ float4 PSMain_ShadowMap(PSInput_ShadowMap In) : SV_Target0
 
 SPSOUT PSDefferdMain(SPSIn psIn)
 {
-	//float2 DecaleInWorld = mul(decaleMatrix[0],float4(psIn.pos));
-	//float4 decale = g_texture.Sample(g_sampler, DecaleInWorld);
-
 	if (IsDither == 1)
 	{
 		float2 fIndex = fmod(psIn.pos.xy * 10, 8);
@@ -455,8 +455,18 @@ SPSOUT PSDefferdMain(SPSIn psIn)
 	}
 	SPSOUT psOut;
 	
-	psOut.albedo = g_texture.Sample(g_sampler, psIn.uv);
-	//psOut.albedo = lerp(psOut.albedo, float4(0,0,0,1), decale.a);
+	float4 texColor = g_texture.Sample(g_sampler, psIn.uv);
+	psOut.albedo = texColor;
+
+	for (int i = 0; i < 20; i++)
+	{
+		float4 DecaleInWorld = mul(decaleMatrix[i], float4(psIn.pos));
+		DecaleInWorld.xyz /= DecaleInWorld.w;
+		float2 DecaleUV = float2(0.5f, -0.5f) * DecaleInWorld.xy + float2(0.5f, 0.5f);
+		float4 decale = decaleTex.Sample(g_sampler, DecaleUV);
+
+		psOut.albedo.xyz = lerp(texColor, decale, decale.a);
+	}
 
 	float3 Normal = GetNormal(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
 	psOut.normal.xyz = Normal.xyz;

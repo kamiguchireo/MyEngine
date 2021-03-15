@@ -26,6 +26,11 @@ namespace Engine {
 		{
 			return &m_STB;
 		}
+
+		Texture* GetTexture()
+		{
+			return &m_DecaleTex;
+		}
 	private:
 		std::vector<Vector3> m_StartPos;
 		std::vector<Vector3> m_Direction;
@@ -33,8 +38,8 @@ namespace Engine {
 		int PosNum = 0;
 		float Distance = 1000;
 		StructuredBuffer m_STB;
-		const int m_maxNum = 50;
+		const int m_maxNum = 20;
 		int num = 0;
-		std::unique_ptr<Texture> m_DecaleTex;
+		Texture m_DecaleTex;
 	};
 }

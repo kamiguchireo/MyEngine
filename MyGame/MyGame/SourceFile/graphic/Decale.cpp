@@ -96,7 +96,7 @@ namespace Engine {
 
 	Decale::Decale()
 	{
-		m_DecaleTex = std::make_unique<Texture>();
+
 	}
 
 	Decale::~Decale()
@@ -114,13 +114,24 @@ namespace Engine {
 			m_maxNum,
 			m_DecaleVP.get()
 		);
-		m_DecaleTex->InitFromDDSFile(L"Assets/Image/Bullet_hole.dds");
+		m_DecaleTex.InitFromDDSFile(L"Assets/Image/Bullet_hole.dds");
+		for (int i = 0; i < m_maxNum; i++)
+		{
+			m_DecaleVP[i] =
+			{
+			0.0f,0.0f,0.0f,0.0f,
+			0.0f,0.0f,0.0f,0.0f,
+			0.0f,0.0f,0.0f,0.0f,
+			0.0f,0.0f,0.0f,0.0f
+			};
+		}
 	}
 	void Decale::Update()
 	{
 		//並行投影行列を作成
 		Matrix m_proj = Matrix::Identity;
-		m_proj.MakeOrthoProjectionMatrix(10.0f, 10.0f, 0.0f, 10.0f);
+
+		m_proj.MakeOrthoProjectionMatrix(0.5f, 0.5f, 0.0f, 10.0f);
 		//レイを作成
 		btVector3 start, end;
 		start.setZero();
@@ -157,11 +168,11 @@ namespace Engine {
 				Vector3 hitPos;
 				hitPos.Set(hitPosTmp);
 				//カメラを設置するために少し近づける
-				hitPos -= Direction * 5.0f;
+				hitPos -= Direction * 1.0f;
 				//カメラ行列を作るためにターゲットポジションを作成
 				Vector3 targetPos = callback.hitPos;
 				//ターゲットは少し離す
-				targetPos += Direction * 5.0f;
+				targetPos += Direction * 1.0f;
 				//カメラ行列を作成
 				Matrix m_view = Matrix::Identity;
 				//カメラの前方向
