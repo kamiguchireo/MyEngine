@@ -12,11 +12,13 @@ void PlayerStateAim::Update()
 	//マウスの右ボタンが押された"
 	if (GetKeyState(VK_LBUTTON) & (0x80))
 	{
-		m_Player->PlayAnimation(5);
-		m_Player->AddDecale();
+		//アニメーションを再生
+		m_Player->PlayAnimation(enPlayerAnimation_Rifle_fire);
+		//m_Player->AddDecale();
 	}
 	else
 	{
-		m_Player->PlayAnimation(4);
+		//アニメーションを再生
+		m_Player->PlayAnimation(enPlayerAnimation_Rifle_Down_To_Aim);
 	}
 }

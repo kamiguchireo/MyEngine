@@ -142,8 +142,8 @@ void Enemy::Update()
 	float value = footStepValue.y;
 	footStepValue.y = footStepValue.z;
 	footStepValue.z = -value;
-	footStepValue.y = -1.0f;
-	footStepValue *= 24;
+	footStepValue *= footStepAdjustValue;
+	footStepValue += gravity;
 
 	m_rot.Apply(footStepValue);
 

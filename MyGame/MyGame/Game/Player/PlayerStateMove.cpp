@@ -10,16 +10,22 @@ PlayerStateMove::~PlayerStateMove()
 void PlayerStateMove::Update()
 {
 	if (GetAsyncKeyState(VK_LSHIFT))
-	{
-		m_Player->PlayAnimation(3);
+	{	
+		//左SHIFTが押されているとき
+		//スプリントアニメーションを再生
+		m_Player->PlayAnimation(enPlayerAnimation_Rifle_Sprint);
 	}
 	else if (GetAsyncKeyState(VK_LCONTROL))
 	{
-		m_Player->PlayAnimation(1);
+		//左CONTROLが押されているとき
+		//歩きアニメーションを再生
+		m_Player->PlayAnimation(enPlayerAnimation_Rifle_Walk);
 	}
 	else
 	{
-		m_Player->PlayAnimation(2);
+		//それ以外では
+		//走りアニメーションを再生
+		m_Player->PlayAnimation(enPlayerAnimation_Rifle_Run);
 	}
 	//回転
 	Quaternion q_rot = Quaternion::Identity;

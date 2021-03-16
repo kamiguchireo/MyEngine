@@ -458,15 +458,15 @@ SPSOUT PSDefferdMain(SPSIn psIn)
 	float4 texColor = g_texture.Sample(g_sampler, psIn.uv);
 	psOut.albedo = texColor;
 
-	for (int i = 0; i < 20; i++)
-	{
-		float4 DecaleInWorld = mul(decaleMatrix[i], float4(psIn.pos));
-		DecaleInWorld.xyz /= DecaleInWorld.w;
-		float2 DecaleUV = float2(0.5f, -0.5f) * DecaleInWorld.xy + float2(0.5f, 0.5f);
-		float4 decale = decaleTex.Sample(g_sampler, DecaleUV);
+	//for (int i = 0; i < 20; i++)
+	//{
+	//	float4 DecaleInWorld = mul(decaleMatrix[i], float4(psIn.pos));
+	//	DecaleInWorld.xyz /= DecaleInWorld.w;
+	//	float2 DecaleUV = float2(0.5f, -0.5f) * DecaleInWorld.xy + float2(0.5f, 0.5f);
+	//	float4 decale = decaleTex.Sample(g_sampler, DecaleUV);
 
-		psOut.albedo.xyz = lerp(texColor, decale, decale.a);
-	}
+	//	psOut.albedo.xyz = lerp(texColor, decale, decale.a);
+	//}
 
 	float3 Normal = GetNormal(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
 	psOut.normal.xyz = Normal.xyz;

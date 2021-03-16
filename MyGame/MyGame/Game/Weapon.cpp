@@ -3,6 +3,7 @@
 
 Weapon::~Weapon()
 {
+	//解放処理
 	if (m_Model != nullptr)
 	{
 		DeleteGO(m_Model);
@@ -11,12 +12,15 @@ Weapon::~Weapon()
 
 }
 
-void Weapon::Init(Skeleton* sk,bool DitherFlag)
+void Weapon::Init(Skeleton* sk,bool IsDither)
 {
 	m_skeleton = sk;
+	//モデルをNew
 	m_Model = NewGO<prefab::ModelRender>(3);
+	//ファイルパスをセット
 	m_Model->SetTkmFilePath("Assets/modelData/AK_74M.tkm");
-	m_Model->SetDitherFlag(DitherFlag);
+	//ディザリングを適応するかどうかのフラグ
+	m_Model->SetDitherFlag(IsDither);
 }
 bool Weapon::Start()
 {
@@ -25,23 +29,23 @@ bool Weapon::Start()
 	return true;
 }
 
-void Weapon::AddDecale()
-{
-	//武器のポジション
-	Vector3 WeaponPos = Vector3::Zero;
-	//左手のポジション
-	Vector3 LeftHandPos = Vector3::Zero;
-	//武器のポジションを取得
-	WeaponPos = m_skeleton->GetBone(m_skeleton->GetWeaponBoneNum())->GetPosition();
-	//左手のポジションを取得
-	LeftHandPos = m_skeleton->GetBone(LeftHandBoneNo)->GetPosition();
-	//武器から左手に向けたベクトル
-	Vector3 WeaponToLeftHand = Vector3::Zero;
-	WeaponToLeftHand = g_camera3D->GetTarget() - WeaponPos;
-	//正規化
-	WeaponToLeftHand.Normalize();
-	g_graphicsEngine->GetDecale()->AddStartPos(m_skeleton->GetBone(m_skeleton->GetWeaponBoneNum())->GetPosition(), WeaponToLeftHand);
-}
+//void Weapon::AddDecale()
+//{
+//	//武器のポジション
+//	Vector3 WeaponPos = Vector3::Zero;
+//	//左手のポジション
+//	Vector3 LeftHandPos = Vector3::Zero;
+//	//武器のポジションを取得
+//	WeaponPos = m_skeleton->GetBone(m_skeleton->GetWeaponBoneNum())->GetPosition();
+//	//左手のポジションを取得
+//	LeftHandPos = m_skeleton->GetBone(LeftHandBoneNo)->GetPosition();
+//	//武器から左手に向けたベクトル
+//	Vector3 WeaponToLeftHand = Vector3::Zero;
+//	WeaponToLeftHand = g_camera3D->GetTarget() - WeaponPos;
+//	//正規化
+//	WeaponToLeftHand.Normalize();
+//	g_graphicsEngine->GetDecale()->AddStartPos(m_skeleton->GetBone(m_skeleton->GetWeaponBoneNum())->GetPosition(), WeaponToLeftHand);
+//}
 
 void Weapon::Update()
 {

@@ -268,10 +268,10 @@ private:
 	UINT m_frameBufferHeight = 0;		//フレームバッファの高さ。
 	Camera m_camera2D;					//2Dカメラ。
 	Camera m_camera3D;					//3Dカメラ。
-	std::unique_ptr<Engine::ShadowMap> m_shadowMap = nullptr;
-	std::unique_ptr<Engine::DefferdRendering> m_DefferdRendering = nullptr;
-	std::unique_ptr<Engine::LightManager> m_LM = nullptr;
-	std::unique_ptr<Engine::Decale> m_Decale = nullptr;
+	std::unique_ptr<Engine::ShadowMap> m_shadowMap = nullptr;		//シャドウマップ
+	std::unique_ptr<Engine::DefferdRendering> m_DefferdRendering = nullptr;		//ディファードレンダリング
+	std::unique_ptr<Engine::LightManager> m_LM = nullptr;		//ライトマネージャー
+	std::unique_ptr<Engine::Decale> m_Decale = nullptr;		//デカール
 };
 extern GraphicsEngine* g_graphicsEngine;	//グラフィックスエンジン
 extern Camera* g_camera2D;					//2Dカメラ。

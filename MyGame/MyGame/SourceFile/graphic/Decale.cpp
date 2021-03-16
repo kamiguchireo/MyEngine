@@ -148,10 +148,8 @@ namespace Engine {
 			Direction = m_Direction[i];
 			//方向を正規化
 			Direction.Normalize();
-			//正規化した方向に距離をかける
-			Direction *= Distance;
-			//終点に足す
-			EndPos += Direction;
+			//終点に方向に距離を掛けたもの足す
+			EndPos += Direction * Distance;
 			//終点をセット
 			end.setValue(EndPos.x, EndPos.y, EndPos.z);
 

@@ -9,5 +9,6 @@ PlayerStateIdle::~PlayerStateIdle()
 
 void PlayerStateIdle::Update()
 {
-	m_Player->PlayAnimation(0);
+	//待機状態のアニメーションを再生
+	m_Player->PlayAnimation(enPlayerAnimation_Rifle_Idle);
 }

@@ -23,4 +23,16 @@ enum EnCollisionAttr {
 static const int MAX_BONE = 512;	//!<ボーンの最大数。
 static const int CascadeShadow = 3;		//シャドウマップの枚数
 static const int DefferdTexNum = 2;
+static const Vector3 gravity = { 0.0f,-9.8f,0.0f };
+static const float footStepAdjustValue = 24.0f;
+
+enum EnPlayerAnimation {
+	enPlayerAnimation_Rifle_Idle,
+	enPlayerAnimation_Rifle_Walk,
+	enPlayerAnimation_Rifle_Run,
+	enPlayerAnimation_Rifle_Sprint,
+	enPlayerAnimation_Rifle_Down_To_Aim,
+	enPlayerAnimation_Rifle_fire,
+	enPlayerAnimation_Num
+};
 using namespace Engine;
