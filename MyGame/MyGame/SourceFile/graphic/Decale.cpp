@@ -128,6 +128,41 @@ namespace Engine {
 	}
 	void Decale::Update()
 	{
+		Vector3 v[8] = {Vector3::Zero };
+
+		for (int i = 0; i < PosNum; i++)
+		{
+			Vector3 toNear, toFar = { Vector3::Zero };
+			//AABB手前の座標
+			toNear = m_StartPos[i];
+			//AABB奥の座標
+			toFar = m_StartPos[i] + m_Direction[i] * Distance;
+			//上方向
+			Vector3 toUp = Vector3::Zero;
+			toUp = Cross(m_Direction[i], m_Right[i]);
+			//加算する右方向
+			Vector3 AddRightPos = m_Right[i] * m_SideLength;
+			//加算する上方向
+			Vector3 AddUpPos = toUp * m_SideLength;
+			//AABBを作成する
+			//手前右上の座標
+			v[0] = toNear + AddRightPos + AddUpPos;
+			//手前右下の座標
+			v[1] = v[0] - (AddUpPos * 2.0f);
+			//手前左上の座標
+			v[2] = toNear - AddRightPos + AddUpPos;
+			//手前左下の座標
+			v[3] = v[2] - (AddUpPos * 2.0f);
+
+			//奥右上の座標
+			v[4] = toFar + AddRightPos + AddUpPos;
+			//奥右下の座標
+			v[5] = v[4] - (AddUpPos * 2.0f);
+			//奥左上の座標
+			v[6] = toFar - AddRightPos + AddUpPos;
+			//奥左下の座標
+			v[7] = v[6] - (AddUpPos * 2.0f);
+		}
 		//並行投影行列を作成
 		Matrix m_proj = Matrix::Identity;
 

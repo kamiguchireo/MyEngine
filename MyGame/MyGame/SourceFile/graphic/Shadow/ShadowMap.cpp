@@ -69,23 +69,6 @@ namespace Engine
 		//正規化して方向ベクトルに変換する
 		lightDir.Normalize();
 
-		//ライトの方向によって、ライトカメラの上方向を決める
-		//Vector3 lightCameraUpAxis = Vector3::Up;
-		//const float UpBoundary = 0.99998f;		//真上かどうかの境界
-		//if (fabsf(lightDir.y) > UpBoundary)
-		//{
-		//	//ほぼ真上or真下を向いている
-		//	lightCameraUpAxis = Vector3::AxisX;
-		//	lightCameraUpAxis.Cross(lightDir, Vector3::Right);
-		//}
-		//else
-		//{
-		//	//真上を向いていない
-		//	lightCameraUpAxis = Vector3::AxisY;
-		//	lightCameraUpAxis = Cross(lightDir, Vector3::Up);
-		//}
-		//g_camera3D->GetUp();
-
 		//ライトの右方向
 		Vector3 lightViewRight = Vector3::Right;
 		//カメラの前方向
