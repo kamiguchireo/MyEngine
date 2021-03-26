@@ -49,6 +49,13 @@
 			MessageBoxA(nullptr, "initData.m_ddsFilePathかm_texturesのどちらかに使用するテクスチャの情報を設定してください。", "エラー", MB_OK);
 			std::abort();
 		}
+
+		if (g_graphicsEngine->GetDecale()->GetSTB() != nullptr)
+		{
+			m_DecaleStructureBuffer = g_graphicsEngine->GetDecale()->GetSTB();
+			m_DecaleTexture = g_graphicsEngine->GetDecale()->GetTexture();
+		}
+
 	}
 	void Sprite::InitShader(const SpriteInitData& initData)
 	{
@@ -82,6 +89,9 @@
 				*initData.m_expandShaderResoruceView
 			);
 		}
+		m_descriptorHeap.RegistShaderResource(5, *m_DecaleStructureBuffer);		//デカール用のストラクチャーバッファ
+		m_descriptorHeap.RegistShaderResource(6, *m_DecaleTexture);		//デカール用のテクスチャ
+
 		m_descriptorHeap.RegistConstantBuffer(0, m_constantBufferGPU);
 		m_descriptorHeap.RegistConstantBuffer(1, g_graphicsEngine->GetLightManager()->GetConstantBuffer());
 

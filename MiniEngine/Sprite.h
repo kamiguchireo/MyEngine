@@ -120,4 +120,6 @@ private:
 	PipelineState		m_pipelineState;		//パイプラインステート。
 	Shader				m_vs;					//頂点シェーダー。
 	Shader				m_ps;					//ピクセルシェーダー。
+	StructuredBuffer* m_DecaleStructureBuffer = nullptr;		//ディカールに使用するためのストラクチャーバッファ
+	Texture* m_DecaleTexture = nullptr;
 };

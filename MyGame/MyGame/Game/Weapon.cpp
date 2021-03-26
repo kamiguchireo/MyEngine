@@ -29,19 +29,19 @@ bool Weapon::Start()
 	return true;
 }
 
-//void Weapon::AddDecale()
-//{
-//	//武器のポジション
-//	Vector3 WeaponPos = Vector3::Zero;
-//	//武器のポジションを取得
-//	WeaponPos = m_skeleton->GetBone(m_skeleton->GetWeaponBoneNum())->GetPosition();
-//	//武器からカメラの注視点に向けたベクトル
-//	Vector3 WeaponToLeftHand = Vector3::Zero;
-//	WeaponToLeftHand = g_camera3D->GetTarget() - WeaponPos;
-//	//正規化
-//	WeaponToLeftHand.Normalize();
-//	g_graphicsEngine->GetDecale()->AddStartPos(m_skeleton->GetBone(m_skeleton->GetWeaponBoneNum())->GetPosition(), g_camera3D->GetRight(),WeaponToLeftHand);
-//}
+void Weapon::AddDecale()
+{
+	//武器のポジション
+	Vector3 WeaponPos = Vector3::Zero;
+	//武器のポジションを取得
+	WeaponPos = m_skeleton->GetBone(m_skeleton->GetWeaponBoneNum())->GetPosition();
+	//武器からカメラの注視点に向けたベクトル
+	Vector3 WeaponToLeftHand = Vector3::Zero;
+	WeaponToLeftHand = g_camera3D->GetTarget() - WeaponPos;
+	//正規化
+	WeaponToLeftHand.Normalize();
+	g_graphicsEngine->GetDecale()->AddStartPos(m_skeleton->GetBone(m_skeleton->GetWeaponBoneNum())->GetPosition(), g_camera3D->GetRight(),WeaponToLeftHand);
+}
 
 void Weapon::Update()
 {

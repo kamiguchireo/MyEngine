@@ -46,14 +46,14 @@ public:
 		return m_skeleton.GetWeaponMatrix();
 	}
 
-	////デカールを追加
-	//void AddDecale()
-	//{
-	//	if (m_PlayerWeapon != nullptr)
-	//	{
-	//		m_PlayerWeapon->AddDecale();
-	//	}
-	//}
+	//デカールを追加
+	void AddDecale()
+	{
+		if (m_PlayerWeapon != nullptr)
+		{
+			m_PlayerWeapon->AddDecale();
+		}
+	}
 private:
 	void ChangeState(IPlayer* state);
 private:

@@ -35,6 +35,10 @@ Texture2D<float4> normalTexture : register(t1);	//法線。
 Texture2D<float4> shadowTexture : register(t2);	//シャドウ用
 Texture2D<float4> worldPosTexture : register(t3); //ワールド座標
 Texture2D<float4> g_specularMap : register(t4); //スペキュラマップ
+//デカール用
+StructuredBuffer<float4x4> decaleMatrix : register(t5);
+//デカールのテクスチャ
+Texture2D<float4>decaleTex:register(t6);
 
 sampler Sampler : register(s0);
 
@@ -114,6 +118,28 @@ float4 PSDefferd(PSInput In) : SV_Target0
 	float4 shadow = shadowTexture.Sample(Sampler, In.uv);
 	float3 worldPos = worldPosTexture.Sample(Sampler, In.uv);
 	float metaric = g_specularMap.Sample(Sampler, In.uv).r;
+	//弾痕貼り付け
+	for (int i = 0; i < 10; i++) {
+
+		//このピクセルのデカール座標系での座標を計算。
+		float4 posInDecale;
+		posInDecale = mul(decaleMatrix[i], float4(worldPos, 1.0f));
+		posInDecale.xyz /= posInDecale.w;
+		//正規化座標系からUV座標系に変換
+		posInDecale.xy *= float2(0.5f, -0.5f);
+		posInDecale.xy += float2(0.5f, 0.5f);
+		if (posInDecale.z >= 0.0f && posInDecale.z <= 1.0f
+			&& posInDecale.x >= 0.0f && posInDecale.x <= 1.0f
+			&& posInDecale.y >= 0.0f && posInDecale.y <= 1.0f
+			) {
+			//デカールカメラに映っているので弾痕テクスチャを張り付ける
+			float4 decale = decaleTex.Sample(Sampler, posInDecale);
+			//デカールをαブレンディング。
+			//finalColor.xyz = decale.xyz * decale.a + finalColor.xyz * (1.0f - decale.a);
+			finalColor = decale;
+			//finalColor = float4( 1.0f, 0.0f, 0.0f, 1.0f);
+		}
+	}
 	//float4 metaricorigin = g_specularMap.Sample(Sampler, In.uv);
 	//float metaric = (metaricorigin.r + metaricorigin.g + metaricorigin.b + metaricorigin.a) / 4;
 	//ランバート拡散反射

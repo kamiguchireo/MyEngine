@@ -2,54 +2,9 @@
 #include "Decale.h"
 
 namespace Engine {
-	//衝突したときに呼ばれる関数オブジェクト(地面用)
-	struct SweepResultGround : public btCollisionWorld::RayResultCallback
-	{
-		bool isHit = false;		//衝突フラグ
-		Vector3 hitPos = Vector3(0.0f, -FLT_MAX, 0.0f);		//衝突点
-		Vector3 startPos = Vector3::Zero;		//レイの始点
-		Vector3 hitNormal = Vector3::Zero;		//衝突点の法線
-		float dist = FLT_MAX;		//衝突点までの距離。一番近い衝突点を求めるため。
-		
-		//衝突したときに呼ばれるコールバック関数
-		virtual btScalar addSingleResult(btCollisionWorld::LocalRayResult& rayResult, bool normalInWorldSpace)
-		{
-			//自分に衝突したとき
-			if (rayResult.m_collisionObject->getUserIndex() == enCollisionAttr_Character
-				||rayResult.m_collisionObject->getInternalType() == btCollisionObject::CO_GHOST_OBJECT
-				)
-			{
-				return 0.0f;
-			}
-
-			//衝突点の法線
-			Vector3 hitNormalTmp = *(Vector3*)&rayResult.m_hitNormalLocal;
-			//上方向と法線のなす角を求める
-			float angle = hitNormalTmp.Dot(Vector3::Up);
-			angle = fabsf(acosf(angle));
-			//地面の傾斜が54度より小さいので地面とみなす
-			if (angle < Math::PI * 0.3f)
-			{
-				//衝突している
-				isHit = true;
-				Vector3 hitPosTmp = *(Vector3*)&rayResult.m_hitNormalLocal;
-				//衝突点の距離を求める
-				Vector3 vDist;
-				vDist.Subtract(hitPosTmp, startPos);
-				float distTmp = vDist.Length();
-				if (dist > distTmp)
-				{
-					//この衝突点のほうが近いので、最近傍の衝突点を更新する
-					hitPos = hitPosTmp;
-					hitNormal = *(Vector3*)&rayResult.m_hitNormalLocal;
-					dist = distTmp;
-				}
-			}
-			return 0.0f;
-		}
-	};
-	//衝突した時に呼ばれる関数オブジェクト(壁用)
-	struct SweepResultWall : public btCollisionWorld::RayResultCallback
+	
+	//衝突した時に呼ばれる関数オブジェクト
+	struct SweepResult : public btCollisionWorld::RayResultCallback
 	{
 		bool isHit = false;						//衝突フラグ。
 		Vector3 hitPos = Vector3::Zero;		//衝突点。
@@ -71,26 +26,17 @@ namespace Engine {
 			hitNormalTmp.Set(rayResult.m_hitNormalLocal);
 			//上方向と衝突点の法線のなす角度を求める。
 			float angle = fabsf(acosf(hitNormalTmp.Dot(Vector3::Up)));
-			//地面の傾斜が54度以上なので壁とみなす。
-			if (angle >= Math::PI * 0.3f)
+		
+			isHit = true;
+				
+			if (rayResult.m_hitFraction < m_closestHitFraction)
 			{
-				isHit = true;
-				Vector3 hitPosTmp;
-				hitPosTmp.Set(rayResult.m_hitNormalLocal);
-				//交点との距離を調べる。
-				Vector3 vDist;
-				vDist.Subtract(hitPosTmp, startPos);
-				vDist.y = 0.0f;
-				float distTmp = vDist.Length();
-				if (distTmp < dist)
-				{
-					//この衝突点の方が近いので、最近傍の衝突点を更新する。
-					hitPos = hitPosTmp;
-					dist = distTmp;
-					hitNormal = hitNormalTmp;
-				}
+				//この衝突点の方が近いので、最近傍の衝突点を更新する。
+				hitNormal = hitNormalTmp;
+				m_closestHitFraction = rayResult.m_hitFraction;
 			}
-			return 0.0f;
+			
+			return rayResult.m_hitFraction;
 		}
 	};
 
@@ -128,45 +74,112 @@ namespace Engine {
 	}
 	void Decale::Update()
 	{
-		Vector3 v[8] = {Vector3::Zero };
+		//Vector3 v[8] = {Vector3::Zero };
 
-		for (int i = 0; i < PosNum; i++)
-		{
-			Vector3 toNear, toFar = { Vector3::Zero };
-			//AABB手前の座標
-			toNear = m_StartPos[i];
-			//AABB奥の座標
-			toFar = m_StartPos[i] + m_Direction[i] * Distance;
-			//上方向
-			Vector3 toUp = Vector3::Zero;
-			toUp = Cross(m_Direction[i], m_Right[i]);
-			//加算する右方向
-			Vector3 AddRightPos = m_Right[i] * m_SideLength;
-			//加算する上方向
-			Vector3 AddUpPos = toUp * m_SideLength;
-			//AABBを作成する
-			//手前右上の座標
-			v[0] = toNear + AddRightPos + AddUpPos;
-			//手前右下の座標
-			v[1] = v[0] - (AddUpPos * 2.0f);
-			//手前左上の座標
-			v[2] = toNear - AddRightPos + AddUpPos;
-			//手前左下の座標
-			v[3] = v[2] - (AddUpPos * 2.0f);
+		//for (int i = 0; i < PosNum; i++)
+		//{
+		//	Vector3 toNear, toFar = { Vector3::Zero };
+		//	//AABB手前の座標
+		//	toNear = m_StartPos[i];
+		//	//AABB奥の座標
+		//	toFar = m_StartPos[i] + m_Direction[i] * Distance;
+		//	//上方向
+		//	Vector3 toUp = Vector3::Zero;
+		//	toUp = Cross(m_Direction[i], m_Right[i]);
+		//	//加算する右方向
+		//	Vector3 AddRightPos = m_Right[i] * m_SideLength;
+		//	//加算する上方向
+		//	Vector3 AddUpPos = toUp * m_SideLength;
 
-			//奥右上の座標
-			v[4] = toFar + AddRightPos + AddUpPos;
-			//奥右下の座標
-			v[5] = v[4] - (AddUpPos * 2.0f);
-			//奥左上の座標
-			v[6] = toFar - AddRightPos + AddUpPos;
-			//奥左下の座標
-			v[7] = v[6] - (AddUpPos * 2.0f);
-		}
+		//	//AABBを作成する
+		//	//手前右上の座標
+		//	v[0] = toNear + AddRightPos + AddUpPos;
+		//	//手前右下の座標
+		//	v[1] = v[0] - (AddUpPos * 2.0f);
+		//	//手前左上の座標
+		//	v[2] = toNear - AddRightPos + AddUpPos;
+		//	//手前左下の座標
+		//	v[3] = v[2] - (AddUpPos * 2.0f);
+
+		//	//奥右上の座標
+		//	v[4] = toFar + AddRightPos + AddUpPos;
+		//	//奥右下の座標
+		//	v[5] = v[4] - (AddUpPos * 2.0f);
+		//	//奥左上の座標
+		//	v[6] = toFar - AddRightPos + AddUpPos;
+		//	//奥左下の座標
+		//	v[7] = v[6] - (AddUpPos * 2.0f);
+
+		//	//カメラ行列を作成
+		//	Matrix DecaleView = Matrix::Identity;
+		//	//カメラの横をセット
+		//	DecaleView.m[0][0] = m_Right[i].x;
+		//	DecaleView.m[0][1] = m_Right[i].y;
+		//	DecaleView.m[0][2] = m_Right[i].z;
+		//	DecaleView.m[0][3] = 0.0f;
+		//	//カメラの上をセット
+		//	DecaleView.m[1][0] = toUp.x;
+		//	DecaleView.m[1][1] = toUp.y;
+		//	DecaleView.m[1][2] = toUp.z;
+		//	DecaleView.m[1][3] = 0.0f;
+		//	//カメラの前をセット
+		//	DecaleView.m[2][0] = m_Direction[i].x;
+		//	DecaleView.m[2][1] = m_Direction[i].y;
+		//	DecaleView.m[2][2] = m_Direction[i].z;
+		//	DecaleView.m[2][3] = 0.0f;
+		//	//カメラのポジションをセット
+		//	DecaleView.m[3][0] = m_StartPos[i].x;
+		//	DecaleView.m[3][1] = m_StartPos[i].y;
+		//	DecaleView.m[3][2] = m_StartPos[i].z;
+		//	DecaleView.m[3][3] = 1.0f;
+		//	//カメラビュー完成
+		//	DecaleView.Inverse(DecaleView);
+
+		//	//視推台を構成する8頂点を計算できたので、ライト空間に座標を変換して、AABBを求める
+		//	Vector3 vMax = { -FLT_MAX,-FLT_MAX,-FLT_MAX };
+		//	Vector3 vMin = { FLT_MAX, FLT_MAX, FLT_MAX };
+		//	for (auto& vInLight : v)
+		//	{
+		//		//ベクトルと行列の乗算
+		//		DecaleView.Apply(vInLight);
+		//		//最大値を設定
+		//		vMax.Max(vInLight);
+		//		//最小値を設定
+		//		vMin.Min(vInLight);
+		//	}
+		//	//幅と高さ
+		//	float w = vMax.x - vMin.x;
+		//	float h = vMax.y - vMin.y;
+		//	float far_z = -1.0f;
+		//	far_z = vMax.z;
+
+		//	Matrix m_proj = Matrix::Identity;
+		//	m_proj.MakeOrthoProjectionMatrix(
+		//		w,
+		//		h,
+		//		far_z / Distance,
+		//		far_z
+		//	);
+		//	Matrix m_VP = Matrix::Identity;
+		//	m_proj.Multiply(DecaleView, m_proj);
+		//	m_VP = m_proj;
+
+		//	m_DecaleVP[num] = m_VP;
+		//	if (num == m_maxNum)
+		//	{
+		//		num = 0;
+		//	}
+		//	else
+		//	{
+		//		num++;
+		//	}
+
+		//}
+
 		//並行投影行列を作成
 		Matrix m_proj = Matrix::Identity;
 
-		m_proj.MakeOrthoProjectionMatrix(0.5f, 0.5f, 0.0f, 10.0f);
+		m_proj.MakeOrthoProjectionMatrix(m_SideLength, m_SideLength, 0.0f, 10.0f);
 		//レイを作成
 		btVector3 start, end;
 		start.setZero();
@@ -189,11 +202,11 @@ namespace Engine {
 			end.setValue(EndPos.x, EndPos.y, EndPos.z);
 
 			//衝突検出
-			SweepResultWall callback;
+			SweepResult callback;
 			callback.startPos = m_StartPos[i];
 			//衝突検出
 			g_engine->GetPhysicsWorld().RayTest(start, end, callback);
-
+			callback.hasHit();
 			if (callback.isHit)
 			{
 				btVector3 hitPosTmp = start + (end - start) * callback.m_closestHitFraction;
@@ -203,7 +216,7 @@ namespace Engine {
 				//カメラを設置するために少し近づける
 				hitPos -= Direction * 1.0f;
 				//カメラ行列を作るためにターゲットポジションを作成
-				Vector3 targetPos = callback.hitPos;
+				Vector3 targetPos = hitPos;
 				//ターゲットは少し離す
 				targetPos += Direction * 1.0f;
 				//カメラ行列を作成
@@ -239,6 +252,7 @@ namespace Engine {
 				}
 			}
 		}
+
 		m_STB.Update(m_DecaleVP.get());
 	}
 }

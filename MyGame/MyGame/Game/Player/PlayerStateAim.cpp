@@ -14,7 +14,7 @@ void PlayerStateAim::Update()
 	{
 		//アニメーションを再生
 		m_Player->PlayAnimation(enPlayerAnimation_Rifle_fire);
-		//m_Player->AddDecale();
+		m_Player->AddDecale();
 	}
 	else
 	{

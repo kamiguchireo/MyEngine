@@ -115,8 +115,6 @@ private:
 	IShaderResource* m_expandShaderResourceView = nullptr;	//ユーザー拡張シェーダーリソースビュー。
 	StructuredBuffer m_boneMatricesStructureBuffer;			//ボーン行列の構造化バッファ。
 	StructuredBuffer* m_instancingMatricesStructureBuffer = nullptr;
-	StructuredBuffer* m_DecaleStructureBuffer = nullptr;		//ディカールに使用するためのストラクチャーバッファ
-	Texture* m_DecaleTexture = nullptr;
 	std::vector< SMesh* > m_meshs;							//メッシュ。
 	std::vector< DescriptorHeap > m_descriptorHeap;			//ディスクリプタヒープ。
 	Skeleton* m_skeleton = nullptr;							//スケルトン。
