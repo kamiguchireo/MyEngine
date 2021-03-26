@@ -119,7 +119,7 @@ float4 PSDefferd(PSInput In) : SV_Target0
 	float3 worldPos = worldPosTexture.Sample(Sampler, In.uv);
 	float metaric = g_specularMap.Sample(Sampler, In.uv).r;
 	//弾痕貼り付け
-	for (int i = 0; i < 100; i++) {
+	for (int i = 0; i < 20; i++) {
 
 		//このピクセルのデカール座標系での座標を計算。
 		float4 posInDecale;

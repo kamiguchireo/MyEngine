@@ -20,6 +20,16 @@ LRESULT CALLBACK MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		delete g_engine;
 		PostQuitMessage(0);
 		break;	
+	case WM_KEYDOWN:
+		switch (wParam)
+		{
+		case VK_ESCAPE:
+			DestroyWindow(g_hWnd);
+			break;
+		default:
+			break;
+		}
+
 	default:
 		return DefWindowProc(hWnd, msg, wParam, lParam);
 	}

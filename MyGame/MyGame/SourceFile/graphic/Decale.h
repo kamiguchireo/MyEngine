@@ -39,10 +39,10 @@ namespace Engine {
 		int PosNum = 0;		//ポジションの数
 		float Distance = 1000;
 		StructuredBuffer m_STB;
-		const int m_maxNum = 100;		//ポジションの最大数
+		const int m_maxNum = 20;		//ポジションの最大数
 		int num = 0;		//現在の数
 		Texture m_DecaleTex;
-		const float m_SideLength = 3.0f;		//一辺の長さ
+		const float m_SideLength = 5.0f;		//一辺の長さ
 		int m_hogehoge = 0;
 		
 	private:
