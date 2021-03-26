@@ -145,14 +145,10 @@ namespace Engine {
 			m_proj.Multiply(m_view, m_proj);
 			m_VP = m_proj;
 			m_DecaleVP[num] = m_VP;
-			if (num == m_maxNum)
-			{
-				num = 0;
-			}
-			else
-			{
-				num++;
-			}
+			//現在のデカールの番号を増やす
+			num++;
+			//最大値になっていたら0に戻す
+			num %= m_maxNum;
 		}
 		
 	}

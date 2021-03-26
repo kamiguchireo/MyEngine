@@ -1,7 +1,7 @@
 #pragma once
 
 namespace Engine {
-	class Decale
+	class Decale:Noncopyable
 	{
 	public:
 		Decale();
@@ -34,7 +34,6 @@ namespace Engine {
 			return &m_DecaleTex;
 		}
 	private:
-		
 		std::unique_ptr<Matrix[]> m_DecaleVP;
 		int PosNum = 0;		//ポジションの数
 		float Distance = 1000;
@@ -42,7 +41,7 @@ namespace Engine {
 		const int m_maxNum = 20;		//ポジションの最大数
 		int num = 0;		//現在の数
 		Texture m_DecaleTex;
-		const float m_SideLength = 5.0f;		//一辺の長さ
+		const float m_SideLength = 10.0f;		//一辺の長さ
 		int m_hogehoge = 0;
 		
 	private:
