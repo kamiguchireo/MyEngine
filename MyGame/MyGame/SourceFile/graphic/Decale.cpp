@@ -78,7 +78,7 @@ namespace Engine {
 		m_STB.Update(m_DecaleVP.get());
 	}
 
-	void Decale::CalcVP(const Vector3& pos, const Vector3& right, const Vector3& dir)
+	void Decale::CalcVP(const Vector3& pos, const Vector3& dir)
 	{
 		//並行投影行列を作成
 		Matrix m_proj = Matrix::Identity;
@@ -112,35 +112,46 @@ namespace Engine {
 		callback.hasHit();
 		if (callback.isHit)
 		{
+			//当たった位置
 			btVector3 hitPosTmp = start + (end - start) * callback.m_closestHitFraction;
-			//物理オブジェクトと衝突した
-			Vector3 hitPos;
-			hitPos.Set(hitPosTmp);
-			//カメラを設置するために少し近づける
-			hitPos -= Direction * 1.0f;
-			//カメラ行列を作るためにターゲットポジションを作成
-			Vector3 targetPos = hitPos;
-			//ターゲットは少し離す
-			targetPos += Direction * 1.0f;
+			//当たった位置の法線
+			Vector3 hitNormal = callback.hitNormal;
+
+			//カメラの視点
+			Vector3 CameraPos = Vector3::Zero;
+			//カメラの注視点
+			Vector3 CameraTarget = Vector3::Zero;
+
+			//セット
+			CameraPos.Set(hitPosTmp);
+			CameraTarget.Set(hitPosTmp);
+
+			//カメラの視点なので法線方向に移動する
+			CameraPos += hitNormal;
+			//カメラの注視点なので法線の逆方向に移動する
+			CameraTarget -= hitNormal;
+
 			//カメラ行列を作成
 			Matrix m_view = Matrix::Identity;
-			//カメラの前方向
-			Vector3 cameraForward = Vector3::Front;
-			cameraForward = g_camera3D->GetForward();
-			//カメラの右方向
-			Vector3 ViewRight = Vector3::Right;
-			ViewRight.Cross(Direction, cameraForward);
-			//正規化
-			ViewRight.Normalize();
-			//カメラの上方向
-			Vector3 CameraUpAxis = Vector3::Up;
-			CameraUpAxis.Cross(ViewRight, Direction);
-			//正規化
-			CameraUpAxis.Normalize();
 
-			//カメラ行列を作成
-			m_view.MakeLookAt(hitPos, targetPos, CameraUpAxis);
+			//視点から注視点へのベクトル
+			Vector3 PosToTarget = CameraTarget - CameraPos;
+			//正規化
+			PosToTarget.Normalize();
 
+			//カメラの向きがほとんど真上か真下の時
+			if (PosToTarget.y >= 0.99 || PosToTarget.y <= -0.99)
+			{
+				//{1.0f,0.0f,0.0f}を上方向としてカメラ行列を作成
+				m_view.MakeLookAt(CameraPos, CameraTarget, Vector3::Right);
+			}
+			else
+			{
+				//それ以外の時
+				//{0.0f,1.0f,0.0f}を上方向としてカメラ行列を作成
+				m_view.MakeLookAt(CameraPos, CameraTarget, Vector3::Up);
+			}
+			//ビュープロジェ行列
 			Matrix m_VP = Matrix::Identity;
 			m_proj.Multiply(m_view, m_proj);
 			m_VP = m_proj;

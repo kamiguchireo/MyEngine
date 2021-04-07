@@ -21,6 +21,11 @@ public:
 		m_target = pos;
 	}
 
+	void SetPosition(const Vector3& pos)
+	{
+		m_pos = pos;
+	}
+
 	void ChangeState(IGameCamera* state)
 	{
 		currentState = state;

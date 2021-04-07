@@ -8,12 +8,12 @@ namespace Engine {
 		~Decale();
 
 		void Init();
-		void AddStartPos(const Vector3& pos,const Vector3& right,const Vector3& dir)
+		void AddStartPos(const Vector3& pos,const Vector3& dir)
 		{
 			m_hogehoge++;
 			if (m_hogehoge % 10 == 0) {
 				//10発に一回だけ弾痕を付ける
-				CalcVP(pos, right, dir);
+				CalcVP(pos, dir);
 			}
 		}
 
@@ -34,17 +34,19 @@ namespace Engine {
 			return &m_DecaleTex;
 		}
 	private:
-		std::unique_ptr<Matrix[]> m_DecaleVP;
+		std::unique_ptr<Matrix[]> m_DecaleVP;		//デカールのビュープロジェ行列の配列
 		int PosNum = 0;		//ポジションの数
-		float Distance = 1000;
-		StructuredBuffer m_STB;
+		float Distance = 1000;		//デカールを適応する範囲
+		StructuredBuffer m_STB;		//ストラクチャーバッファ
 		const int m_maxNum = 20;		//ポジションの最大数
 		int num = 0;		//現在の数
-		Texture m_DecaleTex;
+		Texture m_DecaleTex;		//デカールのテクスチャ
 		const float m_SideLength = 10.0f;		//一辺の長さ
-		int m_hogehoge = 0;
+		int m_hogehoge = 0;		//ほげぇ
 		
 	private:
-		void CalcVP(const Vector3& pos, const Vector3& right, const Vector3& dir);
+		//ビュープロジェ行列を計算して配列に積む
+		//pos		
+		void CalcVP(const Vector3& pos, const Vector3& dir);
 	};
 }

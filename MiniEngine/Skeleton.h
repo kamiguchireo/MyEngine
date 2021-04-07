@@ -38,6 +38,11 @@ public:
 	{
 		m_localMatrix = m;
 	}
+	//ローカル行列に加算
+	void AddLocalMatrix(const Matrix& m)
+	{
+		m_localMatrix.Multiply(m_localMatrix, m);
+	}
 	/// <summary>
 	/// ローカル行列(親の座標系での行列)を取得。
 	/// </summary>
@@ -172,7 +177,17 @@ public:
 		}
 		m_bones[boneNo]->SetLocalMatrix(m);
 	}
-
+	//ボーンのローカル行列に加算
+	//boneNo		ボーン番号
+	//m		行列
+	void AddBoneLocalMatrix(int boneNo, const Matrix& m)
+	{
+		if (boneNo > (int)m_bones.size() - 1) {
+			MessageBoxA(nullptr, "boneNo is over m_bones.size() ", "error", MB_OK);
+			return;
+		}
+		m_bones[boneNo]->AddLocalMatrix(m);
+	}
 	/// <summary>
 	/// ボーンの数を取得。
 	/// </summary>

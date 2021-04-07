@@ -518,7 +518,4 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="Assets\Image\BulletDecale.png" />
-  </ItemGroup>
 </Project>

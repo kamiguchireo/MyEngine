@@ -201,9 +201,6 @@ void MeshParts::Draw(
 	cb.DitherDist = Ditherdist;
 	m_commonConstantBuffer.CopyToVRAM(&cb);
 
-	//if (m_expandData) {
-	//	m_expandConstantBuffer.CopyToVRAM(m_expandData);
-	//}
 	if (m_boneMatricesStructureBuffer.IsInited()) {
 		//ボーン行列を更新する。
 		m_boneMatricesStructureBuffer.Update(m_skeleton->GetBoneMatricesTopAddress());

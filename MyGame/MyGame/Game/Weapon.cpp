@@ -40,7 +40,7 @@ void Weapon::AddDecale()
 	WeaponToLeftHand = g_camera3D->GetTarget() - WeaponPos;
 	//³‹K‰»
 	WeaponToLeftHand.Normalize();
-	g_graphicsEngine->GetDecale()->AddStartPos(m_skeleton->GetBone(m_skeleton->GetWeaponBoneNum())->GetPosition(), g_camera3D->GetRight(),WeaponToLeftHand);
+	g_graphicsEngine->GetDecale()->AddStartPos(m_skeleton->GetBone(m_skeleton->GetWeaponBoneNum())->GetPosition(),WeaponToLeftHand);
 }
 
 void Weapon::Update()

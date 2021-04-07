@@ -92,8 +92,10 @@ bool Player::Start()
 
 	//スケルトンとアニメーションの初期化
 	m_skeleton.Init("Assets/modelData/soldier_bs01.tks");
+
 	//スケルトンのアップデート
 	m_skeleton.Update(Matrix::Identity);
+
 	//アニメーションを初期化
 	m_animation.Init(m_skeleton, m_animClip, 6);
 	m_animation.Play(0);
@@ -115,6 +117,7 @@ void Player::Update()
 	Vector3 footStepValue = Vector3::Zero;
 	//アニメーションからfootstepの移動量を持ってくる
 	footStepValue = m_animation.Update(DeltaTime);
+
 	//Maxとは軸が違うので軸を合わせる
 	float value = footStepValue.y;
 	footStepValue.y = footStepValue.z;
@@ -159,12 +162,11 @@ void Player::Update()
 
 	//カメラのターゲットをセット
 	m_camera->SetTarget(m_pos);
+	m_camera->SetPosition(m_pos);
 
 	//ポジションをセット
 	m_playerModel->SetPosition(m_pos);
 	//回転をセット
 	m_playerModel->SetRotation(m_rot);
 
-	//武器をアップデート
-	m_PlayerWeapon->Update();
 }
