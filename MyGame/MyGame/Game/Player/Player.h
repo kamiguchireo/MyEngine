@@ -6,6 +6,7 @@
 #include "Game/Weapon.h"
 #include "PlayerStateAim.h"
 #include "SourceFile/Physics/CharacterController.h"
+#include "Sprite.h"
 
 class Player:public IGameObject
 {
@@ -54,22 +55,37 @@ public:
 			m_PlayerWeapon->AddDecale();
 		}
 	}
+
 private:
+	//ステートの変更
+	//state		ステート
 	void ChangeState(IPlayer* state);
+	
+	//移動の処理
+	void Move();
+
+	//軸変換
+	void AxisTrans();
+
+	//構える処理
+	void Hold();
 private:
 	IPlayer* currentState = nullptr;		//現在のステート
 	prefab::ModelRender* m_playerModel = nullptr;		//プレイヤーのモデル
-	Skeleton m_skeleton;
-	Engine::Animation m_animation;
-	Engine::AnimationClip m_animClip[enPlayerAnimation_Num];
-	Vector3 m_pos = {0.0f,10.0f,-1700.0f};
-	Vector3 m_scale = { 0.8f,0.8f,0.8f };
-	Quaternion m_rot = Quaternion::Identity;
-	PlayerStateIdle* m_stateIdle = nullptr;
-	PlayerStateMove* m_stateMove = nullptr;
-	PlayerStateAim* m_stateAim = nullptr;
-	Weapon* m_PlayerWeapon = nullptr;
-	GameCamera* m_camera = nullptr;
-	Vector3 m_forward = Vector3::AxisZ;
-	CharacterController characon;
+	Skeleton m_skeleton;		//スケルトン
+	Engine::Animation m_animation;		//アニメーション
+	Engine::AnimationClip m_animClip[enPlayerAnimation_Num];		//アニメーションクリップ
+	Vector3 m_pos = {0.0f,10.0f,-1700.0f};		//ポジション
+	Vector3 m_scale = { 0.8f,0.8f,0.8f };		//スケール
+	Quaternion m_rot = Quaternion::Identity;		//キャラクターの回転
+	PlayerStateIdle* m_stateIdle = nullptr;		//待機状態
+	PlayerStateMove* m_stateMove = nullptr;		//移動状態
+	PlayerStateAim* m_stateAim = nullptr;		//エイム状態
+	Weapon* m_PlayerWeapon = nullptr;		//プレイヤーの武器
+	GameCamera* m_camera = nullptr;		//カメラ
+	Vector3 m_forward = Vector3::AxisZ;		//前方向
+	CharacterController characon;		//キャラコン
+	Vector3 footStepValue = Vector3::Zero;		//footStepの移動量
+	//Sprite m_AimFrame;
+	//SpriteInitData m_SpriteInitData;
 };

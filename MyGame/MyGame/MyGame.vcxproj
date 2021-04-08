@@ -238,6 +238,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Game\Stage\Stage.cpp" />
     <ClCompile Include="SourceFile\Physics\SphereCollider.cpp" />
+    <ClCompile Include="SourceFile\graphic\SpriteRender.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -330,6 +331,7 @@
     <ClInclude Include="SourceFile\Noncopyable.h" />
     <ClInclude Include="Game\Stage\Stage.h" />
     <ClInclude Include="SourceFile\Physics\SphereCollider.h" />
+    <ClInclude Include="SourceFile\graphic\SpriteRender.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SourceFile\Timer\StopWatch.h" />
     <ClInclude Include="system\system.h" />

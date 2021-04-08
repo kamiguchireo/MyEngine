@@ -53,6 +53,13 @@ void Player::ChangeState(IPlayer* state)
 
 bool Player::Start()
 {
+	//m_SpriteInitData.m_ddsFilePath[0] = "Assets/Image/AimFrame.dds";
+	//m_SpriteInitData.m_fxFilePath = "Assets/shader/sprite.fx";
+	//m_SpriteInitData.m_width = 100.0f;
+	//m_SpriteInitData.m_height = 100.0f;
+
+	//m_AimFrame.Init(m_SpriteInitData);
+	
 	m_camera = NewGO<GameCamera>(0, nullptr);
 
 	characon.Init(15.0f,115.0f, m_pos);
@@ -108,32 +115,26 @@ bool Player::Start()
 	return true;
 }
 
-void Player::Update()
+void Player::Move()
 {
-	//待機ステートに切り替える
-	ChangeState(m_stateIdle);
-	
-	float DeltaTime = g_gameTime.GetFrameDeltaTime();
-	Vector3 footStepValue = Vector3::Zero;
-	//アニメーションからfootstepの移動量を持ってくる
-	footStepValue = m_animation.Update(DeltaTime);
-
-	//Maxとは軸が違うので軸を合わせる
-	float value = footStepValue.y;
-	footStepValue.y = footStepValue.z;
-	footStepValue.z = -value;
-	//フットステップを調整
-	footStepValue *= footStepAdjustValue;
-	//重力を加算
-	footStepValue += gravity;
-
 	//左スティックが入力されているとき
 	if (g_pad[0]->GetLStickXF() != 0.0f || g_pad[0]->GetLStickYF() != 0.0f)
 	{
 		//ステートをm_stateMoveに変更
 		ChangeState(m_stateMove);
 	}
+}
 
+void Player::AxisTrans()
+{
+	//Maxとは軸が違うので軸を合わせる
+	float value = footStepValue.y;
+	footStepValue.y = footStepValue.z;
+	footStepValue.z = -value;
+}
+
+void Player::Hold()
+{
 	//右クリックされたとき
 	if (GetKeyState(VK_RBUTTON))
 	{
@@ -152,6 +153,32 @@ void Player::Update()
 		Vector3 aimForward = g_camera3D->GetForward();
 		aimForward.y = 0.0f;
 	}
+}
+
+void Player::Update()
+{
+	//待機ステートに切り替える
+	ChangeState(m_stateIdle);
+	
+	//1フレームにかかった時間を取得
+	float DeltaTime = g_gameTime.GetFrameDeltaTime();
+	//アニメーションからfootstepの移動量を持ってくる
+	footStepValue = m_animation.Update(DeltaTime);
+	
+	AxisTrans();
+	
+	//フットステップを調整
+	footStepValue *= footStepAdjustValue;
+
+	//重力を加算
+	footStepValue += gravity;
+
+	//移動の処理
+	Move();
+
+	//構える処理
+	Hold();
+
 	currentState->Update();
 	//footStepValueに回転を適用
 	m_rot.Apply(footStepValue);
