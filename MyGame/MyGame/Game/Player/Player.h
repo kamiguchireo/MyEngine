@@ -6,7 +6,7 @@
 #include "Game/Weapon.h"
 #include "PlayerStateAim.h"
 #include "SourceFile/Physics/CharacterController.h"
-#include "Sprite.h"
+#include "SourceFile/Graphic/SpriteRender.h"
 
 class Player:public IGameObject
 {
@@ -86,6 +86,5 @@ private:
 	Vector3 m_forward = Vector3::AxisZ;		//‘O•ûŒü
 	CharacterController characon;		//ƒLƒƒƒ‰ƒRƒ“
 	Vector3 footStepValue = Vector3::Zero;		//footStep‚ÌˆÚ“®—Ê
-	//Sprite m_AimFrame;
-	//SpriteInitData m_SpriteInitData;
+	prefab::SpriteRender* m_sprite = nullptr;
 };

@@ -44,6 +44,11 @@ Player::~Player()
 		DeleteGO(m_PlayerWeapon);
 		m_PlayerWeapon = nullptr;
 	}
+	if (m_sprite != nullptr)
+	{
+		DeleteGO(m_sprite);
+		m_sprite = nullptr;
+	}
 }
 
 void Player::ChangeState(IPlayer* state)
@@ -53,13 +58,6 @@ void Player::ChangeState(IPlayer* state)
 
 bool Player::Start()
 {
-	//m_SpriteInitData.m_ddsFilePath[0] = "Assets/Image/AimFrame.dds";
-	//m_SpriteInitData.m_fxFilePath = "Assets/shader/sprite.fx";
-	//m_SpriteInitData.m_width = 100.0f;
-	//m_SpriteInitData.m_height = 100.0f;
-
-	//m_AimFrame.Init(m_SpriteInitData);
-	
 	m_camera = NewGO<GameCamera>(0, nullptr);
 
 	characon.Init(15.0f,115.0f, m_pos);
@@ -111,6 +109,11 @@ bool Player::Start()
 	m_PlayerWeapon = NewGO <Weapon>(2);
 	//武器を初期化
 	m_PlayerWeapon->Init(&m_skeleton,true);
+
+	//スプライトをNew
+	m_sprite = NewGO<prefab::SpriteRender>(0, nullptr);
+	//初期化
+	m_sprite->Init("Assets/Image/AimFrame.dds", 100.0f, 100.0f);
 
 	return true;
 }

@@ -26,7 +26,7 @@ struct SpriteInitData {
 	Texture* m_textures[MAX_TEXTURE] = { nullptr };			//使用するテクスチャ。DDSファイルのパスが指定されている場合は、このパラメータは無視されます。
 	const char* m_vsEntryPointFunc = "VSMain";				//頂点シェーダーのエントリーポイント。
 	const char* m_psEntryPoinFunc = "PSMain";				//ピクセルシェーダーのエントリーポイント。
-	const char* m_fxFilePath = nullptr;						//.fxファイルのファイルパス。
+	const char* m_fxFilePath = "Assets/shader/sprite.fx";	//.fxファイルのファイルパス。
 	UINT m_width = 0;										//スプライトの幅。
 	UINT m_height = 0;										//スプライトの高さ。
 	//void* m_DefferdLightingConstantBuffer = nullptr;					//ディファードライティング用の定数バッファ

@@ -54,14 +54,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//ゲーム本体
 	Game* g_game = nullptr;
 	g_game = Engine::NewGO<Game>(0, nullptr);
-	Sprite m_sp;
-	SpriteInitData m_SpriteInitData;
-	m_SpriteInitData.m_ddsFilePath[0] = "Assets/Image/AimFrame.dds";
-	m_SpriteInitData.m_fxFilePath = "Assets/shader/sprite.fx";
-	m_SpriteInitData.m_width = 100.0f;
-	m_SpriteInitData.m_height = 100.0f;
-
-	m_sp.Init(m_SpriteInitData);
 
 	// ここからゲームループ。
 	while (DispatchWindowMessage())
@@ -86,8 +78,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 		//ゲームオブジェクトの描画
 		Engine::GameObjectManager().Draw();
-		m_sp.Update({ 0.0f,0.0f,0.0f }, Quaternion::Identity, Vector3::One, {0.5f,0.5f});
-		m_sp.Draw(g_graphicsEngine->GetRenderContext());
 
 		//g_engine->GetPhysicsWorld().DebugDrawWorld();
 		//ゲームオブジェクトのポストレンダー
