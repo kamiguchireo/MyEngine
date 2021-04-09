@@ -111,7 +111,7 @@ bool Player::Start()
 	m_PlayerWeapon->Init(&m_skeleton,true);
 
 	//スプライトをNew
-	m_sprite = NewGO<prefab::SpriteRender>(0, nullptr);
+	m_sprite = NewGO<prefab::SpriteRender>(3, nullptr);
 	//初期化
 	m_sprite->Init("Assets/Image/AimFrame.dds", 100.0f, 100.0f);
 
@@ -144,10 +144,20 @@ void Player::Hold()
 		//エイムカメラに切り替え
 		m_camera->SetCameraState(CameraState::AIM);
 		ChangeState(m_stateAim);
+		//カメラの前方向を取得
 		Vector3 aimForward = g_camera3D->GetForward();
+		//y成分は必要ないので0にする
 		aimForward.y = 0.0f;
+		//正規化
+		aimForward.Normalize();
+		//二つのベクトルに直行するベクトルを取得
+		Vector3 Axis = Cross(Vector3::Front, aimForward);
+		//正規化
+		Axis.Normalize();
+		//ベクトルの大きさ1なので二つのベクトルのcosθのみが残る
+		float dot = Dot(Vector3::Front, aimForward);
 		//プレイヤーを視点方向に回転
-		m_rot.SetRotation(m_forward, aimForward);
+		m_rot.SetRotation(Axis, acosf(dot));
 	}
 	else
 	{
