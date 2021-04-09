@@ -188,7 +188,19 @@ void Player::Update()
 	footStepValue *= footStepAdjustValue;
 
 	//重力を加算
-	footStepValue += gravity;
+	if (characon.IsOnGround())
+	{
+		//地面上にいるときは重力をリセット
+		m_gravity *= 0.0f;
+	}
+	else
+	{
+		//空中にいるときは重力を加算し続ける
+		m_gravity += gravity;
+	}
+
+	//移動に重力を加算
+	footStepValue += m_gravity;
 
 	//移動の処理
 	Move();

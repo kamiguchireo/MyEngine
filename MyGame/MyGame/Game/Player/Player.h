@@ -87,4 +87,5 @@ private:
 	CharacterController characon;		//ƒLƒƒƒ‰ƒRƒ“
 	Vector3 footStepValue = Vector3::Zero;		//footStep‚ÌˆÚ“®—Ê
 	prefab::SpriteRender* m_sprite = nullptr;
+	Vector3 m_gravity = Vector3::Zero;
 };

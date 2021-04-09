@@ -36,6 +36,12 @@ namespace Engine {
 		{
 			return &m_rigidBody;
 		}
+
+		//地面の上にいるかどうか
+		bool IsOnGround()const
+		{
+			return m_isOnGround;
+		}
 	private:
 		bool m_isInited = false;		//初期化フラグ
 		Vector3 m_position = Vector3::Zero;		//座標

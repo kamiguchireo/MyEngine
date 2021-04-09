@@ -9,7 +9,7 @@ PlayerStateAim::~PlayerStateAim()
 
 void PlayerStateAim::Update()
 {
-	//マウスの右ボタンが押された"
+	//マウスの左ボタンが押された"
 	if (GetKeyState(VK_LBUTTON) & (0x80))
 	{
 		//アニメーションを再生
