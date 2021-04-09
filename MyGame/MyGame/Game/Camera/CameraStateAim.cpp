@@ -47,7 +47,7 @@ void CameraStateAim::Update(Vector3& pivotpos,float&rot)
 	m_pos += AddPos * 25.0f;
 
 	//マウスカーソルの位置をセット
-	SetCursorPos(500, 300);
+	SetCursorPos(DefaultPoint[0], DefaultPoint[1]);
 
 	//カメラにセット
 	g_camera3D->SetPosition(m_pos);

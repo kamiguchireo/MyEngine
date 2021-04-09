@@ -1,6 +1,6 @@
 #pragma once
-#include "SourceFile/graphic/ModelRender.h"
-#include "Stage/Tree/Tree2.h"
+#include "SourceFile/Physics/PhysicsGhostObject.h"
+#include "Enemy/Enemy.h"
 
 class Test:public IGameObject
 {
@@ -11,6 +11,7 @@ public:
 	bool Start();
 	void Update();
 private:
-	prefab::ModelRender* m_Model = nullptr;
-	Tree2* m_Tree = nullptr;
+	PhysicsGhostObject m_GhostObject;
+	Vector3 m_pos = Vector3::Zero;
+	Enemy* m_enemy = nullptr;
 };

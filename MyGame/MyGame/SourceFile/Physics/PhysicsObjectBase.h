@@ -1,5 +1,6 @@
 #pragma once
 #include "SourceFile/graphic/ModelRender.h"
+#include "ICollider.h"
 
 namespace Engine {
 	//物理オブジェクトのベースクラス

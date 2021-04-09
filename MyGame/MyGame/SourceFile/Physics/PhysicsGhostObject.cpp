@@ -26,4 +26,12 @@ namespace Engine {
 		g_engine->GetPhysicsWorld().AddCollisionObject(m_ghostObject);
 		m_isRegistPhysicsWorld = true;
 	}
+
+	void PhysicsGhostObject::UpdateWorldMatrix(const Vector3& pos, const Quaternion& rot)
+	{
+		btTransform btTrans;
+		btTrans.setOrigin({ pos.x,pos.y,pos.z });
+		btTrans.setRotation({ rot.x,rot.y,rot.z });
+		m_ghostObject.setWorldTransform(btTrans);
+	}
 }

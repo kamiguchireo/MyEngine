@@ -340,6 +340,10 @@
     <ClInclude Include="Game\Stage\Tree\Tree1.h" />
     <ClInclude Include="Game\Stage\Tree\Tree2.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\Image\AimFrame.png" />
+    <ImageContentTask Include="Assets\Image\BulletDecale.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />

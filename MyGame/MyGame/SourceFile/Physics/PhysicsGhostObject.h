@@ -39,6 +39,8 @@ namespace Engine {
 			btTrans.setRotation(btRot);
 		}
 
+		//ゴーストオブジェクトを移動
+		void UpdateWorldMatrix(const Vector3& pos,const Quaternion& rot);
 	private:
 		//ゴースト作成処理の共通処理
 		void CreateCommon(Vector3 pos, Quaternion rot)override;
