@@ -56,6 +56,11 @@ public:
 		}
 	}
 
+	//回転をセット
+	void SetRot(const Quaternion& rot)
+	{
+		m_rot = rot;
+	}
 private:
 	//ステートの変更
 	//state		ステート
