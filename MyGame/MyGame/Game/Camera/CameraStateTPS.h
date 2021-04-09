@@ -8,7 +8,7 @@ public:
 	CameraStateTPS();
 	~CameraStateTPS();
 
-	void Update(Vector3& pos, Vector3& target,float& rot);
+	void Update(Vector3& pivotpos, float& rot);
 	void SetCameraDist(float f)
 	{
 		CameraDist = f;

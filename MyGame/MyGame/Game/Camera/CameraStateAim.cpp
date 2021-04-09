@@ -11,7 +11,7 @@ CameraStateAim::~CameraStateAim()
 
 }
 
-void CameraStateAim::Update(Vector3& pos, Vector3& target,float&rot)
+void CameraStateAim::Update(Vector3& pivotpos,float&rot)
 {	
 	//マウスカーソルの位置を取得
 	POINT pt;
@@ -21,12 +21,13 @@ void CameraStateAim::Update(Vector3& pos, Vector3& target,float&rot)
 
 	//カメラの回転量をマウスカーソルの位置と初期値を比較して求める
 	rot += (DefaultPoint[0] - lstx) * sensiX;
-	//最低限の高さの確保
-	target.y += DefaultCameraHeight;
 	//最終的なカメラのポジション
-	Vector3 m_pos = pos;
+	Vector3 m_pos = pivotpos;
 	//最終的なカメラのターゲットのポジション
-	Vector3 targetPos = target;
+	Vector3 targetPos = pivotpos;
+	//最低限の高さの確保
+	targetPos.y = DefaultCameraHeight;
+	
 	//カメラのポジションに足すY方向の値をマウスカーソルの位置と初期値を比較して求める
 	*AddPosY -= (DefaultPoint[1] - lsty) * sensiY;
 

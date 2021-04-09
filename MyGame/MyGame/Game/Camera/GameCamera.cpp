@@ -34,7 +34,7 @@ void GameCamera::Update()
 		break;
 	}
 	currentState->SetAddPosY(&AddPosY);
-	currentState->Update(m_pos, m_target,rot);
+	currentState->Update(m_pivotPos,rot);
 	g_camera2D->Update();
 	g_camera3D->Update();
 

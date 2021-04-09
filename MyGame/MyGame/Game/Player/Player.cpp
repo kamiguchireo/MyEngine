@@ -192,17 +192,17 @@ void Player::Update()
 	//構える処理
 	Hold();
 
+	//現在のステートの更新
 	currentState->Update();
 	//footStepValueに回転を適用
 	m_rot.Apply(footStepValue);
 	//キャラコンの計算
 	Vector3 returnPos = characon.Execute(footStepValue, DeltaTime);
-
+	//ポジションに計算で帰ってきた値を代入
 	m_pos = returnPos;
 
 	//カメラのターゲットをセット
-	m_camera->SetTarget(m_pos);
-	m_camera->SetPosition(m_pos);
+	m_camera->SetPivotPos(m_pos);
 
 	//ポジションをセット
 	m_playerModel->SetPosition(m_pos);

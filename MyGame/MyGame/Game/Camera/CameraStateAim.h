@@ -7,7 +7,7 @@ public:
 	CameraStateAim();
 	~CameraStateAim();
 
-	void Update(Vector3& pos, Vector3& target,float& rot);
+	void Update(Vector3& pivotpos,float& rot);
 	void SetAddPosY(float* f)
 	{
 		AddPosY = f;
