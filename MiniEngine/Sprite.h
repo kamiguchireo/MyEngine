@@ -64,6 +64,12 @@ public:
 	/// </summary>
 	/// <param name="renderContext">レンダリングコンテキスト/param>
 	void Draw(RenderContext& renderContext);
+
+	//αの設定
+	void SetAlpha(float f)
+	{
+		m_alpha = f;
+	}
 private:
 	/// <summary>
 	/// テクスチャを初期化。
@@ -122,4 +128,5 @@ private:
 	Shader				m_ps;					//ピクセルシェーダー。
 	StructuredBuffer* m_DecaleStructureBuffer = nullptr;		//ディカールに使用するためのストラクチャーバッファ
 	Texture* m_DecaleTexture = nullptr;
+	float m_alpha = 1.0f;
 };

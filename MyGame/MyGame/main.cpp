@@ -97,10 +97,5 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		float f = g_gameTime.GetFPS();
 	}
 	
-	//if (m_Test != nullptr)
-	//{
-	//	DeleteGO(m_Test);
-	//}
-
 	return 0;
 }

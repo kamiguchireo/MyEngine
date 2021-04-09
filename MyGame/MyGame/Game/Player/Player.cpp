@@ -141,6 +141,8 @@ void Player::Hold()
 	//右クリックされたとき
 	if (GetKeyState(VK_RBUTTON))
 	{
+		//照準のαを1にする
+		m_sprite->SetAlpha(1.0f);
 		//エイムカメラに切り替え
 		m_camera->SetCameraState(CameraState::AIM);
 		ChangeState(m_stateAim);
@@ -161,6 +163,8 @@ void Player::Hold()
 	}
 	else
 	{
+		//照準のαを0にする
+		m_sprite->SetAlpha(0.0f);
 		//TPSカメラに切り替え
 		m_camera->SetCameraState(CameraState::TPS);
 		Vector3 aimForward = g_camera3D->GetForward();

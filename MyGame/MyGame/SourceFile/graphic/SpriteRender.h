@@ -50,6 +50,12 @@ namespace Engine {
 				m_rot = rot;
 			}
 
+			//αの設定
+			//f		αの値
+			void SetAlpha(float f)
+			{
+				m_sprite.SetAlpha(f);
+			}
 		private:
 			Sprite m_sprite;		//スプライト
 			SpriteInitData m_SpriteInitData;		//初期化データ
