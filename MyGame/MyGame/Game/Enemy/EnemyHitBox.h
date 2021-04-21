@@ -1,6 +1,14 @@
 #pragma once
 #include "SourceFile/Physics/PhysicsGhostObject.h"
 
+enum HitBoxNum {
+	Head,
+	Spine2,
+	Spine,
+	Hips,
+	RightUpLeg,
+	Num
+};
 class EnemyHitBox:public IGameObject
 {
 public:
@@ -14,11 +22,18 @@ public:
 	void UpdateCollisionDetection();
 
 private:
+	//当たり判定のサイズを初期化
+	void InitSize();
+
 	//当たり判定を構築
 	void BuildCollisionDetection();
 
+	//加算するポジションを初期化
+	void InitAddPos();
 private:
 	Skeleton* m_skeleton = nullptr;
 	PhysicsGhostObject* m_colldetection[10] = { nullptr };
-	int m_ColOnSkeletonNum[10] = { -1 };
+	int m_ColOnSkeletonNum[HitBoxNum::Num] = { -1 };
+	Vector3 m_AddPos[HitBoxNum::Num] = { Vector3::Zero };
+	Vector3 m_ColSize[HitBoxNum::Num] = { Vector3::One };
 };
