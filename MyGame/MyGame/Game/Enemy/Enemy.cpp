@@ -11,7 +11,10 @@ Enemy::Enemy()
 	else
 	{
 		m_position.push_back(m_pos);
-		m_position.push_back(Vector3{ 100.0f,0.0f,0.0f });
+		m_position.push_back(Vector3{ 300.0f,0.0f,100.0f });
+		m_position.push_back(Vector3{ 100.0f,0.0f,100.0f });
+		m_position.push_back(Vector3{ 100.0f,0.0f,-1000.0f });
+
 	}
 
 	m_PassSize = m_position.size() - 1;
@@ -35,11 +38,18 @@ Enemy::~Enemy()
 		DeleteGO(m_weapon);
 		m_weapon = nullptr;
 	}
+	if (m_HitBox != nullptr)
+	{
+		DeleteGO(m_HitBox);
+		m_HitBox = nullptr;
+	}
 }
+
+
 
 bool Enemy::Start()
 {
-	//m_camera = NewGO<GameCamera>(0, nullptr);
+	m_camera = NewGO<GameCamera>(0, nullptr);
 
 	//ポジションをパスの0番目に合わせる
 	if (m_position.size() >= 1)
@@ -47,7 +57,8 @@ bool Enemy::Start()
 		m_pos = m_position[0];
 	}
 	//キャラコンの初期化
-	characon.Init(15.0f, 115.0f, m_pos);
+	//characon.Init(15.0f, 115.0f, m_pos);
+	characon.Init(0.0f, 0.0f, m_pos);
 
 	//待機状態のアニメーション
 	m_animClip[0].Load("Assets/animData/Rifle_Idle.tka");
@@ -87,6 +98,9 @@ bool Enemy::Start()
 	m_weapon = NewGO<Weapon>(1);
 	m_weapon->Init(&m_skeleton);
 
+	m_HitBox = NewGO<EnemyHitBox>(2);
+	m_HitBox->Init(&m_skeleton);
+
 	return true;
 }
 
@@ -123,7 +137,6 @@ void Enemy::Update()
 	}
 	//次のポジションを設定
 	Vector3 NextPosition = m_position[NextPass];
-	//Vector3 NextPosition = Vector3::Zero;
 	if (m_pos.x > NextPosition.x - 10.0f && m_pos.x < NextPosition.x + 10.0f)
 	{
 		if (m_pos.z > NextPosition.z - 10.0f && m_pos.z < NextPosition.z + 10.0f)
@@ -131,29 +144,41 @@ void Enemy::Update()
 			CurrentPass = NextPass;
 		}
 	}
+
+	//次のパスへのベクトル
 	Vector3 moveVec = NextPosition - m_pos;
+	moveVec.y = 0.0f;
 	moveVec.Normalize();
+
+	//次のパスへ向かう回転
 	m_rot.SetRotation(Vector3::AxisZ, moveVec);
+
 	float DeltaTime = g_gameTime.GetFrameDeltaTime();
 	Vector3 footStepValue = Vector3::Zero;
+
+	m_animation.Play(0);
+
 	//アニメーションからfootstepの移動量を持ってくる
 	footStepValue = m_animation.Update(DeltaTime);
+
 	//Maxとは軸が違うので軸を合わせる
 	float value = footStepValue.y;
 	footStepValue.y = footStepValue.z;
 	footStepValue.z = -value;
 	footStepValue *= footStepAdjustValue;
-	footStepValue += gravity;
+	//footStepValue += gravity;
 
+	//footStepに回転を適応
 	m_rot.Apply(footStepValue);
 
 	Vector3 returnPos = characon.Execute(footStepValue, DeltaTime);
-	Vector3 move_vec = returnPos - m_pos;
 
 	m_pos = returnPos;
 
-	//m_camera->SetTarget(m_pos);
+	m_HitBox->UpdateCollisionDetection();
 
+	m_camera->SetPivotPos(m_pos);
+	
 	m_enemyModel->SetPosition(m_pos);
 	m_enemyModel->SetRotation(m_rot);
 

@@ -31,7 +31,7 @@ namespace Engine {
 	{
 		btTransform btTrans;
 		btTrans.setOrigin({ pos.x,pos.y,pos.z });
-		btTrans.setRotation({ rot.x,rot.y,rot.z });
+		btTrans.setRotation({ rot.x,rot.y,rot.z,rot.w });
 		m_ghostObject.setWorldTransform(btTrans);
 	}
 }
