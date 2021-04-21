@@ -6,7 +6,20 @@ enum HitBoxNum {
 	Spine2,
 	Spine,
 	Hips,
+	LeftUpLeg,
 	RightUpLeg,
+	LeftLeg,
+	RightLeg,
+	LeftFoot,
+	RightFoot,
+	LeftToeBase,
+	RightToeBase,
+	LeftArm,
+	RightArm,
+	LeftForeArm,
+	RightForeArm,
+	LeftHand,
+	RightHand,
 	Num
 };
 class EnemyHitBox:public IGameObject
@@ -32,7 +45,7 @@ private:
 	void InitAddPos();
 private:
 	Skeleton* m_skeleton = nullptr;
-	PhysicsGhostObject* m_colldetection[10] = { nullptr };
+	PhysicsGhostObject* m_colldetection[HitBoxNum::Num] = { nullptr };
 	int m_ColOnSkeletonNum[HitBoxNum::Num] = { -1 };
 	Vector3 m_AddPos[HitBoxNum::Num] = { Vector3::Zero };
 	Vector3 m_ColSize[HitBoxNum::Num] = { Vector3::One };

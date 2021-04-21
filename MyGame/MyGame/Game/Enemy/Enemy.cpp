@@ -156,7 +156,7 @@ void Enemy::Update()
 	float DeltaTime = g_gameTime.GetFrameDeltaTime();
 	Vector3 footStepValue = Vector3::Zero;
 
-	m_animation.Play(0);
+	//m_animation.Play(0);
 
 	//アニメーションからfootstepの移動量を持ってくる
 	footStepValue = m_animation.Update(DeltaTime);
