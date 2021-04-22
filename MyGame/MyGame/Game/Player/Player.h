@@ -80,7 +80,7 @@ private:
 	Skeleton m_skeleton;		//スケルトン
 	Engine::Animation m_animation;		//アニメーション
 	Engine::AnimationClip m_animClip[enPlayerAnimation_Num];		//アニメーションクリップ
-	Vector3 m_pos = {0.0f,10.0f,-1700.0f};		//ポジション
+	Vector3 m_pos = {0.0f,50.0f,-1700.0f};		//ポジション
 	Vector3 m_scale = { 0.8f,0.8f,0.8f };		//スケール
 	Quaternion m_rot = Quaternion::Identity;		//キャラクターの回転
 	PlayerStateIdle* m_stateIdle = nullptr;		//待機状態

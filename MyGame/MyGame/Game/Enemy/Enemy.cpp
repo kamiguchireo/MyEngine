@@ -28,11 +28,11 @@ Enemy::~Enemy()
 		DeleteGO(m_enemyModel);
 		m_enemyModel = nullptr;
 	}
-	if (m_camera != nullptr)
-	{
-		DeleteGO(m_camera);
-		m_camera = nullptr;
-	}
+	//if (m_camera != nullptr)
+	//{
+	//	DeleteGO(m_camera);
+	//	m_camera = nullptr;
+	//}
 	if (m_weapon != nullptr)
 	{
 		DeleteGO(m_weapon);
@@ -49,7 +49,7 @@ Enemy::~Enemy()
 
 bool Enemy::Start()
 {
-	m_camera = NewGO<GameCamera>(0, nullptr);
+	//m_camera = NewGO<GameCamera>(0, nullptr);
 
 	//ポジションをパスの0番目に合わせる
 	if (m_position.size() >= 1)
@@ -57,8 +57,7 @@ bool Enemy::Start()
 		m_pos = m_position[0];
 	}
 	//キャラコンの初期化
-	//characon.Init(15.0f, 115.0f, m_pos);
-	characon.Init(0.0f, 0.0f, m_pos);
+	characon.Init(15.0f, 115.0f, m_pos);
 
 	//待機状態のアニメーション
 	m_animClip[0].Load("Assets/animData/Rifle_Idle.tka");
@@ -166,7 +165,7 @@ void Enemy::Update()
 	footStepValue.y = footStepValue.z;
 	footStepValue.z = -value;
 	footStepValue *= footStepAdjustValue;
-	//footStepValue += gravity;
+	footStepValue += gravity;
 
 	//footStepに回転を適応
 	m_rot.Apply(footStepValue);
@@ -177,7 +176,7 @@ void Enemy::Update()
 
 	m_HitBox->UpdateCollisionDetection();
 
-	m_camera->SetPivotPos(m_pos);
+	//m_camera->SetPivotPos(m_pos);
 	
 	m_enemyModel->SetPosition(m_pos);
 	m_enemyModel->SetRotation(m_rot);

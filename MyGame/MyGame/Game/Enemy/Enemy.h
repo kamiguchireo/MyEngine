@@ -36,6 +36,6 @@ private:
 	int CurrentPass = 0;		//現在のパス
 	int NextPass = 0;		//次のパス
 	Weapon* m_weapon = nullptr;
-	GameCamera* m_camera = nullptr;
+	//GameCamera* m_camera = nullptr;
 	EnemyHitBox* m_HitBox = nullptr;
 };

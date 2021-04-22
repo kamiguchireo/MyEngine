@@ -47,8 +47,6 @@ namespace Engine {
 		{		
 			//‰Šú‰»‚ğs‚Á‚Ä‚­‚¾‚³‚¢
 			std::abort();
-
-			return false;
 		}
 
 		result = position;
