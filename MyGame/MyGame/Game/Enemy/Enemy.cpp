@@ -17,7 +17,7 @@ Enemy::Enemy()
 
 	}
 
-	m_PassSize = m_position.size() - 1;
+	m_PassSize = static_cast<int>(m_position.size()) - 1;
 }
 
 Enemy::~Enemy()

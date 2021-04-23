@@ -3,7 +3,7 @@
 
 Test::Test()
 {
-	m_enemy = NewGO<Enemy>(0, nullptr);
+	m_model = NewGO<Player>(0, nullptr);
 }
 
 Test::~Test()

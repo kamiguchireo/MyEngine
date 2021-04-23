@@ -14,7 +14,7 @@ namespace Engine {
 			float dist = FLT_MAX;		//衝突点までの距離。一番近い衝突点を求めるため。
 
 			//衝突したときに呼ばれるコールバック関数
-			virtual btScalar addSingleResult(btCollisionWorld::LocalConvexResult& convexResult, bool normalInWorldSpace)
+			virtual btScalar addSingleResult(btCollisionWorld::LocalConvexResult& convexResult, bool /*normalInWorldSpace*/)
 			{
 				//自分に衝突したとき
 				if (convexResult.m_hitCollisionObject == me
@@ -61,7 +61,7 @@ namespace Engine {
 			btCollisionObject* me = nullptr;		//自分自身。自分自身との衝突を除外するためのメンバ。
 
 			//衝突したときに呼ばれるコールバック関数。
-			virtual btScalar addSingleResult(btCollisionWorld::LocalConvexResult& convexResult, bool normalInWorldSpace)
+			virtual btScalar addSingleResult(btCollisionWorld::LocalConvexResult& convexResult, bool /*normalInWorldSpace*/)
 			{
 				//自分か地面に衝突したとき
 				if (convexResult.m_hitCollisionObject == me
@@ -159,10 +159,10 @@ namespace Engine {
 		while (true)
 		{
 			//現在の座標から次の移動先へ向かうベクトルを求める
-			Vector3 addPos;
+			Vector3 AddPos;
 			//減算
-			addPos.Subtract(nextPosition, m_position);
-			Vector3 addPosXZ = addPos;
+			AddPos.Subtract(nextPosition, m_position);
+			Vector3 addPosXZ = AddPos;
 			addPosXZ.y = 0.0f;
 			if (addPosXZ.Length() < FLT_EPSILON)
 			{

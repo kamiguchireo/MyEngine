@@ -54,7 +54,7 @@ void TklFile::Load(const char* filePath)
 		//intパラメータの数でリサイズ
 		obj.intDatas.resize(numIntData);
 		//intパラメータの数分回す
-		for (int i = 0; i < numIntData; i++)
+		for (int intNum = 0; intNum < numIntData; intNum++)
 		{
 			int val = 0;
 			//int型で取得
@@ -68,7 +68,7 @@ void TklFile::Load(const char* filePath)
 		//floatパラメータの数でリサイズ
 		obj.floatDatas.resize(numFloatData);
 		//floatパラメータの数分回す
-		for (int i = 0; i < numFloatData; i++)
+		for (int floatNum = 0; floatNum < numFloatData; floatNum++)
 		{
 			float val = 0;
 			//float型で取得
@@ -82,21 +82,21 @@ void TklFile::Load(const char* filePath)
 		//stringパラメータの数でリサイズ
 		obj.charDatas.resize(numStringData);
 		//stringパラメータの数だけ回す
-		for (int i = 0; i < numStringData; i++)
+		for (int stringNum = 0; stringNum < numStringData; stringNum++)
 		{
 			//stringパラメータの長さ
 			int numChara;
 			fread(&numChara, sizeof(numChara), 1, fp);
 			//stringパラメータ
-			obj.charDatas[i] = std::make_unique<char[]>(numChara + 1);
-			fread(obj.charDatas[i].get(), numChara + 1, 1, fp);
+			obj.charDatas[stringNum] = std::make_unique<char[]>(numChara + 1);
+			fread(obj.charDatas[stringNum].get(), numChara + 1, 1, fp);
 		}
 
 		//vector3パラメータの数
 		int numVec3Data;
 		fread(&numVec3Data, sizeof(numVec3Data), 1, fp);
 		//vector3パラメータ
-		for (int i = 0; i < numVec3Data; i++)
+		for (int Vector3Num = 0; Vector3Num < numVec3Data; Vector3Num++)
 		{
 			float x, y, z;
 			fread(&x, sizeof(x), 1, fp);

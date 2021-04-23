@@ -19,7 +19,6 @@ private:
 	const float MaxAddPos = 150.0f;		//ポジションに加算できる上方向の最大値
 	const float MinAddPos = -150.0f;		//ポジションに加算できる上方向の最小値
 	const float DefaultCameraHeight = 130.0f;		//カメラのデフォルトの高さ
-	POINT pt = { 0,0 };
 	int DefaultPoint[2] = { 500,300 };
 	float sensiX = 0.00025f;
 	float sensiY = 0.1f;

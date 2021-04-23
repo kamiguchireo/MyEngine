@@ -113,7 +113,7 @@ bool Player::Start()
 	//スプライトをNew
 	m_sprite = NewGO<prefab::SpriteRender>(3, nullptr);
 	//初期化
-	m_sprite->Init("Assets/Image/AimFrame.dds", 100.0f, 100.0f);
+	m_sprite->Init("Assets/Image/AimFrame.dds", 100, 100);
 
 	return true;
 }

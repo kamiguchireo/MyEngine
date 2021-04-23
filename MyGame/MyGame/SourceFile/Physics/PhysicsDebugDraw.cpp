@@ -71,7 +71,7 @@ namespace Engine {
 		m_descriptorHeap.Commit();
 	}
 
-	void PhysicsDebugDraw::drawLine(const btVector3& from, const btVector3& to, const btVector3& color)
+	void PhysicsDebugDraw::drawLine(const btVector3& from, const btVector3& to, const btVector3& /*color*/)
 	{
 		int baseIndex = m_numLine * 2;
 		

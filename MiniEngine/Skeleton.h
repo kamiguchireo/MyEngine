@@ -262,6 +262,7 @@ public:
 		{
 			return m_bones[WeaponBoneNum].get()->GetWorldMatrix();
 		}
+		return Matrix::Identity;
 	}
 
 	const int GetWeaponBoneNum()

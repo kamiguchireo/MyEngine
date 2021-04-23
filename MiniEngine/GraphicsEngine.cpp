@@ -163,8 +163,8 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 	m_scissorRect.top = 0;
 	//m_scissorRect.right = frameBufferWidth*4;
 	//m_scissorRect.bottom = frameBufferHeight*4;
-	m_scissorRect.right = TexResolution.x;
-	m_scissorRect.bottom = TexResolution.y;
+	m_scissorRect.right = static_cast<LONG>(TexResolution.x);
+	m_scissorRect.bottom = static_cast<LONG>(TexResolution.y);
 	//CBR_SVRのディスクリプタのサイズを取得。
 	m_cbrSrvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 

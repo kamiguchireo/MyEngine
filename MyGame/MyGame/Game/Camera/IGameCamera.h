@@ -10,6 +10,6 @@ public:
 	}
 
 	virtual void Update(Vector3& pivotpos, float& rot) = 0;
-	virtual void SetAddPosY(float* f) {}
+	virtual void SetAddPosY(float* /*f*/){}
 };
 

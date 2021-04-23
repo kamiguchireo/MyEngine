@@ -193,6 +193,7 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
     <ClCompile Include="Game\Enemy\EnemyHitBox.cpp" />
+    <ClCompile Include="Game\Player\PlayerHitBox.cpp" />
     <ClCompile Include="SourceFile\graphic\Decale.cpp" />
     <ClCompile Include="SourceFile\Physics\CylinderCollider.cpp" />
     <ClCompile Include="SourceFile\Physics\PhysicsGhostObject.cpp" />
@@ -284,6 +285,7 @@
     <ClInclude Include="..\..\MiniEngine\tkFile\TksFile.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
     <ClInclude Include="Game\Enemy\EnemyHitBox.h" />
+    <ClInclude Include="Game\Player\PlayerHitBox.h" />
     <ClInclude Include="SourceFile\graphic\Decale.h" />
     <ClInclude Include="SourceFile\Physics\CylinderCollider.h" />
     <ClInclude Include="SourceFile\Physics\PhysicsGhostObject.h" />

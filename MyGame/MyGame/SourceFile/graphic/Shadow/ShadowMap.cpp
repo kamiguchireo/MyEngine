@@ -27,8 +27,8 @@ namespace Engine
 
 	void ShadowMap::ShadowMapRTCreate()
 	{
-		int TexResolutionW = TexResolution.x;
-		int TexResolutionH = TexResolution.y;
+		int TexResolutionW = static_cast<int>(TexResolution.x);
+		int TexResolutionH = static_cast<int>(TexResolution.y);
 		int wh[][2] = {
 			{TexResolutionW,TexResolutionH},
 			{TexResolutionW,TexResolutionH >> 1},

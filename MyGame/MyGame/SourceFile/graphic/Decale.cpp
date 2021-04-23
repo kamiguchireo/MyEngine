@@ -13,7 +13,7 @@ namespace Engine {
 		Vector3 hitNormal = Vector3::Zero;	//衝突点の法線。
 
 		//衝突したときに呼ばれるコールバック関数。
-		virtual btScalar addSingleResult(btCollisionWorld::LocalRayResult& rayResult, bool normalInWorldSpace)
+		virtual btScalar addSingleResult(btCollisionWorld::LocalRayResult& rayResult, bool /*normalInWorldSpace*/)
 		{
 			//自分か地面に衝突したとき
 			if (rayResult.m_collisionObject->getUserIndex() == enCollisionAttr_Character
@@ -24,8 +24,6 @@ namespace Engine {
 			//衝突点の法線
 			Vector3 hitNormalTmp;
 			hitNormalTmp.Set(rayResult.m_hitNormalLocal);
-			//上方向と衝突点の法線のなす角度を求める。
-			float angle = fabsf(acosf(hitNormalTmp.Dot(Vector3::Up)));
 		
 			isHit = true;
 				

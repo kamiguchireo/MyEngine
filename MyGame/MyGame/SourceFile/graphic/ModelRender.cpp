@@ -42,11 +42,11 @@ namespace Engine {
 				IsInited = true;
 				return true;
 			}
+			return true;
 		}
 
 		void ModelRender::Update()
 		{
-			auto& RC = g_graphicsEngine->GetRenderContext();
 			if (UpdateFlag)
 			{
 				m_model->UpdateWorldMatrix(m_pos, m_rot, m_scale);

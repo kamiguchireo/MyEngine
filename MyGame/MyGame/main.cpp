@@ -37,7 +37,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_graphicsEngine->GetLightManager()->InitCB();
 	DirectionalLight DL1;
 	DL1.direction = { 1.0f,-1.0f,-1.0f };
-	//DL1.direction = { 1.0f,0.0f,0.0f };
 	DL1.direction.Normalize();
 	DL1.color = {10.8f,10.8f,10.8f,1.0f};
 
@@ -94,7 +93,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 		//‚±‚ÌƒtƒŒ[ƒ€‚É‚©‚©‚Á‚½ŠÔ‚ğ‹L‰¯‚µ‚Ä‚¨‚­
 		g_gameTime.PushFrameDeltaTime(static_cast<float>(sw.GetElapsed()));
-		float f = g_gameTime.GetFPS();
+		//float f = g_gameTime.GetFPS();
 	}
 	
 	return 0;

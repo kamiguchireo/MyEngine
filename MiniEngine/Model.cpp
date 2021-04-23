@@ -96,7 +96,7 @@ void Model::Draw(RenderContext& rc)
 	Vector3 ToCameraDist = g_camera3D->GetPosition() - g_camera3D->GetTarget();
 	//ディザリングに使用する距離を計算
 	//4で割っているところは好きな数字にいい感じの距離にするため
-	DitherDist = ToCameraDist.Length() / 3;
+	DitherDist = static_cast<int>(ToCameraDist.Length()) / 3;
 	m_meshParts.Draw(
 		rc, 
 		m_world, 
@@ -114,7 +114,7 @@ void Model::Draw(RenderContext& rc,Matrix viewMat,Matrix proMat,int rendermode)
 	Vector3 ToCameraDist = g_camera3D->GetPosition() - g_camera3D->GetTarget();
 	//ディザリングに使用する距離を計算
 	//4で割っているところは好きな数字にいい感じの距離にするため
-	DitherDist = ToCameraDist.Length() / 3;
+	DitherDist = static_cast<int>(ToCameraDist.Length()) / 3;
 	m_meshParts.Draw(
 		rc,
 		m_world,
