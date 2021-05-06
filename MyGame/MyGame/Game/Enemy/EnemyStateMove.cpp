@@ -9,5 +9,5 @@ EnemyStateMove::~EnemyStateMove()
 
 void EnemyStateMove::Update()
 {
-	m_Enemy->UpdateAnimation(enEnemyAnimation_Rifle_Walk);
+	m_Enemy->PlayAnimation(enEnemyAnimation_Rifle_Walk);
 }

@@ -71,7 +71,10 @@ public:
 private:
 	//ステートの変更
 	//state		ステート
-	void ChangeState(IPlayer* state);
+	void ChangeState(IPlayer* state)
+	{
+		currentState = state;
+	}
 	
 	//移動の処理
 	void Move();

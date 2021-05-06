@@ -63,11 +63,6 @@ Player::~Player()
 	}
 }
 
-void Player::ChangeState(IPlayer* state)
-{
-	currentState = state;
-}
-
 bool Player::Start()
 {
 	m_camera = NewGO<GameCamera>(0, nullptr);

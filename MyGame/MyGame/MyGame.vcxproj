@@ -192,6 +192,7 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TkmFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
+    <ClCompile Include="Game\Enemy\EnemyStateAim.cpp" />
     <ClCompile Include="Game\Enemy\EnemyStateMove.cpp" />
     <ClCompile Include="Game\Enemy\EnemyStateIdle.cpp" />
     <ClCompile Include="Game\Enemy\EnemyHitBox.cpp" />
@@ -287,6 +288,7 @@
     <ClInclude Include="..\..\MiniEngine\tkFile\TkmFile.h" />
     <ClInclude Include="..\..\MiniEngine\tkFile\TksFile.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
+    <ClInclude Include="Game\Enemy\EnemyStateAim.h" />
     <ClInclude Include="Game\Enemy\EnemyStateMove.h" />
     <ClInclude Include="Game\Enemy\EnemyStateIdle.h" />
     <ClInclude Include="Game\Enemy\EnemyHitBox.h" />

@@ -9,5 +9,5 @@ EnemyStateIdle::~EnemyStateIdle()
 
 void EnemyStateIdle::Update()
 {
-	m_Enemy->UpdateAnimation(enEnemyAnimation_Rifle_Idle);
+	m_Enemy->PlayAnimation(enEnemyAnimation_Rifle_Idle);
 }

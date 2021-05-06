@@ -7,6 +7,7 @@
 #include "EnemyHitBox.h"
 #include "EnemyStateIdle.h"
 #include "EnemyStateMove.h"
+#include "EnemyStateAim.h"
 
 class Enemy:public IGameObject
 {
@@ -20,12 +21,24 @@ public:
 	{
 		m_animation.Update(f);
 	}
+	//アニメーションを再生
+	void PlayAnimation(int i)
+	{
+		m_animation.Play(i, 0.3f);
+	}
 private:
 	//パスで停止する
 	void StopPass();
 	//次のパスへ変更
 	void ChangeNextPass();
+	//ステートの変更
+	//state		ステート
+	void ChangeState(IEnemy* state)
+	{
+		currentState = state;
+	}
 private:
+	IEnemy* currentState = nullptr;		//現在のステート
 	prefab::ModelRender* m_enemyModel = nullptr;		//エネミーのモデル
 	Skeleton m_skeleton;
 	Engine::Animation m_animation;		//アニメーション
@@ -45,4 +58,5 @@ private:
 	EnemyHitBox* m_HitBox = nullptr;
 	EnemyStateIdle* m_stateIdle = nullptr;		//待機状態
 	EnemyStateMove* m_stateMove = nullptr;		//移動状態
+	EnemyStateAim* m_stateAim = nullptr;		//エイム状態
 };
