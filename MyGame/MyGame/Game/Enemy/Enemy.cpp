@@ -13,18 +13,18 @@ Enemy::Enemy()
 	m_path = Path::GetInstance();
 	if (m_path != nullptr)
 	{
-		m_position = m_path->GetPosition();
+		m_PassPos = m_path->GetPosition();
 	}
 	else
 	{
-		m_position.push_back(m_pos);
-		m_position.push_back(Vector3{ 300.0f,0.0f,100.0f });
-		m_position.push_back(Vector3{ 100.0f,0.0f,100.0f });
-		m_position.push_back(Vector3{ 100.0f,0.0f,-1000.0f });
+		m_PassPos.push_back(m_pos);
+		m_PassPos.push_back(Vector3{ 300.0f,0.0f,100.0f });
+		m_PassPos.push_back(Vector3{ 100.0f,0.0f,100.0f });
+		m_PassPos.push_back(Vector3{ 100.0f,0.0f,-1000.0f });
 
 	}
 
-	m_PassSize = static_cast<int>(m_position.size()) - 1;
+	m_PassSize = static_cast<int>(m_PassPos.size()) - 1;
 }
 
 Enemy::~Enemy()
@@ -79,9 +79,9 @@ bool Enemy::Start()
 	//m_camera = NewGO<GameCamera>(0, nullptr);
 
 	//ポジションをパスの0番目に合わせる
-	if (m_position.size() >= 1)
+	if (m_PassPos.size() >= 1)
 	{
-		m_pos = m_position[0];
+		m_pos = m_PassPos[0];
 	}
 	//キャラコンの初期化
 	characon.Init(15.0f, 115.0f, m_pos);
@@ -159,7 +159,7 @@ void Enemy::Update()
 	}
 
 	//次のパスへのベクトル
-	Vector3 moveVec = m_position[NextPass] - m_pos;
+	Vector3 moveVec = m_PassPos[NextPass] - m_pos;
 	//次のパスへの距離が一定以内なら
 	if (moveVec.Length() <= PassDist)
 	{

@@ -52,8 +52,8 @@ private:
 	CharacterController characon;
 	float rot = 0.0f;
 	Path* m_path = nullptr;		//パス
-	std::vector<Vector3> m_position;
-	int m_PassSize = 0;
+	std::vector<Vector3> m_PassPos;
+	int m_PassSize = 0;		//パスを入れている配列のサイズ
 	int CurrentPass = 0;		//現在のパス
 	int NextPass = 0;		//次のパス
 	Weapon* m_weapon = nullptr;
