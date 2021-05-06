@@ -174,8 +174,6 @@ void Enemy::Update()
 
 	m_pos = returnPos;
 
-	m_HitBox->UpdateCollisionDetection();
-
 	//m_camera->SetPivotPos(m_pos);
 	
 	m_enemyModel->SetPosition(m_pos);

@@ -127,3 +127,8 @@ void EnemyHitBox::UpdateCollisionDetection()
 		);
 	}
 }
+
+void EnemyHitBox::Update()
+{
+	UpdateCollisionDetection();
+}

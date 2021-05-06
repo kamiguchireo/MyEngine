@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "PlayerHitBox.h"
+#include "Player.h"
 
 PlayerHitBox::PlayerHitBox()
 {
@@ -102,10 +103,12 @@ void PlayerHitBox::InitAddPos()
 
 }
 
-void PlayerHitBox::Init(Skeleton* sk)
+void PlayerHitBox::Init(Skeleton* sk, Player* pl)
 {
 	//スケルトンを代入
 	m_skeleton = sk;
+	//プレイヤーのポインタを代入
+	m_pl = pl;
 	//ヒットボックスのサイズを初期化
 	InitSize();
 	//ヒットボックスを構築
@@ -116,6 +119,7 @@ void PlayerHitBox::Init(Skeleton* sk)
 
 void PlayerHitBox::UpdateCollisionDetection()
 {
+
 	for (int i = 0; i < HitBoxNum::Num; i++)
 	{
 		Quaternion q_rot = m_skeleton->GetBone(m_ColOnSkeletonNum[i])->GetRotation();
@@ -126,4 +130,10 @@ void PlayerHitBox::UpdateCollisionDetection()
 			q_rot
 		);
 	}
+}
+
+void PlayerHitBox::Update()
+{
+	m_pl->UpdateAnimation(0.0f);
+	UpdateCollisionDetection();
 }

@@ -35,4 +35,27 @@ enum EnPlayerAnimation {
 	enPlayerAnimation_Rifle_fire,
 	enPlayerAnimation_Num
 };
+
+enum HitBoxNum {
+	Head,
+	Spine2,
+	Spine,
+	Hips,
+	LeftUpLeg,
+	RightUpLeg,
+	LeftLeg,
+	RightLeg,
+	LeftFoot,
+	RightFoot,
+	LeftToeBase,
+	RightToeBase,
+	LeftArm,
+	RightArm,
+	LeftForeArm,
+	RightForeArm,
+	LeftHand,
+	RightHand,
+	Num
+};
+
 using namespace Engine;

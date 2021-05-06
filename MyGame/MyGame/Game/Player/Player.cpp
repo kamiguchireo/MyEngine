@@ -49,6 +49,11 @@ Player::~Player()
 		DeleteGO(m_sprite);
 		m_sprite = nullptr;
 	}
+	if (m_HitBox != nullptr)
+	{
+		DeleteGO(m_HitBox);
+		m_HitBox = nullptr;
+	}
 }
 
 void Player::ChangeState(IPlayer* state)
@@ -114,6 +119,9 @@ bool Player::Start()
 	m_sprite = NewGO<prefab::SpriteRender>(3, nullptr);
 	//‰Šú‰»
 	m_sprite->Init("Assets/Image/AimFrame.dds", 100, 100);
+
+	m_HitBox = NewGO<PlayerHitBox>(4, nullptr);
+	m_HitBox->Init(&m_skeleton, this);
 
 	return true;
 }

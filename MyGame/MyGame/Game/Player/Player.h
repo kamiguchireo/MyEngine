@@ -7,6 +7,7 @@
 #include "PlayerStateAim.h"
 #include "SourceFile/Physics/CharacterController.h"
 #include "SourceFile/Graphic/SpriteRender.h"
+#include "PlayerHitBox.h"
 
 class Player:public IGameObject
 {
@@ -27,6 +28,12 @@ public:
 	void PlayAnimation(int i)
 	{
 		m_animation.Play(i,0.3f);
+	}
+
+	//アニメーションを更新
+	void UpdateAnimation(float f)
+	{
+		m_animation.Update(f);
 	}
 
 	//回転をセット
@@ -93,4 +100,5 @@ private:
 	Vector3 footStepValue = Vector3::Zero;		//footStepの移動量
 	prefab::SpriteRender* m_sprite = nullptr;
 	Vector3 m_gravity = Vector3::Zero;
+	PlayerHitBox* m_HitBox;
 };

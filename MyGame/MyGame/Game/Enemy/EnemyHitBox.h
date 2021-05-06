@@ -1,27 +1,6 @@
 #pragma once
 #include "SourceFile/Physics/PhysicsGhostObject.h"
 
-enum HitBoxNum {
-	Head,
-	Spine2,
-	Spine,
-	Hips,
-	LeftUpLeg,
-	RightUpLeg,
-	LeftLeg,
-	RightLeg,
-	LeftFoot,
-	RightFoot,
-	LeftToeBase,
-	RightToeBase,
-	LeftArm,
-	RightArm,
-	LeftForeArm,
-	RightForeArm,
-	LeftHand,
-	RightHand,
-	Num
-};
 class EnemyHitBox:public IGameObject
 {
 public:
@@ -31,9 +10,8 @@ public:
 	//初期化
 	void Init(Skeleton* sk);
 
-	//当たり判定を更新
-	void UpdateCollisionDetection();
-
+	//更新関数
+	void Update();
 private:
 	//当たり判定のサイズを初期化
 	void InitSize();
@@ -43,6 +21,10 @@ private:
 
 	//加算するポジションを初期化
 	void InitAddPos();
+
+	//当たり判定を更新
+	void UpdateCollisionDetection();
+
 private:
 	Skeleton* m_skeleton = nullptr;
 	PhysicsGhostObject* m_colldetection[HitBoxNum::Num] = { nullptr };
