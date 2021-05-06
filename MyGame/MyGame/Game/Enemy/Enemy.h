@@ -8,6 +8,7 @@
 #include "EnemyStateIdle.h"
 #include "EnemyStateMove.h"
 #include "EnemyStateAim.h"
+#include "EnemyStatus.h"
 
 class Enemy:public IGameObject
 {
@@ -31,6 +32,12 @@ public:
 	{
 		IsStop = flag;
 	}
+
+	void Dead()
+	{
+		IsDead = true;
+	}
+
 private:
 	//次のパスへ変更
 	void ChangeNextPass();
@@ -65,4 +72,6 @@ private:
 	bool IsStop = false;		//止まっているかどうか
 	Vector3 m_gravity = Vector3::Zero;		//重力による加速
 	const float PassDist = 10.0f;		//パスの範囲
+	std::unique_ptr<EnemyStatus> m_Status = nullptr;
+	bool IsDead = false;		//死んでいるかどうか
 };

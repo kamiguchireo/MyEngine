@@ -3,6 +3,9 @@
 
 Enemy::Enemy()
 {
+	//エネミーのステータス
+	m_Status = std::make_unique<EnemyStatus>(this);
+
 	//ステートをnew
 	m_stateIdle = new EnemyStateIdle(this);
 	m_stateMove = new EnemyStateMove(this);
@@ -144,6 +147,10 @@ void Enemy::ChangeNextPass()
 
 void Enemy::Update()
 {
+	if (IsDead == true)
+	{
+		return;
+	}
 	if (CurrentPass == NextPass)
 	{
 		//その場で停止する
@@ -178,6 +185,12 @@ void Enemy::Update()
 	float DeltaTime = g_gameTime.GetFrameDeltaTime();
 	Vector3 footStepValue = Vector3::Zero;
 
+	static float i = 0;
+	i += DeltaTime;
+	if (i > 10.0f)
+	{
+		m_Status->Damage(100);
+	}
 	//m_animation.Play(0);
 
 	//アニメーションからfootstepの移動量を持ってくる
