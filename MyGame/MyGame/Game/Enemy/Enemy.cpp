@@ -157,21 +157,21 @@ void Enemy::Update()
 	{
 		ChangeState(m_stateMove);
 	}
-	//次のポジションを設定
-	Vector3 NextPosition = m_position[NextPass];
-	if (m_pos.x > NextPosition.x - 10.0f && m_pos.x < NextPosition.x + 10.0f)
+
+	//次のパスへのベクトル
+	Vector3 moveVec = m_position[NextPass] - m_pos;
+	//次のパスへの距離が一定以内なら
+	if (moveVec.Length() <= PassDist)
 	{
-		if (m_pos.z > NextPosition.z - 10.0f && m_pos.z < NextPosition.z + 10.0f)
-		{
-			CurrentPass = NextPass;
-		}
+		//目的地の着いたので
+		//現在のパスを変更
+		CurrentPass = NextPass;
 	}
 
 	//次のパスへのベクトル
-	Vector3 moveVec = NextPosition - m_pos;
 	moveVec.y = 0.0f;
 	moveVec.Normalize();
-
+	
 	//次のパスへ向かう回転
 	m_rot.SetRotation(Vector3::AxisZ, moveVec);
 
@@ -187,8 +187,22 @@ void Enemy::Update()
 	float value = footStepValue.y;
 	footStepValue.y = footStepValue.z;
 	footStepValue.z = -value;
+	//フットステップを調整
 	footStepValue *= footStepAdjustValue;
-	footStepValue += gravity;
+	
+	//重力を加算
+	if (characon.IsOnGround())
+	{
+		//地面上にいるときは重力をリセット
+		m_gravity *= 0.0f;
+	}
+	else
+	{
+		//空中にいるときは重力を加算し続ける
+		m_gravity += gravity;
+	}
+
+	footStepValue += m_gravity;
 
 	//現在のステートの更新
 	currentState->Update();

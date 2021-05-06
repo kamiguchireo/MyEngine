@@ -63,4 +63,6 @@ private:
 	EnemyStateMove* m_stateMove = nullptr;		//移動状態
 	EnemyStateAim* m_stateAim = nullptr;		//エイム状態
 	bool IsStop = false;		//止まっているかどうか
+	Vector3 m_gravity = Vector3::Zero;		//重力による加速
+	const float PassDist = 10.0f;		//パスの範囲
 };

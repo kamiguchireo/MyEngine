@@ -102,6 +102,6 @@ private:
 	CharacterController characon;		//キャラコン
 	Vector3 footStepValue = Vector3::Zero;		//footStepの移動量
 	prefab::SpriteRender* m_AimFramesprite = nullptr;		//エイム時に表示するスプライト
-	Vector3 m_gravity = Vector3::Zero;
+	Vector3 m_gravity = Vector3::Zero;		//重力による加速
 	PlayerHitBox* m_HitBox;
 };
