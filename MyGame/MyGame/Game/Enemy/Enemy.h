@@ -26,9 +26,12 @@ public:
 	{
 		m_animation.Play(i, 0.3f);
 	}
+
+	void SetIsStop(bool flag)
+	{
+		IsStop = flag;
+	}
 private:
-	//パスで停止する
-	void StopPass();
 	//次のパスへ変更
 	void ChangeNextPass();
 	//ステートの変更
@@ -59,4 +62,5 @@ private:
 	EnemyStateIdle* m_stateIdle = nullptr;		//待機状態
 	EnemyStateMove* m_stateMove = nullptr;		//移動状態
 	EnemyStateAim* m_stateAim = nullptr;		//エイム状態
+	bool IsStop = false;		//止まっているかどうか
 };

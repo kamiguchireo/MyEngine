@@ -8,6 +8,8 @@ Enemy::Enemy()
 	m_stateMove = new EnemyStateMove(this);
 	m_stateAim = new EnemyStateAim(this);
 
+	ChangeState(m_stateIdle);
+
 	m_path = Path::GetInstance();
 	if (m_path != nullptr)
 	{
@@ -85,20 +87,20 @@ bool Enemy::Start()
 	characon.Init(15.0f, 115.0f, m_pos);
 
 	//待機状態のアニメーション
-	m_animClip[0].Load("Assets/animData/Rifle_Idle.tka");
-	m_animClip[0].SetLoopFlag(true);
+	m_animClip[enEnemyAnimation_Rifle_Idle].Load("Assets/animData/Rifle_Idle.tka");
+	m_animClip[enEnemyAnimation_Rifle_Idle].SetLoopFlag(true);
 	//歩き状態のアニメーション
-	m_animClip[1].Load("Assets/animData/Rifle_Walk.tka");
-	m_animClip[1].SetLoopFlag(true);
+	m_animClip[enEnemyAnimation_Rifle_Walk].Load("Assets/animData/Rifle_Walk.tka");
+	m_animClip[enEnemyAnimation_Rifle_Walk].SetLoopFlag(true);
 	//走り状態のアニメーション
-	m_animClip[2].Load("Assets/animData/Rifle_Run.tka");
-	m_animClip[2].SetLoopFlag(true);
+	m_animClip[enEnemyAnimation_Rifle_Run].Load("Assets/animData/Rifle_Run.tka");
+	m_animClip[enEnemyAnimation_Rifle_Run].SetLoopFlag(true);
 	//スプリント状態のアニメーション
-	m_animClip[3].Load("Assets/animData/Rifle_Sprint.tka");
-	m_animClip[3].SetLoopFlag(true);
+	m_animClip[enEnemyAnimation_Rifle_Sprint].Load("Assets/animData/Rifle_Sprint.tka");
+	m_animClip[enEnemyAnimation_Rifle_Sprint].SetLoopFlag(true);
 	//エイム状態のアニメーション
-	m_animClip[4].Load("Assets/animData/Rifle_Down_To_Aim.tka");
-	m_animClip[4].SetLoopFlag(false);
+	m_animClip[enEnemyAnimation_Rifle_Down_To_Aim].Load("Assets/animData/Rifle_Down_To_Aim.tka");
+	m_animClip[enEnemyAnimation_Rifle_Down_To_Aim].SetLoopFlag(false);
 
 
 	//エネミーのモデルをNewGO
@@ -115,7 +117,7 @@ bool Enemy::Start()
 	m_skeleton.Init("Assets/modelData/soldier_bs01.tks");
 	m_skeleton.Update(Matrix::Identity);
 	m_animation.Init(m_skeleton, m_animClip, 5);
-	m_animation.Play(0);
+	m_animation.Play(enEnemyAnimation_Rifle_Idle);
 	m_rot.SetRotationDegY(0.0f);
 
 	//武器のNewGOとInit
@@ -139,25 +141,21 @@ void Enemy::ChangeNextPass()
 		NextPass = 0;
 	}
 }
-void Enemy::StopPass()
-{
-	static float f = 5.0f;
-	f -= g_gameTime.GetFrameDeltaTime();
-	m_animation.Play(0);
-	if (f <= 0.0f)
-	{
-		ChangeNextPass();
-		f = 2.5f;
-	}
-}
 
 void Enemy::Update()
 {
-	m_animation.Play(1);
-
 	if (CurrentPass == NextPass)
 	{
-		StopPass();
+		//その場で停止する
+		IsStop = true;
+		//待機ステートに変更
+		ChangeState(m_stateIdle);
+		//次のパスを変更
+		ChangeNextPass();
+	}
+	if (IsStop == false)
+	{
+		ChangeState(m_stateMove);
 	}
 	//次のポジションを設定
 	Vector3 NextPosition = m_position[NextPass];
@@ -192,9 +190,13 @@ void Enemy::Update()
 	footStepValue *= footStepAdjustValue;
 	footStepValue += gravity;
 
+	//現在のステートの更新
+	currentState->Update();
+
 	//footStepに回転を適応
 	m_rot.Apply(footStepValue);
 
+	//キャラコンの計算
 	Vector3 returnPos = characon.Execute(footStepValue, DeltaTime);
 
 	m_pos = returnPos;
