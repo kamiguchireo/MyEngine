@@ -5,6 +5,7 @@ Enemy::Enemy()
 {
 	//ステートをnew
 	m_stateIdle = new EnemyStateIdle(this);
+	m_stateMove = new EnemyStateMove(this);
 
 	m_path = Path::GetInstance();
 	if (m_path != nullptr)
@@ -42,6 +43,12 @@ Enemy::~Enemy()
 	{
 		delete m_stateIdle;
 		m_stateIdle = nullptr;
+	}
+	//移動ステート
+	if (m_stateMove != nullptr)
+	{
+		delete m_stateMove;
+		m_stateMove = nullptr;
 	}
 	//武器
 	if (m_weapon != nullptr)
