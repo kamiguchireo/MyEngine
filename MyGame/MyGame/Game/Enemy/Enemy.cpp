@@ -3,6 +3,9 @@
 
 Enemy::Enemy()
 {
+	//ステートをnew
+	m_stateIdle = new EnemyStateIdle(this);
+
 	m_path = Path::GetInstance();
 	if (m_path != nullptr)
 	{
@@ -22,22 +25,31 @@ Enemy::Enemy()
 
 Enemy::~Enemy()
 {
-
+	//モデルレンダー
 	if (m_enemyModel != nullptr)
 	{
 		DeleteGO(m_enemyModel);
 		m_enemyModel = nullptr;
 	}
+	//カメラ
 	//if (m_camera != nullptr)
 	//{
 	//	DeleteGO(m_camera);
 	//	m_camera = nullptr;
 	//}
+	//待機ステート
+	if (m_stateIdle != nullptr)
+	{
+		delete m_stateIdle;
+		m_stateIdle = nullptr;
+	}
+	//武器
 	if (m_weapon != nullptr)
 	{
 		DeleteGO(m_weapon);
 		m_weapon = nullptr;
 	}
+	//ヒットボックス
 	if (m_HitBox != nullptr)
 	{
 		DeleteGO(m_HitBox);

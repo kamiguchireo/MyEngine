@@ -5,6 +5,7 @@
 #include "Game/Stage/Path.h"
 #include "Game/Weapon.h"
 #include "EnemyHitBox.h"
+#include "EnemyStateIdle.h"
 
 class Enemy:public IGameObject
 {
@@ -41,4 +42,5 @@ private:
 	Weapon* m_weapon = nullptr;
 	//GameCamera* m_camera = nullptr;
 	EnemyHitBox* m_HitBox = nullptr;
+	EnemyStateIdle* m_stateIdle = nullptr;		//ë“ã@èÛë‘
 };

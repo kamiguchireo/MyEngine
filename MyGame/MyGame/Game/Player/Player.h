@@ -98,7 +98,7 @@ private:
 	Vector3 m_forward = Vector3::AxisZ;		//前方向
 	CharacterController characon;		//キャラコン
 	Vector3 footStepValue = Vector3::Zero;		//footStepの移動量
-	prefab::SpriteRender* m_sprite = nullptr;
+	prefab::SpriteRender* m_AimFramesprite = nullptr;		//エイム時に表示するスプライト
 	Vector3 m_gravity = Vector3::Zero;
 	PlayerHitBox* m_HitBox;
 };

@@ -19,36 +19,43 @@ Player::~Player()
 		DeleteGO(m_playerModel);
 		m_playerModel = nullptr;
 	}
+	//カメラ
 	if (m_camera != nullptr)
 	{
 		DeleteGO(m_camera);
 		m_camera = nullptr;
 	}
+	//待機ステート
 	if (m_stateIdle != nullptr)
 	{
 		delete m_stateIdle;
 		m_stateIdle = nullptr;
 	}
+	//移動ステート
 	if (m_stateMove != nullptr)
 	{
 		delete m_stateMove;
 		m_stateMove = nullptr;
 	}
+	//エイムステート
 	if (m_stateAim != nullptr)
 	{
 		delete m_stateAim;
 		m_stateAim = nullptr;
 	}
+	//武器
 	if (m_PlayerWeapon != nullptr)
 	{
 		DeleteGO(m_PlayerWeapon);
 		m_PlayerWeapon = nullptr;
 	}
-	if (m_sprite != nullptr)
+	//スプライト
+	if (m_AimFramesprite != nullptr)
 	{
-		DeleteGO(m_sprite);
-		m_sprite = nullptr;
+		DeleteGO(m_AimFramesprite);
+		m_AimFramesprite = nullptr;
 	}
+	//ヒットボックス
 	if (m_HitBox != nullptr)
 	{
 		DeleteGO(m_HitBox);
@@ -116,9 +123,9 @@ bool Player::Start()
 	m_PlayerWeapon->Init(&m_skeleton,true);
 
 	//スプライトをNew
-	m_sprite = NewGO<prefab::SpriteRender>(3, nullptr);
+	m_AimFramesprite = NewGO<prefab::SpriteRender>(3, nullptr);
 	//初期化
-	m_sprite->Init("Assets/Image/AimFrame.dds", 100, 100);
+	m_AimFramesprite->Init("Assets/Image/AimFrame.dds", 100, 100);
 
 	m_HitBox = NewGO<PlayerHitBox>(4, nullptr);
 	m_HitBox->Init(&m_skeleton, this);
@@ -150,7 +157,7 @@ void Player::Hold()
 	if (GetKeyState(VK_RBUTTON))
 	{
 		//照準のαを1にする
-		m_sprite->SetAlpha(1.0f);
+		m_AimFramesprite->SetAlpha(1.0f);
 		//エイムカメラに切り替え
 		m_camera->SetCameraState(CameraState::AIM);
 		ChangeState(m_stateAim);
@@ -158,7 +165,7 @@ void Player::Hold()
 	else
 	{
 		//照準のαを0にする
-		m_sprite->SetAlpha(0.0f);
+		m_AimFramesprite->SetAlpha(0.0f);
 		//TPSカメラに切り替え
 		m_camera->SetCameraState(CameraState::TPS);
 	}
