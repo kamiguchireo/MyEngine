@@ -104,7 +104,9 @@ bool Enemy::Start()
 	//エイム状態のアニメーション
 	m_animClip[enEnemyAnimation_Rifle_Down_To_Aim].Load("Assets/animData/Rifle_Down_To_Aim.tka");
 	m_animClip[enEnemyAnimation_Rifle_Down_To_Aim].SetLoopFlag(false);
-
+	//死亡時のアニメーション
+	m_animClip[enEnemyAnimation_Death_From_Front].Load("Assets/animData/Death_From_Front.tka");
+	m_animClip[enEnemyAnimation_Death_From_Front].SetLoopFlag(false);
 
 	//エネミーのモデルをNewGO
 	m_enemyModel = NewGO<prefab::ModelRender>(0);
@@ -119,7 +121,7 @@ bool Enemy::Start()
 	//スケルトンとアニメーションの初期化
 	m_skeleton.Init("Assets/modelData/soldier_bs01.tks");
 	m_skeleton.Update(Matrix::Identity);
-	m_animation.Init(m_skeleton, m_animClip, 5);
+	m_animation.Init(m_skeleton, m_animClip, enEnemyAnimation_Num);
 	m_animation.Play(enEnemyAnimation_Rifle_Idle);
 	m_rot.SetRotationDegY(0.0f);
 
@@ -149,6 +151,9 @@ void Enemy::Update()
 {
 	if (IsDead == true)
 	{
+		m_animation.Play(enEnemyAnimation_Death_From_Front);
+		float DeltaTime = g_gameTime.GetFrameDeltaTime();
+		m_animation.Update(DeltaTime);
 		return;
 	}
 	if (CurrentPass == NextPass)

@@ -42,7 +42,7 @@ enum EnEnemyAnimation {
 	enEnemyAnimation_Rifle_Run,
 	enEnemyAnimation_Rifle_Sprint,
 	enEnemyAnimation_Rifle_Down_To_Aim,
-	enEnemyAnimation_Rifle_fire,
+	enEnemyAnimation_Death_From_Front,
 	enEnemyAnimation_Num
 };
 
