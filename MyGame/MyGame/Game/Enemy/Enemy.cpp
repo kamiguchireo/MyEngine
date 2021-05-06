@@ -98,7 +98,7 @@ bool Enemy::Start()
 	m_weapon->Init(&m_skeleton);
 
 	m_HitBox = NewGO<EnemyHitBox>(2);
-	m_HitBox->Init(&m_skeleton);
+	m_HitBox->Init(&m_skeleton, this);
 
 	return true;
 }

@@ -1,5 +1,4 @@
 #pragma once
-#include "SourceFile/graphic/ModelRender.h"
 
 class Player;
 //プレイヤーの基底クラス

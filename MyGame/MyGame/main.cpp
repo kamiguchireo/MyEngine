@@ -25,8 +25,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//////////////////////////////////////
 		
 	//テスト用のクラス
-	Test* m_Test = nullptr;
-	m_Test = Engine::NewGO<Test>(0, nullptr);
+	//Test* m_Test = nullptr;
+	//m_Test = Engine::NewGO<Test>(0, nullptr);
 
 	//////////////////////////////////////
 	// 初期化を行うコードを書くのはここまで！！！
@@ -51,8 +51,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	StopWatch sw;
 
 	//ゲーム本体
-	//Game* g_game = nullptr;
-	//g_game = Engine::NewGO<Game>(0, nullptr);
+	Game* g_game = nullptr;
+	g_game = Engine::NewGO<Game>(0, nullptr);
 
 	// ここからゲームループ。
 	while (DispatchWindowMessage())
@@ -78,7 +78,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//ゲームオブジェクトの描画
 		Engine::GameObjectManager().Draw();
 
-		g_engine->GetPhysicsWorld().DebugDrawWorld();
+		//g_engine->GetPhysicsWorld().DebugDrawWorld();
 		//ゲームオブジェクトのポストレンダー
 		Engine::GameObjectManager().PostRender();
 

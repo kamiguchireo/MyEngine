@@ -14,7 +14,10 @@ public:
 
 	bool Start();
 	void Update();
-
+	void UpdateAnimation(float f)
+	{
+		m_animation.Update(f);
+	}
 private:
 	//ÉpÉXÇ≈í‚é~Ç∑ÇÈ
 	void StopPass();

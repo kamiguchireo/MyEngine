@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "EnemyHitBox.h"
+#include "Enemy.h"
 
 EnemyHitBox::EnemyHitBox()
 {
@@ -102,10 +103,11 @@ void EnemyHitBox::InitAddPos()
 
 }
 
-void EnemyHitBox::Init(Skeleton* sk)
+void EnemyHitBox::Init(Skeleton* sk,Enemy*en)
 {
 	//スケルトンを代入
 	m_skeleton = sk;
+	m_en = en;
 	//ヒットボックスのサイズを初期化
 	InitSize();
 	//ヒットボックスを構築
@@ -130,5 +132,6 @@ void EnemyHitBox::UpdateCollisionDetection()
 
 void EnemyHitBox::Update()
 {
+	m_en->UpdateAnimation(0.0f);
 	UpdateCollisionDetection();
 }

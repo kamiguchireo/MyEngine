@@ -1,6 +1,7 @@
 #pragma once
 #include "SourceFile/Physics/PhysicsGhostObject.h"
 
+class Enemy;
 class EnemyHitBox:public IGameObject
 {
 public:
@@ -8,7 +9,7 @@ public:
 	~EnemyHitBox();
 
 	//èâä˙âª
-	void Init(Skeleton* sk);
+	void Init(Skeleton* sk, Enemy* en);
 
 	//çXêVä÷êî
 	void Update();
@@ -27,6 +28,7 @@ private:
 
 private:
 	Skeleton* m_skeleton = nullptr;
+	Enemy* m_en = nullptr;
 	PhysicsGhostObject* m_colldetection[HitBoxNum::Num] = { nullptr };
 	int m_ColOnSkeletonNum[HitBoxNum::Num] = { -1 };
 	Vector3 m_AddPos[HitBoxNum::Num] = { Vector3::Zero };
