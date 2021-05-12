@@ -148,9 +148,16 @@ void Enemy::Update()
 {
 	if (IsDead == true)
 	{
-		m_animation.Play(enEnemyAnimation_Death_From_Front);
-		float DeltaTime = g_gameTime.GetFrameDeltaTime();
-		m_animation.Update(DeltaTime);
+		//既に死んでいる場合
+		if (m_animation.IsPlaying())
+		{
+			//アニメーションが終わっていない場合
+			//死亡時のアニメーションを流す
+			m_animation.Play(enEnemyAnimation_Death_From_Front);
+			float DeltaTime = g_gameTime.GetFrameDeltaTime();
+			m_animation.Update(DeltaTime);
+		}
+		//アニメーションが終わっていれば何もせずリターン
 		return;
 	}
 	if (CurrentPass == NextPass)

@@ -102,6 +102,11 @@ namespace Engine {
 		{
 			return m_footstepDeltaValue;
 		}
+
+		bool IsPlaying()
+		{
+			return m_isPlaying;
+		}
 	private:
 		int m_footstepBoneNo = -1;		//フットステップのボーンの番号
 		std::vector<Matrix> m_boneMatrix;		//このコントローラで再生中のアニメーションのボーン行列

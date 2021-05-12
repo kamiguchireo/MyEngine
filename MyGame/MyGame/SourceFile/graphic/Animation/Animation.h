@@ -38,6 +38,11 @@ namespace Engine {
 		//戻り値はfootstepの移動量
 		Vector3 Update(float deltaTime);
 
+		bool IsPlaying()
+		{
+			int lastPoseIndex = GetLastAnimationControllerIndex();
+			return m_animationPlayController[lastPoseIndex].IsPlaying();
+		}
 	private:
 		////////////////////////////////////
 		////////アニメーション再生系////////
