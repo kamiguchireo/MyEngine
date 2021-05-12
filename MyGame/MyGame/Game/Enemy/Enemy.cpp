@@ -10,7 +10,7 @@ Enemy::Enemy()
 	m_stateIdle = new EnemyStateIdle(this);
 	m_stateMove = new EnemyStateMove(this);
 	m_stateAim = new EnemyStateAim(this);
-
+	characon = new CharacterController();
 	ChangeState(m_stateIdle);
 
 	m_path = Path::GetInstance();
@@ -38,12 +38,6 @@ Enemy::~Enemy()
 		DeleteGO(m_enemyModel);
 		m_enemyModel = nullptr;
 	}
-	//カメラ
-	//if (m_camera != nullptr)
-	//{
-	//	DeleteGO(m_camera);
-	//	m_camera = nullptr;
-	//}
 	//待機ステート
 	if (m_stateIdle != nullptr)
 	{
@@ -73,21 +67,24 @@ Enemy::~Enemy()
 		DeleteGO(m_HitBox);
 		m_HitBox = nullptr;
 	}
+	if (characon != nullptr)
+	{
+		delete characon;
+		characon = nullptr;
+	}
 }
 
 
 
 bool Enemy::Start()
 {
-	//m_camera = NewGO<GameCamera>(0, nullptr);
-
 	//ポジションをパスの0番目に合わせる
 	if (m_PassPos.size() >= 1)
 	{
 		m_pos = m_PassPos[0];
 	}
 	//キャラコンの初期化
-	characon.Init(15.0f, 115.0f, m_pos);
+	characon->Init(15.0f, 115.0f, m_pos);
 
 	//待機状態のアニメーション
 	m_animClip[enEnemyAnimation_Rifle_Idle].Load("Assets/animData/Rifle_Idle.tka");
@@ -196,7 +193,6 @@ void Enemy::Update()
 	{
 		m_Status->Damage(100);
 	}
-	//m_animation.Play(0);
 
 	//アニメーションからfootstepの移動量を持ってくる
 	footStepValue = m_animation.Update(DeltaTime);
@@ -209,7 +205,7 @@ void Enemy::Update()
 	footStepValue *= footStepAdjustValue;
 	
 	//重力を加算
-	if (characon.IsOnGround())
+	if (characon->IsOnGround())
 	{
 		//地面上にいるときは重力をリセット
 		m_gravity *= 0.0f;
@@ -229,13 +225,16 @@ void Enemy::Update()
 	m_rot.Apply(footStepValue);
 
 	//キャラコンの計算
-	Vector3 returnPos = characon.Execute(footStepValue, DeltaTime);
+	Vector3 returnPos = characon->Execute(footStepValue, DeltaTime);
 
 	m_pos = returnPos;
-
-	//m_camera->SetPivotPos(m_pos);
 	
 	m_enemyModel->SetPosition(m_pos);
 	m_enemyModel->SetRotation(m_rot);
 
+	if (IsDead == true)
+	{
+		delete characon;
+		characon = nullptr;
+	}
 }

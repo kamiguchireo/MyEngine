@@ -56,7 +56,7 @@ private:
 	Vector3 m_pos = { 0.0f,10.0f,-100.0f };		//ポジション
 	Vector3 m_scale = Vector3::One;		//拡大率
 	Quaternion m_rot = Quaternion::Identity;		//回転率
-	CharacterController characon;
+	CharacterController* characon = nullptr;
 	float rot = 0.0f;
 	Path* m_path = nullptr;		//パス
 	std::vector<Vector3> m_PassPos;
@@ -64,7 +64,6 @@ private:
 	int CurrentPass = 0;		//現在のパス
 	int NextPass = 0;		//次のパス
 	Weapon* m_weapon = nullptr;
-	//GameCamera* m_camera = nullptr;
 	EnemyHitBox* m_HitBox = nullptr;
 	EnemyStateIdle* m_stateIdle = nullptr;		//待機状態
 	EnemyStateMove* m_stateMove = nullptr;		//移動状態
