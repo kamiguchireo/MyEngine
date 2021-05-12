@@ -199,6 +199,7 @@
     <ClCompile Include="Game\Enemy\EnemyStatus.cpp" />
     <ClCompile Include="Game\Player\PlayerHitBox.cpp" />
     <ClCompile Include="Game\Enemy\IEnemy.cpp" />
+    <ClCompile Include="Game\Player\PlayerStatus.cpp" />
     <ClCompile Include="SourceFile\graphic\Decale.cpp" />
     <ClCompile Include="SourceFile\Physics\CylinderCollider.cpp" />
     <ClCompile Include="SourceFile\Physics\PhysicsGhostObject.cpp" />
@@ -296,6 +297,7 @@
     <ClInclude Include="Game\Enemy\EnemyHitBox.h" />
     <ClInclude Include="Game\Player\PlayerHitBox.h" />
     <ClInclude Include="Game\Enemy\IEnemy.h" />
+    <ClInclude Include="Game\Player\PlayerStatus.h" />
     <ClInclude Include="SourceFile\graphic\Decale.h" />
     <ClInclude Include="SourceFile\Physics\CylinderCollider.h" />
     <ClInclude Include="SourceFile\Physics\PhysicsGhostObject.h" />

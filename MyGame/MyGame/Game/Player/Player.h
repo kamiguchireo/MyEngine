@@ -68,6 +68,13 @@ public:
 	{
 		m_rot = rot;
 	}
+
+	//死亡
+	void Dead()
+	{
+		IsDead = true;
+	}
+
 private:
 	//ステートの変更
 	//state		ステート
@@ -104,4 +111,5 @@ private:
 	prefab::SpriteRender* m_AimFramesprite = nullptr;		//エイム時に表示するスプライト
 	Vector3 m_gravity = Vector3::Zero;		//重力による加速
 	PlayerHitBox* m_HitBox;
+	bool IsDead = false;		//死んでいるかどうか
 };

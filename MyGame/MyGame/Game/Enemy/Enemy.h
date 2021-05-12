@@ -33,6 +33,7 @@ public:
 		IsStop = flag;
 	}
 
+	//Ž€–S
 	void Dead()
 	{
 		IsDead = true;
