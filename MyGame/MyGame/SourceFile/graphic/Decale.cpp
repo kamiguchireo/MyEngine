@@ -7,9 +7,6 @@ namespace Engine {
 	struct SweepResult : public btCollisionWorld::RayResultCallback
 	{
 		bool isHit = false;						//衝突フラグ。
-		Vector3 hitPos = Vector3::Zero;		//衝突点。
-		Vector3 startPos = Vector3::Zero;		//レイの始点。
-		float dist = FLT_MAX;					//衝突点までの距離。一番近い衝突点を求めるため。FLT_MAXは単精度の浮動小数点が取りうる最大の値。
 		Vector3 hitNormal = Vector3::Zero;	//衝突点の法線。
 
 		//衝突したときに呼ばれるコールバック関数。
@@ -76,38 +73,19 @@ namespace Engine {
 		m_STB.Update(m_DecaleVP.get());
 	}
 
-	void Decale::CalcVP(const Vector3& pos, const Vector3& dir)
+	void Decale::CalcVP(const btVector3& start, const btVector3& end)
 	{
 		//並行投影行列を作成
 		Matrix m_proj = Matrix::Identity;
 
 		m_proj.MakeOrthoProjectionMatrix(m_SideLength, m_SideLength, 0.0f, 10.0f);
-		//レイを作成
-		btVector3 start, end;
-		start.setZero();
-		end.setZero();
-	
-		//始点をセット
-		start.setValue(pos.x, pos.y, pos.z);
-		//終点となる位置を作成
-		Vector3 EndPos = Vector3::Zero;
-		//終点は始点となる位置に方向*距離を足したもの
-		EndPos = pos;
-		Vector3 Direction = Vector3::Zero;
-		Direction = dir;
-		//方向を正規化
-		Direction.Normalize();
-		//終点に方向に距離を掛けたもの足す
-		EndPos += Direction * Distance;
-		//終点をセット
-		end.setValue(EndPos.x, EndPos.y, EndPos.z);
 
 		//衝突検出
 		SweepResult callback;
-		callback.startPos = pos;
 		//衝突検出
 		g_engine->GetPhysicsWorld().RayTest(start, end, callback);
-		callback.hasHit();
+
+		//レイが衝突しているとき
 		if (callback.isHit)
 		{
 			//当たった位置

@@ -8,12 +8,12 @@ namespace Engine {
 		~Decale();
 
 		void Init();
-		void AddStartPos(const Vector3& pos,const Vector3& dir)
+		void AddStartPos(const btVector3& start,const btVector3& end)
 		{
 			m_hogehoge++;
 			if (m_hogehoge % 10 == 0) {
 				//10発に一回だけ弾痕を付ける
-				CalcVP(pos, dir);
+				CalcVP(start, end);
 			}
 		}
 
@@ -47,6 +47,6 @@ namespace Engine {
 	private:
 		//ビュープロジェ行列を計算して配列に積む
 		//pos		
-		void CalcVP(const Vector3& pos, const Vector3& dir);
+		void CalcVP(const btVector3& start, const btVector3& end);
 	};
 }

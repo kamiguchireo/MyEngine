@@ -59,7 +59,7 @@ public:
 	{
 		if (m_PlayerWeapon != nullptr)
 		{
-			m_PlayerWeapon->AddDecale();
+			m_PlayerWeapon->shooting();
 		}
 	}
 
