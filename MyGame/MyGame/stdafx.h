@@ -68,4 +68,10 @@ enum HitBoxNum {
 	Num
 };
 
+enum CollisionActivationState
+{
+	Default,
+	Hit
+};
+
 using namespace Engine;

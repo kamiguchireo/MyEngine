@@ -16,6 +16,7 @@ struct SweepResult : public btCollisionWorld::RayResultCallback
 		{
 			return 0.0f;
 		}
+		m_collisionObject = rayResult.m_collisionObject;
 		//衝突点の法線
 		Vector3 hitNormalTmp;
 		hitNormalTmp.Set(rayResult.m_hitNormalLocal);
@@ -108,11 +109,14 @@ void Weapon::shooting()
 	//衝突検出
 	g_engine->GetPhysicsWorld().RayTest(start, end, callback);
 
-	//レイが衝突しているとき
+	//レイがゴーストオブジェクトに衝突しているとき
 	if (callback.isHit)
 	{
+		callback.m_collisionObject->setActivationState(CollisionActivationState::Hit);
+		int i = callback.m_collisionObject->getActivationState();
 		return;
 	}
-	//デカールを追加
+
+	//衝突していなければデカールを追加
 	AddDecale(start, end);
 }

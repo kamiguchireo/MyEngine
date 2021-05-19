@@ -9,7 +9,7 @@ EnemyHitBox::EnemyHitBox()
 
 EnemyHitBox::~EnemyHitBox()
 {
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < HitBoxNum::Num; i++)
 	{
 		if (m_colldetection[i] != nullptr)
 		{

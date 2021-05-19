@@ -41,6 +41,17 @@ namespace Engine {
 
 		//ゴーストオブジェクトを移動
 		void UpdateWorldMatrix(const Vector3& pos,const Quaternion& rot);
+
+		//アクティベーションステートをゲット
+		int GetActivationState()
+		{
+			return m_ghostObject.getActivationState();
+		}
+		//アクティベーションステートをセット
+		void SetActivationState(int i)
+		{
+			m_ghostObject.setActivationState(i);
+		}
 	private:
 		//ゴースト作成処理の共通処理
 		void CreateCommon(Vector3 pos, Quaternion rot)override;
