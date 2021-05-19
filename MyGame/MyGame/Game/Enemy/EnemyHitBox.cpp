@@ -9,6 +9,7 @@ EnemyHitBox::EnemyHitBox()
 
 EnemyHitBox::~EnemyHitBox()
 {
+	//解放処理
 	for (int i = 0; i < HitBoxNum::Num; i++)
 	{
 		if (m_colldetection[i] != nullptr)
@@ -20,6 +21,7 @@ EnemyHitBox::~EnemyHitBox()
 }
 void EnemyHitBox::InitSize()
 {
+	//各コリジョンのサイズを初期化
 	m_ColSize[HitBoxNum::Head] = { 17.0f,24.0f,20.0f };
 	m_ColSize[HitBoxNum::Spine2] = { 30.0f,30.0f,27.0f };
 	m_ColSize[HitBoxNum::Spine] = { 30.0f,20.0f,23.0f };
@@ -30,7 +32,6 @@ void EnemyHitBox::InitSize()
 	m_ColSize[HitBoxNum::RightLeg] = { 13.0f,35.0f,15.0f };
 	m_ColSize[HitBoxNum::LeftFoot] = { 10.0f,13.0f,10.0f };
 	m_ColSize[HitBoxNum::RightFoot] = { 10.0f,13.0f,10.0f };
-
 	m_ColSize[HitBoxNum::LeftToeBase] = { 10.0f,16.0f,10.0f };
 	m_ColSize[HitBoxNum::RightToeBase] = { 10.0f,16.0f,10.0f };
 	m_ColSize[HitBoxNum::LeftArm] = { 13.0f,25.0f,13.0f };
@@ -48,6 +49,7 @@ void EnemyHitBox::BuildCollisionDetection()
 	{
 		m_colldetection[i] = new PhysicsGhostObject;
 	}
+	//各コライダーに対応するボーンを検索
 	m_ColOnSkeletonNum[HitBoxNum::Head] = m_skeleton->FindBoneID(L"mixamorig:Head");
 	m_ColOnSkeletonNum[HitBoxNum::Spine2] = m_skeleton->FindBoneID(L"mixamorig:Spine2");
 	m_ColOnSkeletonNum[HitBoxNum::Spine] = m_skeleton->FindBoneID(L"mixamorig:Spine");
@@ -57,9 +59,7 @@ void EnemyHitBox::BuildCollisionDetection()
 	m_ColOnSkeletonNum[HitBoxNum::LeftLeg] = m_skeleton->FindBoneID(L"mixamorig:LeftLeg");
 	m_ColOnSkeletonNum[HitBoxNum::RightLeg] = m_skeleton->FindBoneID(L"mixamorig:RightLeg");
 	m_ColOnSkeletonNum[HitBoxNum::LeftFoot] = m_skeleton->FindBoneID(L"mixamorig:LeftFoot");
-
 	m_ColOnSkeletonNum[HitBoxNum::RightFoot] = m_skeleton->FindBoneID(L"mixamorig:RightFoot");
-
 	m_ColOnSkeletonNum[HitBoxNum::LeftToeBase] = m_skeleton->FindBoneID(L"mixamorig:LeftToeBase");
 	m_ColOnSkeletonNum[HitBoxNum::RightToeBase] = m_skeleton->FindBoneID(L"mixamorig:RightToeBase");
 	m_ColOnSkeletonNum[HitBoxNum::LeftArm] = m_skeleton->FindBoneID(L"mixamorig:LeftArm");
@@ -71,16 +71,20 @@ void EnemyHitBox::BuildCollisionDetection()
 
 	for (int i = 0; i < HitBoxNum::Num; i++)
 	{
+		//ボックスコライダーを作成
 		m_colldetection[i]->CreateBox(
 			m_skeleton->GetBone(m_ColOnSkeletonNum[i])->GetPosition(),
 			m_skeleton->GetBone(m_ColOnSkeletonNum[i])->GetRotation(),
 			m_ColSize[i]
 		);
+		//各コリジョンのステートをデフォにセット
+		m_colldetection[i]->SetActivationState(CollisionActivationState::Default);
 	}
 }
 
 void EnemyHitBox::InitAddPos()
 {
+	//各コリジョンの位置を調整するためのベクトル
 	m_AddPos[HitBoxNum::Head] = { 0.0f,5.0f,3.0f };
 	m_AddPos[HitBoxNum::Spine2] = { 0.0f,0.0f,2.5f };
 	m_AddPos[HitBoxNum::Spine ] = { 0.0f,0.0f,2.5f };
@@ -91,7 +95,6 @@ void EnemyHitBox::InitAddPos()
 	m_AddPos[HitBoxNum::RightLeg] = { 0.0f,10.0f,0.0f };	
 	m_AddPos[HitBoxNum::LeftFoot] = { 0.0f,0.0f,-3.0f };
 	m_AddPos[HitBoxNum::RightFoot] = { 0.0f,0.0f,-3.0f };
-
 	m_AddPos[HitBoxNum::LeftToeBase] = { 0.0f,-1.0f,3.0f };
 	m_AddPos[HitBoxNum::RightToeBase] = { 0.0f,-1.0f,3.0f };
 	m_AddPos[HitBoxNum::LeftArm] = { 0.0f,6.0f,0.0f };
@@ -122,7 +125,9 @@ void EnemyHitBox::UpdateCollisionDetection()
 	{
 		Quaternion q_rot = m_skeleton->GetBone(m_ColOnSkeletonNum[i])->GetRotation();
 		Vector3 m_pos = m_AddPos[i];
+		//回転を加算
 		q_rot.Apply(m_pos);
+		//コリジョンの位置を更新
 		m_colldetection[i]->UpdateWorldMatrix(
 			m_skeleton->GetBone(m_ColOnSkeletonNum[i])->GetPosition() + m_pos,
 			q_rot
@@ -132,6 +137,7 @@ void EnemyHitBox::UpdateCollisionDetection()
 
 void EnemyHitBox::Update()
 {
+	//ボーンが1フレームずれるためコリジョンをアップデートする前にボーンを更新
 	m_en->UpdateAnimation(0.0f);
 	UpdateCollisionDetection();
 }
