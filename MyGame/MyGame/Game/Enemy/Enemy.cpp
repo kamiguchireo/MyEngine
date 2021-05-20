@@ -156,6 +156,18 @@ void Enemy::Update()
 			m_animation.Play(enEnemyAnimation_Death_From_Front);
 			float DeltaTime = g_gameTime.GetFrameDeltaTime();
 			m_animation.Update(DeltaTime);
+			//ヒットボックスが残っているとき削除
+			if (m_HitBox != nullptr)
+			{
+				DeleteGO(m_HitBox);
+				m_HitBox = nullptr;
+			}
+			//キャラコンが残っているとき削除
+			if (characon != nullptr)
+			{
+				delete characon;
+				characon = nullptr;
+			}
 		}
 		//アニメーションが終わっていれば何もせずリターン
 		return;
@@ -193,13 +205,6 @@ void Enemy::Update()
 
 	float DeltaTime = g_gameTime.GetFrameDeltaTime();
 	Vector3 footStepValue = Vector3::Zero;
-
-	static float i = 0;
-	i += DeltaTime;
-	if (i > 10.0f)
-	{
-		m_Status->Damage(100);
-	}
 
 	//アニメーションからfootstepの移動量を持ってくる
 	footStepValue = m_animation.Update(DeltaTime);
@@ -239,9 +244,5 @@ void Enemy::Update()
 	m_enemyModel->SetPosition(m_pos);
 	m_enemyModel->SetRotation(m_rot);
 
-	if (IsDead == true)
-	{
-		delete characon;
-		characon = nullptr;
-	}
+
 }

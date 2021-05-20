@@ -39,6 +39,11 @@ public:
 		IsDead = true;
 	}
 
+	//ダメージを受ける
+	void Damage(int i)
+	{
+		m_Status->Damage(i);
+	}
 private:
 	//次のパスへ変更
 	void ChangeNextPass();

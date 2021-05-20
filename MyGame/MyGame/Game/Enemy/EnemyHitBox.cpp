@@ -137,6 +137,17 @@ void EnemyHitBox::UpdateCollisionDetection()
 
 void EnemyHitBox::Update()
 {
+	for (int i = 0; i < HitBoxNum::Num; i++)
+	{
+		if (m_colldetection[i]->GetActivationState() == CollisionActivationState::Hit)
+		{
+			//ヒットボックスに弾が当たっているとき
+			//ダメージを与える
+			m_en->Damage(100);
+			//ステートをデフォにセット
+			m_colldetection[i]->SetActivationState(CollisionActivationState::Default);
+		}
+	}
 	//ボーンが1フレームずれるためコリジョンをアップデートする前にボーンを更新
 	m_en->UpdateAnimation(0.0f);
 	UpdateCollisionDetection();
