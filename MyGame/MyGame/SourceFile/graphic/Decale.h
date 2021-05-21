@@ -8,13 +8,10 @@ namespace Engine {
 		~Decale();
 
 		void Init();
-		void AddStartPos(const btVector3& start,const btVector3& end)
+		void AddStartPos(const btVector3& start, const btVector3& end)
 		{
-			m_hogehoge++;
-			if (m_hogehoge % 10 == 0) {
-				//10発に一回だけ弾痕を付ける
-				CalcVP(start, end);
-			}
+			//10発に一回だけ弾痕を付ける
+			CalcVP(start, end);
 		}
 
 		void SetDistance(float dist)
@@ -42,7 +39,6 @@ namespace Engine {
 		int num = 0;		//現在の数
 		Texture m_DecaleTex;		//デカールのテクスチャ
 		const float m_SideLength = 10.0f;		//一辺の長さ
-		int m_hogehoge = 0;		//ほげぇ
 		
 	private:
 		//ビュープロジェ行列を計算して配列に積む

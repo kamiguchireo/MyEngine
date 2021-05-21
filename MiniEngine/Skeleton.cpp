@@ -37,7 +37,15 @@ Skeleton::~Skeleton()
 void Skeleton::UpdateBoneWorldMatrix(Bone& bone, const Matrix& parentMatrix)
 {
 	Matrix mBoneWorld;
-	Matrix localMatrix = bone.GetLocalMatrix();
+	Matrix localMatrix = Matrix::Identity;
+	if (bone.HasUserMat() == true)
+	{
+		localMatrix = bone.GetUserMatrix();
+	}
+	else
+	{
+		localMatrix = bone.GetLocalMatrix();
+	}
 	mBoneWorld = localMatrix * parentMatrix;
 	
 	bone.SetWorldMatrix(mBoneWorld);
@@ -124,17 +132,26 @@ void Skeleton::BuildBoneMatrices()
 
 void Skeleton::Update(const Matrix& mWorld)
 {
-	//ワールド行列を構築していく
-	/*for (auto& bone : m_bones) {
-		if (bone->GetParentBoneNo() != -1) {
-			continue;
-		}
-		//ルート。
-		UpdateBoneWorldMatrix(*bone, mWorld);
-	}*/
+	////ワールド行列を構築していく
+	//for (auto& bone : m_bones) {
+	//	if (bone->GetParentBoneNo() != -1) {
+	//		continue;
+	//	}
+	//	//ルート。
+	//	UpdateBoneWorldMatrix(*bone, mWorld);
+	//}
 	for (auto& bone : m_bones) {
 		Matrix mBoneWorld;
 		Matrix localMatrix = bone->GetLocalMatrix();
+		if (bone->HasUserMat() == true)
+		{
+			localMatrix = bone->GetUserMatrix();
+			//bone->SetHasUserMat(false);
+		}
+		else
+		{
+			localMatrix = bone->GetLocalMatrix();
+		}
 		//親の行列とローカル行列を乗算して、ワールド行列を計算する。
 		mBoneWorld = localMatrix * mWorld;
 		bone->SetWorldMatrix(mBoneWorld);

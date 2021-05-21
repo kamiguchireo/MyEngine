@@ -75,6 +75,11 @@ public:
 		IsDead = true;
 	}
 
+	//スケルトンをゲット
+	Skeleton* GetSkeleton()
+	{
+		return &m_skeleton;
+	}
 private:
 	//ステートの変更
 	//state		ステート

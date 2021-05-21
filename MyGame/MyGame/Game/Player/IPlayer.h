@@ -6,10 +6,12 @@ class IPlayer
 {
 public:
 	IPlayer(Player* pl) :
-		m_Player(pl) {}
+		m_Player(pl) {
+	}
 	virtual ~IPlayer()
 	{
 	}
+
 	//XVŠÖ”
 	virtual void Update() = 0;
 

@@ -50,6 +50,11 @@ public:
 	{
 		return m_localMatrix;
 	}
+	//ユーザーのセットした行列を取得
+	const Matrix& GetUserMatrix()const
+	{
+		return m_userMat;
+	}
 	/// <summary>
 	/// ワールド行列を設定。
 	/// </summary>
@@ -138,6 +143,23 @@ public:
 		return m_rotation;
 	}
 	
+	void SetUserMat(Matrix& mat)
+	{
+		m_userMat.Multiply(m_localMatrix, mat);
+		IsSetUserMat = true;
+		for (auto childBone : m_children) {
+			childBone->SetUserMat(mat);
+		}
+	}
+
+	bool HasUserMat()
+	{
+		return IsSetUserMat;
+	}
+	void SetHasUserMat(bool flag)
+	{
+		IsSetUserMat = flag;
+	}
 private:
 	
 	std::wstring	m_boneName;
@@ -152,6 +174,8 @@ private:
 	Vector3			m_scale;				//このボーンの拡大率。最後にCalcWorldTRSを実行したときの結果が格納されている。
 	Quaternion		m_rotation;				//このボーンの回転。最後にCalcWorldTRSを実行したときの結果が格納されている。
 	std::list<Bone*>	m_children;			//子供のリスト。
+	Matrix m_userMat = Matrix::Identity;		//ユーザーが好きな時にセットできる行列	
+	bool IsSetUserMat = false;		//ユーザーが行列をセットしたかどうか
 };
 
 /// <summary>
@@ -269,6 +293,7 @@ public:
 	{
 		return WeaponBoneNum;
 	}
+
 public:
 		
 
@@ -297,4 +322,5 @@ private:
 	bool m_isInited = false;						//初期化済み？
 	bool m_isPlayAnimation = false;		//アニメーションが流し込まれている？
 	int WeaponBoneNum = -1;		//weaponBoneの番号
+	std::vector<Bone*> m_boneChild;		//あるボーンとその子供の配列
 };

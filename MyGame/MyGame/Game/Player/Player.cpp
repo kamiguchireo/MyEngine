@@ -125,6 +125,9 @@ bool Player::Start()
 	m_HitBox = NewGO<PlayerHitBox>(4, nullptr);
 	m_HitBox->Init(&m_skeleton, this);
 
+	//エイムステートの初期化
+	m_stateAim->Init();
+
 	return true;
 }
 

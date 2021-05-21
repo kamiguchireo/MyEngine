@@ -30,6 +30,8 @@ private:
 	Matrix m_weaponMat = Matrix::Identity;		//武器の行列
 	prefab::ModelRender* m_Model = nullptr;		//モデル
 	int LeftHandBoneNo = -1;		//武器用のボーン番号
-	const float m_range = 1000.0f;		//射程
+	const float m_range = 10000.0f;		//射程
+	const int rate = 10;
+	float time = 0.0f;
 };
 

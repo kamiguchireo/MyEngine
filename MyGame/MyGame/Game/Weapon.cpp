@@ -78,45 +78,55 @@ void Weapon::Update()
 
 void Weapon::shooting()
 {
-	//レイを作成
-	btVector3 start, end;
-	start.setZero();
-	end.setZero();
-
-	//カメラの位置
-	Vector3 cameraPos = g_camera3D->GetPosition();
-	//カメラの向き
-	Vector3 Direction = g_camera3D->GetTarget() - g_camera3D->GetPosition();
-	//方向を正規化
-	Direction.Normalize();
-
-	//始点をセット
-	start.setValue(cameraPos.x, cameraPos.y, cameraPos.z);
-
-	//終点となる位置を作成
-	Vector3 EndPos = Vector3::Zero;
-	//終点は始点となる位置に方向*距離を足したもの
-	EndPos = cameraPos;
-	//終点に方向に距離を掛けたもの足す
-	EndPos += Direction * m_range;
-	//終点をセット
-	end.setValue(EndPos.x, EndPos.y, EndPos.z);
-
-
-
-	//衝突検出
-	SweepResult callback;
-	//衝突検出
-	g_engine->GetPhysicsWorld().RayTest(start, end, callback);
-
-	//レイがゴーストオブジェクトに衝突しているとき
-	if (callback.isHit)
+	time += g_gameTime.GetFrameDeltaTime();
+	//秒間10発撃てる
+	if (time >= 1.0f / rate)
 	{
-		callback.m_collisionObject->setActivationState(CollisionActivationState::Hit);
-		int i = callback.m_collisionObject->getActivationState();
+		//レイを作成
+		btVector3 start, end;
+		start.setZero();
+		end.setZero();
+
+		//カメラの位置
+		Vector3 cameraPos = g_camera3D->GetPosition();
+		//カメラの向き
+		Vector3 Direction = g_camera3D->GetTarget() - g_camera3D->GetPosition();
+		//方向を正規化
+		Direction.Normalize();
+
+		//始点をセット
+		start.setValue(cameraPos.x, cameraPos.y, cameraPos.z);
+
+		//終点となる位置を作成
+		Vector3 EndPos = Vector3::Zero;
+		//終点は始点となる位置に方向*距離を足したもの
+		EndPos = cameraPos;
+		//終点に方向に距離を掛けたもの足す
+		EndPos += Direction * m_range;
+		//終点をセット
+		end.setValue(EndPos.x, EndPos.y, EndPos.z);
+
+
+
+		//衝突検出
+		SweepResult callback;
+		//衝突検出
+		g_engine->GetPhysicsWorld().RayTest(start, end, callback);
+
+		//レイがゴーストオブジェクトに衝突しているとき
+		if (callback.isHit)
+		{
+			//コリジョンのステートをヒットにする
+			callback.m_collisionObject->setActivationState(CollisionActivationState::Hit);
+			return;
+		}
+
+		//衝突していなければデカールを追加
+		AddDecale(start, end);
+		time = 0.0f;
+	}
+	else
+	{
 		return;
 	}
-
-	//衝突していなければデカールを追加
-	AddDecale(start, end);
 }
