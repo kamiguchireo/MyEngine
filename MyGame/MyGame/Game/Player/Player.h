@@ -55,7 +55,7 @@ public:
 	}
 
 	//ƒfƒJ[ƒ‹‚ğ’Ç‰Á
-	void AddDecale()
+	void Shooting()
 	{
 		if (m_PlayerWeapon != nullptr)
 		{

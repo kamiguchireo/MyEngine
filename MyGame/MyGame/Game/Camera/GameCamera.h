@@ -6,6 +6,7 @@
 enum class CameraState {
 	TPS,
 	AIM,
+	NUM
 };
 class GameCamera:public IGameObject
 {
@@ -30,7 +31,25 @@ public:
 	//カメラのステートを設定
 	void SetCameraState(CameraState state)
 	{
-		m_StateNum = state;
+		if (m_StateNum != state)
+		{
+			m_StateNum = state;
+			switch (m_StateNum)
+			{
+			case CameraState::TPS:
+				//TPSカメラにする
+				ChangeState(&TPScameraState);
+				currentState->SetAddPosY(50.0f);
+				break;
+			case CameraState::AIM:
+				//AIMカメラにする
+				ChangeState(&AIMcameraState);
+				currentState->SetAddPosY(0.0f);
+				break;
+			default:
+				break;
+			}
+		}
 	}
 
 	//計算の起点となる位置をセット
@@ -40,7 +59,10 @@ public:
 	}
 
 private:
-	CameraState m_StateNum = CameraState::TPS;
+
+
+private:
+	CameraState m_StateNum = CameraState::NUM;
 	IGameCamera* currentState = nullptr;
 	CameraStateTPS TPScameraState;
 	CameraStateAim AIMcameraState;

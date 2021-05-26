@@ -3,7 +3,6 @@
 
 CameraStateAim::CameraStateAim()
 {
-
 }
 
 CameraStateAim::~CameraStateAim()
@@ -29,14 +28,14 @@ void CameraStateAim::Update(Vector3& pivotpos,float&rot)
 	targetPos.y = DefaultCameraHeight;
 	
 	//カメラのポジションに足すY方向の値をマウスカーソルの位置と初期値を比較して求める
-	*AddPosY -= (DefaultPoint[1] - lsty) * sensiY;
+	AddPosY += (DefaultPoint[1] - lsty) * sensiY;
 
-	*AddPosY = min(max(MinAddPos, *AddPosY), MaxAddPos);
+	AddPosY = min(max(MinAddPos, AddPosY), MaxAddPos);
 	//カメラのポジションに足すベクトル
 	Vector3 addPos = Vector3::Zero;
 	//rotからカメラの位置を決める
 	addPos.x -= sinf(rot) * CameraDist;
-	addPos.y -= *AddPosY;
+	addPos.y += AddPosY;
 	addPos.z = cosf(rot) * CameraDist;
 	targetPos += addPos;
 	

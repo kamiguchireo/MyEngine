@@ -4,7 +4,7 @@
 GameCamera::GameCamera()
 {
 	//TPSƒJƒƒ‰‚É‚·‚é
-	ChangeState(&TPScameraState);
+	SetCameraState(CameraState::TPS);
 }
 
 GameCamera::~GameCamera()
@@ -20,20 +20,6 @@ bool GameCamera::Start()
 
 void GameCamera::Update()
 {
-	switch (m_StateNum)
-	{
-	case CameraState::TPS:
-		//TPSƒJƒƒ‰‚É‚·‚é
-		ChangeState(&TPScameraState);
-		break;
-	case CameraState::AIM:
-		//AIMƒJƒƒ‰‚É‚·‚é
-		ChangeState(&AIMcameraState);
-		break;
-	default:
-		break;
-	}
-	currentState->SetAddPosY(&AddPosY);
 	currentState->Update(m_pivotPos,rot);
 	g_camera2D->Update();
 	g_camera3D->Update();

@@ -141,9 +141,26 @@ void EnemyHitBox::Update()
 	{
 		if (m_colldetection[i]->GetActivationState() == CollisionActivationState::Hit)
 		{
+			if (i == HitBoxNum::Head)
+			{
+				m_en->Damage(60);
+			}
+			else if (i >= HitBoxNum::Spine2 && i <= HitBoxNum::Hips)
+			{
+				m_en->Damage(20);
+			}
+			else if (i >= HitBoxNum::LeftUpLeg && i <= HitBoxNum::RightToeBase)
+			{
+				m_en->Damage(15);
+			}
+			else if (i >= HitBoxNum::LeftArm && i <= HitBoxNum::RightHand)
+			{
+				m_en->Damage(10);
+			}
+
 			//ヒットボックスに弾が当たっているとき
 			//ダメージを与える
-			m_en->Damage(100);
+			//m_en->Damage(100);
 			//ステートをデフォにセット
 			m_colldetection[i]->SetActivationState(CollisionActivationState::Default);
 		}

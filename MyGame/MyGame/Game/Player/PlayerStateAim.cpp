@@ -47,7 +47,7 @@ void PlayerStateAim::UpdateRotation()
 	//プレイヤーに適応
 	m_Player->SetRot(rot);
 	//腰から上も回転
-	WaistBend();
+	//WaistBend();
 }
 
 void PlayerStateAim::Init()
@@ -69,7 +69,7 @@ void PlayerStateAim::Update()
 	{
 		//アニメーションを再生
 		m_Player->PlayAnimation(enPlayerAnimation_Rifle_fire);
-		m_Player->AddDecale();
+		m_Player->Shooting();
 	}
 	else
 	{
