@@ -145,15 +145,18 @@ void Skeleton::Update(const Matrix& mWorld)
 		Matrix localMatrix = bone->GetLocalMatrix();
 		if (bone->HasUserMat() == true)
 		{
-			localMatrix = bone->GetUserMatrix();
+			//localMatrix = bone->GetUserMatrix();
 			//bone->SetHasUserMat(false);
+			mBoneWorld = localMatrix * bone->GetUserMatrix() * mWorld;
 		}
 		else
 		{
 			localMatrix = bone->GetLocalMatrix();
+			mBoneWorld = localMatrix * mWorld;
 		}
+
 		//親の行列とローカル行列を乗算して、ワールド行列を計算する。
-		mBoneWorld = localMatrix * mWorld;
+		//mBoneWorld = localMatrix * mWorld;
 		bone->SetWorldMatrix(mBoneWorld);
 	}
 

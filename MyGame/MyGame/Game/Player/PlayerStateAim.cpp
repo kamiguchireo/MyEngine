@@ -24,7 +24,7 @@ void PlayerStateAim::WaistBend()
 	//mRot.MakeRotationAxis(Vector3::AxisX, RotY);
 	//プレイヤーの腰を回転
 	m_plSkeleton->GetBone(m_LeftArmBoneNum)->SetUserMat(mRot);
-	m_plSkeleton->GetBone(m_RightArmBoneNum)->SetUserMat(mRot);
+	//m_plSkeleton->GetBone(m_RightArmBoneNum)->SetUserMat(mRot);
 }
 
 void PlayerStateAim::UpdateRotation()
@@ -47,13 +47,13 @@ void PlayerStateAim::UpdateRotation()
 	//プレイヤーに適応
 	m_Player->SetRot(rot);
 	//腰から上も回転
-	//WaistBend();
+	WaistBend();
 }
 
 void PlayerStateAim::Init()
 {
 	m_plSkeleton = m_Player->GetSkeleton();
-	m_LeftArmBoneNum = m_plSkeleton->FindBoneID(L"mixamorig:LeftArm");
+	m_LeftArmBoneNum = m_plSkeleton->FindBoneID(L"mixamorig:Spine");
 	m_RightArmBoneNum = m_plSkeleton->FindBoneID(L"mixamorig:RightArm");
 }
 
