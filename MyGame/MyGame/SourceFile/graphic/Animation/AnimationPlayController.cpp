@@ -76,6 +76,7 @@ namespace Engine {
 	{
 		m_currentKeyFrameNo = 0;
 		m_time = 0.0f;
+		//ループするのでひとつ前のフレームのフットステップの移動量をリセット
 		m_footstepLastValue = g_vec3Zero;
 	}
 
@@ -126,10 +127,13 @@ namespace Engine {
 				m_boneMatrix[bone->GetNo()].m[3][0] -= footStepBoneWorldMatrix.m[3][0];
 				m_boneMatrix[bone->GetNo()].m[3][1] -= footStepBoneWorldMatrix.m[3][1];
 				m_boneMatrix[bone->GetNo()].m[3][2] -= footStepBoneWorldMatrix.m[3][2];
+				//このフレームでの異動量を知るためにひとつ前の移動量を減算
 				m_footstepDeltaValue -= m_footstepLastValue;
+				//次のフレームで使用する移動量を代入
 				m_footstepLastValue.x = footStepBoneWorldMatrix.m[3][0];
 				m_footstepLastValue.y = footStepBoneWorldMatrix.m[3][1];
 				m_footstepLastValue.z = footStepBoneWorldMatrix.m[3][2];
+
 				break;
 			}
 		}
