@@ -110,6 +110,7 @@ namespace Engine {
 		float m_time = 0.0f;
 		bool m_isPlaying = false;		//再生中かどうか
 		Vector3 m_footstepDeltaValue = g_vec3Zero;		//フットステップの移動ベクトル
+		Vector3 m_footstepLastValue = g_vec3Zero;		//前のフレームのフットステップの移動量
 		float m_interpolateEndTime = 1.0f;		//補完終了時間
 		float m_interpolateTime = 0.0f;		//現在の補完時間
 	};

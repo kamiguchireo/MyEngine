@@ -128,6 +128,7 @@ namespace Engine
 		}
 		//グローバルポーズを計算
 		int startIndex = m_startAnimationPlayController;
+		//アニメーション再生コントローラーの数分回す
 		for (int i = 0; i < m_numAnimationPlayController; i++)
 		{
 			int index = GetAnimationControllerIndecx(startIndex, i);
@@ -180,9 +181,6 @@ namespace Engine
 					qGlobalPose[boneNo].Slerp(interpolateRate, qGlobalPose[boneNo], qBone);
 				}
 
-				auto deltaValueFootStep = m_animationPlayController[index].GetFootStepDeltaValueOnUpdate();
-				//footstepの移動量の補完
-				m_footstepDeltaValue.Lerp(interpolateRate, m_footstepDeltaValue, deltaValueFootStep);
 			}
 		}
 		//グローバルポーズをスケルトンに反映させる
@@ -235,6 +233,10 @@ namespace Engine
 			}
 		}
 		m_numAnimationPlayController = numAnimationPlayController;
+		int lastAnimClip = GetLastAnimationControllerIndex();
+		auto m_footstepDeltaValue = m_animationPlayController[lastAnimClip].GetFootStepDeltaValueOnUpdate();
+		//footstepの移動量の補完
+		//m_footstepDeltaValue.Lerp(interpolateRate, m_footstepDeltaValue, deltaValueFootStep);
 
 		return m_footstepDeltaValue;
 	}

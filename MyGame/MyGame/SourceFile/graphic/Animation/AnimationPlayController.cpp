@@ -76,6 +76,7 @@ namespace Engine {
 	{
 		m_currentKeyFrameNo = 0;
 		m_time = 0.0f;
+		m_footstepLastValue = g_vec3Zero;
 	}
 
 	void AnimationPlayController::SamplingBoneMatrixFromAnimationClip()
@@ -107,6 +108,7 @@ namespace Engine {
 		{
 			return;
 		}
+		//É{Å[ÉìÇÃêîï™âÒÇ∑
 		for (int boneNo = 0; boneNo < m_skeleton->GetNumBones(); boneNo++)
 		{
 			auto bone = m_skeleton->GetBone(boneNo);
@@ -124,7 +126,10 @@ namespace Engine {
 				m_boneMatrix[bone->GetNo()].m[3][0] -= footStepBoneWorldMatrix.m[3][0];
 				m_boneMatrix[bone->GetNo()].m[3][1] -= footStepBoneWorldMatrix.m[3][1];
 				m_boneMatrix[bone->GetNo()].m[3][2] -= footStepBoneWorldMatrix.m[3][2];
-				
+				m_footstepDeltaValue -= m_footstepLastValue;
+				m_footstepLastValue.x = footStepBoneWorldMatrix.m[3][0];
+				m_footstepLastValue.y = footStepBoneWorldMatrix.m[3][1];
+				m_footstepLastValue.z = footStepBoneWorldMatrix.m[3][2];
 				break;
 			}
 		}

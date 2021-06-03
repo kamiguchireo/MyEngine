@@ -24,7 +24,7 @@ static const int MAX_BONE = 512;	//!<ボーンの最大数。
 static const int CascadeShadow = 3;		//シャドウマップの枚数
 static const int DefferdTexNum = 2;
 static const Vector3 gravity = { 0.0f,-9.8f,0.0f };
-static const float footStepAdjustValue = 1.0f;
+static const float footStepAdjustValue = 24.0f;
 static const Vector2 TexResolution = { 4096.0f,4096.0f };
 enum EnPlayerAnimation {
 	enPlayerAnimation_Rifle_Idle,
