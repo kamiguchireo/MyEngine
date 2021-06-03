@@ -246,7 +246,6 @@ namespace Engine
 			//アニメーションプレイコントローラの数が不正です
 			std::abort();
 		}
-		m_deltaTimeOnUpdate = deltaTime;
 		//ローカルポーズの更新
 		UpdateLocalPose(deltaTime);
 

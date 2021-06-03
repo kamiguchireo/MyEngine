@@ -38,7 +38,6 @@ namespace Engine {
 			m_currentKeyFrameNo = 0;
 			m_time = 0.0f;
 			m_isPlaying = true;		//再生中
-			m_footstepPos = g_vec3Zero;		//フットステップの位置
 			m_footstepDeltaValue = g_vec3Zero;		//フットステップの移動ベクトル
 		}
 
@@ -69,17 +68,11 @@ namespace Engine {
 		//ボーン行列をアニメーションクリップからサンプリングする
 		void SamplingBoneMatrixFromAnimationClip();
 
-		//ルートボーン空間での行列を計算する
-		void CalcBoneMatrixInRootBoneSpace();
-		//bone		計算するボーン
-		//parentMatrix		親の行列
-		void CalcBoneMatrixInRootBoneSpace(Bone&bone,Matrix parentMatrix);
-
 		//footstepのボーンの変化量をサンプリングする
 		void SamplingDeltaValueFootStepBone();
-
-		//footstepボーンの座標を全体の骨から減算する
-		void SubtractFootstepBonePosFromAllBone();
+		
+		//フットステップボーンのワールド行列を求める
+		void CalcFootStepBoneWorldMatrix(Bone& bone, const Matrix& parentMatrix, Matrix& footStepBoneMatrix);
 
 		//補完率を取得
 		float GetInterpolateRate()const
@@ -116,7 +109,6 @@ namespace Engine {
 		int m_currentKeyFrameNo = 0;		//現在再生中のキーフレーム番号
 		float m_time = 0.0f;
 		bool m_isPlaying = false;		//再生中かどうか
-		Vector3 m_footstepPos = g_vec3Zero;		//フットステップボーンの座標
 		Vector3 m_footstepDeltaValue = g_vec3Zero;		//フットステップの移動ベクトル
 		float m_interpolateEndTime = 1.0f;		//補完終了時間
 		float m_interpolateTime = 0.0f;		//現在の補完時間

@@ -28,14 +28,8 @@ namespace Engine {
 		//ボーン行列をアニメーションクリップからサンプリングしていく
 		SamplingBoneMatrixFromAnimationClip();
 
-		//親の骨座標系になっているボーン行列をルートのボーンの空間に変換する
-		CalcBoneMatrixInRootBoneSpace();
-
 		//footstepのボーンの移動量を取得する
 		SamplingDeltaValueFootStepBone();
-
-		//footstepボーンの移動量を全体の骨から減算する
-		SubtractFootstepBonePosFromAllBone();
 
 		//アニメーション再生したフラグをスケルトンに立てる
 		m_skeleton->SetMarkPlayAnimation();
@@ -80,7 +74,6 @@ namespace Engine {
 
 	void AnimationPlayController::StartLoop()
 	{
-		m_footstepPos = g_vec3Zero;
 		m_currentKeyFrameNo = 0;
 		m_time = 0.0f;
 	}
@@ -108,84 +101,50 @@ namespace Engine {
 		}
 	}
 
-	void AnimationPlayController::CalcBoneMatrixInRootBoneSpace()
-	{
-		int numBone = m_skeleton->GetNumBones();
-		for (int boneNo = 0; boneNo < numBone; boneNo++)
-		{
-			//ルートの骨を検索する
-			auto bone = m_skeleton->GetBone(boneNo);
-			//親のボーン番号を取得
-			if (bone->GetParentBoneNo() != -1)
-			{
-				continue;
-			}
-			CalcBoneMatrixInRootBoneSpace(*bone, g_matIdentity);
-		}
-	}
-
-	void AnimationPlayController::CalcBoneMatrixInRootBoneSpace(Bone& bone, Matrix parentMatrix)
-	{
-		//ワールド行列を計算する
-		//現在再生中のボーン行列を取得
-		auto& mBoneInRootSpace = m_boneMatrix[bone.GetNo()];
-		Matrix localMatrix = m_boneMatrix[bone.GetNo()];
-
-		//親の行列とローカル行列を乗算して、ワールド行列を計算する
-		mBoneInRootSpace = localMatrix * parentMatrix;
-
-		//子供のワールド行列も計算する
-		for (auto& childBone : bone.GetChildren())
-		{
-			CalcBoneMatrixInRootBoneSpace(*childBone, mBoneInRootSpace);
-		}
-	}
-
 	void AnimationPlayController::SamplingDeltaValueFootStepBone()
 	{
-		if (m_currentKeyFrameNoLastFrame == m_currentKeyFrameNo)
-		{
-			//キーフレームが進んでいない。
-			return;
-		}
 		if (m_footstepBoneNo == -1)
 		{
 			return;
 		}
-		int numBone = m_skeleton->GetNumBones();
-		for (int boneNo = 0; boneNo < numBone; boneNo++)
+		for (int boneNo = 0; boneNo < m_skeleton->GetNumBones(); boneNo++)
 		{
 			auto bone = m_skeleton->GetBone(boneNo);
-			if (m_footstepBoneNo == bone->GetNo())
+			if (bone->GetParentBoneNo() == -1)
 			{
-				const auto& mat = m_boneMatrix[bone->GetNo()];
-				Vector3 footstepBonePos;
-				footstepBonePos.x = mat.m[3][0];
-				footstepBonePos.y = mat.m[3][1];
-				footstepBonePos.z = mat.m[3][2];
-				//このフレームでのfootstepの移動量を計算する
-				m_footstepDeltaValue = footstepBonePos - m_footstepPos;
-				//このフレームでのfootstepの座標を更新する
-				m_footstepPos = footstepBonePos;
+				//ルートボーンの時
+				Matrix footStepBoneWorldMatrix = Matrix::Identity;
+				CalcFootStepBoneWorldMatrix(*bone, Matrix::Identity, footStepBoneWorldMatrix);
+				m_footstepDeltaValue = Vector3::Zero;
+				//フットステップを代入
+				m_footstepDeltaValue.x = footStepBoneWorldMatrix.m[3][0];
+				m_footstepDeltaValue.y = footStepBoneWorldMatrix.m[3][1];
+				m_footstepDeltaValue.z = footStepBoneWorldMatrix.m[3][2];
+				//フットステップの移動量を減算
+				m_boneMatrix[bone->GetNo()].m[3][0] -= footStepBoneWorldMatrix.m[3][0];
+				m_boneMatrix[bone->GetNo()].m[3][1] -= footStepBoneWorldMatrix.m[3][1];
+				m_boneMatrix[bone->GetNo()].m[3][2] -= footStepBoneWorldMatrix.m[3][2];
+				
 				break;
 			}
 		}
 	}
 
-	void AnimationPlayController::SubtractFootstepBonePosFromAllBone()
+	void AnimationPlayController::CalcFootStepBoneWorldMatrix(Bone& bone, const Matrix& parentMatrix, Matrix& footStepBoneMatrix)
 	{
-		if (m_footstepBoneNo == -1)
+		Matrix boneWorld = Matrix::Identity;
+		Matrix localMatrix = m_boneMatrix[bone.GetNo()];
+		boneWorld = localMatrix * parentMatrix;
+		if (bone.GetNo() == m_footstepBoneNo)
 		{
+			//フットステップボーンがみつかった時
+			footStepBoneMatrix = boneWorld;
 			return;
 		}
-		int numBone = m_skeleton->GetNumBones();
-
-		for (int boneNo = 0; boneNo < numBone; boneNo++)
+		//フットステップボーンがみつかるまで子供のボーンに適応する
+		for (auto childBone : bone.GetChildren())
 		{
-			auto bone = m_skeleton->GetBone(boneNo);
-			m_boneMatrix[bone->GetNo()].m[3][0] -= m_footstepPos.x;
-			m_boneMatrix[bone->GetNo()].m[3][1] -= m_footstepPos.y;
-			m_boneMatrix[bone->GetNo()].m[3][2] -= m_footstepPos.z;
+			CalcFootStepBoneWorldMatrix(*childBone, boneWorld, footStepBoneMatrix);
 		}
 	}
 }

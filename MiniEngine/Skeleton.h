@@ -148,9 +148,9 @@ public:
 		m_userMat = mat;
 		//m_userMat.Multiply(m_localMatrix, mat);
 		IsSetUserMat = true;
-		for (auto childBone : m_children) {
-			childBone->SetUserMat(mat);
-		}
+		//for (auto childBone : m_children) {
+		//	childBone->SetUserMat(mat);
+		//}
 	}
 
 
