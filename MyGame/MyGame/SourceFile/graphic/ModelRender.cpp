@@ -62,12 +62,18 @@ namespace Engine {
 			{
 				g_graphicsEngine->GetShadowMap()->RegistShadowCaster(m_model);
 			}
-			g_graphicsEngine->GetDefferdRendering()->RegistCaster(m_model);
+			if (IsDefferd)
+			{
+				g_graphicsEngine->GetDefferdRendering()->RegistCaster(m_model);
+			}
 		}
 
 		void ModelRender::Draw()
 		{
-
+			if (IsDefferd == false)
+			{
+				m_model->Draw(g_graphicsEngine->GetRenderContext());
+			}
 		}
 	}
 }

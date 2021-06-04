@@ -37,7 +37,7 @@ public:
 		m_renderObjDatas.push_back(data);
 	}
 private:
-	Model m_Tree;
+	prefab::ModelRender* m_Tree = nullptr;
 	ModelInitData m_InitData;
 	int m_instanceNum = 1;		//インスタンスの数
 	std::vector<ObjData> m_renderObjDatas;		//描画するオブジェクトの配列

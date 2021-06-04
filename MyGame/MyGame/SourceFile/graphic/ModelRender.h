@@ -116,6 +116,11 @@ namespace Engine {
 			{
 				m_model->LoadTkm(tkmFilePath);
 			}
+			
+			void SetIsDefferd(bool flag)
+			{
+				IsDefferd = flag;
+			}
 		private:
 			Model* m_model = nullptr;
 			Vector3 m_pos = Vector3::Zero;
@@ -133,6 +138,7 @@ namespace Engine {
 			int m_numInstance = 1;
 			bool UpdateFlag = true;
 			bool IsInited = false;
+			bool IsDefferd = true;
 		};
 	}
 }
