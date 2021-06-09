@@ -1,4 +1,5 @@
 #pragma once
+#include "SourceFile/GameObject/GameObjectManager.h"
 
 namespace Engine {
 	namespace prefab{

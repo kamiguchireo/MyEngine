@@ -34,6 +34,9 @@ void EngineProcessing::Update()
 
 	//デカールのアップデート
 	g_graphicsEngine->GetDecale()->Update();
+
+	//スカイキューブのアップデート
+	g_graphicsEngine->GetSky()->Update();
 }
 
 void EngineProcessing::Rendering()

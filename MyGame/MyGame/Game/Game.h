@@ -1,7 +1,7 @@
 #pragma once
 #include "SourceFile/graphic/Animation/Animation.h"
 #include "SourceFile/graphic/Animation/AnimationClip.h"
-#include "SourceFile/graphic/ModelRender.h"
+//#include "SourceFile/graphic/ModelRender.h"
 #include "Player/Player.h"
 #include "Stage/Stage.h"
 #include "Enemy/Enemy.h"

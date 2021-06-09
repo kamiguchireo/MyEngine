@@ -1,5 +1,6 @@
 #pragma once
 #include "SourceFile/Physics/PhysicsStaticObject.h"
+//#include "SourceFile/graphic/ModelRender.h"
 
 class Tree1:public IGameObject
 {

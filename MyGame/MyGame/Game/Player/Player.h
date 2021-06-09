@@ -8,6 +8,7 @@
 #include "SourceFile/Physics/CharacterController.h"
 #include "SourceFile/Graphic/SpriteRender.h"
 #include "PlayerHitBox.h"
+//#include "SourceFile/graphic/ModelRender.h"
 
 class Player:public IGameObject
 {

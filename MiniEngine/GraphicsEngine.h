@@ -17,6 +17,7 @@
 #include "SourceFile/graphic/PostEffect/DefferdRendering.h"
 #include "SourceFile/graphic/Light/LightManager.h"
 #include "SourceFile/graphic/Decale.h"
+#include "SourceFile/graphic/nature/Sky.h"
 
 enum EnRenderMode {
 	enRenderMode_CreateShadowMap,		//シャドウマップ生成
@@ -162,6 +163,11 @@ public:
 	{
 		return m_Decale;
 	}
+	
+	std::unique_ptr<Engine::Sky>& GetSky()
+	{
+		return m_sky;
+	}
 private:
 	/// <summary>
 	/// D3Dデバイスの作成。
@@ -272,6 +278,7 @@ private:
 	std::unique_ptr<Engine::DefferdRendering> m_DefferdRendering = nullptr;		//ディファードレンダリング
 	std::unique_ptr<Engine::LightManager> m_LM = nullptr;		//ライトマネージャー
 	std::unique_ptr<Engine::Decale> m_Decale = nullptr;		//デカール
+	std::unique_ptr<Engine::Sky> m_sky = nullptr;		//スカイキューブ
 };
 extern GraphicsEngine* g_graphicsEngine;	//グラフィックスエンジン
 extern Camera* g_camera2D;					//2Dカメラ。

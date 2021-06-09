@@ -168,10 +168,10 @@ void Material::InitShaders(
 	m_vsNonSkinModel.LoadVS(fxFilePath, vsEntryPointFunc);
 	m_vsSkinModel.LoadVS(fxFilePath, vsEntryPointFunc);
 	m_psModel.LoadPS(fxFilePath, psEntryPointFunc);
-	m_vsshadowModelInstancing.LoadVS(fxFilePath, "VSMain_ShadowMapInstancing");
-	m_vsshadowModel.LoadVS(fxFilePath, "VSMain_ShadowMap");
-	m_vsshadowSkinModel.LoadVS(fxFilePath, "VSMain_ShadowMapSkin");
-	m_psshadowModel.LoadPS(fxFilePath, "PSMain_ShadowMap");
+	m_vsshadowModelInstancing.LoadVS(L"Assets/shader/ShadowMap.fx", "VSMain_ShadowMapInstancing");
+	m_vsshadowModel.LoadVS(L"Assets/shader/ShadowMap.fx", "VSMain_ShadowMap");
+	m_vsshadowSkinModel.LoadVS(L"Assets/shader/ShadowMap.fx", "VSMain_ShadowMapSkin");
+	m_psshadowModel.LoadPS(L"Assets/shader/ShadowMap.fx", "PSMain_ShadowMap");
 }
 
 void Material::BeginRender(RenderContext& rc, int hasSkin,int renderMode,int instanceNum)
