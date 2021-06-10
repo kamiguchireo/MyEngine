@@ -13,7 +13,8 @@ namespace Engine {
 
 	private:
 		prefab::ModelRender* m_skyModel = nullptr;
-		Vector3 m_scale = { 1000.0f,1000.0f,1000.0f };
+		Vector3 m_scale = { 50.0f,50.0f,50.0f };
 		Vector3 m_pos = Vector3::Zero;
+		std::unique_ptr<Texture> m_tex = nullptr;
 	};
 }

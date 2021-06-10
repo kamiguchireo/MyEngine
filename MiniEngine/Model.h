@@ -104,6 +104,11 @@ public:
 			IsTkmInited = true;
 		}
 	}
+
+	std::vector<SMesh*>& GetMeshs()
+	{
+		return m_meshParts.GetMeshs();
+	}
 private:
 	Matrix m_world;			//ワールド行列。
 	TkmFile m_tkmFile;		//tkmファイル。

@@ -22,6 +22,10 @@ public:
 	/// <param name="hasSkin">スキンがあるかどうかのフラグ</param>
 	void BeginRender(RenderContext& rc, int hasSkin,int renderMode = 1,int instanceNum = 1);
 
+	void SetDiffuseTexture(ID3D12Resource* tex)
+	{
+		m_albedoMap.SetTexture(tex);
+	}
 	/// <summary>
 	/// アルベドマップを取得。
 	/// </summary>

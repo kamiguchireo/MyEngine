@@ -50,6 +50,11 @@ public:
 	{
 		return m_texture;
 	}
+
+	void SetTexture(ID3D12Resource* tex)
+	{
+		m_texture = tex;
+	}
 private:
 	/// <summary>
 	/// DDSファイルからテクスチャをロード。
