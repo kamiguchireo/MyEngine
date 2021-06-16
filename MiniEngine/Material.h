@@ -24,7 +24,7 @@ public:
 
 	void SetDiffuseTexture(ID3D12Resource* tex)
 	{
-		m_albedoMap.SetTexture(tex);
+		m_albedoMap.InitFromD3DResource(tex);
 	}
 	/// <summary>
 	/// アルベドマップを取得。

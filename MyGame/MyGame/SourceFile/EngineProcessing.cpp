@@ -18,6 +18,13 @@ void EngineProcessing::Init()
 
 	//フィジックスワールドを初期化
 	g_engine->GetPhysicsWorld().Init();
+	//ライトマネージャーの初期化
+	g_graphicsEngine->GetLightManager()->InitCB();
+	//デカールの初期化
+	g_graphicsEngine->GetDecale()->Init();
+	//スカイキューブの初期化
+	g_graphicsEngine->GetSky()->Init();
+
 }
 
 void EngineProcessing::Update()

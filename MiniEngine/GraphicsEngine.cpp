@@ -188,10 +188,10 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 	m_shadowMap->ShadowMapRTCreate();
 	//デカール
 	m_Decale = std::make_unique<Engine::Decale>();
-	m_Decale->Init();
+	//m_Decale->Init();
 	//スカイキューブ
 	m_sky = std::make_unique<Engine::Sky>();
-	m_sky->Init();
+	//m_sky->Init();
 
 	return true;
 }

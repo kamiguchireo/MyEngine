@@ -33,13 +33,16 @@ namespace Engine {
 		m_skyModel->SetfxFilePath("Assets/shader/SkyCube.fx");
 		//ピクセルシェーダーのエントリーポイントを設定
 		m_skyModel->SetPSEntryPoint("PSMain");
+		m_skyModel->Start();
 		//m_tex->InitFromDDSFile(L"Assets/modelData/skyCubeMap.dds");
 		////テクスチャ差し替え
-		//auto meshs = m_skyModel->GetModel().GetMeshParts();
+		//auto meshs = m_skyModel->GetModel().GetMeshParts().GetMeshs();
 		//for (auto mesh : meshs)
 		//{
-		//	for (int i = 0; i < mesh->m_materials.size(); i++)
-		//		mesh->m_materials[i]->SetDiffuseTexture(m_tex->Get());
+		//	for (auto mat : mesh->m_materials)
+		//	{
+		//		mat->SetDiffuseTexture(m_tex->Get());
+		//	}
 		//}
 		return true;
 	}

@@ -108,7 +108,7 @@ namespace Engine {
 				UpdateFlag = flag;
 			}
 			//ƒXƒLƒ“ƒ‚ƒfƒ‹‚ðŽæ“¾
-			const Model& GetModel()
+			Model& GetModel()
 			{
 				return *m_model;
 			}

@@ -34,7 +34,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	EngineProcessing EP;
 	EP.Init();
 
-	g_graphicsEngine->GetLightManager()->InitCB();
 	DirectionalLight DL1;
 	DL1.direction = { 1.0f,-1.0f,-1.0f };
 	DL1.direction.Normalize();
