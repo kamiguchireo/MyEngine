@@ -106,6 +106,7 @@ void Material::InitPipelineState()
 #endif
 	psoDesc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 	psoDesc.SampleDesc.Count = 1;
+	psoDesc.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;
 
 	m_skinModelPipelineState.Init(psoDesc);
 	
@@ -148,6 +149,7 @@ void Material::InitPipelineState()
 	psoDesc.BlendState.RenderTarget[0].DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
 	psoDesc.BlendState.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;
 
+	psoDesc.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;
 
 	m_transSkinModelPipelineState.Init(psoDesc);
 

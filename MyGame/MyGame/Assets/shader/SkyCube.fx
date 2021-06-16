@@ -37,6 +37,7 @@ SPSIn VSMain(SVSIn vsIn)
 //ピクセルシェーダー
 float4 PSMain(SPSIn psIn) : SV_Target0
 {
+	//return float4(psIn.normal,1.0f);
 	float4 color = skyCubeMap.Sample(g_sampler,psIn.normal);
 	return color;
 }

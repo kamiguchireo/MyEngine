@@ -105,10 +105,11 @@ public:
 		}
 	}
 
-	std::vector<SMesh*>& GetMeshs()
+	MeshParts& GetMeshParts()
 	{
-		return m_meshParts.GetMeshs();
+		return m_meshParts;
 	}
+
 private:
 	Matrix m_world;			//ワールド行列。
 	TkmFile m_tkmFile;		//tkmファイル。

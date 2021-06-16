@@ -108,7 +108,7 @@ private:
 	int m_numConstantBuffer = 0;	//定数バッファの数。
 	int m_numUavResource = 0;
 	ID3D12DescriptorHeap* m_descriptorHeap[2] = { nullptr };					//ディスクリプタヒープ。
-	IShaderResource* m_shaderResources[MAX_SHADER_RESOURCE] = {nullptr};		//シェーダーリソース。7
+	IShaderResource* m_shaderResources[MAX_SHADER_RESOURCE] = {nullptr};		//シェーダーリソース。
 	IUnorderAccessResrouce* m_uavResoruces[MAX_SHADER_RESOURCE] = { nullptr };	//UAVリソース。
 	ConstantBuffer* m_constantBuffers[MAX_CONSTANT_BUFFER] = { nullptr };	//定数バッファ。
 	D3D12_GPU_DESCRIPTOR_HANDLE m_cbGpuDescriptorStart[2];					//定数バッファのディスクリプタヒープの開始ハンドル。

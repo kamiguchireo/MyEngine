@@ -80,8 +80,6 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 	m_shadowMap = std::make_unique<Engine::ShadowMap>();
 	m_DefferdRendering = std::make_unique<Engine::DefferdRendering>();
 	m_LM = std::make_unique<Engine::LightManager>();
-	m_Decale = std::make_unique<Engine::Decale>();
-	m_sky = std::make_unique<Engine::Sky>();
 	m_frameBufferWidth = frameBufferWidth;
 	m_frameBufferHeight = frameBufferHeight;
 
@@ -188,7 +186,11 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 	//
 	g_graphicsEngine = this;
 	m_shadowMap->ShadowMapRTCreate();
+	//デカール
+	m_Decale = std::make_unique<Engine::Decale>();
 	m_Decale->Init();
+	//スカイキューブ
+	m_sky = std::make_unique<Engine::Sky>();
 	m_sky->Init();
 
 	return true;

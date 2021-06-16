@@ -108,7 +108,7 @@ namespace Engine {
 				UpdateFlag = flag;
 			}
 			//ƒXƒLƒ“ƒ‚ƒfƒ‹‚ðŽæ“¾
-			const Model& GetModel()const
+			const Model& GetModel()
 			{
 				return *m_model;
 			}
@@ -123,10 +123,6 @@ namespace Engine {
 				IsDefferd = flag;
 			}
 
-			std::vector<SMesh*>& GetMeshs()
-			{
-				return m_model->GetMeshs();
-			}
 		private:
 			Model* m_model = nullptr;
 			Vector3 m_pos = Vector3::Zero;
