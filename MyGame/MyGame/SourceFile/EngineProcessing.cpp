@@ -20,6 +20,8 @@ void EngineProcessing::Init()
 	g_engine->GetPhysicsWorld().Init();
 	//ライトマネージャーの初期化
 	g_graphicsEngine->GetLightManager()->InitCB();
+	//シャドウマップの初期化
+	g_graphicsEngine->GetShadowMap()->ShadowMapRTCreate();
 	//デカールの初期化
 	g_graphicsEngine->GetDecale()->Init();
 	//スカイキューブの初期化
