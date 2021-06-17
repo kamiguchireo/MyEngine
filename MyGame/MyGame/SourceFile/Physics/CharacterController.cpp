@@ -172,7 +172,7 @@ namespace Engine {
 			}
 			Vector3 posTmp = m_position;
 			//カプセルコライダーの中心座標 + 高さ*0.1fの座標をposTmpに求める
-			posTmp.y += m_height * 0.5f + m_radius + m_height * 0.1f;
+			posTmp.y += m_height * 0.5f + m_radius + m_height * 0.2f;
 			//レイを作成
 			btTransform start, end;
 			//始点

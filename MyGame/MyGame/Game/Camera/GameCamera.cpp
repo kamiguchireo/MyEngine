@@ -21,6 +21,7 @@ bool GameCamera::Start()
 void GameCamera::Update()
 {
 	currentState->Update(m_pivotPos,rot);
+	AIMcameraState.SetHeadPos(m_HeadPos);
 	g_camera2D->Update();
 	g_camera3D->Update();
 

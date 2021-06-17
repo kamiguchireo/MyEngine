@@ -33,7 +33,7 @@ void CameraStateAim::Update(Vector3& pivotpos,float&rot)
 	AddPosY = min(max(MinAddPos, AddPosY), MaxAddPos);
 	//カメラのポジションに足すベクトル
 	Vector3 addPos = Vector3::Zero;
-	//rotからカメラの位置を決める
+	//rotからカメラのターゲットの位置を決める
 	addPos.x -= sinf(rot) * CameraDist;
 	addPos.y += AddPosY;
 	addPos.z = cosf(rot) * CameraDist;
@@ -41,10 +41,10 @@ void CameraStateAim::Update(Vector3& pivotpos,float&rot)
 	
 	m_pos.y += DefaultCameraHeight;
 	Vector3 AddPos = g_camera3D->GetForward();
+	m_pos = m_HeadPos;
 	AddPos.y = 0.0f;
 	AddPos.Normalize();
-	m_pos += AddPos * 25.0f;
-
+	m_pos += AddPos * 15.0f;
 	//マウスカーソルの位置をセット
 	SetCursorPos(DefaultPoint[0], DefaultPoint[1]);
 

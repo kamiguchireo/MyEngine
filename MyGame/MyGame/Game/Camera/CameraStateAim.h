@@ -12,6 +12,10 @@ public:
 	{
 		AddPosY = f;
 	}
+	void SetHeadPos(Vector3 pos)
+	{
+		m_HeadPos = pos;
+	}
 private:
 	float CameraDist = 200.0f;			//カメラからターゲットまでの距離
 	//float rot = 0.0f;			//回転量
@@ -22,5 +26,6 @@ private:
 	int DefaultPoint[2] = { 500,300 };
 	float sensiX = 0.00025f;
 	float sensiY = 0.1f;
+	Vector3 m_HeadPos = Vector3::Zero;		//頭の位置
 };
 

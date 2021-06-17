@@ -23,7 +23,7 @@ void PlayerStateAim::WaistBend()
 	mRot.MakeRotationFromQuaternion(qRot);
 	//mRot.MakeRotationAxis(Vector3::AxisX, RotY);
 	//ƒvƒŒƒCƒ„[‚Ì˜‚ð‰ñ“]
-	m_plSkeleton->GetBone(m_LeftArmBoneNum)->SetUserMat(mRot);
+	m_plSkeleton->GetBone(m_SpineBoneNum)->SetUserMat(mRot);
 	//m_plSkeleton->GetBone(m_RightArmBoneNum)->SetUserMat(mRot);
 }
 
@@ -53,8 +53,7 @@ void PlayerStateAim::UpdateRotation()
 void PlayerStateAim::Init()
 {
 	m_plSkeleton = m_Player->GetSkeleton();
-	m_LeftArmBoneNum = m_plSkeleton->FindBoneID(L"mixamorig:Spine");
-	m_RightArmBoneNum = m_plSkeleton->FindBoneID(L"mixamorig:RightArm");
+	m_SpineBoneNum = m_plSkeleton->FindBoneID(L"mixamorig:Spine");
 }
 
 

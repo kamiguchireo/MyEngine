@@ -118,4 +118,5 @@ private:
 	Vector3 m_gravity = Vector3::Zero;		//èdóÕÇ…ÇÊÇÈâ¡ë¨
 	PlayerHitBox* m_HitBox;
 	bool IsDead = false;		//éÄÇÒÇ≈Ç¢ÇÈÇ©Ç«Ç§Ç©
+	int m_HeadBoneNum = -1;
 };

@@ -108,6 +108,8 @@ bool Player::Start()
 	//スケルトンのアップデート
 	m_skeleton.Update(Matrix::Identity);
 
+	//頭のボーン番号を取得
+	m_HeadBoneNum = m_skeleton.FindBoneID(L"mixamorig:Head");
 	//アニメーションを初期化
 	m_animation.Init(m_skeleton, m_animClip, 6);
 	m_animation.Play(0);
@@ -216,7 +218,7 @@ void Player::Update()
 
 	//カメラのターゲットをセット
 	m_camera->SetPivotPos(m_pos);
-
+	m_camera->SetHeadPos(m_skeleton.GetBone(m_HeadBoneNum)->GetPosition());
 	//ポジションをセット
 	m_playerModel->SetPosition(m_pos);
 	//回転をセット
