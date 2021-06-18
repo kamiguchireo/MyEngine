@@ -214,7 +214,8 @@ void Enemy::Update()
 	footStepValue.y = footStepValue.z;
 	footStepValue.z = -value;
 	//フットステップを調整
-	footStepValue *= footStepAdjustValue;
+	//スケールの値をとる
+	footStepValue *= m_scale.x;
 	
 	//重力を加算
 	if (characon->IsOnGround())
@@ -237,7 +238,7 @@ void Enemy::Update()
 	m_rot.Apply(footStepValue);
 
 	//キャラコンの計算
-	Vector3 returnPos = characon->Execute(footStepValue, DeltaTime);
+	Vector3 returnPos = characon->Execute(footStepValue);
 
 	m_pos = returnPos;
 	

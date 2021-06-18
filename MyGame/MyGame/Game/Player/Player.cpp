@@ -184,7 +184,8 @@ void Player::Update()
 	AxisTrans();
 	
 	//フットステップを調整
-	footStepValue *= footStepAdjustValue;
+	//スケールの値をとる
+	footStepValue *= m_scale.x;
 
 	//重力を加算
 	if (characon.IsOnGround())
@@ -211,8 +212,9 @@ void Player::Update()
 	currentState->Update();
 	//footStepValueに回転を適用
 	m_rot.Apply(footStepValue);
+
 	//キャラコンの計算
-	Vector3 returnPos = characon.Execute(footStepValue, DeltaTime);
+	Vector3 returnPos = characon.Execute(footStepValue);
 	//ポジションに計算で帰ってきた値を代入
 	m_pos = returnPos;
 

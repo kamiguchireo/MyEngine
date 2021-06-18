@@ -129,7 +129,7 @@ namespace Engine {
 		m_isInited = true;
 	}
 
-	const Vector3& CharacterController::Execute(Vector3& moveSpeed, float deltaTime)
+	const Vector3& CharacterController::Execute(Vector3& moveSpeed/*, float deltaTime*/)
 	{
 		//初期化されていないキャラクターコントローラーが使われたとき
 		if (m_isInited == false)
@@ -149,7 +149,7 @@ namespace Engine {
 		//速度からこのフレームでの移動量を求める。
 		//オイラー積分
 		Vector3 addPos = moveSpeed;
-		addPos.Scale(deltaTime);
+		//addPos.Scale(deltaTime);
 		nextPosition.Add(addPos);
 		Vector3 originalXZDir = addPos;
 		originalXZDir.y = 0.0f;
