@@ -27,7 +27,7 @@ namespace Engine {
 		//moveSpeed		移動速度
 		//deltaTime		経過時間。単位は秒。デフォルトでは1フレームの経過時間が渡されている
 		//return		移動後のキャラクターの座標
-		const Vector3& Execute(Vector3& moveSpeed/*, float deltaTime = g_gameTime.GetFrameDeltaTime()*/);
+		const Vector3& Execute(Vector3& moveSpeed);
 
 		//剛体をフィジックスワールドから削除
 		void RemoveRigidBody();

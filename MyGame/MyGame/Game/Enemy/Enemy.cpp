@@ -1,5 +1,14 @@
 #include "stdafx.h"
 #include "Enemy.h"
+#include "SourceFile/Physics/CharacterController.h"
+#include "Game/Camera/GameCamera.h"
+#include "Game/Stage/Path.h"
+#include "Game/Weapon.h"
+#include "EnemyHitBox.h"
+#include "IEnemy.h"
+#include "EnemyStateIdle.h"
+#include "EnemyStateMove.h"
+#include "EnemyStateAim.h"
 
 Enemy::Enemy()
 {

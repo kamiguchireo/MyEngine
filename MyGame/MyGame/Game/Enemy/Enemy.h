@@ -1,14 +1,17 @@
 #pragma once
 //#include "SourceFile/graphic/ModelRender.h"
-#include "SourceFile/Physics/CharacterController.h"
-#include "Game/Camera/GameCamera.h"
-#include "Game/Stage/Path.h"
-#include "Game/Weapon.h"
-#include "EnemyHitBox.h"
-#include "EnemyStateIdle.h"
-#include "EnemyStateMove.h"
-#include "EnemyStateAim.h"
 #include "EnemyStatus.h"
+
+//class CharacterController;
+class GameCamera;
+class Path;
+class Weapon;
+class EnemyHitBox;
+class IEnemy;
+class EnemyStateIdle;
+class EnemyStateMove;
+class EnemyStateAim;
+class EnemyStatus;
 
 class Enemy:public IGameObject
 {

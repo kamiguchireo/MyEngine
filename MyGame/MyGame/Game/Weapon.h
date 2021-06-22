@@ -1,5 +1,4 @@
 #pragma once
-//#include "SourceFile/graphic/ModelRender.h"
 
 class Weapon:public IGameObject
 {
