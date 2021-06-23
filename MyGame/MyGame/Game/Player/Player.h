@@ -1,14 +1,14 @@
 #pragma once
-#include "IPlayer.h"
-#include "PlayerStateIdle.h"
-#include "PlayerStateMove.h"
-#include "Game/Camera/GameCamera.h"
-#include "Game/Weapon.h"
-#include "PlayerStateAim.h"
 #include "SourceFile/Physics/CharacterController.h"
+#include "Game/Weapon.h"
 #include "SourceFile/Graphic/SpriteRender.h"
-#include "PlayerHitBox.h"
-//#include "SourceFile/graphic/ModelRender.h"
+
+class IPlayer;
+class GameCamera;
+class PlayerStateIdle;
+class PlayerStateMove;
+class PlayerStateAim;
+class PlayerHitBox;
 
 class Player:public IGameObject
 {

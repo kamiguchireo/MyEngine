@@ -1,8 +1,6 @@
 #pragma once
-//#include "SourceFile/graphic/ModelRender.h"
 #include "EnemyStatus.h"
 
-//class CharacterController;
 class GameCamera;
 class Path;
 class Weapon;
@@ -12,6 +10,7 @@ class EnemyStateIdle;
 class EnemyStateMove;
 class EnemyStateAim;
 class EnemyStatus;
+class Player;
 
 class Enemy:public IGameObject
 {
@@ -82,4 +81,5 @@ private:
 	const float PassDist = 10.0f;		//ƒpƒX‚Ì”ÍˆÍ
 	std::unique_ptr<EnemyStatus> m_Status = nullptr;
 	bool IsDead = false;		//Ž€‚ñ‚Å‚¢‚é‚©‚Ç‚¤‚©
+	Player* m_player = nullptr;
 };

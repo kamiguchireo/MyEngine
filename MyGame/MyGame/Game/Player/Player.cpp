@@ -1,5 +1,11 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "Game/Camera/GameCamera.h"
+#include "IPlayer.h"
+#include "PlayerStateIdle.h"
+#include "PlayerStateMove.h"
+#include "PlayerStateAim.h"
+#include "PlayerHitBox.h"
 
 Player::Player()
 {
