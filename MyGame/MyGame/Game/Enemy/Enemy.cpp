@@ -9,6 +9,7 @@
 #include "EnemyStateIdle.h"
 #include "EnemyStateMove.h"
 #include "EnemyStateAim.h"
+#include "Game/Player/Player.h"
 
 Enemy::Enemy()
 {
@@ -87,6 +88,9 @@ Enemy::~Enemy()
 
 bool Enemy::Start()
 {
+	//プレイヤーのインスタンスを取得
+	m_player = Player::GetInstance();
+
 	//ポジションをパスの0番目に合わせる
 	if (m_PassPos.size() >= 1)
 	{
@@ -211,6 +215,11 @@ void Enemy::Update()
 	
 	//次のパスへ向かう回転
 	m_rot.SetRotation(Vector3::AxisZ, moveVec);
+
+	//プレイヤーへの方向
+	Vector3 PlayerPos = m_player->GetPosition();
+	Vector3 ToPlayer = PlayerPos - m_pos;
+	ToPlayer.Normalize();
 
 	float DeltaTime = g_gameTime.GetFrameDeltaTime();
 	Vector3 footStepValue = Vector3::Zero;

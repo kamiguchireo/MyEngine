@@ -7,8 +7,10 @@
 #include "PlayerStateAim.h"
 #include "PlayerHitBox.h"
 
+Player* Player::m_Instance = nullptr;
 Player::Player()
 {
+	m_Instance = this;
 	//ステートをnew
 	m_stateIdle = new PlayerStateIdle(this);
 	m_stateMove = new PlayerStateMove(this);

@@ -79,7 +79,7 @@ void Weapon::Update()
 void Weapon::shooting()
 {
 	time += g_gameTime.GetFrameDeltaTime();
-	//•bŠÔ10”­Œ‚‚Ä‚é
+	//1•bŠÔ‚Érate‚Ì”‚¾‚¯Œ‚‚Ä‚é
 	if (time >= 1.0f / rate)
 	{
 		//ƒŒƒC‚ğì¬

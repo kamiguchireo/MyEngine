@@ -81,6 +81,20 @@ public:
 	{
 		return &m_skeleton;
 	}
+
+	//シングルトン
+	static Player* GetInstance()
+	{
+		if (m_Instance != nullptr)
+		{
+			return m_Instance;
+		}
+		return nullptr;
+	}
+	const Vector3 GetPosition()const
+	{
+		return m_pos;
+	}
 private:
 	//ステートの変更
 	//state		ステート
@@ -98,6 +112,7 @@ private:
 	//構える処理
 	void Hold();
 private:
+	static Player* m_Instance;		//インスタンス
 	IPlayer* currentState = nullptr;		//現在のステート
 	prefab::ModelRender* m_playerModel = nullptr;		//プレイヤーのモデル
 	Skeleton m_skeleton;		//スケルトン
