@@ -82,4 +82,8 @@ private:
 	std::unique_ptr<EnemyStatus> m_Status = nullptr;
 	bool IsDead = false;		//Ž€‚ñ‚Å‚¢‚é‚©‚Ç‚¤‚©
 	Player* m_player = nullptr;
+	bool IsDiscover = false;
+	float ToPlayerAngle = 0.0f;
+	Vector3 LastPlayerPos = Vector3::Zero;
+	Vector3 ToPlayer = Vector3::Zero;
 };

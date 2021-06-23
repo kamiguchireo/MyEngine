@@ -159,6 +159,8 @@ void Enemy::ChangeNextPass()
 
 void Enemy::Update()
 {
+	float DeltaTime = g_gameTime.GetFrameDeltaTime();
+
 	if (IsDead == true)
 	{
 		//既に死んでいる場合
@@ -167,7 +169,6 @@ void Enemy::Update()
 			//アニメーションが終わっていない場合
 			//死亡時のアニメーションを流す
 			m_animation.Play(enEnemyAnimation_Death_From_Front);
-			float DeltaTime = g_gameTime.GetFrameDeltaTime();
 			m_animation.Update(DeltaTime);
 			//ヒットボックスが残っているとき削除
 			if (m_HitBox != nullptr)
@@ -216,12 +217,48 @@ void Enemy::Update()
 	//次のパスへ向かう回転
 	m_rot.SetRotation(Vector3::AxisZ, moveVec);
 
-	//プレイヤーへの方向
-	Vector3 PlayerPos = m_player->GetPosition();
-	Vector3 ToPlayer = PlayerPos - m_pos;
-	ToPlayer.Normalize();
 
-	float DeltaTime = g_gameTime.GetFrameDeltaTime();
+	//簡易的にプレイヤーの位置が一定の角度以内の時そっちを向くようにする
+	//後でレイを飛ばして間に何もないときそっちを向くようにする
+	if (IsDiscover == true)
+	{
+		//プレイヤーを発見しているとき
+		//移動方向をプレイヤーへ向ける
+		moveVec = LastPlayerPos - m_pos;
+		moveVec.Normalize();
+		LastPlayerPos = m_player->GetPosition();
+	}
+	else
+	{
+		//プレイヤーを発見していないとき
+		//プレイヤーへの方向
+		ToPlayer = m_player->GetPosition() - m_pos;
+
+	}
+	ToPlayer = m_player->GetPosition() - m_pos;
+
+	//方向を正規化
+	ToPlayer.Normalize();
+	//互いに大きさ1のベクトルなので内積をするとcosθが残る
+	ToPlayerAngle = Dot(ToPlayer, moveVec);
+
+	//cosから角度を求める
+	ToPlayerAngle = acosf(ToPlayerAngle);
+	//ラジアン単位からディグリー単位に変換
+	ToPlayerAngle = Math::RadToDeg(ToPlayerAngle);
+	//角度が70度以下の時
+	if (ToPlayerAngle <= 70)
+	{
+		IsDiscover = true;
+		//プレイヤーの方向に向ける
+		m_rot.SetRotation(Vector3::AxisZ, ToPlayer);
+		m_animation.Play(enEnemyAnimation_Rifle_Idle);
+	}
+	else
+	{
+		IsDiscover = false;
+	}
+
 	Vector3 footStepValue = Vector3::Zero;
 
 	//アニメーションからfootstepの移動量を持ってくる
