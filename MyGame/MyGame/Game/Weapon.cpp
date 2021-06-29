@@ -5,16 +5,26 @@
 struct SweepResult : public btCollisionWorld::RayResultCallback
 {
 	bool isHit = false;						//衝突フラグ。
-	Vector3 hitPos = Vector3::Zero;		//衝突点。
-	Vector3 startPos = Vector3::Zero;		//レイの始点。
-
+	//Vector3 hitPos = Vector3::Zero;		//衝突点。
+	//Vector3 startPos = Vector3::Zero;		//レイの始点。
+	btScalar ObjectNearDist = 10000.0;
+	btScalar GhostDist = 10000.0;
 	//衝突したときに呼ばれるコールバック関数。
 	virtual btScalar addSingleResult(btCollisionWorld::LocalRayResult& rayResult, bool /*normalInWorldSpace*/)
 	{
-		//ゴーストオブジェクト以外に衝突したとき
-		if (rayResult.m_collisionObject->getInternalType() != btCollisionObject::CO_GHOST_OBJECT)
+		//ゴーストオブジェクトとキャラコン以外に衝突したとき
+		if (rayResult.m_collisionObject->getInternalType() != btCollisionObject::CO_GHOST_OBJECT
+			&& rayResult.m_collisionObject->getUserIndex() != enCollisionAttr_Character)
 		{
+			if (rayResult.m_hitFraction < ObjectNearDist)
+			{
+				ObjectNearDist = rayResult.m_hitFraction;
+			}
 			return 0.0f;
+		}
+		if (rayResult.m_hitFraction < GhostDist)
+		{
+			GhostDist = rayResult.m_hitFraction;
 		}
 		m_collisionObject = rayResult.m_collisionObject;
 		//衝突点の法線
@@ -116,9 +126,12 @@ void Weapon::shooting()
 		//レイがゴーストオブジェクトに衝突しているとき
 		if (callback.isHit)
 		{
-			//コリジョンのステートをヒットにする
-			callback.m_collisionObject->setActivationState(CollisionActivationState::Hit);
-			return;
+			if (callback.GhostDist < callback.ObjectNearDist)
+			{
+				//コリジョンのステートをヒットにする
+				callback.m_collisionObject->setActivationState(CollisionActivationState::Hit);
+				return;
+			}
 		}
 
 		//衝突していなければデカールを追加

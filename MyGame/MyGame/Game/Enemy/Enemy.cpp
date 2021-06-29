@@ -186,6 +186,17 @@ void Enemy::Update()
 		//アニメーションが終わっていれば何もせずリターン
 		return;
 	}
+
+	//次のパスへのベクトル
+	Vector3 moveVec = m_PassPos[NextPass] - m_pos;
+	//次のパスへの距離が一定以内なら
+	if (moveVec.Length() <= PassDist)
+	{
+		//目的地の着いたので
+		//現在のパスを変更
+		CurrentPass = NextPass;
+	}
+
 	if (CurrentPass == NextPass)
 	{
 		//その場で停止する
@@ -201,20 +212,17 @@ void Enemy::Update()
 	}
 
 	//次のパスへのベクトル
-	Vector3 moveVec = m_PassPos[NextPass] - m_pos;
-	//次のパスへの距離が一定以内なら
-	if (moveVec.Length() <= PassDist)
-	{
-		//目的地の着いたので
-		//現在のパスを変更
-		CurrentPass = NextPass;
-	}
-
-	//次のパスへのベクトル
 	moveVec.y = 0.0f;
 	moveVec.Normalize();
 	
 	//次のパスへ向かう回転
+	////互いに大きさ1のベクトルなので内積をするとcosθが残る
+	//float RotDeg = Dot(Vector3::AxisZ, moveVec);
+	////cosから角度を求める
+	//RotDeg = acosf(RotDeg);
+	////ラジアン単位からディグリー単位に変換
+	//RotDeg = Math::RadToDeg(RotDeg);
+	//m_rot.SetRotationDegY(RotDeg);
 	m_rot.SetRotation(Vector3::AxisZ, moveVec);
 
 
@@ -241,7 +249,6 @@ void Enemy::Update()
 	ToPlayer.Normalize();
 	//互いに大きさ1のベクトルなので内積をするとcosθが残る
 	ToPlayerAngle = Dot(ToPlayer, moveVec);
-
 	//cosから角度を求める
 	ToPlayerAngle = acosf(ToPlayerAngle);
 	//ラジアン単位からディグリー単位に変換
@@ -251,8 +258,8 @@ void Enemy::Update()
 	{
 		IsDiscover = true;
 		//プレイヤーの方向に向ける
-		m_rot.SetRotation(Vector3::AxisZ, ToPlayer);
-		m_animation.Play(enEnemyAnimation_Rifle_Idle);
+		//m_rot.SetRotation(Vector3::AxisZ, ToPlayer);
+		//m_animation.Play(enEnemyAnimation_Rifle_Idle);
 	}
 	else
 	{

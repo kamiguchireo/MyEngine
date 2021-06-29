@@ -86,4 +86,5 @@ private:
 	float ToPlayerAngle = 0.0f;
 	Vector3 LastPlayerPos = Vector3::Zero;
 	Vector3 ToPlayer = Vector3::Zero;
+	const float RotateSpeed = 1.0f;
 };
