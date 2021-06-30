@@ -16,7 +16,7 @@ namespace Engine {
 			Vector3 normal;
 			normal.Set(convexResult.m_hitNormalLocal);
 
-			if (convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Character
+			if (convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Player
 				|| convexResult.m_hitCollisionObject->getInternalType() == btCollisionObject::CO_GHOST_OBJECT)
 			{
 				return 1.0f;

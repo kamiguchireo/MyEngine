@@ -37,6 +37,8 @@ bool Tree1::Start()
 		Vector3 colPos = objData.position;
 		colPos.y += size.y / 2.0f;
 		boxCol->CreateCylinder(colPos, objData.rotation, size);
+		//ユーザー指定のインデックスをスタティックオブジェクトに指定
+		boxCol->GetRigidBody().GetBody()->setUserIndex(enCollisionAttr_StaticObject);
 		m_Col.push_back(std::move(boxCol));
 	}
 

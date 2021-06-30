@@ -192,6 +192,7 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TkmFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
+    <ClCompile Include="Game\Enemy\EnemyRayTest.cpp" />
     <ClCompile Include="Game\Enemy\EnemyStateAim.cpp" />
     <ClCompile Include="Game\Enemy\EnemyStateMove.cpp" />
     <ClCompile Include="Game\Enemy\EnemyStateIdle.cpp" />
@@ -291,6 +292,7 @@
     <ClInclude Include="..\..\MiniEngine\tkFile\TkmFile.h" />
     <ClInclude Include="..\..\MiniEngine\tkFile\TksFile.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
+    <ClInclude Include="Game\Enemy\EnemyRayTest.h" />
     <ClInclude Include="Game\Enemy\EnemyStatus.h" />
     <ClInclude Include="Game\Enemy\EnemyStateAim.h" />
     <ClInclude Include="Game\Enemy\EnemyStateMove.h" />

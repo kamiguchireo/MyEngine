@@ -10,6 +10,7 @@
 #include "EnemyStateMove.h"
 #include "EnemyStateAim.h"
 #include "Game/Player/Player.h"
+#include "EnemyRayTest.h"
 
 Enemy::Enemy()
 {
@@ -38,6 +39,8 @@ Enemy::Enemy()
 	}
 
 	m_PassSize = static_cast<int>(m_PassPos.size()) - 1;
+
+	m_RayTest = std::make_unique<EnemyRayTest>();
 }
 
 Enemy::~Enemy()
@@ -98,6 +101,7 @@ bool Enemy::Start()
 	}
 	//キャラコンの初期化
 	characon->Init(15.0f, 115.0f, m_pos);
+	characon->GetRigidBody()->GetBody()->setUserIndex(enCollisionAttr_Enemy);
 
 	//待機状態のアニメーション
 	m_animClip[enEnemyAnimation_Rifle_Idle].Load("Assets/animData/Rifle_Idle.tka");
@@ -157,6 +161,24 @@ void Enemy::ChangeNextPass()
 	}
 }
 
+bool Enemy::CanSeePlayer()
+{
+	//互いに大きさ1のベクトルなので内積をするとcosθが残る
+	ToPlayerAngle = Dot(ToPlayer, m_moveVec);
+	//cosから角度を求める
+	ToPlayerAngle = acosf(ToPlayerAngle);
+	//ラジアン単位からディグリー単位に変換
+	ToPlayerAngle = Math::RadToDeg(ToPlayerAngle);
+	//角度が70度以下の時
+	if (ToPlayerAngle <= 70)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 void Enemy::Update()
 {
 	float DeltaTime = g_gameTime.GetFrameDeltaTime();
@@ -187,84 +209,82 @@ void Enemy::Update()
 		return;
 	}
 
-	//次のパスへのベクトル
-	Vector3 moveVec = m_PassPos[NextPass] - m_pos;
-	//次のパスへの距離が一定以内なら
-	if (moveVec.Length() <= PassDist)
-	{
-		//目的地の着いたので
-		//現在のパスを変更
-		CurrentPass = NextPass;
-	}
-
-	if (CurrentPass == NextPass)
-	{
-		//その場で停止する
-		IsStop = true;
-		//待機ステートに変更
-		ChangeState(m_stateIdle);
-		//次のパスを変更
-		ChangeNextPass();
-	}
-	if (IsStop == false)
-	{
-		ChangeState(m_stateMove);
-	}
-
-	//次のパスへのベクトル
-	moveVec.y = 0.0f;
-	moveVec.Normalize();
-	
-	//次のパスへ向かう回転
-	////互いに大きさ1のベクトルなので内積をするとcosθが残る
-	//float RotDeg = Dot(Vector3::AxisZ, moveVec);
-	////cosから角度を求める
-	//RotDeg = acosf(RotDeg);
-	////ラジアン単位からディグリー単位に変換
-	//RotDeg = Math::RadToDeg(RotDeg);
-	//m_rot.SetRotationDegY(RotDeg);
-	m_rot.SetRotation(Vector3::AxisZ, moveVec);
-
-
-	//簡易的にプレイヤーの位置が一定の角度以内の時そっちを向くようにする
-	//後でレイを飛ばして間に何もないときそっちを向くようにする
-	if (IsDiscover == true)
-	{
-		//プレイヤーを発見しているとき
-		//移動方向をプレイヤーへ向ける
-		moveVec = LastPlayerPos - m_pos;
-		moveVec.Normalize();
-		LastPlayerPos = m_player->GetPosition();
-	}
-	else
-	{
-		//プレイヤーを発見していないとき
-		//プレイヤーへの方向
-		ToPlayer = m_player->GetPosition() - m_pos;
-
-	}
+	//プレイヤーへの方向
 	ToPlayer = m_player->GetPosition() - m_pos;
-
-	//方向を正規化
 	ToPlayer.Normalize();
-	//互いに大きさ1のベクトルなので内積をするとcosθが残る
-	ToPlayerAngle = Dot(ToPlayer, moveVec);
-	//cosから角度を求める
-	ToPlayerAngle = acosf(ToPlayerAngle);
-	//ラジアン単位からディグリー単位に変換
-	ToPlayerAngle = Math::RadToDeg(ToPlayerAngle);
-	//角度が70度以下の時
-	if (ToPlayerAngle <= 70)
+
+	//プレイヤーが視野角内にいるとき
+	if (CanSeePlayer() == true)
 	{
-		IsDiscover = true;
-		//プレイヤーの方向に向ける
-		//m_rot.SetRotation(Vector3::AxisZ, ToPlayer);
-		//m_animation.Play(enEnemyAnimation_Rifle_Idle);
+		//レイの始点
+		Vector3 RayStart = m_pos;
+		//高さを最低限確保
+		RayStart.y += 50.0f;
+		//レイの方向
+		Vector3 RayDir = m_player->GetPosition();
+		RayDir -= m_pos;
+		RayDir.Normalize();
+
+		//プレイヤーに向けてレイを飛ばして間に何もないとき
+		if (m_RayTest->IsHit(RayStart, RayDir))
+		{
+			//プレイヤーを発見した状態にする
+			m_ActState = enState_Discover;
+		}
+		else
+		{
+			m_ActState = enState_Normal;
+		}
+	}
+
+	//プレイヤーを発見しているとき
+	if (m_ActState == EnemyActState::enState_Discover)
+	{
+		//プレイヤーの方向へ向ける
+		//最後にプレイヤーを見た場所を更新
+		LastPlayerPos = m_player->GetPosition();
+		m_moveVec = LastPlayerPos - m_pos;
+		m_moveVec.Normalize();
+	}
+	else if(m_ActState == EnemyActState::enState_vigilant)
+	{
+		//最後にプレイヤーを見た場所に移動
+		m_moveVec = LastPlayerPos - m_pos;
+		m_moveVec.Normalize();
 	}
 	else
 	{
-		IsDiscover = false;
+		//次のパスへのベクトル
+		m_moveVec = m_PassPos[NextPass] - m_pos;
+		//次のパスへの距離が一定以内なら
+		if (m_moveVec.Length() <= PassDist)
+		{
+			//目的地の着いたので
+			//現在のパスを変更
+			CurrentPass = NextPass;
+		}
+
+		if (CurrentPass == NextPass)
+		{
+			//その場で停止する
+			IsStop = true;
+			//待機ステートに変更
+			ChangeState(m_stateIdle);
+			//次のパスを変更
+			ChangeNextPass();
+		}
+		if (IsStop == false)
+		{
+			ChangeState(m_stateMove);
+		}
+
+		//次のパスへのベクトル
+		m_moveVec.y = 0.0f;
+		m_moveVec.Normalize();
 	}
+
+	//回転を適用
+	m_rot.SetRotation(Vector3::AxisZ, m_moveVec);
 
 	Vector3 footStepValue = Vector3::Zero;
 

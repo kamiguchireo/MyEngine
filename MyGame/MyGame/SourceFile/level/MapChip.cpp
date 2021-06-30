@@ -14,4 +14,6 @@ MapChip::MapChip(const LevelObjectData& objData, MapChipRender* mapChipRender)
 		objData.rotation,
 		mapChipRender->GetModel()
 	);
+	//ユーザー指定のインデックスをスタティックオブジェクトにする
+	m_physicsStaticObject.GetRigidBody().GetBody()->setUserIndex(enCollisionAttr_StaticObject);
 }

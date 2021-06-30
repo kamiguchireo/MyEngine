@@ -11,6 +11,13 @@ class EnemyStateMove;
 class EnemyStateAim;
 class EnemyStatus;
 class Player;
+class EnemyRayTest;
+
+enum EnemyActState {
+	enState_Normal,
+	enState_vigilant,
+	enState_Discover
+};
 
 class Enemy:public IGameObject
 {
@@ -55,6 +62,8 @@ private:
 	{
 		currentState = state;
 	}
+	//プレイヤーを見ることができるか
+	bool CanSeePlayer();
 private:
 	IEnemy* currentState = nullptr;		//現在のステート
 	prefab::ModelRender* m_enemyModel = nullptr;		//エネミーのモデル
@@ -82,9 +91,12 @@ private:
 	std::unique_ptr<EnemyStatus> m_Status = nullptr;
 	bool IsDead = false;		//死んでいるかどうか
 	Player* m_player = nullptr;
-	bool IsDiscover = false;
 	float ToPlayerAngle = 0.0f;
-	Vector3 LastPlayerPos = Vector3::Zero;
 	Vector3 ToPlayer = Vector3::Zero;
 	const float RotateSpeed = 1.0f;
+	float RayWaitTime = 5.0f;
+	std::unique_ptr<EnemyRayTest> m_RayTest = nullptr;
+	Vector3 m_moveVec = Vector3::Zero;
+	EnemyActState m_ActState = enState_Normal;
+	Vector3 LastPlayerPos = Vector3::Zero;
 };

@@ -16,9 +16,11 @@
 #include "SourceFile/Timer/GameTime.h"
 
 enum EnCollisionAttr {
-	enCollisionAttr_Ground,
+	enCollisionAttr_StaticObject,
 	enCollisionAttr_Character,
 	enCollisionAttr_User,
+	enCollisionAttr_Player,
+	enCollisionAttr_Enemy,
 };
 static const int MAX_BONE = 512;	//!<ボーンの最大数。
 static const int CascadeShadow = 3;		//シャドウマップの枚数

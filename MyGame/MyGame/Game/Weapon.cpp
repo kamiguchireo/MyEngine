@@ -126,6 +126,7 @@ void Weapon::shooting()
 		//レイがゴーストオブジェクトに衝突しているとき
 		if (callback.isHit)
 		{
+			//ゴーストオブジェクトより手前にオブジェクトが何もないとき
 			if (callback.GhostDist < callback.ObjectNearDist)
 			{
 				//コリジョンのステートをヒットにする

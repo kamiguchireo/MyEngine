@@ -76,6 +76,8 @@ bool Player::Start()
 	m_camera = NewGO<GameCamera>(0, nullptr);
 
 	characon.Init(15.0f,115.0f, m_pos);
+	characon.GetRigidBody()->GetBody()->setUserIndex(enCollisionAttr_Player);
+
 	//待機状態のアニメーション
 	m_animClip[enPlayerAnimation_Rifle_Idle].Load("Assets/animData/Rifle_Idle.tka");
 	m_animClip[enPlayerAnimation_Rifle_Idle].SetLoopFlag(true);
