@@ -231,7 +231,7 @@ void Enemy::Update()
 		LastPlayerPos = m_player->GetPosition();
 		m_moveVec = LastPlayerPos - m_pos;
 		m_moveVec.Normalize();
-		m_animation.Play(enEnemyAnimation_Rifle_Idle);
+		m_animation.Play(enEnemyAnimation_Rifle_Idle,0.3f);
 	}
 	else if (m_ActState == EnemyActState::enState_vigilant)
 	{
@@ -301,7 +301,10 @@ void Enemy::Update()
 	footStepValue += m_gravity;
 
 	//現在のステートの更新
-	currentState->Update();
+	if (m_ActState == EnemyActState::enState_Normal)
+	{
+		currentState->Update();
+	}
 
 	//footStepに回転を適応
 	m_rot.Apply(footStepValue);
