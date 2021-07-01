@@ -14,8 +14,7 @@ class Weapon:public IGameObject
 		virtual btScalar addSingleResult(btCollisionWorld::LocalRayResult& rayResult, bool /*normalInWorldSpace*/)
 		{
 			//ゴーストオブジェクトとキャラコン以外に衝突したとき
-			if (rayResult.m_collisionObject->getInternalType() != btCollisionObject::CO_GHOST_OBJECT
-				&& rayResult.m_collisionObject->getUserIndex() != enCollisionAttr_Character)
+			if (rayResult.m_collisionObject->getUserIndex() == enCollisionAttr_StaticObject)
 			{
 				if (rayResult.m_hitFraction < ObjectNearDist)
 				{
@@ -23,23 +22,25 @@ class Weapon:public IGameObject
 				}
 				return 0.0f;
 			}
-			if (rayResult.m_hitFraction < GhostDist)
+			if (rayResult.m_collisionObject->getInternalType() == btCollisionObject::CO_GHOST_OBJECT)
 			{
-				GhostDist = rayResult.m_hitFraction;
+				if (rayResult.m_hitFraction < GhostDist)
+				{
+					GhostDist = rayResult.m_hitFraction;
+				}
+				m_collisionObject = rayResult.m_collisionObject;
+				//衝突点の法線
+				Vector3 hitNormalTmp;
+				hitNormalTmp.Set(rayResult.m_hitNormalLocal);
+
+				isHit = true;
+
+				if (rayResult.m_hitFraction < m_closestHitFraction)
+				{
+					//この衝突点の方が近いので、最近傍の衝突点を更新する。
+					m_closestHitFraction = rayResult.m_hitFraction;
+				}
 			}
-			m_collisionObject = rayResult.m_collisionObject;
-			//衝突点の法線
-			Vector3 hitNormalTmp;
-			hitNormalTmp.Set(rayResult.m_hitNormalLocal);
-
-			isHit = true;
-
-			if (rayResult.m_hitFraction < m_closestHitFraction)
-			{
-				//この衝突点の方が近いので、最近傍の衝突点を更新する。
-				m_closestHitFraction = rayResult.m_hitFraction;
-			}
-
 			return rayResult.m_hitFraction;
 		}
 	};

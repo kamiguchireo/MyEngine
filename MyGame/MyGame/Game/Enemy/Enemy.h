@@ -66,6 +66,8 @@ public:
 		m_ActState = state;
 	}
 
+	//€–S‚Ìˆ—
+	void DeadProcess();
 private:
 	//Ÿ‚ÌƒpƒX‚Ö•ÏX
 	void ChangeNextPass();
@@ -104,7 +106,6 @@ private:
 	Player* m_player = nullptr;
 	float ToPlayerAngle = 0.0f;
 	Vector3 ToPlayer = Vector3::Zero;
-	const float RotateSpeed = 1.0f;
 	float RayWaitTime = 5.0f;
 	std::unique_ptr<EnemyRayTest> m_RayTest = nullptr;
 	Vector3 m_moveVec = Vector3::Zero;

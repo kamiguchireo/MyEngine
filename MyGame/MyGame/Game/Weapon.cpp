@@ -94,10 +94,12 @@ void Weapon::shooting()
 				return;
 			}
 		}
-
-		//衝突していなければデカールを追加
-		AddDecale(start, end);
-		time = 0.0f;
+		else
+		{
+			//衝突していなければデカールを追加
+			AddDecale(start, end);
+			time = 0.0f;
+		}
 	}
 	else
 	{

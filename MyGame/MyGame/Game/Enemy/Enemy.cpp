@@ -179,35 +179,42 @@ bool Enemy::CanSeePlayer()
 		return false;
 	}
 }
+
+void Enemy::DeadProcess()
+{
+	//既に死んでいる場合
+	if (m_animation.IsPlaying())
+	{
+		//アニメーションが終わっていない場合
+		//死亡時のアニメーションを流す
+		m_animation.Play(enEnemyAnimation_Death_From_Front);
+		m_animation.Update(g_gameTime.GetFrameDeltaTime());
+		//ヒットボックスが残っているとき削除
+		if (m_HitBox != nullptr)
+		{
+			DeleteGO(m_HitBox);
+			m_HitBox = nullptr;
+		}
+		//キャラコンが残っているとき削除
+		if (characon != nullptr)
+		{
+			delete characon;
+			characon = nullptr;
+		}
+	}
+}
+
 void Enemy::Update()
 {
-	float DeltaTime = g_gameTime.GetFrameDeltaTime();
 
 	if (IsDead == true)
 	{
-		//既に死んでいる場合
-		if (m_animation.IsPlaying())
-		{
-			//アニメーションが終わっていない場合
-			//死亡時のアニメーションを流す
-			m_animation.Play(enEnemyAnimation_Death_From_Front);
-			m_animation.Update(DeltaTime);
-			//ヒットボックスが残っているとき削除
-			if (m_HitBox != nullptr)
-			{
-				DeleteGO(m_HitBox);
-				m_HitBox = nullptr;
-			}
-			//キャラコンが残っているとき削除
-			if (characon != nullptr)
-			{
-				delete characon;
-				characon = nullptr;
-			}
-		}
-		//アニメーションが終わっていれば何もせずリターン
+		//死亡時の処理
+		DeadProcess();
 		return;
 	}
+
+	float DeltaTime = g_gameTime.GetFrameDeltaTime();
 
 	//プレイヤーへの方向
 	ToPlayer = m_player->GetPosition() - m_pos;
@@ -306,5 +313,4 @@ void Enemy::Update()
 
 	m_enemyModel->SetPosition(m_pos);
 	m_enemyModel->SetRotation(m_rot);
-
 }
