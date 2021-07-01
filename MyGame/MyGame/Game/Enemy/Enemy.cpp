@@ -40,7 +40,7 @@ Enemy::Enemy()
 
 	m_PassSize = static_cast<int>(m_PassPos.size()) - 1;
 
-	m_RayTest = std::make_unique<EnemyRayTest>();
+	m_RayTest = std::make_unique<EnemyRayTest>(this);
 }
 
 Enemy::~Enemy()
@@ -213,34 +213,8 @@ void Enemy::Update()
 	ToPlayer = m_player->GetPosition() - m_pos;
 	ToPlayer.Normalize();
 
-	//プレイヤーが視野角内にいるとき
-	if (CanSeePlayer() == true)
-	{
-		//レイの始点
-		Vector3 RayStart = m_pos;
-		//高さを最低限確保
-		RayStart.y += 50.0f;
-		//レイの方向
-		Vector3 RayDir = m_player->GetPosition();
-		RayDir -= m_pos;
-		RayDir.Normalize();
-
-		m_NowWaitTime += DeltaTime;
-		if (m_NowWaitTime >= m_RayWaitTime)
-		{
-			//プレイヤーに向けてレイを飛ばして間に何もないとき
-			if (m_RayTest->IsHit(RayStart, RayDir))
-			{
-				//プレイヤーを発見した状態にする
-				m_ActState = enState_Discover;
-			}
-			else
-			{
-				m_ActState = enState_Normal;
-			}
-			m_NowWaitTime = 0.0f;
-		}
-	}
+	//レイテストをアップデート
+	m_RayTest->Update(m_player->GetPosition());
 
 	//プレイヤーを発見しているとき
 	if (m_ActState == EnemyActState::enState_Discover)
@@ -252,7 +226,7 @@ void Enemy::Update()
 		m_moveVec.Normalize();
 		m_animation.Play(enEnemyAnimation_Rifle_Idle);
 	}
-	else if(m_ActState == EnemyActState::enState_vigilant)
+	else if (m_ActState == EnemyActState::enState_vigilant)
 	{
 		//最後にプレイヤーを見た場所に移動
 		m_moveVec = LastPlayerPos - m_pos;
@@ -304,7 +278,7 @@ void Enemy::Update()
 	//フットステップを調整
 	//スケールの値をとる
 	footStepValue *= m_scale.x;
-	
+
 	//重力を加算
 	if (characon->IsOnGround())
 	{
@@ -329,7 +303,7 @@ void Enemy::Update()
 	Vector3 returnPos = characon->Execute(footStepValue);
 
 	m_pos = returnPos;
-	
+
 	m_enemyModel->SetPosition(m_pos);
 	m_enemyModel->SetRotation(m_rot);
 

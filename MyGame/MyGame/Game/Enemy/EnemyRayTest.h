@@ -1,5 +1,6 @@
 #pragma once
 
+class Enemy;
 class EnemyRayTest
 {
 	//衝突した時に呼ばれる関数オブジェクト
@@ -48,7 +49,7 @@ class EnemyRayTest
 	};
 
 public:
-	EnemyRayTest() {}
+	EnemyRayTest(Enemy* en) :m_enemy(en) {}
 	~EnemyRayTest() {}
 
 	bool Start();
@@ -57,6 +58,10 @@ public:
 	//dir		レイの方向
 	bool IsHit(Vector3& pos, Vector3& dir);
 
-private:
-	const float m_visualDist = 1000.0f;
+	void Update(Vector3 pl_pos);
+private:	
+	Enemy* m_enemy = nullptr;
+	const float m_visualDist = 1000.0f;		//レイの範囲
+	const float m_RayWaitTime = 0.5f;		//レイチェックする頻度
+	float m_NowWaitTime = 0.0f;
 };

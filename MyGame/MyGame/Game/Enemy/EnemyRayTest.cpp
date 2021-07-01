@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "EnemyRayTest.h"
-
+#include "Enemy.h"
 
 bool EnemyRayTest::Start()
 {
@@ -41,4 +41,40 @@ bool EnemyRayTest::IsHit(Vector3& pos, Vector3& dir)
 
 	//ヒットしていないのでfalseを返す
 	return false;
+}
+
+void EnemyRayTest::Update(Vector3 pl_pos)
+{		
+	//現在の時間を加算
+	m_NowWaitTime += g_gameTime.GetFrameDeltaTime();
+	//一定時間ごとにレイテスト
+	if (m_NowWaitTime >= m_RayWaitTime)
+	{
+
+		if (m_enemy->CanSeePlayer())
+		{
+			Vector3 enemyPos = m_enemy->GetPosition();
+			//レイの始点
+			Vector3 RayStart = enemyPos;
+			//高さを最低限確保
+			RayStart.y += 50.0f;
+			//レイの方向
+			Vector3 RayDir = pl_pos - enemyPos;
+			RayDir.Normalize();
+
+			//プレイヤーに向けてレイを飛ばして間に何もないとき
+			if (IsHit(RayStart, RayDir))
+			{
+				//プレイヤーを発見した状態にする
+				m_enemy->ChangeActState(EnemyActState::enState_Discover);
+			}
+			else
+			{
+				m_enemy->ChangeActState(EnemyActState::enState_Normal);
+			}
+			//カウントを0にする
+			m_NowWaitTime = 0.0f;
+		}
+
+	}
 }

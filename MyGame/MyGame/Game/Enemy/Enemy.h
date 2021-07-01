@@ -53,6 +53,19 @@ public:
 	{
 		m_Status->Damage(i);
 	}
+	//プレイヤーを見ることができるか
+	bool CanSeePlayer();
+
+	Vector3& GetPosition()
+	{
+		return m_pos;
+	}
+
+	void ChangeActState(EnemyActState state)
+	{
+		m_ActState = state;
+	}
+
 private:
 	//次のパスへ変更
 	void ChangeNextPass();
@@ -62,8 +75,6 @@ private:
 	{
 		currentState = state;
 	}
-	//プレイヤーを見ることができるか
-	bool CanSeePlayer();
 private:
 	IEnemy* currentState = nullptr;		//現在のステート
 	prefab::ModelRender* m_enemyModel = nullptr;		//エネミーのモデル
@@ -97,9 +108,7 @@ private:
 	float RayWaitTime = 5.0f;
 	std::unique_ptr<EnemyRayTest> m_RayTest = nullptr;
 	Vector3 m_moveVec = Vector3::Zero;
-	EnemyActState m_ActState = enState_Normal;
+	EnemyActState m_ActState = EnemyActState::enState_Normal;
 	Vector3 LastPlayerPos = Vector3::Zero;
 	const float EnemyAngle = 70.0f;
-	const float m_RayWaitTime = 0.5f;		//レイチェックする頻度
-	float m_NowWaitTime = 0.0f;
 };
