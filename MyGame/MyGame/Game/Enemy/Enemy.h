@@ -99,4 +99,7 @@ private:
 	Vector3 m_moveVec = Vector3::Zero;
 	EnemyActState m_ActState = enState_Normal;
 	Vector3 LastPlayerPos = Vector3::Zero;
+	const float EnemyAngle = 70.0f;
+	const float m_RayWaitTime = 0.5f;		//レイチェックする頻度
+	float m_NowWaitTime = 0.0f;
 };

@@ -170,7 +170,7 @@ bool Enemy::CanSeePlayer()
 	//ラジアン単位からディグリー単位に変換
 	ToPlayerAngle = Math::RadToDeg(ToPlayerAngle);
 	//角度が70度以下の時
-	if (ToPlayerAngle <= 70)
+	if (ToPlayerAngle <= EnemyAngle)
 	{
 		return true;
 	}
@@ -225,15 +225,20 @@ void Enemy::Update()
 		RayDir -= m_pos;
 		RayDir.Normalize();
 
-		//プレイヤーに向けてレイを飛ばして間に何もないとき
-		if (m_RayTest->IsHit(RayStart, RayDir))
+		m_NowWaitTime += DeltaTime;
+		if (m_NowWaitTime >= m_RayWaitTime)
 		{
-			//プレイヤーを発見した状態にする
-			m_ActState = enState_Discover;
-		}
-		else
-		{
-			m_ActState = enState_Normal;
+			//プレイヤーに向けてレイを飛ばして間に何もないとき
+			if (m_RayTest->IsHit(RayStart, RayDir))
+			{
+				//プレイヤーを発見した状態にする
+				m_ActState = enState_Discover;
+			}
+			else
+			{
+				m_ActState = enState_Normal;
+			}
+			m_NowWaitTime = 0.0f;
 		}
 	}
 
@@ -245,6 +250,7 @@ void Enemy::Update()
 		LastPlayerPos = m_player->GetPosition();
 		m_moveVec = LastPlayerPos - m_pos;
 		m_moveVec.Normalize();
+		m_animation.Play(enEnemyAnimation_Rifle_Idle);
 	}
 	else if(m_ActState == EnemyActState::enState_vigilant)
 	{
