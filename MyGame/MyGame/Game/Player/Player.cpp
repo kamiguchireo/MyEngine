@@ -10,6 +10,9 @@
 Player* Player::m_Instance = nullptr;
 Player::Player()
 {
+	//プレイヤーのステータス
+	m_Status = std::make_unique<PlayerStatus>(this);
+
 	m_Instance = this;
 	//ステートをnew
 	m_stateIdle = new PlayerStateIdle(this);
@@ -76,6 +79,7 @@ bool Player::Start()
 	m_camera = NewGO<GameCamera>(0, nullptr);
 
 	characon.Init(15.0f,115.0f, m_pos);
+
 	characon.GetRigidBody()->GetBody()->setUserIndex(enCollisionAttr_Player);
 
 	//待機状態のアニメーション

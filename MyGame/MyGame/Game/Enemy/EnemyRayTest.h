@@ -59,9 +59,11 @@ public:
 	bool IsHit(Vector3& pos, Vector3& dir);
 
 	void Update(Vector3 pl_pos);
+
 private:	
 	Enemy* m_enemy = nullptr;
 	const float m_visualDist = 1000.0f;		//レイの範囲
 	const float m_RayWaitTime = 0.5f;		//レイチェックする頻度
 	float m_NowWaitTime = 0.0f;
+	SweepResult callback;		//衝突検出
 };

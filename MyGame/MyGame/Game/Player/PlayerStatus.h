@@ -21,7 +21,7 @@ public:
 	void Dead();
 
 private:
-	Player* m_pl = nullptr;		//エネミー
+	Player* m_pl = nullptr;		//プレイヤー
 	int m_hp = 100;		//ヒットポイント
 };
 

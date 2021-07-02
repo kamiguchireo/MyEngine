@@ -2,6 +2,7 @@
 #include "SourceFile/Physics/CharacterController.h"
 #include "Game/Weapon.h"
 #include "SourceFile/Graphic/SpriteRender.h"
+#include "PlayerStatus.h"
 
 class IPlayer;
 class GameCamera;
@@ -9,7 +10,6 @@ class PlayerStateIdle;
 class PlayerStateMove;
 class PlayerStateAim;
 class PlayerHitBox;
-
 class Player:public IGameObject
 {
 public:
@@ -76,6 +76,12 @@ public:
 		IsDead = true;
 	}
 
+	//ダメージを受ける
+	void Damage(int i)
+	{
+		m_Status->Damage(i);
+	}
+
 	//スケルトンをゲット
 	Skeleton* GetSkeleton()
 	{
@@ -134,4 +140,5 @@ private:
 	PlayerHitBox* m_HitBox;
 	bool IsDead = false;		//死んでいるかどうか
 	int m_HeadBoneNum = -1;
+	std::unique_ptr<PlayerStatus> m_Status = nullptr;
 };

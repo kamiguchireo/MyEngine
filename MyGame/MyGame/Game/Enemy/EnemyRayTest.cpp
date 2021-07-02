@@ -25,8 +25,6 @@ bool EnemyRayTest::IsHit(Vector3& pos, Vector3& dir)
 	EndPos += dir * m_visualDist;
 	end.setValue(EndPos.x, EndPos.y, EndPos.z);
 
-	//衝突検出
-	SweepResult callback;
 	g_engine->GetPhysicsWorld().RayTest(start, end, callback);
 	//レイがゴーストオブジェクトにヒットしているとき
 	if (callback.isHit)
@@ -67,6 +65,7 @@ void EnemyRayTest::Update(Vector3 pl_pos)
 			{
 				//プレイヤーを発見した状態にする
 				m_enemy->ChangeActState(EnemyActState::enState_Discover);
+				callback.m_collisionObject->setActivationState(CollisionActivationState::Hit);
 			}
 			else
 			{
