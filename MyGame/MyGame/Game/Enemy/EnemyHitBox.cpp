@@ -158,9 +158,6 @@ void EnemyHitBox::Update()
 				m_en->Damage(10);
 			}
 
-			//ヒットボックスに弾が当たっているとき
-			//ダメージを与える
-			//m_en->Damage(100);
 			//ステートをデフォにセット
 			m_colldetection[i]->SetActivationState(CollisionActivationState::Default);
 		}

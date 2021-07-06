@@ -4,25 +4,27 @@
 
 bool EnemyRayTest::Start()
 {
-
 	return true;
 }
 
-bool EnemyRayTest::IsHit(Vector3& pos, Vector3& dir)
+bool EnemyRayTest::IsHit(Vector3& pos, Vector3& dir,float dist)
 {
+	callback.Reset();
 	//レイを作成
 	btVector3 start, end;
 	start.setZero();
 	end.setZero();
 
 	//始点をセット
-	start.setValue(pos.x, pos.y, pos.z);
+	start.setValue(pos.x, pos.y+50.0f, pos.z);
 	//終点を計算
 	Vector3 EndPos = Vector3::Zero;
 	//始点を代入
 	EndPos = pos;
+	EndPos.y += 50.0f;
 	//見ている方向に距離を掛けたものを加算
-	EndPos += dir * m_visualDist;
+	EndPos += dir * (dist + 100);
+
 	end.setValue(EndPos.x, EndPos.y, EndPos.z);
 
 	g_engine->GetPhysicsWorld().RayTest(start, end, callback);
@@ -54,14 +56,15 @@ void EnemyRayTest::Update(Vector3 pl_pos)
 			Vector3 enemyPos = m_enemy->GetPosition();
 			//レイの始点
 			Vector3 RayStart = enemyPos;
-			//高さを最低限確保
-			RayStart.y += 50.0f;
+
 			//レイの方向
 			Vector3 RayDir = pl_pos - enemyPos;
-			RayDir.Normalize();
 
+			float ToPlayerDist = RayDir.Length();
+
+			RayDir.Normalize();
 			//プレイヤーに向けてレイを飛ばして間に何もないとき
-			if (IsHit(RayStart, RayDir))
+			if (IsHit(RayStart, RayDir, ToPlayerDist))
 			{
 				//プレイヤーを発見した状態にする
 				m_enemy->ChangeActState(EnemyActState::enState_Discover);
@@ -74,6 +77,5 @@ void EnemyRayTest::Update(Vector3 pl_pos)
 			//カウントを0にする
 			m_NowWaitTime = 0.0f;
 		}
-
 	}
 }

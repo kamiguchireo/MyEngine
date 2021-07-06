@@ -218,10 +218,14 @@ void Enemy::Update()
 
 	//プレイヤーへの方向
 	ToPlayer = m_player->GetPosition() - m_pos;
+	float ToPlayerLength = ToPlayer.Length();
 	ToPlayer.Normalize();
 
 	//レイテストをアップデート
-	m_RayTest->Update(m_player->GetPosition());
+	if (ToPlayerLength <= 3000.0f)
+	{
+		m_RayTest->Update(m_player->GetPosition());
+	}
 
 	//プレイヤーを発見しているとき
 	if (m_ActState == EnemyActState::enState_Discover)
@@ -273,8 +277,6 @@ void Enemy::Update()
 	//回転を適用
 	m_rot.SetRotation(Vector3::AxisZ, m_moveVec);
 
-	Vector3 footStepValue = Vector3::Zero;
-
 	//アニメーションからfootstepの移動量を持ってくる
 	footStepValue = m_animation.Update(DeltaTime);
 
@@ -282,6 +284,7 @@ void Enemy::Update()
 	float value = footStepValue.y;
 	footStepValue.y = footStepValue.z;
 	footStepValue.z = -value;
+
 	//フットステップを調整
 	//スケールの値をとる
 	footStepValue *= m_scale.x;

@@ -239,5 +239,5 @@ void Player::Update()
 	m_playerModel->SetPosition(m_pos);
 	//‰ñ“]‚ðƒZƒbƒg
 	m_playerModel->SetRotation(m_rot);
-
+	characon.GetRigidBody()->GetBody()->getUserIndex();
 }

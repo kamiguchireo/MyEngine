@@ -4,7 +4,7 @@
 Test::Test()
 {
 	m_player = NewGO<Player>(0, nullptr);
-	//m_enemy = NewGO<Enemy>(0, nullptr);
+	m_enemy = NewGO<Enemy>(0, nullptr);
 }
 
 Test::~Test()
