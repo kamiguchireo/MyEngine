@@ -113,4 +113,10 @@ private:
 	int m_ActState = EnemyActState::enState_Normal;
 	Vector3 LastPlayerPos = Vector3::Zero;
 	const float EnemyAngle = 70.0f;
+	const int RandRangeMax = 100;
+	const int RandRangeMin = 10;
+	int RandRange = 100;
+	const int ChangeRandRange = 10;
+	float NowTime_Rand = 0.0f;
+	const float WaitTime_Rand = 1.0f;
 };

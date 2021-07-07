@@ -206,7 +206,6 @@ void Enemy::DeadProcess()
 
 void Enemy::Update()
 {
-
 	if (IsDead == true)
 	{
 		//死亡時の処理
@@ -227,9 +226,27 @@ void Enemy::Update()
 		m_RayTest->Update(m_player->GetPosition());
 	}
 
+	//ランダム性を持たせるためにプレイヤーを発見する前からrand関数を呼んでおく
+	//乱数を生成
+	int AddRandPos = rand();
+	//プレイヤーに加算する値がプラスかマイナスか決める
+	int RandDir = rand();
+
 	//プレイヤーを発見しているとき
 	if (m_ActState == EnemyActState::enState_Discover)
 	{
+		//時間を加算
+		NowTime_Rand += DeltaTime;
+		if (NowTime_Rand >= WaitTime_Rand)
+		{	
+			//一定時間たつと
+			if (RandRange >= RandRangeMin)
+			{
+				//最低値より値が大きい場合に減算する
+				RandRange -= ChangeRandRange;
+				NowTime_Rand = 0.0f;
+			}
+		}
 		//プレイヤーの方向へ向ける
 		//最後にプレイヤーを見た場所を更新
 		LastPlayerPos = m_player->GetPosition();
@@ -241,8 +258,34 @@ void Enemy::Update()
 		Vector3 WeaponPos = m_skeleton.GetBone(m_skeleton.GetWeaponBoneNum())->GetPosition();
 		//武器のポジションだと自分にレイが当たってしまうので少し前に出す
 		WeaponPos += ToPlayer * 25.0f;
+		
+		//範囲を決める
+		AddRandPos %= RandRange;
+		//0か1の2択にする
+		RandDir %= 2;
+
+		float AddPlayerPos[3] = { 0.0f };
+		for (int i = 0; i < 3; i++)
+		{
+			if (RandDir == 0)
+			{
+				AddPlayerPos[i] = AddRandPos;
+			}
+			else
+			{
+				AddPlayerPos[i] = -AddRandPos;
+			}
+		}
+		Vector3 ToPlayerRand = Vector3::Zero;
+		ToPlayerRand = m_player->GetPosition();
+		ToPlayerRand.x += AddPlayerPos[0];
+		ToPlayerRand.y += AddPlayerPos[1];
+		ToPlayerRand.z += AddPlayerPos[2];
+
+		ToPlayerRand -= m_pos;
+		ToPlayerRand.Normalize();
 		//レイの始点と方向をセット
-		m_weapon->SetRay(WeaponPos, ToPlayer);
+		m_weapon->SetRay(WeaponPos, ToPlayerRand);
 		//射撃
 		m_weapon->shooting();
 	}
@@ -254,6 +297,19 @@ void Enemy::Update()
 	}
 	else
 	{
+		//時間を加算
+		NowTime_Rand += DeltaTime;
+		if (NowTime_Rand >= WaitTime_Rand)
+		{
+			//一定時間たつと
+			if (RandRange <= RandRangeMax)
+			{
+				//最低値より値が大きい場合に減算する
+				RandRange += ChangeRandRange;
+				NowTime_Rand = 0.0f;
+			}
+		}
+
 		//次のパスへのベクトル
 		m_moveVec = m_PassPos[NextPass] - m_pos;
 		//次のパスへの距離が一定以内なら
