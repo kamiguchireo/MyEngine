@@ -35,6 +35,7 @@ enum EnPlayerAnimation {
 	enPlayerAnimation_Rifle_Sprint,
 	enPlayerAnimation_Rifle_Down_To_Aim,
 	enPlayerAnimation_Rifle_fire,
+	enPlayerAnimation_Death_From_Front,
 	enPlayerAnimation_Num
 };
 

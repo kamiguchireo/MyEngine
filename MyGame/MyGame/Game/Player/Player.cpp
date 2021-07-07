@@ -18,6 +18,7 @@ Player::Player()
 	m_stateIdle = new PlayerStateIdle(this);
 	m_stateMove = new PlayerStateMove(this);
 	m_stateAim = new PlayerStateAim(this);
+	characon = new CharacterController();
 	//待機ステートに切り替える
 	ChangeState(m_stateIdle);
 }
@@ -72,15 +73,20 @@ Player::~Player()
 		DeleteGO(m_HitBox);
 		m_HitBox = nullptr;
 	}
+	if (characon != nullptr)
+	{
+		delete characon;
+		characon = nullptr;
+	}
 }
 
 bool Player::Start()
 {
 	m_camera = NewGO<GameCamera>(0, nullptr);
 
-	characon.Init(15.0f,115.0f, m_pos);
+	characon->Init(15.0f,115.0f, m_pos);
 
-	characon.GetRigidBody()->GetBody()->setUserIndex(enCollisionAttr_Player);
+	characon->GetRigidBody()->GetBody()->setUserIndex(enCollisionAttr_Player);
 
 	//待機状態のアニメーション
 	m_animClip[enPlayerAnimation_Rifle_Idle].Load("Assets/animData/Rifle_Idle.tka");
@@ -100,6 +106,9 @@ bool Player::Start()
 	//発砲状態のアニメーション
 	m_animClip[enPlayerAnimation_Rifle_fire].Load("Assets/animData/Rifle_fire.tka");
 	m_animClip[enPlayerAnimation_Rifle_fire].SetLoopFlag(true);
+	//死亡アニメーション
+	m_animClip[enPlayerAnimation_Death_From_Front].Load("Assets/animData/Death_From_Front.tka");
+	m_animClip[enPlayerAnimation_Death_From_Front].SetLoopFlag(false);
 
 	//モデルをNew
 	m_playerModel = NewGO<prefab::ModelRender>(1, nullptr);
@@ -125,8 +134,8 @@ bool Player::Start()
 	//頭のボーン番号を取得
 	m_HeadBoneNum = m_skeleton.FindBoneID(L"mixamorig:Head");
 	//アニメーションを初期化
-	m_animation.Init(m_skeleton, m_animClip, 6);
-	m_animation.Play(0);
+	m_animation.Init(m_skeleton, m_animClip, enPlayerAnimation_Num);
+	m_animation.Play(enPlayerAnimation_Rifle_Idle);
 
 	//武器をNew
 	m_PlayerWeapon = NewGO <Weapon>(2);
@@ -185,8 +194,37 @@ void Player::Hold()
 	}
 }
 
+void Player::DeadProcess()
+{
+	//既に死んでいる場合
+	if (m_animation.IsPlaying())
+	{
+		//アニメーションが終わっていない場合
+		//死亡時のアニメーションを流す
+		m_animation.Play(enPlayerAnimation_Death_From_Front);
+		m_animation.Update(g_gameTime.GetFrameDeltaTime());
+		//ヒットボックスが残っているとき削除
+		if (m_HitBox != nullptr)
+		{
+			DeleteGO(m_HitBox);
+			m_HitBox = nullptr;
+		}
+		//キャラコンが残っているとき削除
+		if (characon != nullptr)
+		{
+			delete characon;
+			characon = nullptr;
+		}
+	}
+}
 void Player::Update()
 {
+	if (IsDead)
+	{
+		//プレイヤーが死亡した時
+		DeadProcess();
+		return;
+	}
 	//待機ステートに切り替える
 	ChangeState(m_stateIdle);
 	
@@ -202,7 +240,7 @@ void Player::Update()
 	footStepValue *= m_scale.x;
 
 	//重力を加算
-	if (characon.IsOnGround())
+	if (characon->IsOnGround())
 	{
 		//地面上にいるときは重力をリセット
 		m_gravity *= 0.0f;
@@ -228,7 +266,7 @@ void Player::Update()
 	m_rot.Apply(footStepValue);
 
 	//キャラコンの計算
-	Vector3 returnPos = characon.Execute(footStepValue);
+	Vector3 returnPos = characon->Execute(footStepValue);
 	//ポジションに計算で帰ってきた値を代入
 	m_pos = returnPos;
 
@@ -239,5 +277,5 @@ void Player::Update()
 	m_playerModel->SetPosition(m_pos);
 	//回転をセット
 	m_playerModel->SetRotation(m_rot);
-	characon.GetRigidBody()->GetBody()->getUserIndex();
+	characon->GetRigidBody()->GetBody()->getUserIndex();
 }

@@ -120,6 +120,10 @@ private:
 
 	//構える処理
 	void Hold();
+
+	//死亡時の処理
+	void DeadProcess();
+
 private:
 	static Player* m_Instance;		//インスタンス
 	IPlayer* currentState = nullptr;		//現在のステート
@@ -136,7 +140,7 @@ private:
 	Weapon* m_PlayerWeapon = nullptr;		//プレイヤーの武器
 	GameCamera* m_camera = nullptr;		//カメラ
 	Vector3 m_forward = Vector3::AxisZ;		//前方向
-	CharacterController characon;		//キャラコン
+	CharacterController* characon;		//キャラコン
 	Vector3 footStepValue = Vector3::Zero;		//footStepの移動量
 	prefab::SpriteRender* m_AimFramesprite = nullptr;		//エイム時に表示するスプライト
 	Vector3 m_gravity = Vector3::Zero;		//重力による加速

@@ -236,6 +236,15 @@ void Enemy::Update()
 		m_moveVec = LastPlayerPos - m_pos;
 		m_moveVec.Normalize();
 		m_animation.Play(enEnemyAnimation_Rifle_Idle,0.3f);
+
+		//武器のポジションをとってくる
+		Vector3 WeaponPos = m_skeleton.GetBone(m_skeleton.GetWeaponBoneNum())->GetPosition();
+		//武器のポジションだと自分にレイが当たってしまうので少し前に出す
+		WeaponPos += ToPlayer * 25.0f;
+		//レイの始点と方向をセット
+		m_weapon->SetRay(WeaponPos, ToPlayer);
+		//射撃
+		m_weapon->shooting();
 	}
 	else if (m_ActState == EnemyActState::enState_vigilant)
 	{

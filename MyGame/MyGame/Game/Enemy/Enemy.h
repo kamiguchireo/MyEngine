@@ -53,6 +53,7 @@ public:
 	{
 		m_Status->Damage(i);
 	}
+
 	//プレイヤーを見ることができるか
 	bool CanSeePlayer();
 
@@ -61,7 +62,7 @@ public:
 		return m_pos;
 	}
 
-	void ChangeActState(EnemyActState state)
+	void ChangeActState(int state)
 	{
 		m_ActState = state;
 	}
@@ -88,7 +89,6 @@ private:
 	Vector3 m_scale = Vector3::One;		//拡大率
 	Quaternion m_rot = Quaternion::Identity;		//回転率
 	CharacterController* characon = nullptr;
-	float rot = 0.0f;
 	Path* m_path = nullptr;		//パス
 	std::vector<Vector3> m_PassPos;
 	int m_PassSize = 0;		//パスを入れている配列のサイズ
@@ -110,7 +110,7 @@ private:
 	float RayWaitTime = 5.0f;
 	std::unique_ptr<EnemyRayTest> m_RayTest = nullptr;
 	Vector3 m_moveVec = Vector3::Zero;
-	EnemyActState m_ActState = EnemyActState::enState_Normal;
+	int m_ActState = EnemyActState::enState_Normal;
 	Vector3 LastPlayerPos = Vector3::Zero;
 	const float EnemyAngle = 70.0f;
 };
