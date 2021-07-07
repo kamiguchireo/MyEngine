@@ -58,6 +58,11 @@ public:
 	//射撃
 	void shooting();
 
+	void SetRay(const Vector3& startpos,const Vector3& dir)
+	{
+		m_RayStartPos = startpos;
+		m_RayDirection = dir;
+	}
 private:
 	//デカールを追加
 	//start		始点
@@ -74,5 +79,7 @@ private:
 	const float m_range = 10000.0f;		//射程
 	const int rate = 10;
 	float time = 0.0f;
+	Vector3 m_RayStartPos = Vector3::Zero;
+	Vector3 m_RayDirection = Vector3::Zero;
 };
 

@@ -57,26 +57,17 @@ void Weapon::shooting()
 		start.setZero();
 		end.setZero();
 
-		//カメラの位置
-		Vector3 cameraPos = g_camera3D->GetPosition();
-		//カメラの向き
-		Vector3 Direction = g_camera3D->GetTarget() - g_camera3D->GetPosition();
-		//方向を正規化
-		Direction.Normalize();
-
 		//始点をセット
-		start.setValue(cameraPos.x, cameraPos.y, cameraPos.z);
+		start.setValue(m_RayStartPos.x, m_RayStartPos.y, m_RayStartPos.z);
 
 		//終点となる位置を作成
 		Vector3 EndPos = Vector3::Zero;
 		//終点は始点となる位置に方向*距離を足したもの
-		EndPos = cameraPos;
+		EndPos = m_RayStartPos;
 		//終点に方向に距離を掛けたもの足す
-		EndPos += Direction * m_range;
+		EndPos += m_RayDirection * m_range;
 		//終点をセット
 		end.setValue(EndPos.x, EndPos.y, EndPos.z);
-
-
 
 		//衝突検出
 		SweepResult callback;

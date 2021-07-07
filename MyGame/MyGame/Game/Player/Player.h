@@ -60,6 +60,9 @@ public:
 	{
 		if (m_PlayerWeapon != nullptr)
 		{
+			Vector3 Direction = g_camera3D->GetTarget() - g_camera3D->GetPosition();
+			Direction.Normalize();
+			m_PlayerWeapon->SetRay(g_camera3D->GetPosition(), Direction);
 			m_PlayerWeapon->shooting();
 		}
 	}
