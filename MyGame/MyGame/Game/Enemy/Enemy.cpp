@@ -45,6 +45,11 @@ Enemy::Enemy()
 
 Enemy::~Enemy()
 {
+
+}
+
+void Enemy::Destroy()
+{
 	//ƒ‚ƒfƒ‹ƒŒƒ“ƒ_[
 	if (m_enemyModel != nullptr)
 	{
@@ -86,8 +91,6 @@ Enemy::~Enemy()
 		characon = nullptr;
 	}
 }
-
-
 
 bool Enemy::Start()
 {

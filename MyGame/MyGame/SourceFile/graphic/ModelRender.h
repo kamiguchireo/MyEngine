@@ -8,7 +8,7 @@ namespace Engine {
 		public:
 			ModelRender();
 			~ModelRender();
-
+			void Destroy();
 			bool Start();
 			void Update();
 			void Draw();

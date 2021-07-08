@@ -6,6 +6,7 @@
 #include "PlayerStateMove.h"
 #include "PlayerStateAim.h"
 #include "PlayerHitBox.h"
+#include "Game/Game.h"
 
 Player* Player::m_Instance = nullptr;
 Player::Player()
@@ -24,6 +25,11 @@ Player::Player()
 }
 
 Player::~Player()
+{
+
+}
+
+void Player::Destroy()
 {
 	//‰ð•úˆ—
 	if (m_playerModel != nullptr)
@@ -215,6 +221,11 @@ void Player::DeadProcess()
 			delete characon;
 			characon = nullptr;
 		}
+	}
+	else
+	{
+		auto g_game = Game::GetInstance();
+		g_game->SceneTrans();
 	}
 }
 void Player::Update()

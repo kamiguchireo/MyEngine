@@ -10,13 +10,17 @@ namespace Engine {
 
 		ModelRender::~ModelRender()
 		{
+
+		}
+
+		void ModelRender::Destroy()
+		{
 			if (m_model != nullptr)
 			{
 				delete m_model;
 				m_model = nullptr;
 			}
 		}
-
 		bool ModelRender::Start()
 		{
 			if (IsInited != true)

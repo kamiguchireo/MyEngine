@@ -5,15 +5,19 @@
 
 Weapon::~Weapon()
 {
+
+
+}
+
+void Weapon::Destroy()
+{
 	//‰ğ•úˆ—
 	if (m_Model != nullptr)
 	{
 		DeleteGO(m_Model);
 		m_Model = nullptr;
 	}
-
 }
-
 void Weapon::Init(Skeleton* sk,bool IsDither)
 {
 	m_skeleton = sk;

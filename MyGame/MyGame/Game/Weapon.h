@@ -47,6 +47,7 @@ class Weapon:public IGameObject
 public:
 	Weapon() {}
 	~Weapon();
+	void Destroy();
 	bool Start();
 	void Update();
 

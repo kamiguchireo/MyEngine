@@ -1,10 +1,8 @@
 #pragma once
-#include "SourceFile/graphic/Animation/Animation.h"
-#include "SourceFile/graphic/Animation/AnimationClip.h"
-//#include "SourceFile/graphic/ModelRender.h"
-#include "Player/Player.h"
-#include "Stage/Stage.h"
-#include "Enemy/Enemy.h"
+
+class Stage;
+class Player;
+class Enemy;
 
 class Game:public IGameObject
 {
@@ -14,13 +12,25 @@ public:
 
 	bool Start();
 	void Update();
+	
+	static Game* GetInstance()
+	{
+		if (m_Instance != nullptr)
+		{
+			return m_Instance;
+		}
+		return nullptr;
+	}
+
+	void SceneTrans();
 
 private:
-	Tree1* m_Tree1 = nullptr;
+	void DeleteObject();
+	void NewObject();
+
+private:
+	static Game* m_Instance;
 	Enemy* enemy = nullptr;
-	Vector3 pos = Vector3::Zero;
 	Player* player = nullptr;
-	prefab::ModelRender* m_building = nullptr;
-	prefab::ModelRender* m_ground = nullptr;
 	Stage* m_Stage = nullptr;		//ステージ
 };

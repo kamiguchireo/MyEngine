@@ -33,7 +33,6 @@ void Bush_02::Update()
 		m_Bush.UpdateInstancingData(objData.position, objData.rotation, objData.scale);
 	}
 	m_Bush.UpdateInstancingSTB();
-	//g_graphicsEngine->GetShadowMap()->RegistShadowCaster(&m_Bush);
 }
 
 void Bush_02::Draw()

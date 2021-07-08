@@ -47,21 +47,15 @@ bool Tree1::Start()
 
 void Tree1::Update()
 {
-	//m_Tree.Refresh();
 	m_Tree->ModelInstanceRefresh();
 	//インスタンシング描画
 	for (auto& objData : m_renderObjDatas) 
 	{
-		//m_Tree.UpdateInstancingData(objData.position, objData.rotation, objData.scale);
 		m_Tree->UpdateInstancingData(objData.position, objData.rotation, objData.scale);
 	}
-	//m_Tree.UpdateInstancingSTB();
 	m_Tree->UpdateInstancingSTB();
-	//g_graphicsEngine->GetShadowMap()->RegistShadowCaster(&m_Tree);
 }
 
 void Tree1::Draw()
 {
-	//auto& RenCon = g_graphicsEngine->GetRenderContext();
-	//m_Tree.Draw(RenCon);
 }

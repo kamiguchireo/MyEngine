@@ -24,7 +24,8 @@ class Enemy:public IGameObject
 public:
 	Enemy();
 	~Enemy();
-
+	
+	void Destroy();
 	bool Start();
 	void Update();
 	void UpdateAnimation(float f)

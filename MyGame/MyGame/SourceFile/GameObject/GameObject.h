@@ -43,6 +43,9 @@ namespace Engine {
 	//描画
 	virtual void Draw() {}
 
+	//オンデストロイ
+	virtual void Destroy() {}
+
 	//Render関数が実行された後で呼ばれる描画処理
 	virtual void PostRender() {}
 	public:
@@ -120,6 +123,7 @@ namespace Engine {
 			{
 				listener(param);
 			}
+			Destroy();
 		}
 
 		void SetDeadMark()
