@@ -46,6 +46,8 @@ void EngineProcessing::Update()
 
 	//スカイキューブのアップデート
 	g_graphicsEngine->GetSky()->Update();
+
+	Engine::GameObjectManager().ExecuteDeleteGameObjects();
 }
 
 void EngineProcessing::Rendering()

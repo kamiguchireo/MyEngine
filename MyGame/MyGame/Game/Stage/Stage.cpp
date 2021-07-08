@@ -3,7 +3,11 @@
 
 Stage::Stage()
 {
-	m_level.Init("Assets/Level/Map.tkl", [&](const LevelObjectData& objData) {
+	if (m_level == nullptr)
+	{
+		m_level = new Level();
+	}
+	m_level->Init("Assets/Level/Map.tkl", [&](const LevelObjectData& objData) {
 		if (wcscmp(objData.name, L"SM_Grass_03") == 0)
 		{	
 			//ëê
@@ -82,6 +86,31 @@ Stage::Stage()
 
 Stage::~Stage()
 {
+	if (m_level != nullptr)
+	{
+		delete m_level;
+		m_level = nullptr;
+	}
+	if (m_Glass != nullptr)
+	{
+		DeleteGO(m_Glass);
+		m_Glass = nullptr;
+	}
+	if (m_Tree1 != nullptr)
+	{
+		DeleteGO(m_Tree1);
+		m_Tree1 = nullptr;
+	}
+	if (m_Tree2 != nullptr)
+	{
+		DeleteGO(m_Tree2);
+		m_Tree2 = nullptr;
+	}
+	if (m_Bush != nullptr)
+	{
+		DeleteGO(m_Bush);
+		m_Bush = nullptr;
+	}
 	if (m_Path != nullptr)
 	{
 		delete m_Path;

@@ -142,9 +142,10 @@ namespace Engine {
 			PostRender();
 		}
 
-	private:
 		//ゲームオブジェクトの削除を実行
 		void ExecuteDeleteGameObjects();
+
+		private:
 
 		typedef std::list<IGameObject*>GameObjectList;
 		std::vector<GameObjectList> m_gameObjectListArray;		//ゲームオブジェクトの優先度付きリスト

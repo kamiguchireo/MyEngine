@@ -71,7 +71,7 @@ void Enemy::Destroy()
 	if (m_stateAim != nullptr)
 	{
 		delete m_stateAim;
-		m_stateMove = nullptr;
+		m_stateAim = nullptr;
 	}
 	//•Ší
 	if (m_weapon != nullptr)

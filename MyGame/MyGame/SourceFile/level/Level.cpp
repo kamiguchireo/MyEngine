@@ -14,7 +14,10 @@ Level::Level()
 
 Level::~Level()
 {
-
+	for (auto mapchip : m_mapChipRenderPtrs)
+	{
+		DeleteGO(mapchip.second);
+	}
 }
 
 MapChipRender* Level::CreateMapChipRenderOrAddRenderObject(const LevelObjectData& objData,int i)

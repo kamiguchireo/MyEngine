@@ -13,7 +13,7 @@ public:
 	~Stage();
 	
 private:
-	Level m_level;
+	Level* m_level = nullptr;
 	Grass_03* m_Glass = nullptr;
 	Tree1* m_Tree1 = nullptr;
 	Tree2* m_Tree2 = nullptr;

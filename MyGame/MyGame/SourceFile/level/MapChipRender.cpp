@@ -9,12 +9,18 @@ MapChipRender::MapChipRender()
 
 MapChipRender::~MapChipRender()
 {
+
+}
+
+void MapChipRender::Destroy()
+{
 	if (m_modelRender != nullptr)
 	{
 		DeleteGO(m_modelRender);
 		m_modelRender = nullptr;
 	}
 }
+
 bool MapChipRender::Start()
 {
 	return true;
@@ -29,10 +35,6 @@ void MapChipRender::Update()
 			m_modelRender->UpdateInstancingData(objData.position, objData.rotation, objData.scale);
 		}
 		m_modelRender->UpdateInstancingSTB();
-	}
-	else
-	{
-		m_modelRender->Update();
 	}
 }
 
@@ -73,5 +75,5 @@ void MapChipRender::InitAfterAddAllRenderObjects()
 	m_modelRender->SetShadowCasterFlag(true);
 	m_modelRender->SetShadowRecieverFlag(true);
 
-	m_modelRender->Start();
+	//m_modelRender->Start();
 }

@@ -35,7 +35,6 @@ namespace Engine {
 				obj->UpdateWrapper();
 			}
 		}
-		ExecuteDeleteGameObjects();
 	}
 
 	void CGameObjectManager::Draw()

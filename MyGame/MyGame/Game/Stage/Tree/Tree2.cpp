@@ -11,14 +11,26 @@ Tree2::~Tree2()
 
 }
 
+void Tree2::Destroy()
+{
+	if (m_Tree != nullptr)
+	{
+		DeleteGO(m_Tree);
+		m_Tree = nullptr;
+	}
+}
+
 bool Tree2::Start()
 {
-	m_InitData.m_tkmFilePath = "Assets/modelData/SM_Tree_Tropic_02.tkm";
-	m_InitData.m_vsEntryPointFunc = "VSMainInstancing";
-	m_InitData.m_psEntryPointFunc = "PSMain";
-	m_InitData.m_fxFilePath = "Assets/shader/NoAnimModel_LambertSpecularAmbient.fx";
-	m_Tree.Init(m_InitData, m_instanceNum);
-	m_Tree.SetShadowRecieverFlag(true);
+	m_Tree = NewGO<prefab::ModelRender>(1);
+	m_Tree->SetTkmFilePath("Assets/modelData/SM_Tree_Tropic_02.tkm");
+	m_Tree->SetVSEntryPoint("VSMainInstancing");
+	m_Tree->SetPSEntryPoint("PSMain");
+	m_Tree->SetfxFilePath("Assets/shader/NoAnimModel_LambertSpecularAmbient.fx");
+	m_Tree->SetInstanceNum(m_instanceNum);
+	m_Tree->SetShadowRecieverFlag(true);
+	m_Tree->SetShadowCasterFlag(false);
+	m_Tree->SetIsDefferd(false);
 	
 	for (auto& objData : m_renderObjDatas)
 	{
@@ -38,18 +50,12 @@ bool Tree2::Start()
 
 void Tree2::Update()
 {
-	m_Tree.Refresh();
+	m_Tree->ModelInstanceRefresh();
 
 	//インスタンシング描画
 	for (auto& objData : m_renderObjDatas)
 	{
-		m_Tree.UpdateInstancingData(objData.position, objData.rotation, objData.scale);
+		m_Tree->UpdateInstancingData(objData.position, objData.rotation, objData.scale);
 	}
-	m_Tree.UpdateInstancingSTB();
-}
-
-void Tree2::Draw()
-{
-	auto& RenCon = g_graphicsEngine->GetRenderContext();
-	m_Tree.Draw(RenCon);
+	m_Tree->UpdateInstancingSTB();
 }

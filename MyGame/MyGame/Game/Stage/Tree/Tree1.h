@@ -13,9 +13,9 @@ public:
 	Tree1();
 	~Tree1();
 
+	void Destroy();
 	bool Start();
 	void Update();
-	void Draw();
 
 	//インスタンシング描画するオブジェクトの追加
 	void InitInstance(const Vector3& trans, const Quaternion& rot, const Vector3& scale)
@@ -39,7 +39,6 @@ public:
 	}
 private:
 	prefab::ModelRender* m_Tree = nullptr;
-	ModelInitData m_InitData;
 	int m_instanceNum = 1;		//インスタンスの数
 	std::vector<ObjData> m_renderObjDatas;		//描画するオブジェクトの配列
 	std::vector <std::unique_ptr<PhysicsStaticObject>> m_Col;	//ボックスコライダー

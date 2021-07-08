@@ -10,6 +10,7 @@ public:
 	MapChipRender();
 	~MapChipRender();
 
+	void Destroy();
 	bool Start();
 	void Update();
 	
@@ -40,11 +41,6 @@ public:
 	const Model& GetModel()const
 	{
 		return m_modelRender->GetModel();
-	}
-
-	void ModelStart()
-	{
-		m_modelRender->Start();
 	}
 
 private:

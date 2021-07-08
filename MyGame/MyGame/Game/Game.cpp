@@ -8,29 +8,25 @@ Game* Game::m_Instance = nullptr;
 Game::Game()
 {
 	m_Instance = this;
-	m_Stage = new Stage();
-
-	enemy = NewGO<Enemy>(0, nullptr);
-	player = NewGO<Player>(0, nullptr);
 }
 
 Game::~Game()
 {
-	//if (player != nullptr)
-	//{
-	//	DeleteGO(player);
-	//	player = nullptr;
-	//}
-	if (m_Stage != nullptr)
-	{
-		delete m_Stage;
-		m_Stage = nullptr;
-	}
+
 }
 
+void Game::Destroy()
+{
+	DeleteObject();
+}
 
 bool Game::Start()
 {
+	m_Stage = new Stage();
+
+	enemy = NewGO<Enemy>(0, nullptr);
+	player = NewGO<Player>(0, nullptr);
+
 	g_camera3D->SetPosition({ 0.0f, 100.0f, -300.0f });
 	g_camera3D->SetTarget({ 0.0f, 100.0f, 0.0f });
 
@@ -39,7 +35,12 @@ bool Game::Start()
 
 void Game::Update()
 {
-
+	if (IsDestroyObject)
+	{
+		DeleteObject();
+		NewObject();
+		IsDestroyObject = false;
+	}
 }
 
 void Game::DeleteObject()
@@ -78,6 +79,5 @@ void Game::NewObject()
 }
 void Game::SceneTrans()
 {
-	DeleteObject();
-	NewObject();
+	IsDestroyObject = true;
 }

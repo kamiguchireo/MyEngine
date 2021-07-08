@@ -224,7 +224,6 @@
     <ClCompile Include="Game\Weapon.cpp" />
     <ClCompile Include="Game\Player\PlayerStateAim.cpp" />
     <ClCompile Include="Game\Stage\Grass\Grass_03.cpp" />
-    <ClCompile Include="SourceFile\level\LevelMatrix.cpp" />
     <ClCompile Include="SourceFile\level\MapChipRender.cpp" />
     <ClCompile Include="SourceFile\level\Level.cpp" />
     <ClCompile Include="SourceFile\level\MapChip.cpp" />
@@ -324,7 +323,6 @@
     <ClInclude Include="Game\Weapon.h" />
     <ClInclude Include="Game\Player\PlayerStateAim.h" />
     <ClInclude Include="Game\Stage\Grass\Grass_03.h" />
-    <ClInclude Include="SourceFile\level\LevelMatrix.h" />
     <ClInclude Include="SourceFile\level\MapChipRender.h" />
     <ClInclude Include="SourceFile\level\Level.h" />
     <ClInclude Include="SourceFile\level\MapChip.h" />

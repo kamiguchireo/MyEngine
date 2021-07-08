@@ -9,7 +9,7 @@ class Game:public IGameObject
 public:
 	Game();
 	~Game();
-
+	void Destroy();
 	bool Start();
 	void Update();
 	
@@ -33,4 +33,5 @@ private:
 	Enemy* enemy = nullptr;
 	Player* player = nullptr;
 	Stage* m_Stage = nullptr;		//ステージ
+	bool IsDestroyObject = false;
 };

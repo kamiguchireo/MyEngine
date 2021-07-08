@@ -11,9 +11,9 @@ public:
 	Bush_02();
 	~Bush_02();
 
+	void Destroy();
 	bool Start();
 	void Update();
-	void Draw();
 
 	//インスタンシング描画するオブジェクトの追加
 	void InitInstance(const Vector3& trans, const Quaternion& rot, const Vector3& scale)
@@ -36,8 +36,7 @@ public:
 		m_renderObjDatas.push_back(data);
 	}
 private:
-	Model m_Bush;
-	ModelInitData m_InitData;
+	prefab::ModelRender* m_Bush = nullptr;
 	int m_instanceNum = 1;		//インスタンスの数
 	std::vector<ObjData> m_renderObjDatas;		//描画するオブジェクトの配列
 };

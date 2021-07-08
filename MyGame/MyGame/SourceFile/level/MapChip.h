@@ -3,7 +3,6 @@
 #include "SourceFile/Physics/PhysicsStaticObject.h"
 
 struct LevelObjectData;
-//class MapChipRender;
 class MapChip:Noncopyable
 {
 public:
@@ -13,7 +12,6 @@ public:
 	}
 
 private:
-	MapChipRender* m_mapChipRender = nullptr;		//マップチップレンダー
 	PhysicsStaticObject m_physicsStaticObject;		//静的物理オブジェクト
 };
 

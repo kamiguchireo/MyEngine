@@ -179,9 +179,6 @@
     <ClCompile Include="SourceFile\level\TklFile.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="SourceFile\level\LevelMatrix.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="SourceFile\graphic\PostEffect\DefferdRendering.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -464,9 +461,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="SourceFile\level\TklFile.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceFile\level\LevelMatrix.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="SourceFile\graphic\PostEffect\DefferdRendering.h">

@@ -17,7 +17,6 @@ class Level:Noncopyable
 {
 private:
 	using MapChipPtr = std::unique_ptr<MapChip>;
-	using MapChipRenderPtr = std::unique_ptr<MapChipRender>;
 
 public:
 	Level();
