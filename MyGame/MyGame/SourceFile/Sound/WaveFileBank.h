@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include "SourceFile/NameKey.h"
+#include "SourceFile/Noncopyable.h"
 
 class WaveFile;
 typedef std::shared_ptr<WaveFile> WaveFilePtr;
@@ -9,7 +10,7 @@ typedef std::map<unsigned int, WaveFilePtr> WaveFilePtrMap;
 //波形データバング
 //一度ロードされた波形データをバンクに登録することで
 //登録された波形データは再度読み込みを行う必要がなくなる
-class WaveFileBank : Noncopyable
+class WaveFileBank : Engine::Noncopyable
 {
 public:
 	WaveFileBank();

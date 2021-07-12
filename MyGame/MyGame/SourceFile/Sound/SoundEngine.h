@@ -1,5 +1,7 @@
 #pragma once
 #include "WaveFileBank.h"
+#include <xaudio2.h>
+#include <x3daudio.h>
 
 class WaveFile;
 class SoundSource;

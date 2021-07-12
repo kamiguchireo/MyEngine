@@ -106,8 +106,6 @@ namespace Engine
 		Quaternion* qGlobalPose = (Quaternion*)_malloca(sizeof(Quaternion) * numBone);
 		Vector3* vGlobalPose = (Vector3*)_malloca(sizeof(Vector3) * numBone);
 		Vector3* vGlobalScale = (Vector3*)_malloca(sizeof(Vector3) * numBone);
-		//footstepの移動量を初期化
-		m_footstepDeltaValue = g_vec3Zero;
 		for (int i = 0; i < numBone; i++)
 		{
 			//NULLチェック

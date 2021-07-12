@@ -2,6 +2,7 @@
 
 #include "HID/GamePad.h"
 #include "SourceFile/Physics/PhysicsWorld.h"
+#include "SourceFile/Sound/SoundEngine.h"
 
 class GraphicsEngine;
 
@@ -30,10 +31,15 @@ public:
 		return m_physicsWorld;
 	}
 
+	SoundEngine& GetSoundEngine()
+	{
+		return m_soundEngine;
+	}
 private:
 	GraphicsEngine* m_graphicsEngine = nullptr;		//グラフィックエンジン。
 	GamePad m_pad[GamePad::CONNECT_PAD_MAX];		//ゲームパッド。
-	Engine::PhysicsWorld m_physicsWorld;		//物理ワールド。	
+	Engine::PhysicsWorld m_physicsWorld;		//物理ワールド。
+	SoundEngine m_soundEngine;		//サウンドエンジン
 };
 
 extern TkEngine* g_engine;	//TKエンジン。

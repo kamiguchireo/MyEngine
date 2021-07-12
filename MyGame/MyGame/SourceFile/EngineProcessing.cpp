@@ -47,6 +47,10 @@ void EngineProcessing::Update()
 	//スカイキューブのアップデート
 	g_graphicsEngine->GetSky()->Update();
 
+	//サウンドのアップデート
+	g_engine->GetSoundEngine().Update();
+
+	//ゲームオブジェクトの削除
 	Engine::GameObjectManager().ExecuteDeleteGameObjects();
 }
 
