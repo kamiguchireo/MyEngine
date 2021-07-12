@@ -5,6 +5,7 @@
 #include "Tree/Tree2.h"
 #include "Bush/Bush_02.h"
 #include "Path.h"
+#include "SourceFile/Sound/SoundSource.h"
 
 class Stage
 {
@@ -19,5 +20,6 @@ private:
 	Tree2* m_Tree2 = nullptr;
 	Bush_02* m_Bush = nullptr;
 	Path* m_Path = nullptr;
+	SoundSource* m_sound = nullptr;
 };
 

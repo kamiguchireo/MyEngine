@@ -11,8 +11,6 @@
 #include "Game/Test.h"
 #include "Game/Stage/Stage.h"
 
-#include "SourceFile/Sound/SoundSource.h"
-
 GameTime g_gameTime;
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
@@ -55,10 +53,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	Game* g_game = nullptr;
 	g_game = Engine::NewGO<Game>(0, nullptr);
 
-	//SoundSource* m_sound = nullptr;
-	//m_sound = NewGO<SoundSource>(0);
-	//m_sound->Init(L"Assets/sound/bgm.wav");
-	//m_sound->Play(false);
 	// ここからゲームループ。
 	while (DispatchWindowMessage())
 	{

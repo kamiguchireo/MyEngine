@@ -6,6 +6,9 @@ Stage::Stage()
 	if (m_level == nullptr)
 	{
 		m_level = new Level();
+		m_sound = NewGO<SoundSource>(0);
+		m_sound->Init(L"Assets/sound/Environmental_sound_Tropical.wav");
+		m_sound->Play(true);
 	}
 	m_level->Init("Assets/Level/Map.tkl", [&](const LevelObjectData& objData) {
 		if (wcscmp(objData.name, L"SM_Grass_03") == 0)
@@ -90,6 +93,11 @@ Stage::~Stage()
 	{
 		delete m_level;
 		m_level = nullptr;
+	}
+	if (m_sound != nullptr)
+	{
+		DeleteGO(m_sound);
+		m_sound = nullptr;
 	}
 	if (m_Glass != nullptr)
 	{
