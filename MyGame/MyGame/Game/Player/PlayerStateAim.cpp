@@ -74,5 +74,6 @@ void PlayerStateAim::Update()
 	{
 		//アニメーションを再生
 		m_Player->PlayAnimation(enPlayerAnimation_Rifle_Down_To_Aim);
+		m_Player->StopFiresound();
 	}
 }

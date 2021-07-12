@@ -137,7 +137,7 @@ void SoundSource::StartStreamingBuffring()
 	m_streamingState = EnStreamingStatus::enStreamingBuffering;
 }
 
-void SoundSource::Play(bool isLoop)
+void SoundSource::Play(bool isLoop,bool IsDelete)
 {
 	if (m_isAvailable == false)
 	{
@@ -166,6 +166,7 @@ void SoundSource::Play(bool isLoop)
 		m_isPlaying = true;
 	}
 	m_isLoop = isLoop;
+	m_IsDeleteOnOneShot = IsDelete;
 }
 
 void SoundSource::UpdateStreaming()
@@ -210,8 +211,11 @@ void SoundSource::UpdateStreaming()
 					{
 						//çƒê∂èIóπ
 						m_isPlaying = false;
-						DeleteGO(this);
-						Remove3DSound();
+						if (m_IsDeleteOnOneShot)
+						{
+							DeleteGO(this);
+							Remove3DSound();
+						}
 					}
 				}
 			}
@@ -251,8 +255,11 @@ void SoundSource::UpdateOnMemory()
 		}
 		else
 		{
-			DeleteGO(this);
-			Remove3DSound();
+			if (m_IsDeleteOnOneShot)
+			{
+				DeleteGO(this);
+				Remove3DSound();
+			}
 		}
 	}
 }

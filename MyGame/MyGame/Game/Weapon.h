@@ -1,5 +1,6 @@
 #pragma once
-
+#include "SourceFile/sound/SoundSource.h"
+class SoundSource;
 class Weapon:public IGameObject
 {
 	//衝突した時に呼ばれる関数オブジェクト
@@ -64,6 +65,11 @@ public:
 		m_RayStartPos = startpos;
 		m_RayDirection = dir;
 	}
+
+	void StopFireSound()
+	{
+		m_FireSound->Stop();
+	}
 private:
 	//デカールを追加
 	//start		始点
@@ -82,5 +88,6 @@ private:
 	float time = 0.0f;
 	Vector3 m_RayStartPos = Vector3::Zero;
 	Vector3 m_RayDirection = Vector3::Zero;
+	SoundSource* m_FireSound = nullptr;
 };
 

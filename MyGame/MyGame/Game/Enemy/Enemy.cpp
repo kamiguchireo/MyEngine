@@ -301,6 +301,7 @@ void Enemy::Update()
 	}
 	else
 	{
+		m_weapon->StopFireSound();
 		//ŽžŠÔ‚ð‰ÁŽZ
 		NowTime_Rand += DeltaTime;
 		if (NowTime_Rand >= WaitTime_Rand)

@@ -7,7 +7,9 @@ Stage::Stage()
 	{
 		m_level = new Level();
 		m_sound = NewGO<SoundSource>(0);
+		//”M‘Ñ‚ÌŠÂ‹«‰¹‚ð‰Šú‰»
 		m_sound->Init(L"Assets/sound/Environmental_sound_Tropical.wav");
+		//ƒ‹[ƒv‚ÅÄ¶‚·‚é
 		m_sound->Play(true);
 	}
 	m_level->Init("Assets/Level/Map.tkl", [&](const LevelObjectData& objData) {

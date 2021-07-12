@@ -3,6 +3,7 @@
 #include "Game/Weapon.h"
 #include "SourceFile/Graphic/SpriteRender.h"
 #include "PlayerStatus.h"
+#include "SourceFile/sound/SoundSource.h"
 
 class IPlayer;
 class GameCamera;
@@ -66,6 +67,12 @@ public:
 			m_PlayerWeapon->SetRay(g_camera3D->GetPosition(), Direction);
 			m_PlayerWeapon->shooting();
 		}
+	}
+
+	//銃の射撃音を止める
+	void StopFiresound()
+	{
+		m_PlayerWeapon->StopFireSound();
 	}
 
 	//回転をセット
@@ -149,4 +156,7 @@ private:
 	bool IsDead = false;		//死んでいるかどうか
 	int m_HeadBoneNum = -1;
 	std::unique_ptr<PlayerStatus> m_Status = nullptr;
+	SoundSource* m_HoldRifleSound = nullptr;		//銃を構えるときのサウンド
+	bool IsRightClick = false;
+	bool IsAim = false;
 };

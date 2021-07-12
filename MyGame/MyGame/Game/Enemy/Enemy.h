@@ -70,6 +70,7 @@ public:
 
 	//€–S‚Ìˆ—
 	void DeadProcess();
+
 private:
 	//Ÿ‚ÌƒpƒX‚Ö•ÏX
 	void ChangeNextPass();

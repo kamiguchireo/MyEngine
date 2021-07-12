@@ -25,7 +25,7 @@ public:
 	//ワンショット再生の場合再生が完了すると自動的にインスタンスを破棄します
 	//ワンショット再生のSoundSourceのインスタンスをメンバ変数で保持していると
 	//破棄されたインスタンスにアクセスしてしまう可能性があります
-	void Play(bool isLoop);
+	void Play(bool isLoop,bool IsDelete = true);
 
 	//停止
 	void Stop()
@@ -162,5 +162,5 @@ private:
 	X3DAUDIO_DSP_SETTINGS m_dspSettings;
 	bool m_isSetPositionFirst = true;	//!<一番最初のsetPosition?
 	bool m_isAvailable = false;			//!<インスタンスが利用可能？
-
+	bool m_IsDeleteOnOneShot = true;
 };

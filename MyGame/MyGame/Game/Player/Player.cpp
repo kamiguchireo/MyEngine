@@ -74,6 +74,11 @@ void Player::Destroy()
 		delete characon;
 		characon = nullptr;
 	}
+	if (m_HoldRifleSound != nullptr)
+	{
+		DeleteGO(m_HoldRifleSound);
+		m_HoldRifleSound = nullptr;
+	}
 }
 
 bool Player::Start()
@@ -157,6 +162,9 @@ bool Player::Start()
 	m_HitBox = NewGO<PlayerHitBox>(4, nullptr);
 	m_HitBox->Init(&m_skeleton, this);
 
+	m_HoldRifleSound = NewGO<SoundSource>(5);
+	m_HoldRifleSound->Init(L"Assets/sound/Hold_the_rifle.wav");
+	m_HoldRifleSound->SetVolume(1.0f);
 	//エイムステートの初期化
 	m_stateAim->Init();
 
@@ -183,8 +191,28 @@ void Player::AxisTrans()
 
 void Player::Hold()
 {
-	//右クリックされたとき
-	if (GetKeyState(VK_RBUTTON))
+	if (IsRightClick)
+	{
+		if (!GetAsyncKeyState(VK_RBUTTON))
+		{
+			IsRightClick = false;
+			if (IsAim == false)
+			{
+				//ライフルを構える音を出す
+				m_HoldRifleSound->Play(false,false);
+				IsAim = true;
+			}
+			else
+			{
+				IsAim = false;
+			}
+		}
+	}
+	if (GetAsyncKeyState(VK_RBUTTON))
+	{
+		IsRightClick = true;
+	}
+	if (IsAim == true)
 	{
 		//照準のαを1にする
 		m_AimFramesprite->SetAlpha(1.0f);
@@ -194,6 +222,7 @@ void Player::Hold()
 	}
 	else
 	{
+		m_HoldRifleSound->Stop();
 		//照準のαを0にする
 		m_AimFramesprite->SetAlpha(0.0f);
 		//TPSカメラに切り替え

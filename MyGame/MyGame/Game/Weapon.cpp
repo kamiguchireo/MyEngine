@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Weapon.h"
-
-
+#include "SourceFile/sound/SoundSource.h"
 
 Weapon::~Weapon()
 {
@@ -17,6 +16,11 @@ void Weapon::Destroy()
 		DeleteGO(m_Model);
 		m_Model = nullptr;
 	}
+	if (m_FireSound != nullptr)
+	{
+		DeleteGO(m_FireSound);
+		m_FireSound = nullptr;
+	}
 }
 void Weapon::Init(Skeleton* sk,bool IsDither)
 {
@@ -31,6 +35,8 @@ void Weapon::Init(Skeleton* sk,bool IsDither)
 bool Weapon::Start()
 {
 	LeftHandBoneNo = m_skeleton->FindBoneID(L"mixamorig:LeftHand");
+	m_FireSound = NewGO<SoundSource>(0);
+	m_FireSound->Init(L"Assets/sound/Rifle_fire_after.wav");
 
 	return true;
 }
@@ -56,6 +62,7 @@ void Weapon::shooting()
 	//1•bŠÔ‚Érate‚Ì”‚¾‚¯Œ‚‚Ä‚é
 	if (time >= 1.0f / rate)
 	{
+		m_FireSound->Play(true);
 		//ƒŒƒC‚ğì¬
 		btVector3 start, end;
 		start.setZero();
