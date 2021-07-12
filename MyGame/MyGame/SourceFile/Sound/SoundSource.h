@@ -9,7 +9,7 @@ public:
 
 	//初期化
 	//オンメモリ再生向け
-	void Init(wchar_t* filePath, bool is3DSound = false);
+	void Init(const wchar_t* filePath, bool is3DSound = false);
 
 	//初期化
 	//ストリーミング再生向け

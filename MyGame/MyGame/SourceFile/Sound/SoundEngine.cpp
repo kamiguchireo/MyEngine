@@ -166,7 +166,7 @@ void SoundEngine::Release()
 //XAudio2のソースボイスを作成
 IXAudio2SourceVoice* SoundEngine::CreateXAudio2SourceVoice(WaveFile* waveFile, bool is3DSound)
 {
-	if (waveFile->GetFormat()->nChannels >= INPUTCHANNELS)
+	if (waveFile->GetFormat()->nChannels <= INPUTCHANNELS == false)
 	{
 		//Channel over
 		std::abort();

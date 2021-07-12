@@ -26,7 +26,7 @@ void SoundSource::InitCommon()
 	m_dspSettings.EmitterVelocityComponent = 0.0f;
 	m_dspSettings.ListenerVelocityComponent = 0.0f;
 }
-void SoundSource::Init(wchar_t* filePath, bool is3DSound)
+void SoundSource::Init(const wchar_t* filePath, bool is3DSound)
 {
 	if (g_engine->GetSoundEngine().IsAvailable() == false) {
 		//サウンドエンジンが利用不可。
