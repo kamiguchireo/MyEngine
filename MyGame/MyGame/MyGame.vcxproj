@@ -118,7 +118,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>DXGI.lib;dxguid.lib;DirectXTK12.lib;d3d12.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>DXGI.lib;dxguid.lib;DirectXTK12.lib;d3d12.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;xaudio2.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)/../MiniEngine/exlib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ImageContentTask>
@@ -154,13 +154,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>DXGI.lib;dxguid.lib;DirectXTK12.lib;d3d12.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;BulletCollision.lib;BulletDynamics.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>DXGI.lib;dxguid.lib;DirectXTK12.lib;d3d12.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;BulletCollision.lib;BulletDynamics.lib;LinearMath.lib;xaudio2.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)/../MiniEngine/exlib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ImageContentTask>
@@ -201,6 +202,8 @@
     <ClCompile Include="Game\Player\PlayerHitBox.cpp" />
     <ClCompile Include="Game\Enemy\IEnemy.cpp" />
     <ClCompile Include="Game\Player\PlayerStatus.cpp" />
+    <ClCompile Include="SourceFile\Sound\SoundEngine.cpp" />
+    <ClCompile Include="SourceFile\Sound\SoundSource.cpp" />
     <ClCompile Include="SourceFile\graphic\nature\Sky.cpp" />
     <ClCompile Include="SourceFile\graphic\Decale.cpp" />
     <ClCompile Include="SourceFile\Physics\CylinderCollider.cpp" />
@@ -260,6 +263,8 @@
     <ClCompile Include="Game\Test.cpp" />
     <ClCompile Include="Game\Stage\Tree\Tree1.cpp" />
     <ClCompile Include="Game\Stage\Tree\Tree2.cpp" />
+    <ClCompile Include="SourceFile\Sound\WaveFileBank.cpp" />
+    <ClCompile Include="SourceFile\Sound\WaveFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\MiniEngine\Camera.h" />
@@ -300,6 +305,8 @@
     <ClInclude Include="Game\Player\PlayerHitBox.h" />
     <ClInclude Include="Game\Enemy\IEnemy.h" />
     <ClInclude Include="Game\Player\PlayerStatus.h" />
+    <ClInclude Include="SourceFile\Sound\SoundEngine.h" />
+    <ClInclude Include="SourceFile\Sound\SoundSource.h" />
     <ClInclude Include="SourceFile\graphic\nature\Sky.h" />
     <ClInclude Include="SourceFile\graphic\Decale.h" />
     <ClInclude Include="SourceFile\Physics\CylinderCollider.h" />
@@ -357,6 +364,8 @@
     <ClInclude Include="Game\Test.h" />
     <ClInclude Include="Game\Stage\Tree\Tree1.h" />
     <ClInclude Include="Game\Stage\Tree\Tree2.h" />
+    <ClInclude Include="SourceFile\Sound\WaveFileBank.h" />
+    <ClInclude Include="SourceFile\Sound\WaveFile.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\Image\AimFrame.png" />

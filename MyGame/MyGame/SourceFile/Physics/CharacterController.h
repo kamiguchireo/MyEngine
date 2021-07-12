@@ -51,5 +51,6 @@ namespace Engine {
 		float m_radius = 0.0f;		//カプセルコライダーの半径
 		float m_height = 0.0f;		//カプセルコライダーの高さ
 		RigidBody m_rigidBody;		//剛体
+		const float OverStep = 0.25f;
 	};
 }

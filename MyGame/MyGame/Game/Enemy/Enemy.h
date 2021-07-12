@@ -117,7 +117,7 @@ private:
 	const int RandRangeMax = 100;
 	const int RandRangeMin = 10;
 	int RandRange = 100;
-	const int ChangeRandRange = 10;
+	const int ChangeRandRange = 5;
 	float NowTime_Rand = 0.0f;
 	const float WaitTime_Rand = 1.0f;
 };

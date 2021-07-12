@@ -15,6 +15,11 @@
 
 #include "SourceFile/Timer/GameTime.h"
 
+//‰¹
+#include <xaudio2.h>
+#include <x3daudio.h>
+#include <xaudio2fx.h>
+
 enum EnCollisionAttr {
 	enCollisionAttr_StaticObject,
 	enCollisionAttr_Character,
@@ -78,3 +83,6 @@ enum CollisionActivationState
 };
 
 using namespace Engine;
+
+static const int INPUTCHANNELS = 2;
+static const int OUTPUTCHANNELS = 8;

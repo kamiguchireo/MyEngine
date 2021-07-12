@@ -11,17 +11,7 @@
 Player* Player::m_Instance = nullptr;
 Player::Player()
 {
-	//プレイヤーのステータス
-	m_Status = std::make_unique<PlayerStatus>(this);
-
 	m_Instance = this;
-	//ステートをnew
-	m_stateIdle = new PlayerStateIdle(this);
-	m_stateMove = new PlayerStateMove(this);
-	m_stateAim = new PlayerStateAim(this);
-	characon = new CharacterController();
-	//待機ステートに切り替える
-	ChangeState(m_stateIdle);
 }
 
 Player::~Player()
@@ -88,6 +78,17 @@ void Player::Destroy()
 
 bool Player::Start()
 {
+	//プレイヤーのステータス
+	m_Status = std::make_unique<PlayerStatus>(this);
+
+	//ステートをnew
+	m_stateIdle = new PlayerStateIdle(this);
+	m_stateMove = new PlayerStateMove(this);
+	m_stateAim = new PlayerStateAim(this);
+	characon = new CharacterController();
+	//待機ステートに切り替える
+	ChangeState(m_stateIdle);
+
 	m_camera = NewGO<GameCamera>(0, nullptr);
 
 	characon->Init(15.0f,115.0f, m_pos);

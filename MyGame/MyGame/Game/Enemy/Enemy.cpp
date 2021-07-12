@@ -14,33 +14,6 @@
 
 Enemy::Enemy()
 {
-	//エネミーのステータス
-	m_Status = std::make_unique<EnemyStatus>(this);
-
-	//ステートをnew
-	m_stateIdle = new EnemyStateIdle(this);
-	m_stateMove = new EnemyStateMove(this);
-	m_stateAim = new EnemyStateAim(this);
-	characon = new CharacterController();
-	ChangeState(m_stateIdle);
-
-	m_path = Path::GetInstance();
-	if (m_path != nullptr)
-	{
-		m_PassPos = m_path->GetPosition();
-	}
-	else
-	{
-		m_PassPos.push_back(m_pos);
-		m_PassPos.push_back(Vector3{ 300.0f,0.0f,100.0f });
-		m_PassPos.push_back(Vector3{ 100.0f,0.0f,100.0f });
-		m_PassPos.push_back(Vector3{ 100.0f,0.0f,-1000.0f });
-
-	}
-
-	m_PassSize = static_cast<int>(m_PassPos.size()) - 1;
-
-	m_RayTest = std::make_unique<EnemyRayTest>(this);
 }
 
 Enemy::~Enemy()
@@ -94,6 +67,34 @@ void Enemy::Destroy()
 
 bool Enemy::Start()
 {
+	//エネミーのステータス
+	m_Status = std::make_unique<EnemyStatus>(this);
+
+	//ステートをnew
+	m_stateIdle = new EnemyStateIdle(this);
+	m_stateMove = new EnemyStateMove(this);
+	m_stateAim = new EnemyStateAim(this);
+	characon = new CharacterController();
+	ChangeState(m_stateIdle);
+
+	m_path = Path::GetInstance();
+	if (m_path != nullptr)
+	{
+		m_PassPos = m_path->GetPosition();
+	}
+	else
+	{
+		m_PassPos.push_back(m_pos);
+		m_PassPos.push_back(Vector3{ 300.0f,0.0f,100.0f });
+		m_PassPos.push_back(Vector3{ 100.0f,0.0f,100.0f });
+		m_PassPos.push_back(Vector3{ 100.0f,0.0f,-1000.0f });
+
+	}
+
+	m_PassSize = static_cast<int>(m_PassPos.size()) - 1;
+
+	m_RayTest = std::make_unique<EnemyRayTest>(this);
+
 	//プレイヤーのインスタンスを取得
 	m_player = Player::GetInstance();
 

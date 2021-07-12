@@ -141,11 +141,11 @@ private:
 	Weapon* m_PlayerWeapon = nullptr;		//プレイヤーの武器
 	GameCamera* m_camera = nullptr;		//カメラ
 	Vector3 m_forward = Vector3::AxisZ;		//前方向
-	CharacterController* characon;		//キャラコン
+	CharacterController* characon = nullptr;		//キャラコン
 	Vector3 footStepValue = Vector3::Zero;		//footStepの移動量
 	prefab::SpriteRender* m_AimFramesprite = nullptr;		//エイム時に表示するスプライト
 	Vector3 m_gravity = Vector3::Zero;		//重力による加速
-	PlayerHitBox* m_HitBox;
+	PlayerHitBox* m_HitBox = nullptr;
 	bool IsDead = false;		//死んでいるかどうか
 	int m_HeadBoneNum = -1;
 	std::unique_ptr<PlayerStatus> m_Status = nullptr;
