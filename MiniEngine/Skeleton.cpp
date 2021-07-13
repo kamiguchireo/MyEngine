@@ -61,7 +61,6 @@ bool Skeleton::Init(const char* tksFilePath)
 	BuildBoneMatrices();
 
 	WeaponBoneNum = FindBoneID(L"mixamorig:RightHand");
-
 	return true;
 }
 void Skeleton::BuildBoneMatrices()

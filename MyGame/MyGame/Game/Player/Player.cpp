@@ -276,15 +276,28 @@ void Player::Update()
 	
 	//1フレームにかかった時間を取得
 	float DeltaTime = g_gameTime.GetFrameDeltaTime();
+
+	//移動の処理
+	Move();
+
+	//構える処理
+	Hold();
+
+	//現在のステートの更新
+	currentState->Update();
+
 	//アニメーションからfootstepの移動量を持ってくる
 	footStepValue = m_animation.Update(DeltaTime);
-	
+
 	AxisTrans();
-	
+
 	//フットステップを調整
 	//スケールの値をとる
 	footStepValue *= m_scale.x;
-
+	if (footStepValue.z < -0.001f)
+	{
+		int i = 0;
+	}
 	//重力を加算
 	if (characon->IsOnGround())
 	{
@@ -300,14 +313,6 @@ void Player::Update()
 	//移動に重力を加算
 	footStepValue += m_gravity;
 
-	//移動の処理
-	Move();
-
-	//構える処理
-	Hold();
-
-	//現在のステートの更新
-	currentState->Update();
 	//footStepValueに回転を適用
 	m_rot.Apply(footStepValue);
 
@@ -324,5 +329,4 @@ void Player::Update()
 
 	//回転をセット
 	m_playerModel->SetRotation(m_rot);
-	characon->GetRigidBody()->GetBody()->getUserIndex();
 }
