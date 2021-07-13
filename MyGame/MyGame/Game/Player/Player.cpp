@@ -104,7 +104,7 @@ bool Player::Start()
 	m_animClip[enPlayerAnimation_Rifle_Idle].Load("Assets/animData/Rifle_Idle.tka");
 	m_animClip[enPlayerAnimation_Rifle_Idle].SetLoopFlag(true);
 	//歩き状態のアニメーション
-	m_animClip[enPlayerAnimation_Rifle_Walk].Load("Assets/animData/Rifle_Walk.tka");
+	m_animClip[enPlayerAnimation_Rifle_Walk].Load("Assets/animData/Rifle_Crouch_Walking.tka");
 	m_animClip[enPlayerAnimation_Rifle_Walk].SetLoopFlag(true);
 	//走り状態のアニメーション
 	m_animClip[enPlayerAnimation_Rifle_Run].Load("Assets/animData/Rifle_Run.tka");

@@ -60,7 +60,7 @@ bool Skeleton::Init(const char* tksFilePath)
 	m_tksFile.Load(tksFilePath);
 	BuildBoneMatrices();
 
-	WeaponBoneNum = FindBoneID(L"weaponBone");
+	WeaponBoneNum = FindBoneID(L"mixamorig:RightHand");
 
 	return true;
 }

@@ -174,6 +174,8 @@ void PlayerHitBox::Update()
 	}
 
 	//ボーンが1フレームずれるためコリジョンをアップデートする前にボーンを更新
-	m_pl->UpdateAnimation(0.0f);
+	//cpu負荷が大きいので今はコメントアウト
+	//1フレームは妥協
+	//m_pl->UpdateAnimation(0.0f);
 	UpdateCollisionDetection();
 }
