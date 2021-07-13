@@ -26,7 +26,8 @@ private:
 	std::vector<Path*> m_Path;
 	std::vector<Enemy*>m_enemy;
 	bool m_IsPathInited[100] = { false };
-	int m_enemyNum = 0;
+	bool m_IsEnemyInited[100] = { false };
+	int m_numEnemy = 0;
 	int Firstplace = 0;
 	int Tenthplace = 0;
 	int m_numPath = 0;

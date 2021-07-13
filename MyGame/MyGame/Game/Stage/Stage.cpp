@@ -102,8 +102,8 @@ Stage::Stage()
 			wcscat_s(m_pathchar, ten);
 			//1の位をファイルパスに結合
 			wcscat_s(m_pathchar, first);
-			//_をファイルパスに結合
-			wcscat_s(m_pathchar, L"_");
+			////_をファイルパスに結合
+			//wcscat_s(m_pathchar, L"_");
 			//カウントを1上げる
 			Firstplace++;
 			if (wcsncmp(objData.name, m_pathchar, 7) == 0)
@@ -128,22 +128,61 @@ Stage::Stage()
 		Tenthplace = 0;
 		Firstplace = 0;
 		m_numPath = 0;
-		if (wcsncmp(objData.name, L"Enemy_", 6) == 0)
+		for (int i = 0; i < 100; i++)
 		{
-			if (m_enemy.size() == m_enemyNum)
+			wchar_t m_enemychar[256] = L"Enemy_";
+			if (Firstplace == 10)
 			{
-				m_enemy.push_back(NewGO<Enemy>(0));
-				m_enemy[m_enemyNum]->SetPosition(objData.position);
-				m_enemy[m_enemyNum]->SetRotation(objData.rotation);
-				m_enemyNum++;
+				//10の位に上げる
+				Tenthplace++;
+				Firstplace = 0;
 			}
-			return true;
+			wchar_t first[2];
+			wchar_t ten[2];
+			_itow_s(Firstplace, first, 10);
+			_itow_s(Tenthplace, ten, 10);
+			//10の位をファイルパスに結合
+			wcscat_s(m_enemychar, ten);
+			//1の位をファイルパスに結合
+			wcscat_s(m_enemychar, first);
+			////_をファイルパスに結合
+			//wcscat_s(m_enemychar, L"_");
+			//カウントを1上げる
+			Firstplace++;
+
+			if (wcsncmp(objData.name, m_enemychar, 8) == 0)
+			{
+				//ファイルパスが合致したとき
+				if (m_IsEnemyInited[m_numEnemy] == false)
+				{
+					m_IsEnemyInited[m_numEnemy] = true;
+					m_enemy.push_back(NewGO<Enemy>(0));
+				}
+				
+				//エネミーのポジションをセット
+				m_enemy[m_numEnemy]->SetPosition(objData.position);
+				//エネミーの回転をセット
+				m_enemy[m_numEnemy]->SetRotation(objData.rotation);
+
+				//10の位を0に戻す
+				Tenthplace = 0;
+				//1の位を0に戻す
+				Firstplace = 0;
+				//パスの数を0に戻す
+				m_numEnemy = 0;
+
+				return true;
+			}
+			m_numEnemy++;
 		}
+		Tenthplace = 0;
+		Firstplace = 0;
+		m_numEnemy = 0;
 
 		return false;
 	});
 
-	for (int i = 0; i < m_enemyNum; i++)
+	for (int i = 0; i < m_enemy.size(); i++)
 	{
 		m_enemy[i]->SetPath(m_Path[i]);
 	}
