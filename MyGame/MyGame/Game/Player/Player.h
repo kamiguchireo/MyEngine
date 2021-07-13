@@ -79,16 +79,11 @@ public:
 		}
 	}
 
-	//e‚ÌËŒ‚‰¹‚ğ~‚ß‚é
-	void StopFiresound()
-	{
-		//m_PlayerWeapon->StopFireSound();
-	}
-
-
 	//€–S
 	void Dead()
 	{
+		//€–S‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğ—¬‚·
+		m_animation.Play(enPlayerAnimation_Death_From_Front);
 		IsDead = true;
 	}
 

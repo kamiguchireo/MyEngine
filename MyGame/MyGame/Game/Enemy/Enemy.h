@@ -46,6 +46,8 @@ public:
 	//死亡
 	void Dead()
 	{
+		//死亡時のアニメーションを流す
+		m_animation.Play(enEnemyAnimation_Death_From_Front);
 		IsDead = true;
 	}
 
