@@ -106,5 +106,6 @@ private:
 	Vector3 m_RayDirection = Vector3::Zero;
 	SoundSource* m_FireSound[FireSoundNum_Rifle] = {nullptr};
 	int Character = enCollisionAttr_Num;
+	const float m_CurveDistance = 3000.0f;
 };
 

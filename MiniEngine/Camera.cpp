@@ -38,12 +38,12 @@ void Camera::Update()
 		m_forward.Set(m_viewMatrixInv.m[2][0], m_viewMatrixInv.m[2][1], m_viewMatrixInv.m[2][2]);
 		//右をセット
 		m_right.Set(m_viewMatrixInv.m[0][0], m_viewMatrixInv.m[0][1], m_viewMatrixInv.m[0][2]);
-		//上をセット
-		m_up = Cross(m_forward, m_right);
+		////上をセット
+		//m_up.Set(m_viewMatrixInv.m[1][0], m_viewMatrixInv.m[1][1], m_viewMatrixInv.m[1][2]);
 		//方向を正規化
 		m_forward.Normalize();
 		m_right.Normalize();
-		m_up.Normalize();
+		//m_up.Normalize();
 
 		//カメラの回転行列を取得。
 		m_cameraRotation = m_viewMatrixInv;

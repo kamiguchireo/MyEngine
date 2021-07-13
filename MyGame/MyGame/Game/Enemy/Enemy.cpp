@@ -11,6 +11,7 @@
 #include "EnemyStateAim.h"
 #include "Game/Player/Player.h"
 #include "EnemyRayTest.h"
+#include <random>
 
 Enemy::Enemy()
 {
@@ -150,6 +151,10 @@ bool Enemy::Start()
 	m_HitBox = NewGO<EnemyHitBox>(2);
 	m_HitBox->Init(&m_skeleton, this);
 
+	//乱数の種の変更
+	std::random_device rnd;
+	srand(rnd());
+
 	return true;
 }
 
@@ -231,12 +236,6 @@ void Enemy::Update()
 		m_RayTest->Update(m_player->GetPosition());
 	}
 
-	//ランダム性を持たせるためにプレイヤーを発見する前からrand関数を呼んでおく
-	//乱数を生成
-	int AddRandPos = rand();
-	//プレイヤーに加算する値がプラスかマイナスか決める
-	int RandDir = rand();
-
 	//プレイヤーを発見しているとき
 	if (m_ActState == EnemyActState::enState_Discover)
 	{
@@ -263,7 +262,10 @@ void Enemy::Update()
 		Vector3 WeaponPos = m_skeleton.GetBone(m_skeleton.GetWeaponBoneNum())->GetPosition();
 		//武器のポジションだと自分にレイが当たってしまうので少し前に出す
 		WeaponPos += ToPlayer * 25.0f;
-		
+
+		int AddRandPos = rand();
+		//プレイヤーに加算する値がプラスかマイナスか決める
+		int RandDir = rand();
 		//範囲を決める
 		AddRandPos %= RandRange;
 		//0か1の2択にする

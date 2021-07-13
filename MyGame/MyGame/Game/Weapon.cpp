@@ -18,6 +18,7 @@ void Weapon::Destroy()
 	}
 	for (int i = 0; i < FireSoundNum_Rifle; i++)
 	{
+		m_FireSound[i]->Stop();
 		if (m_FireSound[i] != nullptr)
 		{
 			DeleteGO(m_FireSound[i]);
@@ -41,7 +42,8 @@ bool Weapon::Start()
 	for (int i = 0; i < FireSoundNum_Rifle; i++)
 	{
 		m_FireSound[i] = NewGO<SoundSource>(0);
-		m_FireSound[i]->Init(L"Assets/sound/Rifle_fire.wav");
+		m_FireSound[i]->Init(L"Assets/sound/Rifle_fire.wav", true);
+		m_FireSound[i]->SetCurveDistance(m_CurveDistance);
 	}
 	return true;
 }
@@ -53,6 +55,12 @@ void Weapon::AddDecale(const btVector3& start,const btVector3& end)
 
 void Weapon::Update()
 {
+	for (int i = 0; i < FireSoundNum_Rifle; i++)
+	{
+		auto bone = m_skeleton->GetBone(m_skeleton->GetWeaponBoneNum());
+		m_FireSound[i]->SetPosition(bone->GetPosition());
+	}
+
 	//武器用の行列をボーンから取得
 	m_weaponMat = m_skeleton->GetWeaponMatrix();
 	//武器にワールド行列をセット

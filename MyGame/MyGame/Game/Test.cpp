@@ -24,6 +24,7 @@ void Test::OnDestroy()
 	}
 	if (m_sound != nullptr)
 	{
+		m_sound->Stop();
 		DeleteGO(m_sound);
 		m_sound = nullptr;
 	}

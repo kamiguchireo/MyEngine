@@ -61,13 +61,6 @@ public:
 	{
 		m_up = up;
 	}
-	/// <summary>
-	/// カメラの上方向を取得。
-	/// </summary>
-	const Vector3& GetUp() const
-	{
-		return m_up;
-	}
 
 	/// <summary>
 	/// ビュー行列の逆行列を取得。
@@ -239,11 +232,18 @@ public:
 	/// <summary>
 	/// カメラの右方向を取得。
 	/// </summary>
-
 	const Vector3& GetRight() const
 	{
 		return m_right;
 	}
+	/// <summary>
+	/// カメラの上方向を取得。
+	/// </summary>
+	//現在は上方向を更新していません
+	//const Vector3& GetUp() const
+	//{
+	//	return m_up;
+	//}
 	/// <summary>
 	/// アスペクト比を取得。
 	/// </summary>

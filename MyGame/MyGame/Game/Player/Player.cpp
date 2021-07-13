@@ -76,6 +76,7 @@ void Player::Destroy()
 	}
 	if (m_HoldRifleSound != nullptr)
 	{
+		m_HoldRifleSound->Stop();
 		DeleteGO(m_HoldRifleSound);
 		m_HoldRifleSound = nullptr;
 	}
@@ -332,6 +333,4 @@ void Player::Update()
 	g_engine->GetSoundEngine().SetListenerPosition(m_pos);
 	//サウンドリスナーの前方向をセット
 	g_engine->GetSoundEngine().SetListenerFront((g_camera3D->GetForward()));
-	//サウンドリスナーの上方向をセット
-	g_engine->GetSoundEngine().SetListenerUp(g_camera3D->GetUp());
 }

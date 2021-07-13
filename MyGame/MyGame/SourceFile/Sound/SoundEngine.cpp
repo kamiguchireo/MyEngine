@@ -288,7 +288,7 @@ void SoundEngine::Update()
 		emitter.pLPFReverbCurve = NULL; // use default curve
 		emitter.pReverbCurve = (X3DAUDIO_DISTANCE_CURVE*)&Emitter_Reverb_Curve;
 		//減衰する距離に比例する
-		emitter.CurveDistanceScaler = 1000.0f;
+		emitter.CurveDistanceScaler = soundSource->GetCurveDistance();
 		//ドップラー効果の度合い
 		emitter.DopplerScaler = 1.0f;
 

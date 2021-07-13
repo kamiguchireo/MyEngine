@@ -90,6 +90,11 @@ public:
 	{
 		m_CurveDistance = dist;
 	}
+	//音源の減衰距離を取得
+	float GetCurveDistance()
+	{
+		return m_CurveDistance;
+	}
 	//ループフラグを取得
 	bool GetLoopFlag()const
 	{
