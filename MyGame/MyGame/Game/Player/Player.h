@@ -39,10 +39,20 @@ public:
 		m_animation.Update(f);
 	}
 
+	//ポジションをセット
+	void SetPosition(const Vector3& pos)
+	{
+		m_pos = pos;
+	}
 	//回転をセット
 	void SetRotation(const Quaternion& rot)
 	{
 		m_rot = rot;
+	}
+	//スケールをセット
+	void SetScale(const Vector3& scale)
+	{
+		m_scale = scale;
 	}
 
 	//正面をゲット
@@ -75,11 +85,6 @@ public:
 		//m_PlayerWeapon->StopFireSound();
 	}
 
-	//回転をセット
-	void SetRot(const Quaternion& rot)
-	{
-		m_rot = rot;
-	}
 
 	//死亡
 	void Dead()

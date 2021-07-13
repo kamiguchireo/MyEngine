@@ -21,9 +21,12 @@ Stage::Stage()
 		m_sound->Play(true);
 	}
 	m_level->Init("Assets/Level/Map.tkl", [&](const LevelObjectData& objData) {
-		if (wcscmp(objData.name, L"soldier_bs01") == 0)
+		if (wcscmp(objData.name, L"Player") == 0)
 		{
 			m_Player = NewGO<Player>(0);
+			m_Player->SetPosition(objData.position);
+			m_Player->SetRotation(objData.rotation);
+			return true;
 		}
 		else if (wcscmp(objData.name, L"SM_Grass_03") == 0)
 		{	

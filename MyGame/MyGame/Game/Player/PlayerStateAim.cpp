@@ -45,7 +45,7 @@ void PlayerStateAim::UpdateRotation()
 	//プレイヤーを視点方向に回転
 	rot.SetRotation(Axis, acosf(dot));
 	//プレイヤーに適応
-	m_Player->SetRot(rot);
+	m_Player->SetRotation(rot);
 	//腰から上も回転
 	WaistBend();
 }
