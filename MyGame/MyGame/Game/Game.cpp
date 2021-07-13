@@ -24,8 +24,6 @@ bool Game::Start()
 {
 	m_Stage = new Stage();
 
-	enemy = NewGO<Enemy>(0, nullptr);
-
 	g_camera3D->SetPosition({ 0.0f, 100.0f, -300.0f });
 	g_camera3D->SetTarget({ 0.0f, 100.0f, 0.0f });
 
@@ -49,11 +47,6 @@ void Game::DeleteObject()
 		delete m_Stage;
 		m_Stage = nullptr;
 	}
-	if (enemy != nullptr)
-	{
-		DeleteGO(enemy);
-		enemy = nullptr;
-	}
 }
 
 void Game::NewObject()
@@ -61,10 +54,6 @@ void Game::NewObject()
 	if (m_Stage == nullptr)
 	{
 		m_Stage = new Stage();
-	}
-	if (enemy == nullptr)
-	{
-		enemy = NewGO<Enemy>(0, nullptr);
 	}
 }
 void Game::SceneTrans()

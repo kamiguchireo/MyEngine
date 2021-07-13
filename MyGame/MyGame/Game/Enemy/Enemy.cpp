@@ -14,6 +14,7 @@
 
 Enemy::Enemy()
 {
+
 }
 
 Enemy::~Enemy()
@@ -77,7 +78,6 @@ bool Enemy::Start()
 	characon = new CharacterController();
 	ChangeState(m_stateIdle);
 
-	m_path = Path::GetInstance();
 	if (m_path != nullptr)
 	{
 		m_PassPos = m_path->GetPosition();

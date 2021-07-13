@@ -8,6 +8,7 @@
 #include "Path.h"
 #include "SourceFile/Sound/SoundSource.h"
 #include "Game/Player/Player.h"
+#include "Game/Enemy/Enemy.h"
 
 Stage::Stage()
 {
@@ -84,24 +85,68 @@ Stage::Stage()
 			}
 			return true;
 		}
-		else if (wcscmp(objData.name, L"Pass") == 0)
+		for (int i = 0; i < 100; i++)
 		{
-			if (m_Path == nullptr)
+			wchar_t m_pathchar[256] = L"Path_";
+			if (Firstplace == 10)
 			{
-				m_Path = new Path();
-				m_Path->AddPosition(objData.position);
+				//10の位に上げる
+				Tenthplace++;
+				Firstplace = 0;
 			}
-			else
+			wchar_t first[2];
+			wchar_t ten[2];			
+			_itow_s(Firstplace, first, 10);
+			_itow_s(Tenthplace, ten, 10);
+			//10の位をファイルパスに結合
+			wcscat_s(m_pathchar, ten);
+			//1の位をファイルパスに結合
+			wcscat_s(m_pathchar, first);
+			//_をファイルパスに結合
+			wcscat_s(m_pathchar, L"_");
+			//カウントを1上げる
+			Firstplace++;
+			if (wcsncmp(objData.name, m_pathchar, 7) == 0)
 			{
-				m_Path->AddPosition(objData.position);
+				//ファイルパスが合致したとき
+				if (m_IsPathInited[m_numPath] == false)
+				{
+					m_IsPathInited[m_numPath] = true;
+					m_Path.push_back(new Path());
+				}
+				m_Path[m_numPath]->AddPosition(objData.position);
+				//10の位を0に戻す
+				Tenthplace = 0;
+				//1の位を0に戻す
+				Firstplace = 0;
+				//パスの数を0に戻す
+				m_numPath = 0;
+				return true;
+			}
+			m_numPath++;
+		}
+		Tenthplace = 0;
+		Firstplace = 0;
+		m_numPath = 0;
+		if (wcsncmp(objData.name, L"Enemy_", 6) == 0)
+		{
+			if (m_enemy.size() == m_enemyNum)
+			{
+				m_enemy.push_back(NewGO<Enemy>(0));
+				m_enemy[m_enemyNum]->SetPosition(objData.position);
+				m_enemy[m_enemyNum]->SetRotation(objData.rotation);
+				m_enemyNum++;
 			}
 			return true;
 		}
 
-
 		return false;
 	});
 
+	for (int i = 0; i < m_enemyNum; i++)
+	{
+		m_enemy[i]->SetPath(m_Path[i]);
+	}
 }
 
 Stage::~Stage()
@@ -141,9 +186,22 @@ Stage::~Stage()
 		DeleteGO(m_Bush);
 		m_Bush = nullptr;
 	}
-	if (m_Path != nullptr)
+
+	for (int i = 0; i < m_Path.size(); i++)
 	{
-		delete m_Path;
-		m_Path = nullptr;
+		if (m_Path[i] != nullptr)
+		{
+			delete m_Path[i];
+			m_Path[i] = nullptr;
+		}
 	}
+	for (int i = 0; i < m_enemy.size(); i++)
+	{
+		if (m_enemy[i] != nullptr)
+		{
+			DeleteGO(m_enemy[i]);
+			m_enemy[i] = nullptr;
+		}
+	}
+
 }

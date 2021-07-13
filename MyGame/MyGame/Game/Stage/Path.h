@@ -11,14 +11,14 @@ public:
 		m_position.push_back(pos);
 	}
 
-	static Path* GetInstance()
-	{
-		if (instance != nullptr)
-		{
-			return instance;
-		}
-		return nullptr;
-	}
+	//static Path* GetInstance()
+	//{
+	//	if (instance != nullptr)
+	//	{
+	//		return instance;
+	//	}
+	//	return nullptr;
+	//}
 
 	std::vector<Vector3>& GetPosition()
 	{
@@ -26,5 +26,5 @@ public:
 	}
 private:
 	std::vector<Vector3> m_position;		//Pass‚Ìƒ|ƒWƒVƒ‡ƒ“
-	static Path* instance;
+	//static Path* instance;
 };

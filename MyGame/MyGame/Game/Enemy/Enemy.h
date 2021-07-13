@@ -71,6 +71,28 @@ public:
 	//死亡時の処理
 	void DeadProcess();
 
+	//ポジションをセット
+	void SetPosition(const Vector3& pos)
+	{
+		m_pos = pos;
+	}
+
+	//回転をセット
+	void SetRotation(const Quaternion& rot)
+	{
+		m_rot = rot;
+	}
+
+	//スケールをセット
+	void SetScale(const Vector3& scale)
+	{
+		m_scale = scale;
+	}
+
+	void SetPath(Path* path)
+	{
+		m_path = path;
+	}
 private:
 	//次のパスへ変更
 	void ChangeNextPass();

@@ -1,8 +1,6 @@
 #pragma once
 
 class Stage;
-class Enemy;
-
 class Game:public IGameObject
 {
 public:
@@ -29,7 +27,6 @@ private:
 
 private:
 	static Game* m_Instance;
-	Enemy* enemy = nullptr;
 	Stage* m_Stage = nullptr;		//ステージ
 	bool IsDestroyObject = false;
 };
