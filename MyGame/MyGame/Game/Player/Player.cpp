@@ -326,7 +326,12 @@ void Player::Update()
 	m_camera->SetHeadPos(m_skeleton.GetBone(m_HeadBoneNum)->GetPosition());
 	//ポジションをセット
 	m_playerModel->SetPosition(m_pos);
-
 	//回転をセット
 	m_playerModel->SetRotation(m_rot);
+	//サウンドリスナーの位置をセット
+	g_engine->GetSoundEngine().SetListenerPosition(m_pos);
+	//サウンドリスナーの前方向をセット
+	g_engine->GetSoundEngine().SetListenerFront((g_camera3D->GetForward()));
+	//サウンドリスナーの上方向をセット
+	g_engine->GetSoundEngine().SetListenerUp(g_camera3D->GetUp());
 }

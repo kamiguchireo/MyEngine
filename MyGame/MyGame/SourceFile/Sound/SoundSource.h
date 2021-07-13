@@ -85,6 +85,11 @@ public:
 		return m_velocity;
 	}
 
+	//音源の減衰距離を設定
+	void SetCurveDistance(float dist)
+	{
+		m_CurveDistance = dist;
+	}
 	//ループフラグを取得
 	bool GetLoopFlag()const
 	{
@@ -163,4 +168,5 @@ private:
 	bool m_isSetPositionFirst = true;	//!<一番最初のsetPosition?
 	bool m_isAvailable = false;			//!<インスタンスが利用可能？
 	bool m_IsDeleteOnOneShot = true;
+	float m_CurveDistance = 1000.0f;
 };

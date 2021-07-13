@@ -27,7 +27,6 @@ void Camera::Update()
 				m_projectionMatrix.MakeOrthoProjectionMatrix(m_width, m_height, m_near, m_far);
 			}
 		}
-		//m_up = Cross(m_forward, m_right);
 		//ビュー行列の算出
 		m_viewMatrix.MakeLookAt(m_position, m_target, m_up);
 		//ビュープロジェクション行列の作成。
@@ -35,8 +34,17 @@ void Camera::Update()
 		//ビュー行列の逆行列を計算。
 		m_viewMatrixInv.Inverse(m_viewMatrix);
 
+		//前をセット
 		m_forward.Set(m_viewMatrixInv.m[2][0], m_viewMatrixInv.m[2][1], m_viewMatrixInv.m[2][2]);
+		//右をセット
 		m_right.Set(m_viewMatrixInv.m[0][0], m_viewMatrixInv.m[0][1], m_viewMatrixInv.m[0][2]);
+		//上をセット
+		m_up = Cross(m_forward, m_right);
+		//方向を正規化
+		m_forward.Normalize();
+		m_right.Normalize();
+		m_up.Normalize();
+
 		//カメラの回転行列を取得。
 		m_cameraRotation = m_viewMatrixInv;
 		m_cameraRotation.m[3][0] = 0.0f;
