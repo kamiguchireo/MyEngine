@@ -124,6 +124,10 @@ namespace Engine
 				vGlobalScale[i] = Vector3::One;
 			}
 		}
+
+		//フットステップを初期化
+		m_footstepDeltaValue = Vector3::Zero;
+
 		//グローバルポーズを計算
 		int startIndex = m_startAnimationPlayController;
 		//アニメーション再生コントローラーの数分回す
@@ -132,6 +136,10 @@ namespace Engine
 			int index = GetAnimationControllerIndecx(startIndex, i);
 			float interpolateRate = m_animationPlayController[index].GetInterpolateRate();
 			const auto& localBoneMatrix = m_animationPlayController[index].GetBoneLocalMatrix();
+			auto deltafootstepvalue = m_animationPlayController[index].GetFootStepDeltaValueOnUpdate();
+			//footstepの移動量の補完
+			m_footstepDeltaValue.Lerp(interpolateRate, m_footstepDeltaValue, deltafootstepvalue);
+
 			for (int boneNo = 0; boneNo < numBone; boneNo++)
 			{
 				//平行移動の補完
@@ -231,10 +239,6 @@ namespace Engine
 			}
 		}
 		m_numAnimationPlayController = numAnimationPlayController;
-		int lastAnimClip = GetLastAnimationControllerIndex();
-		auto m_footstepDeltaValue = m_animationPlayController[lastAnimClip].GetFootStepDeltaValueOnUpdate();
-		//footstepの移動量の補完
-		//m_footstepDeltaValue.Lerp(interpolateRate, m_footstepDeltaValue, deltaValueFootStep);
 
 		return m_footstepDeltaValue;
 	}

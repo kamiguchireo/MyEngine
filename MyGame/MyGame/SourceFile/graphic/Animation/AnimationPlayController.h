@@ -39,6 +39,7 @@ namespace Engine {
 			m_time = 0.0f;
 			m_isPlaying = true;		//再生中
 			m_footstepDeltaValue = g_vec3Zero;		//フットステップの移動ベクトル
+			m_footstepLastValue = g_vec3Zero;		//前のフレームのフットステップ移動ベクトルを0にする
 		}
 
 		//アニメーションクリップの補完時間の設定

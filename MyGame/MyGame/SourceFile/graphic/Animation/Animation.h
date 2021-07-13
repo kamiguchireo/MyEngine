@@ -87,5 +87,6 @@ namespace Engine {
 		float m_interpolateTimeEnd = 0.0f;		//•âŠ®I—¹ŠÔ
 		bool m_isInited = false;
 		int m_footStepBoneNo = -1;		//footstep‚Ìƒ{[ƒ“”Ô†
+		Vector3 m_footstepDeltaValue = Vector3::Zero;
 	};
 }
