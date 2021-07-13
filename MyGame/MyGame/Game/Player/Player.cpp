@@ -153,6 +153,7 @@ bool Player::Start()
 	m_PlayerWeapon = NewGO <Weapon>(2);
 	//武器を初期化
 	m_PlayerWeapon->Init(&m_skeleton,true);
+	m_PlayerWeapon->SetCharacter(enCollisionAttr_Player);
 
 	//スプライトをNew
 	m_AimFramesprite = NewGO<prefab::SpriteRender>(3, nullptr);
@@ -316,6 +317,7 @@ void Player::Update()
 	m_camera->SetHeadPos(m_skeleton.GetBone(m_HeadBoneNum)->GetPosition());
 	//ポジションをセット
 	m_playerModel->SetPosition(m_pos);
+
 	//回転をセット
 	m_playerModel->SetRotation(m_rot);
 	characon->GetRigidBody()->GetBody()->getUserIndex();

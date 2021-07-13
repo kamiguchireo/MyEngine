@@ -16,10 +16,13 @@ void Weapon::Destroy()
 		DeleteGO(m_Model);
 		m_Model = nullptr;
 	}
-	if (m_FireSound != nullptr)
+	for (int i = 0; i < FireSoundNum_Rifle; i++)
 	{
-		DeleteGO(m_FireSound);
-		m_FireSound = nullptr;
+		if (m_FireSound[i] != nullptr)
+		{
+			DeleteGO(m_FireSound[i]);
+			m_FireSound[i] = nullptr;
+		}
 	}
 }
 void Weapon::Init(Skeleton* sk,bool IsDither)
@@ -35,9 +38,11 @@ void Weapon::Init(Skeleton* sk,bool IsDither)
 bool Weapon::Start()
 {
 	LeftHandBoneNo = m_skeleton->FindBoneID(L"mixamorig:LeftHand");
-	m_FireSound = NewGO<SoundSource>(0);
-	m_FireSound->Init(L"Assets/sound/Rifle_fire_after.wav");
-
+	for (int i = 0; i < FireSoundNum_Rifle; i++)
+	{
+		m_FireSound[i] = NewGO<SoundSource>(0);
+		m_FireSound[i]->Init(L"Assets/sound/Rifle_fire.wav");
+	}
 	return true;
 }
 
@@ -62,7 +67,14 @@ void Weapon::shooting()
 	//1•bŠÔ‚Érate‚Ì”‚¾‚¯Œ‚‚Ä‚é
 	if (time >= 1.0f / rate)
 	{
-		m_FireSound->Play(true);
+		for (int i = 0; i < FireSoundNum_Rifle; i++)
+		{
+			if (m_FireSound[i]->IsPlaying() == false)
+			{
+				m_FireSound[i]->Play(false,false);
+				break;
+			}
+		}
 		//ƒŒƒC‚ðì¬
 		btVector3 start, end;
 		start.setZero();
@@ -82,6 +94,7 @@ void Weapon::shooting()
 
 		//Õ“ËŒŸo
 		SweepResult callback;
+		callback.SetFireCharacter(Character);
 		//Õ“ËŒŸo
 		g_engine->GetPhysicsWorld().RayTest(start, end, callback);
 

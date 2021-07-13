@@ -6,6 +6,11 @@ class Weapon:public IGameObject
 	//衝突した時に呼ばれる関数オブジェクト
 	struct SweepResult : public btCollisionWorld::RayResultCallback
 	{
+		void SetFireCharacter(int i)
+		{
+			FireCharacter = i;
+		}
+		int FireCharacter = enCollisionAttr_Num;
 		bool isHit = false;						//衝突フラグ。
 		//Vector3 hitPos = Vector3::Zero;		//衝突点。
 		//Vector3 startPos = Vector3::Zero;		//レイの始点。
@@ -14,8 +19,14 @@ class Weapon:public IGameObject
 		//衝突したときに呼ばれるコールバック関数。
 		virtual btScalar addSingleResult(btCollisionWorld::LocalRayResult& rayResult, bool /*normalInWorldSpace*/)
 		{
+			int UserIndex = rayResult.m_collisionObject->getUserIndex();
+
+			if (UserIndex == FireCharacter)
+			{
+				return 0.0f;
+			}
 			//ゴーストオブジェクトとキャラコン以外に衝突したとき
-			if (rayResult.m_collisionObject->getUserIndex() == enCollisionAttr_StaticObject)
+			if (UserIndex == enCollisionAttr_StaticObject)
 			{
 				if (rayResult.m_hitFraction < ObjectNearDist)
 				{
@@ -46,7 +57,7 @@ class Weapon:public IGameObject
 		}
 	};
 public:
-	Weapon() {}
+	Weapon(){}
 	~Weapon();
 	void Destroy();
 	bool Start();
@@ -66,9 +77,14 @@ public:
 		m_RayDirection = dir;
 	}
 
-	void StopFireSound()
+	void StopFireSound(int i)
 	{
-		m_FireSound->Stop();
+		m_FireSound[i]->Stop();
+	}
+
+	void SetCharacter(int i)
+	{
+		Character = i;
 	}
 private:
 	//デカールを追加
@@ -88,6 +104,7 @@ private:
 	float time = 0.0f;
 	Vector3 m_RayStartPos = Vector3::Zero;
 	Vector3 m_RayDirection = Vector3::Zero;
-	SoundSource* m_FireSound = nullptr;
+	SoundSource* m_FireSound[FireSoundNum_Rifle] = {nullptr};
+	int Character = enCollisionAttr_Num;
 };
 

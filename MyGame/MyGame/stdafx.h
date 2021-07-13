@@ -26,6 +26,7 @@ enum EnCollisionAttr {
 	enCollisionAttr_User,
 	enCollisionAttr_Player,
 	enCollisionAttr_Enemy,
+	enCollisionAttr_Num,
 };
 static const int MAX_BONE = 512;	//!<ボーンの最大数。
 static const int CascadeShadow = 3;		//シャドウマップの枚数
@@ -86,3 +87,5 @@ using namespace Engine;
 
 static const int INPUTCHANNELS = 2;
 static const int OUTPUTCHANNELS = 8;
+
+static const int FireSoundNum_Rifle = 5;

@@ -49,6 +49,7 @@ void PlayerHitBox::BuildCollisionDetection()
 	for (int i = 0; i < HitBoxNum::Num; i++)
 	{
 		m_colldetection[i] = new PhysicsGhostObject;
+		m_colldetection[i]->SetUserIndex(enCollisionAttr_Player);
 	}
 	//各コライダーに対応するボーンを検索
 	m_ColOnSkeletonNum[HitBoxNum::Head] = m_skeleton->FindBoneID(L"mixamorig:Head");

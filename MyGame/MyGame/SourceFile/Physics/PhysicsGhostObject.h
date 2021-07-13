@@ -52,6 +52,11 @@ namespace Engine {
 		{
 			m_ghostObject.setActivationState(i);
 		}
+
+		void SetUserIndex(int i)
+		{
+			m_ghostObject.setUserIndex(i);
+		}
 	private:
 		//ƒS[ƒXƒgì¬ˆ—‚Ì‹¤’Êˆ—
 		void CreateCommon(Vector3 pos, Quaternion rot)override;

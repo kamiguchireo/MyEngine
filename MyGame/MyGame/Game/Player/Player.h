@@ -72,7 +72,7 @@ public:
 	//e‚ÌŽËŒ‚‰¹‚ðŽ~‚ß‚é
 	void StopFiresound()
 	{
-		m_PlayerWeapon->StopFireSound();
+		//m_PlayerWeapon->StopFireSound();
 	}
 
 	//‰ñ“]‚ðƒZƒbƒg

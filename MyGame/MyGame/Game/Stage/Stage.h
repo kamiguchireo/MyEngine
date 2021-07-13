@@ -1,12 +1,13 @@
 #pragma once
-#include "SourceFile/level/Level.h"
-#include "Grass/Grass_03.h"
-#include "Tree/Tree1.h"
-#include "Tree/Tree2.h"
-#include "Bush/Bush_02.h"
-#include "Path.h"
-#include "SourceFile/Sound/SoundSource.h"
 
+class Level;
+class Grass_03;
+class Tree1;
+class Tree2;
+class Bush_02;
+class Path;
+class SoundSource;
+class Player;
 class Stage
 {
 public:
@@ -21,5 +22,6 @@ private:
 	Bush_02* m_Bush = nullptr;
 	Path* m_Path = nullptr;
 	SoundSource* m_sound = nullptr;
+	Player* m_Player = nullptr;
 };
 

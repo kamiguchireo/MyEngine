@@ -205,6 +205,7 @@ void Enemy::DeadProcess()
 			delete characon;
 			characon = nullptr;
 		}
+		//m_weapon->StopFireSound();
 	}
 }
 
@@ -301,7 +302,7 @@ void Enemy::Update()
 	}
 	else
 	{
-		m_weapon->StopFireSound();
+		//m_weapon->StopFireSound();
 		//ŽžŠÔ‚ð‰ÁŽZ
 		NowTime_Rand += DeltaTime;
 		if (NowTime_Rand >= WaitTime_Rand)

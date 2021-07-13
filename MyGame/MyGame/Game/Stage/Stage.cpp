@@ -1,5 +1,13 @@
 #include "stdafx.h"
 #include "Stage.h"
+#include "SourceFile/level/Level.h"
+#include "Grass/Grass_03.h"
+#include "Tree/Tree1.h"
+#include "Tree/Tree2.h"
+#include "Bush/Bush_02.h"
+#include "Path.h"
+#include "SourceFile/Sound/SoundSource.h"
+#include "Game/Player/Player.h"
 
 Stage::Stage()
 {
@@ -13,7 +21,11 @@ Stage::Stage()
 		m_sound->Play(true);
 	}
 	m_level->Init("Assets/Level/Map.tkl", [&](const LevelObjectData& objData) {
-		if (wcscmp(objData.name, L"SM_Grass_03") == 0)
+		if (wcscmp(objData.name, L"soldier_bs01") == 0)
+		{
+			m_Player = NewGO<Player>(0);
+		}
+		else if (wcscmp(objData.name, L"SM_Grass_03") == 0)
 		{	
 			//ëê
 			if (m_Glass == nullptr)
@@ -91,6 +103,11 @@ Stage::Stage()
 
 Stage::~Stage()
 {
+	if (m_Player != nullptr)
+	{
+		DeleteGO(m_Player);
+		m_Player = nullptr;
+	}
 	if (m_level != nullptr)
 	{
 		delete m_level;
