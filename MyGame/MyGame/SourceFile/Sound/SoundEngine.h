@@ -102,10 +102,9 @@ private:
 	DWORD m_channelMask = 0;						//!<オーディオチャンネルマスク。
 	DWORD m_nChannels = 0;							//!<チャンネル数。
 	Vector3 m_listenerPosition = Vector3::Zero;	//!<リスナーの座標。
-	float m_fListenerAngle = 0.0f;
-	bool m_UseListenerCone = false;
-	bool m_fUseInnerRadius = false;
-	bool m_useRedirectToLFE = false;
+	bool m_UseListenerCone = true;
+	bool m_fUseInnerRadius = true;		//内半径を使用するか
+	bool m_useRedirectToLFE = false;		//重低音強化
 	bool m_isInited = false;
 	X3DAUDIO_LISTENER m_listener;					//!<サウンドリスナー。
 	std::list<SoundSource*>	m_3dSoundSource;	//!<3Dサウンドのサウンドソース。

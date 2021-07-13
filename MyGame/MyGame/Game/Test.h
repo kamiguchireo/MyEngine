@@ -1,5 +1,4 @@
 #pragma once
-#include "SourceFile/Physics/PhysicsGhostObject.h"
 #include "Player/Player.h"
 #include "Enemy/Enemy.h"
 
@@ -9,11 +8,14 @@ public:
 	Test();
 	~Test();
 
+	void OnDestroy();
 	bool Start();
 	void Update();
 private:
-	PhysicsGhostObject m_GhostObject;
-	Vector3 m_pos = Vector3::Zero;
-	Player* m_player = nullptr;
-	Enemy* m_enemy = nullptr;
+	Vector3 m_pos = { 0.0f,0.0f,0.0f };
+	//Player* m_player = nullptr;
+	//Enemy* m_enemy = nullptr;
+	prefab::ModelRender* m_player = nullptr;
+	prefab::ModelRender* m_enemy = nullptr;
+	SoundSource* m_sound = nullptr;
 };
