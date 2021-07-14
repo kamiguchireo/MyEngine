@@ -155,7 +155,11 @@ void Title::CameraMove()
 	float f = pow(interpolate, 2.0);
 	
 	//Å‘å’l‚ð1‚É‚·‚é
-	f = min(1.0f, f);
+	if (f >= 1.0f)
+	{
+		f = 1.0f;
+		m_process = TitleProcess::enProcess_Fade;
+	}
 
 	m_CameraPos.Lerp(f, m_CameraPos, NextCameraPos);
 	m_CameraTarget.Lerp(f, m_CameraTarget, NextCameraTarget);
@@ -166,26 +170,30 @@ void Title::CameraMove()
 void Title::Update()
 {
 	auto deltatime = g_gameTime.GetFrameDeltaTime();
-	if (GetAsyncKeyState(VK_LBUTTON))
+	if (m_process == TitleProcess::enProcess_Start)
 	{
-		m_animation.Play(enTitleCharacterAnimation_Rifle_Down_To_Aim, 0.3f);
-		IsEnterGame = true;
+		if (GetAsyncKeyState(VK_LBUTTON))
+		{
+			m_animation.Play(enTitleCharacterAnimation_Rifle_Down_To_Aim, 0.3f);
+			m_process = TitleProcess::enProcess_Click;
+		}
 	}
-	if (IsEnterGame)
+	else if (m_process == TitleProcess::enProcess_Click)
 	{
 		if (m_animation.IsPlaying() == false)
 		{
-			if (IsPlayFireSound == false)
-			{
-				m_FireSound->Play(false, false);
-				m_sprite->SetAlpha(1.0f);
-				IsPlayFireSound = true;
-			}
-			else
-			{
-				CameraMove();
-			}
+			m_FireSound->Play(false, false);
+			m_sprite->SetAlpha(1.0f);
+			m_process = TitleProcess::enProcess_PlaySound;
 		}
+	}
+	else if (m_process == TitleProcess::enProcess_PlaySound)
+	{
+		CameraMove();
+	}
+	else if (m_process == TitleProcess::enProcess_Fade)
+	{
+
 	}
 
 	m_animation.Update(deltatime);

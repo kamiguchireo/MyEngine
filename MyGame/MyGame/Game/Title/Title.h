@@ -6,6 +6,13 @@ class Level;
 class Tree1;
 class Tree2;
 class SoundSource;
+
+enum TitleProcess {
+	enProcess_Start,
+	enProcess_Click,
+	enProcess_PlaySound,
+	enProcess_Fade,
+};
 class Title : public IGameObject
 {
 public:
@@ -30,8 +37,8 @@ private:
 	Vector3 m_CameraPos = Vector3::Zero;
 	Vector3 m_CameraTarget = Vector3::Zero;
 	Vector3 m_CameraUp = { 0.0f,1.0f,0.0f };
-	bool IsEnterGame = false;
 	SoundSource* m_FireSound = nullptr;
 	bool IsPlayFireSound = false;
 	prefab::SpriteRender* m_sprite = nullptr;
+	int m_process = TitleProcess::enProcess_Start;
 };
