@@ -38,6 +38,10 @@ namespace Engine {
 				}
 				m_Alpha = Math::Lerp(f, m_Alpha, m_NextAlpha);
 			}
+			else
+			{
+				m_IsDirty = true;
+			}
 			m_sprite->SetAlpha(m_Alpha);
 		}
 	}

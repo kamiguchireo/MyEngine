@@ -617,6 +617,5 @@
   <ItemGroup>
     <ImageContentTask Include="Assets\Image\AimFrame.png" />
     <ImageContentTask Include="Assets\Image\BulletDecale.png" />
-    <ImageContentTask Include="Assets\Image\Fade.png" />
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@
 #include "SourceFile/level/Level.h"
 #include "Game/Stage/Tree/Tree1.h"
 #include "Game/Stage/Tree/Tree2.h"
+#include "Game/Game.h"
 
 Title::~Title()
 {
@@ -209,7 +210,9 @@ void Title::Update()
 	}
 	else if (m_process = TitleProcess::enProcess_StageGenerate)
 	{
-
+		auto g_game = Game::GetInstance();
+		//ステージ01呼び出し
+		g_game->SceneTrans(SceneNum::enScene_Stage01);
 	}
 	m_animation.Update(deltatime);
 

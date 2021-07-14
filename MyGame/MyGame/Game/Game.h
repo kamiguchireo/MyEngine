@@ -2,6 +2,13 @@
 
 class Stage;
 class Title;
+
+enum SceneNum {
+	enScene_Title,
+	enScene_Stage01,
+	enScene_Num,
+};
+
 class Game:public IGameObject
 {
 public:
@@ -9,7 +16,6 @@ public:
 	~Game();
 	void Destroy();
 	bool Start();
-	void Update();
 	
 	static Game* GetInstance()
 	{
@@ -20,15 +26,14 @@ public:
 		return nullptr;
 	}
 
-	void SceneTrans();
+	void SceneTrans(int scenenum);
 
 private:
-	void DeleteObject();
-	void NewObject();
-
+	void DeleteScene(int scenenum);
+	void NewScene(int scenenum);
 private:
-	static Game* m_Instance;
-	Stage* m_Stage = nullptr;		//ステージ
-	Title* m_Title = nullptr;
-	bool IsDestroyObject = false;
+	static Game* m_Instance;		//インスタンス
+	Title* m_Title = nullptr;		//タイトル
+	Stage* m_Stage_01 = nullptr;		//ステージ
+	int m_SceneNum = SceneNum::enScene_Num;		//現在のシーン番号
 };

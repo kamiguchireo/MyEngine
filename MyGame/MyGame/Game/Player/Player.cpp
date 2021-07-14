@@ -261,7 +261,8 @@ void Player::DeadProcess()
 	else
 	{
 		auto g_game = Game::GetInstance();
-		g_game->SceneTrans();
+		//もう一度ステージ01を生成しなおす
+		g_game->SceneTrans(SceneNum::enScene_Stage01);
 	}
 }
 void Player::Update()

@@ -18,51 +18,68 @@ Game::~Game()
 
 void Game::Destroy()
 {
-	DeleteObject();
+	//現在のシーンを削除
+	DeleteScene(m_SceneNum);
 }
 
 bool Game::Start()
 {
-	//m_Stage = new Stage();
 	m_Title = NewGO<Title>(0);
-	g_camera3D->SetPosition({ 0.0f, 100.0f, -300.0f });
-	g_camera3D->SetTarget({ 0.0f, 100.0f, 0.0f });
-
+	m_SceneNum = SceneNum::enScene_Title;
 	return true;
 }
 
-void Game::Update()
+void Game::DeleteScene(int scenenum)
 {
-	if (IsDestroyObject)
+	if (scenenum == SceneNum::enScene_Title)
 	{
-		DeleteObject();
-		NewObject();
-		IsDestroyObject = false;
+		//タイトルシーンの時
+		if (m_Title != nullptr)
+		{
+			//タイトルを削除
+			DeleteGO(m_Title);
+			m_Title = nullptr;
+		}
+		return;
+	}
+	else if (scenenum == SceneNum::enScene_Stage01)
+	{
+		if (m_Stage_01 != nullptr)
+		{
+			delete m_Stage_01;
+			m_Stage_01 = nullptr;
+		}
+		return;
 	}
 }
 
-void Game::DeleteObject()
+void Game::NewScene(int scenenum)
 {
-	if (m_Stage != nullptr)
+	if (scenenum == SceneNum::enScene_Title)
 	{
-		delete m_Stage;
-		m_Stage = nullptr;
+		//生成するシーンがタイトルの時
+		if (m_Title == nullptr)
+		{
+			//タイトルをNewGO
+			m_Title = NewGO<Title>(0);
+		}
 	}
-	if (m_Title != nullptr)
+	else if (scenenum == SceneNum::enScene_Stage01)
 	{
-		DeleteGO(m_Title);
-		m_Title = nullptr;
+		//生成するシーンがステージ01の時
+		if (m_Stage_01 == nullptr)
+		{
+			//ステージ01をnew
+			m_Stage_01 = new Stage();
+		}
 	}
+	m_SceneNum = scenenum;
 }
 
-void Game::NewObject()
+void Game::SceneTrans(int scenenum)
 {
-	if (m_Stage == nullptr)
-	{
-		m_Stage = new Stage();
-	}
-}
-void Game::SceneTrans()
-{
-	IsDestroyObject = true;
+	//現在のシーンを削除
+	DeleteScene(m_SceneNum);
+	//次のシーンを生成
+	NewScene(scenenum);
 }
