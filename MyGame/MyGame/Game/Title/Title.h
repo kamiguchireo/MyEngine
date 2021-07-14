@@ -1,5 +1,6 @@
 #pragma once
 #include "Game/Weapon.h"
+#include "SourceFile/Graphic/SpriteRender.h"
 
 class Level;
 class Tree1;
@@ -14,7 +15,7 @@ public:
 	void OnDestroy();
 	bool Start();
 	void Update();
-
+	void CameraMove();
 private:
 	Level* m_level = nullptr;
 	Tree1* m_Tree1 = nullptr;
@@ -28,7 +29,9 @@ private:
 	Engine::AnimationClip m_animClip[enTitleCharacterAnimation_Num];		//アニメーションクリップ
 	Vector3 m_CameraPos = Vector3::Zero;
 	Vector3 m_CameraTarget = Vector3::Zero;
+	Vector3 m_CameraUp = { 0.0f,1.0f,0.0f };
 	bool IsEnterGame = false;
 	SoundSource* m_FireSound = nullptr;
 	bool IsPlayFireSound = false;
+	prefab::SpriteRender* m_sprite = nullptr;
 };

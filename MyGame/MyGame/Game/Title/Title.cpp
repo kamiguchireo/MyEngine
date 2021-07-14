@@ -40,10 +40,17 @@ void Title::OnDestroy()
 		DeleteGO(m_Tree2);
 		m_Tree2 = nullptr;
 	}
+	//サウンド
 	if (m_FireSound != nullptr)
 	{
 		DeleteGO(m_FireSound);
 		m_FireSound = nullptr;
+	}
+	//スプライト
+	if (m_sprite != nullptr)
+	{
+		DeleteGO(m_sprite);
+		m_sprite = nullptr;
 	}
 }
 
@@ -122,11 +129,36 @@ bool Title::Start()
 
 
 	m_FireSound = NewGO<SoundSource>(0);
-	m_FireSound->Init(L"Assets/sound/Rifle_fire.wav");
+	m_FireSound->Init(L"Assets/sound/Anti_materiel_rifle.wav");
+
+	m_sprite = NewGO<prefab::SpriteRender>(0);
+	m_sprite->Init("Assets/image/BulletTitle.dds",250, 250);
+	m_sprite->SetPosition(Vector3::Zero);
+	m_sprite->SetAlpha(0.0f);
 
 	m_CameraPos = { 200.0f,150.0f,200.0f };
 	m_CameraTarget = { 0.0f,150.0f,0.0f };
 	return true;
+}
+
+void Title::CameraMove()
+{
+	//補完後のカメラの設定
+	Vector3 NextCameraPos = { 100.0f,15.0f,350 };
+	Vector3 NextCameraTarget = { 0.0f,50.0f,0.0f };
+	Vector3 NextCameraUp = { -0.5f,0.0f,-0.5f };
+
+	//補完率
+	static float interpolate = 0.0f;
+	interpolate += g_gameTime.GetFrameDeltaTime() * 0.3f;
+	if (interpolate >= 1.0f)
+	{
+		interpolate = 1.0f;
+	}
+	m_CameraPos.Lerp(interpolate, m_CameraPos, NextCameraPos);
+	m_CameraTarget.Lerp(interpolate, m_CameraTarget, NextCameraTarget);
+	m_CameraUp.Lerp(interpolate, m_CameraUp, NextCameraUp);
+	g_camera3D->SetUp(m_CameraUp);
 }
 
 void Title::Update()
@@ -144,11 +176,12 @@ void Title::Update()
 			if (IsPlayFireSound == false)
 			{
 				m_FireSound->Play(false, false);
+				m_sprite->SetAlpha(1.0f);
 				IsPlayFireSound = true;
 			}
 			else
 			{
-
+				CameraMove();
 			}
 		}
 	}
