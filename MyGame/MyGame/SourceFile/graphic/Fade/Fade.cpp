@@ -40,7 +40,7 @@ namespace Engine {
 			}
 			else
 			{
-				m_IsDirty = true;
+				m_IsDirty = false;
 			}
 			m_sprite->SetAlpha(m_Alpha);
 		}
