@@ -14,7 +14,7 @@ class Game:public IGameObject
 public:
 	Game();
 	~Game();
-	void Destroy();
+	void OnDestroy();
 	bool Start();
 	
 	static Game* GetInstance()

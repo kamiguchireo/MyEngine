@@ -7,6 +7,7 @@ public:
 	SoundSource();
 	~SoundSource();
 
+	void OnDestroy();
 	//‰Šú‰»
 	//ƒIƒ“ƒƒ‚ƒŠÄ¶Œü‚¯
 	void Init(const wchar_t* filePath, bool is3DSound = false);

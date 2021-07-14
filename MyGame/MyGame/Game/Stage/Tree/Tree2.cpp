@@ -11,7 +11,7 @@ Tree2::~Tree2()
 
 }
 
-void Tree2::Destroy()
+void Tree2::OnDestroy()
 {
 	if (m_Tree != nullptr)
 	{

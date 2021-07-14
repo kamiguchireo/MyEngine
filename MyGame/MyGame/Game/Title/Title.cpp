@@ -204,15 +204,16 @@ void Title::Update()
 		{
 			//限りなく0に近いので0にする
 			alpha = 0.0f;
-			m_process = TitleProcess::enProcess_StageGenerate;
+			m_process = TitleProcess::enProcess_SceneTrans;
 		}
 		m_sprite->SetAlpha(alpha);
 	}
-	else if (m_process = TitleProcess::enProcess_StageGenerate)
+	else if (m_process = TitleProcess::enProcess_SceneTrans)
 	{
 		auto g_game = Game::GetInstance();
 		//ステージ01呼び出し
 		g_game->SceneTrans(SceneNum::enScene_Stage01);
+		return;
 	}
 	m_animation.Update(deltatime);
 

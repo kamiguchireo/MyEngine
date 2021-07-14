@@ -7,7 +7,7 @@ class EnemyHitBox:public IGameObject
 public:
 	EnemyHitBox();
 	~EnemyHitBox();
-
+	void OnDestroy();
 	//‰Šú‰»
 	void Init(Skeleton* sk, Enemy* en);
 

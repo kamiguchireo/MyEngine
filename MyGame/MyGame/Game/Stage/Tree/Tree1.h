@@ -13,7 +13,7 @@ public:
 	Tree1();
 	~Tree1();
 
-	void Destroy();
+	void OnDestroy();
 	bool Start();
 	void Update();
 

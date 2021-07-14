@@ -12,7 +12,7 @@ public:
 	Tree2();
 	~Tree2();
 
-	void Destroy();
+	void OnDestroy();
 	bool Start();
 	void Update();
 

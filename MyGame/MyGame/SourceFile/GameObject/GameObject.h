@@ -24,11 +24,11 @@ namespace Engine {
 			enEvent_Destroy		//インスタンスが破棄される
 		};
 
-		//イベント発生時のデータ
-		struct SEventParam {
-			EnEvent eEvent = EnEvent::enEvent_Undef;		//発生しているイベント
-			IGameObject*gameObject = nullptr;	//イベントを通知しているゲームオブジェクトのインスタンス
-		};
+		////イベント発生時のデータ
+		//struct SEventParam {
+		//	EnEvent eEvent = EnEvent::enEvent_Undef;		//発生しているイベント
+		//	IGameObject*gameObject = nullptr;	//イベントを通知しているゲームオブジェクトのインスタンス
+		//};
 	public:
 
 	//アップデート前描画
@@ -44,7 +44,7 @@ namespace Engine {
 	virtual void Draw() {}
 
 	//オンデストロイ
-	virtual void Destroy() {}
+	virtual void OnDestroy() {}
 
 	//Render関数が実行された後で呼ばれる描画処理
 	virtual void PostRender() {}
@@ -115,15 +115,15 @@ namespace Engine {
 
 		void OnDestoroyWrapper()
 		{
-			SEventParam param;
-			param.eEvent = EnEvent::enEvent_Destroy;
-			param.gameObject = this;
-			//デストロイイベントをリスナーに通知する。
-			for (auto&listener : m_eventListeners)
-			{
-				listener(param);
-			}
-			Destroy();
+			//SEventParam param;
+			//param.eEvent = EnEvent::enEvent_Destroy;
+			//param.gameObject = this;
+			////デストロイイベントをリスナーに通知する。
+			//for (auto&listener : m_eventListeners)
+			//{
+			//	listener(param);
+			//}
+			OnDestroy();
 		}
 
 		void SetDeadMark()
@@ -155,7 +155,7 @@ namespace Engine {
 		bool m_isRegist = false;			//!<GameObjectManagerに登録されているかどうか
 		bool m_isDead = false;						//!<死亡フラグ。
 		bool m_isActive = true;				//Activeフラグ
-		std::list<std::function<void(SEventParam&eventParam)>> m_eventListeners;	//イベントリスナー
+		//std::list<std::function<void(SEventParam&eventParam)>> m_eventListeners;	//イベントリスナー
 		bool is_StartEnd = false;
 
 	private:

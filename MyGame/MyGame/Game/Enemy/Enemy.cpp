@@ -23,7 +23,7 @@ Enemy::~Enemy()
 
 }
 
-void Enemy::Destroy()
+void Enemy::OnDestroy()
 {
 	//ƒ‚ƒfƒ‹ƒŒƒ“ƒ_[
 	if (m_enemyModel != nullptr)

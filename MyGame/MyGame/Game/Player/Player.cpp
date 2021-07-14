@@ -19,7 +19,7 @@ Player::~Player()
 
 }
 
-void Player::Destroy()
+void Player::OnDestroy()
 {
 	//‰ğ•úˆ—
 	if (m_playerModel != nullptr)

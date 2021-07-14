@@ -8,6 +8,7 @@ public:
 	PlayerHitBox();
 	~PlayerHitBox();
 
+	void OnDestroy();
 	//‰Šú‰»
 	void Init(Skeleton* sk, Player* pl);
 

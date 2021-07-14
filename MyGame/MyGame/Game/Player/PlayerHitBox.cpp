@@ -9,6 +9,10 @@ PlayerHitBox::PlayerHitBox()
 
 PlayerHitBox::~PlayerHitBox()
 {
+
+}
+void PlayerHitBox::OnDestroy()
+{
 	//‰ğ•úˆ—
 	for (int i = 0; i < HitBoxNum::Num; i++)
 	{

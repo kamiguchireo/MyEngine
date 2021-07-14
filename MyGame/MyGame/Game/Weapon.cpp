@@ -8,7 +8,7 @@ Weapon::~Weapon()
 
 }
 
-void Weapon::Destroy()
+void Weapon::OnDestroy()
 {
 	//‰ğ•úˆ—
 	if (m_Model != nullptr)

@@ -11,7 +11,7 @@ public:
 	Bush_02();
 	~Bush_02();
 
-	void Destroy();
+	void OnDestroy();
 	bool Start();
 	void Update();
 

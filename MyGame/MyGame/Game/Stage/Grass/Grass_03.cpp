@@ -11,7 +11,7 @@ Grass_03::~Grass_03()
 
 }
 
-void Grass_03::Destroy()
+void Grass_03::OnDestroy()
 {
 	if (m_Glass != nullptr)
 	{

@@ -10,7 +10,7 @@ public:
 	MapChipRender();
 	~MapChipRender();
 
-	void Destroy();
+	void OnDestroy();
 	bool Start();
 	void Update();
 	

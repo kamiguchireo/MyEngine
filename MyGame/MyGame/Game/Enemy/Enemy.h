@@ -25,7 +25,7 @@ public:
 	Enemy();
 	~Enemy();
 	
-	void Destroy();
+	void OnDestroy();
 	bool Start();
 	void Update();
 	void UpdateAnimation(float f)

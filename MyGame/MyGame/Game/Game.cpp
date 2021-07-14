@@ -16,7 +16,7 @@ Game::~Game()
 
 }
 
-void Game::Destroy()
+void Game::OnDestroy()
 {
 	//現在のシーンを削除
 	DeleteScene(m_SceneNum);
@@ -24,8 +24,10 @@ void Game::Destroy()
 
 bool Game::Start()
 {
+	//始めはタイトルを生成
 	m_Title = NewGO<Title>(0);
 	m_SceneNum = SceneNum::enScene_Title;
+
 	return true;
 }
 

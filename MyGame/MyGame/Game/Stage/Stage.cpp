@@ -12,6 +12,8 @@
 
 Stage::Stage()
 {
+	g_camera3D->SetUp(Vector3::Up);
+
 	if (m_level == nullptr)
 	{
 		m_level = new Level();

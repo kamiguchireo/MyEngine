@@ -11,6 +11,9 @@ SoundSource::~SoundSource()
 {
 	Release();
 }
+void SoundSource::OnDestroy()
+{
+}
 void SoundSource::InitCommon()
 {
 	m_dspSettings.SrcChannelCount = INPUTCHANNELS;

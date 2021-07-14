@@ -17,7 +17,7 @@ public:
 	Player();
 	~Player();
 
-	void Destroy();
+	void OnDestroy();
 	bool Start();
 	void Update();
 

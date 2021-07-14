@@ -11,7 +11,7 @@ Bush_02::~Bush_02()
 
 }
 
-void Bush_02::Destroy()
+void Bush_02::OnDestroy()
 {
 	if (m_Bush != nullptr)
 	{

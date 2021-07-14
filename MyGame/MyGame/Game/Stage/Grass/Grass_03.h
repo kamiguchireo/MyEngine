@@ -12,7 +12,7 @@ public:
 	Grass_03();
 	~Grass_03();
 
-	void Destroy();
+	void OnDestroy();
 	bool Start();
 	void Update();
 

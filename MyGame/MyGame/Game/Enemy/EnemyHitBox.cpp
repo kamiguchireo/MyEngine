@@ -9,6 +9,11 @@ EnemyHitBox::EnemyHitBox()
 
 EnemyHitBox::~EnemyHitBox()
 {
+
+}
+
+void EnemyHitBox::OnDestroy()
+{
 	//‰ğ•úˆ—
 	for (int i = 0; i < HitBoxNum::Num; i++)
 	{

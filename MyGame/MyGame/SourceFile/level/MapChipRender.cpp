@@ -12,7 +12,7 @@ MapChipRender::~MapChipRender()
 
 }
 
-void MapChipRender::Destroy()
+void MapChipRender::OnDestroy()
 {
 	if (m_modelRender != nullptr)
 	{
