@@ -375,6 +375,9 @@
     <ImageContentTask Include="Assets\Image\AimFrame.png" />
     <ImageContentTask Include="Assets\Image\BulletDecale.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\Image\Fade.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />

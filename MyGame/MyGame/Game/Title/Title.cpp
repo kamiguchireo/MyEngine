@@ -193,9 +193,24 @@ void Title::Update()
 	}
 	else if (m_process == TitleProcess::enProcess_Fade)
 	{
+		g_graphicsEngine->GetFade()->FadeOut();
+		m_process = TitleProcess::enProcess_WithoutAlpha;
+	}
+	else if (m_process == TitleProcess::enProcess_WithoutAlpha)
+	{
+		float alpha = 1.0f - g_graphicsEngine->GetFade()->GetAlpha();
+		if (alpha <= 0.001f)
+		{
+			//ŒÀ‚è‚È‚­0‚É‹ß‚¢‚Ì‚Å0‚É‚·‚é
+			alpha = 0.0f;
+			m_process = TitleProcess::enProcess_StageGenerate;
+		}
+		m_sprite->SetAlpha(alpha);
+	}
+	else if (m_process = TitleProcess::enProcess_StageGenerate)
+	{
 
 	}
-
 	m_animation.Update(deltatime);
 
 	g_camera3D->SetPosition(m_CameraPos);

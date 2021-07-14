@@ -18,6 +18,7 @@
 #include "SourceFile/graphic/Light/LightManager.h"
 #include "SourceFile/graphic/Decale.h"
 #include "SourceFile/graphic/nature/Sky.h"
+#include "SourceFile/graphic/Fade/Fade.h"
 
 enum EnRenderMode {
 	enRenderMode_CreateShadowMap,		//シャドウマップ生成
@@ -168,6 +169,11 @@ public:
 	{
 		return m_sky;
 	}
+
+	std::unique_ptr<Engine::Fade>& GetFade()
+	{
+		return m_fade;
+	}
 private:
 	/// <summary>
 	/// D3Dデバイスの作成。
@@ -279,6 +285,7 @@ private:
 	std::unique_ptr<Engine::LightManager> m_LM = nullptr;		//ライトマネージャー
 	std::unique_ptr<Engine::Decale> m_Decale = nullptr;		//デカール
 	std::unique_ptr<Engine::Sky> m_sky = nullptr;		//スカイキューブ
+	std::unique_ptr<Engine::Fade> m_fade = nullptr;		//フェード
 };
 extern GraphicsEngine* g_graphicsEngine;	//グラフィックスエンジン
 extern Camera* g_camera2D;					//2Dカメラ。

@@ -189,7 +189,8 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 	m_Decale = std::make_unique<Engine::Decale>();
 	//スカイキューブ
 	m_sky = std::make_unique<Engine::Sky>();
-
+	//フェード
+	m_fade = std::make_unique<Engine::Fade>();
 	return true;
 }
 IDXGIFactory4* GraphicsEngine::CreateDXGIFactory()

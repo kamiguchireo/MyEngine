@@ -12,6 +12,9 @@ enum TitleProcess {
 	enProcess_Click,
 	enProcess_PlaySound,
 	enProcess_Fade,
+	enProcess_WithoutAlpha,
+	enProcess_StageGenerate,
+	enProcess_Dead,
 };
 class Title : public IGameObject
 {

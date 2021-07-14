@@ -26,7 +26,8 @@ void EngineProcessing::Init()
 	g_graphicsEngine->GetDecale()->Init();
 	//スカイキューブの初期化
 	g_graphicsEngine->GetSky()->Init();
-
+	//フェードの初期化
+	g_graphicsEngine->GetFade()->Init();
 }
 
 void EngineProcessing::Update()
@@ -46,6 +47,9 @@ void EngineProcessing::Update()
 
 	//スカイキューブのアップデート
 	g_graphicsEngine->GetSky()->Update();
+
+	//フェードのアップデート
+	g_graphicsEngine->GetFade()->Update();
 
 	//サウンドのアップデート
 	g_engine->GetSoundEngine().Update();
