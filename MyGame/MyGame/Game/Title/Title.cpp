@@ -150,14 +150,16 @@ void Title::CameraMove()
 
 	//•âŠ®—¦
 	static float interpolate = 0.0f;
-	interpolate += g_gameTime.GetFrameDeltaTime() * 0.3f;
-	if (interpolate >= 1.0f)
-	{
-		interpolate = 1.0f;
-	}
-	m_CameraPos.Lerp(interpolate, m_CameraPos, NextCameraPos);
-	m_CameraTarget.Lerp(interpolate, m_CameraTarget, NextCameraTarget);
-	m_CameraUp.Lerp(interpolate, m_CameraUp, NextCameraUp);
+	interpolate += g_gameTime.GetFrameDeltaTime() * 0.2f;
+	//•âŠ®—¦‚ð“ñæ‚·‚é
+	float f = pow(interpolate, 2.0);
+	
+	//Å‘å’l‚ð1‚É‚·‚é
+	f = min(1.0f, f);
+
+	m_CameraPos.Lerp(f, m_CameraPos, NextCameraPos);
+	m_CameraTarget.Lerp(f, m_CameraTarget, NextCameraTarget);
+	m_CameraUp.Lerp(f, m_CameraUp, NextCameraUp);
 	g_camera3D->SetUp(m_CameraUp);
 }
 
