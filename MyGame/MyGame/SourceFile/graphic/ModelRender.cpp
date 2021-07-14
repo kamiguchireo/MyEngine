@@ -13,7 +13,7 @@ namespace Engine {
 
 		}
 
-		void ModelRender::Destroy()
+		void ModelRender::OnDestroy()
 		{
 			if (m_model != nullptr)
 			{

@@ -35,7 +35,7 @@ bool Test::Start()
 	//m_enemy = NewGO<Enemy>(0, nullptr);
 
 	g_camera3D->SetPosition({ 0.0f,300.0f,-1000.0f });
-	g_camera3D->SetTarget({ 0.0f,300.0f,0.0f });
+	g_camera3D->SetTarget({ 0.0f,0.0f,0.0f });
 
 	m_player = NewGO < prefab::ModelRender>(0);
 	m_enemy = NewGO < prefab::ModelRender>(1);
@@ -69,4 +69,5 @@ void Test::Update()
 	}
 	m_player->SetPosition(m_pos);
 	g_engine->GetSoundEngine().SetListenerPosition(m_pos);
+	g_engine->GetSoundEngine().SetListenerFront(g_camera3D->GetForward());
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 class Stage;
+class Title;
 class Game:public IGameObject
 {
 public:
@@ -28,5 +29,6 @@ private:
 private:
 	static Game* m_Instance;
 	Stage* m_Stage = nullptr;		//ステージ
+	Title* m_Title = nullptr;
 	bool IsDestroyObject = false;
 };

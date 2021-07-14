@@ -3,6 +3,7 @@
 #include "Stage/Stage.h"
 #include "Player/Player.h"
 #include "Enemy/Enemy.h"
+#include "Title/Title.h"
 
 Game* Game::m_Instance = nullptr;
 Game::Game()
@@ -22,8 +23,8 @@ void Game::Destroy()
 
 bool Game::Start()
 {
-	m_Stage = new Stage();
-
+	//m_Stage = new Stage();
+	m_Title = NewGO<Title>(0);
 	g_camera3D->SetPosition({ 0.0f, 100.0f, -300.0f });
 	g_camera3D->SetTarget({ 0.0f, 100.0f, 0.0f });
 
@@ -46,6 +47,11 @@ void Game::DeleteObject()
 	{
 		delete m_Stage;
 		m_Stage = nullptr;
+	}
+	if (m_Title != nullptr)
+	{
+		DeleteGO(m_Title);
+		m_Title = nullptr;
 	}
 }
 

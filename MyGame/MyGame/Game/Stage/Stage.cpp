@@ -85,99 +85,105 @@ Stage::Stage()
 			}
 			return true;
 		}
-		for (int i = 0; i < 100; i++)
+		if (wcsncmp(objData.name, L"Path_", 5) == 0)
 		{
-			wchar_t m_pathchar[256] = L"Path_";
-			if (Firstplace == 10)
+			for (int i = 0; i < 100; i++)
 			{
-				//10の位に上げる
-				Tenthplace++;
-				Firstplace = 0;
-			}
-			wchar_t first[2];
-			wchar_t ten[2];			
-			_itow_s(Firstplace, first, 10);
-			_itow_s(Tenthplace, ten, 10);
-			//10の位をファイルパスに結合
-			wcscat_s(m_pathchar, ten);
-			//1の位をファイルパスに結合
-			wcscat_s(m_pathchar, first);
-			////_をファイルパスに結合
-			//wcscat_s(m_pathchar, L"_");
-			//カウントを1上げる
-			Firstplace++;
-			if (wcsncmp(objData.name, m_pathchar, 7) == 0)
-			{
-				//ファイルパスが合致したとき
-				if (m_IsPathInited[m_numPath] == false)
+				wchar_t m_pathchar[256] = L"Path_";
+				if (Firstplace == 10)
 				{
-					m_IsPathInited[m_numPath] = true;
-					m_Path.push_back(new Path());
+					//10の位に上げる
+					Tenthplace++;
+					Firstplace = 0;
 				}
-				m_Path[m_numPath]->AddPosition(objData.position);
-				//10の位を0に戻す
-				Tenthplace = 0;
-				//1の位を0に戻す
-				Firstplace = 0;
-				//パスの数を0に戻す
-				m_numPath = 0;
-				return true;
+				wchar_t first[2];
+				wchar_t ten[2];
+				_itow_s(Firstplace, first, 10);
+				_itow_s(Tenthplace, ten, 10);
+				//10の位をファイルパスに結合
+				wcscat_s(m_pathchar, ten);
+				//1の位をファイルパスに結合
+				wcscat_s(m_pathchar, first);
+				////_をファイルパスに結合
+				//wcscat_s(m_pathchar, L"_");
+				//カウントを1上げる
+				Firstplace++;
+				if (wcsncmp(objData.name, m_pathchar, 7) == 0)
+				{
+					//ファイルパスが合致したとき
+					if (m_IsPathInited[m_numPath] == false)
+					{
+						m_IsPathInited[m_numPath] = true;
+						m_Path.push_back(new Path());
+					}
+					m_Path[m_numPath]->AddPosition(objData.position);
+					//10の位を0に戻す
+					Tenthplace = 0;
+					//1の位を0に戻す
+					Firstplace = 0;
+					//パスの数を0に戻す
+					m_numPath = 0;
+					return true;
+				}
+				m_numPath++;
 			}
-			m_numPath++;
+			Tenthplace = 0;
+			Firstplace = 0;
+			m_numPath = 0;
 		}
-		Tenthplace = 0;
-		Firstplace = 0;
-		m_numPath = 0;
-		for (int i = 0; i < 100; i++)
+		if (wcsncmp(objData.name, L"Enemy_", 6) == 0)
 		{
-			wchar_t m_enemychar[256] = L"Enemy_";
-			if (Firstplace == 10)
+			for (int i = 0; i < 100; i++)
 			{
-				//10の位に上げる
-				Tenthplace++;
-				Firstplace = 0;
-			}
-			wchar_t first[2];
-			wchar_t ten[2];
-			_itow_s(Firstplace, first, 10);
-			_itow_s(Tenthplace, ten, 10);
-			//10の位をファイルパスに結合
-			wcscat_s(m_enemychar, ten);
-			//1の位をファイルパスに結合
-			wcscat_s(m_enemychar, first);
-			////_をファイルパスに結合
-			//wcscat_s(m_enemychar, L"_");
-			//カウントを1上げる
-			Firstplace++;
-
-			if (wcsncmp(objData.name, m_enemychar, 8) == 0)
-			{
-				//ファイルパスが合致したとき
-				if (m_IsEnemyInited[m_numEnemy] == false)
+				wchar_t m_enemychar[256] = L"Enemy_";
+				if (Firstplace == 10)
 				{
-					m_IsEnemyInited[m_numEnemy] = true;
-					m_enemy.push_back(NewGO<Enemy>(0));
+					//10の位に上げる
+					Tenthplace++;
+					Firstplace = 0;
 				}
-				
-				//エネミーのポジションをセット
-				m_enemy[m_numEnemy]->SetPosition(objData.position);
-				//エネミーの回転をセット
-				m_enemy[m_numEnemy]->SetRotation(objData.rotation);
+				wchar_t first[2];
+				wchar_t ten[2];
+				_itow_s(Firstplace, first, 10);
+				_itow_s(Tenthplace, ten, 10);
+				//10の位をファイルパスに結合
+				wcscat_s(m_enemychar, ten);
+				//1の位をファイルパスに結合
+				wcscat_s(m_enemychar, first);
+				////_をファイルパスに結合
+				//wcscat_s(m_enemychar, L"_");
+				//カウントを1上げる
+				Firstplace++;
 
-				//10の位を0に戻す
-				Tenthplace = 0;
-				//1の位を0に戻す
-				Firstplace = 0;
-				//パスの数を0に戻す
-				m_numEnemy = 0;
+				if (wcsncmp(objData.name, m_enemychar, 8) == 0)
+				{
+					//ファイルパスが合致したとき
+					if (m_IsEnemyInited[m_numEnemy] == false)
+					{
+						m_IsEnemyInited[m_numEnemy] = true;
+						m_enemy.push_back(NewGO<Enemy>(0));
+					}
 
-				return true;
+					//エネミーのポジションをセット
+					m_enemy[m_numEnemy]->SetPosition(objData.position);
+					//エネミーの回転をセット
+					m_enemy[m_numEnemy]->SetRotation(objData.rotation);
+
+					//10の位を0に戻す
+					Tenthplace = 0;
+					//1の位を0に戻す
+					Firstplace = 0;
+					//パスの数を0に戻す
+					m_numEnemy = 0;
+
+					return true;
+				}
+				m_numEnemy++;
 			}
-			m_numEnemy++;
+			Tenthplace = 0;
+			Firstplace = 0;
+			m_numEnemy = 0;
 		}
-		Tenthplace = 0;
-		Firstplace = 0;
-		m_numEnemy = 0;
 
 		return false;
 	});

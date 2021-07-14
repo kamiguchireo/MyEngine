@@ -55,6 +55,11 @@ enum EnEnemyAnimation {
 	enEnemyAnimation_Num
 };
 
+enum EnTitleCharacterAnimation {
+	enTitleCharacterAnimation_Rifle_Idle,
+	enTitleCharacterAnimation_Rifle_Down_To_Aim,
+	enTitleCharacterAnimation_Num
+};
 enum HitBoxNum {
 	Head,
 	Spine2,

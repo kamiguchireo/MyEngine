@@ -295,10 +295,7 @@ void Player::Update()
 	//フットステップを調整
 	//スケールの値をとる
 	footStepValue *= m_scale.x;
-	if (footStepValue.z < -0.001f)
-	{
-		int i = 0;
-	}
+
 	//重力を加算
 	if (characon->IsOnGround())
 	{

@@ -265,6 +265,7 @@
     <ClCompile Include="Game\Stage\Tree\Tree2.cpp" />
     <ClCompile Include="SourceFile\Sound\WaveFileBank.cpp" />
     <ClCompile Include="SourceFile\Sound\WaveFile.cpp" />
+    <ClCompile Include="Game\Title\Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\MiniEngine\Camera.h" />
@@ -366,6 +367,7 @@
     <ClInclude Include="Game\Stage\Tree\Tree2.h" />
     <ClInclude Include="SourceFile\Sound\WaveFileBank.h" />
     <ClInclude Include="SourceFile\Sound\WaveFile.h" />
+    <ClInclude Include="Game\Title\Title.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\Image\AimFrame.png" />
