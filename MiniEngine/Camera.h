@@ -60,6 +60,7 @@ public:
 	void SetUp( const Vector3& up )
 	{
 		m_up = up;
+		m_up.Normalize();
 	}
 
 	/// <summary>

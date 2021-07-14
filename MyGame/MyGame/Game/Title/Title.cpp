@@ -145,7 +145,7 @@ void Title::CameraMove()
 {
 	//•âŠ®Œã‚ÌƒJƒƒ‰‚Ìİ’è
 	Vector3 NextCameraPos = { 100.0f,15.0f,350 };
-	Vector3 NextCameraTarget = { 0.0f,50.0f,0.0f };
+	Vector3 NextCameraTarget = { -100.0f,50.0f,0.0f };
 	Vector3 NextCameraUp = { -0.5f,0.0f,-0.5f };
 
 	//•âŠ®—¦
