@@ -227,9 +227,9 @@ void SoundEngine::Update()
 	//リスナーの移動ベクトルを
 	vel.CopyTo(m_listener.Velocity);
 	//向きをセット
-	m_listener.OrientFront = { 0.0f,0.0f,1.0f };
+	m_listenerFront.CopyTo(m_listener.OrientFront);
 	//上方向をセット
-	m_listener.OrientTop = { 0.0f,1.0f,0.0f };
+	m_listenerUp.CopyTo(m_listener.OrientTop);
 
 	DWORD dwCalcFlags = X3DAUDIO_CALCULATE_MATRIX | X3DAUDIO_CALCULATE_DOPPLER
 		| X3DAUDIO_CALCULATE_LPF_DIRECT | X3DAUDIO_CALCULATE_LPF_REVERB

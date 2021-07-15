@@ -47,18 +47,14 @@ public:
 	//3D音源を使っているときの計算に使用されます
 	void SetListenerFront(Vector3 front)
 	{
-		m_listener.OrientFront.x = front.x;
-		m_listener.OrientFront.y = front.y;
-		m_listener.OrientFront.z = front.z;
+		m_listenerFront = front;
 	}
 
 	//サウンドリスナーの上方向を設定
 	//3D音源を使っているときの計算に使用されます
 	void SetListenerUp(Vector3 up)
 	{
-		m_listener.OrientTop.x = up.x;
-		m_listener.OrientTop.y = up.y;
-		m_listener.OrientTop.z = up.z;
+		m_listenerUp = up;
 	}
 
 	//XAudio2のソースボイスを作成
@@ -102,6 +98,8 @@ private:
 	DWORD m_channelMask = 0;						//!<オーディオチャンネルマスク。
 	DWORD m_nChannels = 0;							//!<チャンネル数。
 	Vector3 m_listenerPosition = Vector3::Zero;	//!<リスナーの座標。
+	Vector3 m_listenerFront = Vector3::Front;		//リスナーの正面
+	Vector3 m_listenerUp = Vector3::Up;
 	bool m_UseListenerCone = true;
 	bool m_fUseInnerRadius = true;		//内半径を使用するか
 	bool m_useRedirectToLFE = false;		//重低音強化

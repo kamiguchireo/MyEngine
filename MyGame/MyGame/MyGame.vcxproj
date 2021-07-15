@@ -371,9 +371,6 @@
     <ClInclude Include="SourceFile\Sound\WaveFile.h" />
     <ClInclude Include="Game\Title\Title.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="Assets\Image\Died.png" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />
