@@ -171,7 +171,7 @@ bool Title::Start()
 
 	//左クリックを押してスタートすると書かれたスプライト
 	m_TitleStartSprite = NewGO<prefab::SpriteRender>(0);
-	m_TitleStartSprite->Init("Assets/image/TitleStart.dds", 300, 750);
+	m_TitleStartSprite->Init("Assets/image/TitleStart.dds", 150, 375);
 	m_TitleStartSprite->SetPosition({ 0.0f,-250,0.0f });
 	m_TitleStartSprite->SetAlpha(1.0f);
 
