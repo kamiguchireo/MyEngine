@@ -283,10 +283,15 @@ bool Stage::Start()
 void Stage::Update()
 {
 	time++;
-	if (time > 10)
+	if (m_IsInited == false)
 	{
-		//newから10フレーム後
-		g_graphicsEngine->GetFade()->FadeIn();
+		//NewGOされたさきでNewGOしている可能性があるので一定フレーム待つ
+		if (time > 10)
+		{
+			//newから10フレーム後
+			g_graphicsEngine->GetFade()->FadeIn();
+			m_IsInited = true;
+		}
 	}
 	if (Game::GetInstance()->GetEnemyCount() <= 0)
 	{

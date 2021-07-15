@@ -36,4 +36,5 @@ private:
 	int Tenthplace = 0;
 	int m_numPath = 0;
 	int time = 0;
+	bool m_IsInited = false;
 };

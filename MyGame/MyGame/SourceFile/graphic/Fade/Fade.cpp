@@ -49,7 +49,6 @@ namespace Engine {
 			}
 			else
 			{
-				interpolate = 0.0f;
 				m_IsDirty = false;
 			}
 			m_sprite->SetAlpha(m_Alpha);
@@ -58,12 +57,14 @@ namespace Engine {
 
 	void Fade::FadeIn()
 	{
+		interpolate = 0.0f;
 		m_NextAlpha = 0.0f;
 		m_IsDirty = true;
 	}
 
 	void Fade::FadeOut()
 	{
+		interpolate = 0.0f;
 		m_NextAlpha = 1.0f;
 		m_IsDirty = true;
 	}

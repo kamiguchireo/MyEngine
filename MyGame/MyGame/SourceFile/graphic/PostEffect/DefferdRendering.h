@@ -13,6 +13,10 @@ namespace Engine {
 		{
 			m_Casters.push_back(Caster);
 		}
+		void CasterClear()
+		{
+			m_Casters.clear();
+		}
 	private:
 		static const int TexNum = 5;
 		RenderTarget albedRT;

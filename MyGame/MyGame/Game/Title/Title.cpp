@@ -200,7 +200,8 @@ void Title::CameraMove()
 	if (f >= 1.0f)
 	{
 		f = 1.0f;
-		m_process = TitleProcess::enProcess_Fade;
+		//プロセスをインクリメント
+		m_process++;
 	}
 
 	m_CameraPos.Lerp(f, m_CameraPos, NextCameraPos);
@@ -237,7 +238,8 @@ void Title::Update()
 			m_animation.Play(enTitleCharacterAnimation_Rifle_Down_To_Aim, 0.3f);
 			m_TitleStartAlpha = 1.0f;
 			m_TitleFadeSpeed = 0.02f;
-			m_process = TitleProcess::enProcess_Click;
+			//プロセスをインクリメント
+			m_process++;
 		}
 	}
 	else if (m_process == TitleProcess::enProcess_Click)
@@ -246,7 +248,8 @@ void Title::Update()
 		{
 			m_FireSound->Play(false, false);
 			m_BulletTitleSprite->SetAlpha(1.0f);
-			m_process = TitleProcess::enProcess_PlaySound;
+			//プロセスをインクリメント
+			m_process++;
 		}
 	}
 	else if (m_process == TitleProcess::enProcess_PlaySound)
@@ -256,7 +259,8 @@ void Title::Update()
 	else if (m_process == TitleProcess::enProcess_Fade)
 	{
 		g_graphicsEngine->GetFade()->FadeOut();
-		m_process = TitleProcess::enProcess_WithoutAlpha;
+		//プロセスをインクリメント
+		m_process++;
 	}
 	else if (m_process == TitleProcess::enProcess_WithoutAlpha)
 	{
@@ -265,7 +269,8 @@ void Title::Update()
 		{
 			//限りなく0に近いので0にする
 			alpha = 0.0f;
-			m_process = TitleProcess::enProcess_SceneTrans;
+			//プロセスをインクリメント
+			m_process++;
 		}
 		m_BulletTitleSprite->SetAlpha(alpha);
 		m_TitleNameSprite->SetAlpha(alpha);

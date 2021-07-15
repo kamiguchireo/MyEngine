@@ -7,17 +7,19 @@ class Tree1;
 class Tree2;
 class Grass_03;
 class SoundSource;
-enum TitleProcess {
-	enProcess_Start,
-	enProcess_Click,
-	enProcess_PlaySound,
-	enProcess_Fade,
-	enProcess_WithoutAlpha,
-	enProcess_SceneTrans,
-	enProcess_Num,
-};
+
 class Title : public IGameObject
 {
+private:
+	enum TitleProcess {
+		enProcess_Start,
+		enProcess_Click,
+		enProcess_PlaySound,
+		enProcess_Fade,
+		enProcess_WithoutAlpha,
+		enProcess_SceneTrans,
+		enProcess_Num,
+	};
 public:
 	Title() {}
 	~Title();

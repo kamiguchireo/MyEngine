@@ -1,6 +1,19 @@
 #pragma once
+class SoundSource;
+
 class GameOver:public IGameObject
 {
+private:
+	enum DeadProcess
+	{
+		enProcess_PlaySound,
+		enProcess_CameraMove,
+		enProcess_SelectScene,
+		enProcess_Fade,
+		enProcess_WithoutAlpha,
+		enProcess_SceneTrans,
+		enProcess_Num,
+	};
 public:
 	GameOver();
 	~GameOver();
@@ -21,7 +34,8 @@ public:
 	}
 private:
 	static GameOver* m_Instance;		//インスタンス
-	prefab::SpriteRender* m_DiedSprite = nullptr;		//死亡時に表示するスプライト
+	prefab::SpriteRender* m_DeadSprite = nullptr;		//死亡時に表示するスプライト
+	SoundSource* m_DeadSound = nullptr;
 	float m_DeadSpriteAlpha = 0.0f;
 	const float m_DeadAlphaFadeSpeed = 0.2f;
 	Vector3 m_DeadAfterCameraPos = Vector3::Zero;
@@ -33,5 +47,6 @@ private:
 	Vector3 m_forward = Vector3::Zero;		//前
 	Vector3 m_pos = Vector3::Zero;		//ポジション
 	bool m_IsInited = false;		//初期化フラグ
+	int m_process = DeadProcess::enProcess_Num;		//プロセス
 };
 

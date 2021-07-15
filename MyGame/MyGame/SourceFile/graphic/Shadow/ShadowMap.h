@@ -49,6 +49,14 @@ namespace Engine {
 		{
 			ligTarget = pos;
 		}
+
+		//シャドウキャスターのクリア
+		//シーン遷移などで一気にオブジェクトを消す際に
+		//描画順番により残ってしまったキャスターを削除するときなどに使用してください
+		void CasterClear()
+		{
+			m_shadowCasters.clear();
+		}
 	private:
 		//ライトの座標を計算する。
 		// 分割された視推台を写すライトの座標を計算します。

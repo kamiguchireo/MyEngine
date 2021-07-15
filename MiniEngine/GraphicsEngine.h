@@ -174,7 +174,16 @@ public:
 	{
 		return m_fade;
 	}
-private:
+
+	//ディファードレンダリングやシャドウマップなどアップデート後に描画されるオブジェのクリア
+	//シーン遷移などで一気にオブジェクトを消す際に
+	//描画順番により残ってしまったキャスターを削除するときなどに使用してください
+	void CasterClear()
+	{
+		m_shadowMap->CasterClear();
+		m_DefferdRendering->CasterClear();
+	}
+private:	
 	/// <summary>
 	/// D3Dデバイスの作成。
 	/// </summary>
