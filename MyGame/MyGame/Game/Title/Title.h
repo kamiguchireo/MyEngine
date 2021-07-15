@@ -47,4 +47,9 @@ private:
 	prefab::SpriteRender* m_TitleStartSprite = nullptr;
 	prefab::SpriteRender* m_TitleNameSprite = nullptr;
 	int m_process = TitleProcess::enProcess_Start;
+	float m_TitleStartAlpha = 1.0f;
+	float m_TitleAlphaMax = 1.0f;
+	float m_TitleAlphaMin = 0.5f;
+	float m_TitleFadeSpeed = 0.005f;
+	int m_TitleNameFadeCount = 2;
 };

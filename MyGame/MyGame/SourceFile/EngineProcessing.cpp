@@ -12,7 +12,7 @@ void EngineProcessing::Init()
 
 	g_camera2D->SetPosition({ 0.0f, 0.0f, 1.0f });
 	g_camera2D->SetTarget({ 0.0f, 0.0f, 0.0f });
-	//g_camera2D->SetUp(Vector3::Up);
+	g_camera2D->SetUp(Vector3::Up);
 	g_camera2D->SetFar(100.0f);
 	g_camera2D->Update();
 

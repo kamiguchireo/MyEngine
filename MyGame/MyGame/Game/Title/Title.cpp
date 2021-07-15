@@ -212,11 +212,31 @@ void Title::CameraMove()
 void Title::Update()
 {
 	auto deltatime = g_gameTime.GetFrameDeltaTime();
+	if (m_TitleStartAlpha >= m_TitleAlphaMax)
+	{
+		m_TitleFadeSpeed *= -1.0f;
+	}
+	else if (m_TitleStartAlpha <= m_TitleAlphaMin)
+	{
+		m_TitleFadeSpeed *= -1.0f;
+		if (m_process >= TitleProcess::enProcess_Click)
+		{
+			m_TitleNameFadeCount--;
+		}
+	}
+	m_TitleStartAlpha += m_TitleFadeSpeed;
+
+	if (m_TitleNameFadeCount < 0)
+	{
+		m_TitleStartAlpha = 0.0f;
+	}
 	if (m_process == TitleProcess::enProcess_Start)
 	{
 		if (GetAsyncKeyState(VK_LBUTTON))
 		{
 			m_animation.Play(enTitleCharacterAnimation_Rifle_Down_To_Aim, 0.3f);
+			m_TitleStartAlpha = 1.0f;
+			m_TitleFadeSpeed = 0.02f;
 			m_process = TitleProcess::enProcess_Click;
 		}
 	}
@@ -248,7 +268,6 @@ void Title::Update()
 			m_process = TitleProcess::enProcess_SceneTrans;
 		}
 		m_BulletTitleSprite->SetAlpha(alpha);
-		m_TitleStartSprite->SetAlpha(alpha);
 		m_TitleNameSprite->SetAlpha(alpha);
 	}
 	else if (m_process == TitleProcess::enProcess_SceneTrans)
@@ -265,9 +284,8 @@ void Title::Update()
 		//ŒÀ‚è‚È‚­0‚É‹ß‚¢‚Ì‚Å0‚É‚·‚é
 		alpha = 0.0f;
 	}
-	m_TitleStartSprite->SetAlpha(alpha);
-	m_TitleNameSprite->SetAlpha(alpha);
 
+	m_TitleStartSprite->SetAlpha(m_TitleStartAlpha);
 
 	m_animation.Update(deltatime);
 

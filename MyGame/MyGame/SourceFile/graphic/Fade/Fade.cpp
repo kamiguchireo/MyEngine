@@ -16,6 +16,7 @@ namespace Engine {
 	{
 		m_sprite = NewGO<prefab::SpriteRender>(0);
 		m_sprite->Init("Assets/image/Fade.dds", g_graphicsEngine->GetFrameBufferHeight(), g_graphicsEngine->GetFrameBufferWidth());
+		m_sprite->SetPosition({ 0.0f,0.0f,0.0f });
 		m_sprite->SetAlpha(m_Alpha);
 		return true;
 	}
@@ -36,7 +37,7 @@ namespace Engine {
 					interpolate += m_FadeSpeed * deltaTime;
 				}
 				//•âŠ®—¦‚ğ“ñæ‚·‚é
-				float f = pow(interpolate, 2.0);
+				float f = static_cast<float>(pow(interpolate, 2.0));
 				if (f >= 1.0f)
 				{
 					//•âŠ®—¦‚ÌÅ‘å’l‚Í1
