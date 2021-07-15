@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Game.h"
 #include "GameOver.h"
+#include "GameClear.h"
 #include "Stage/Stage.h"
 #include "Player/Player.h"
 #include "Enemy/Enemy.h"
@@ -71,6 +72,11 @@ void Game::DeleteScene(int scenenum)
 		DeleteGO(m_GameOver);
 		m_GameOver = nullptr;
 	}
+	if (m_GameClear != nullptr)
+	{
+		DeleteGO(m_GameClear);
+		m_GameClear = nullptr;
+	}
 }
 
 void Game::NewScene(int scenenum)
@@ -94,6 +100,7 @@ void Game::NewScene(int scenenum)
 		}
 	}
 	m_GameOver = NewGO<GameOver>(1);
+	m_GameClear = NewGO<GameClear>(2);
 	m_SceneNum = scenenum;
 	IsDirty = true;
 }

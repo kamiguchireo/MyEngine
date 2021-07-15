@@ -8,6 +8,7 @@
 #include "PlayerHitBox.h"
 #include "Game/Game.h"
 #include "Game/GameOver.h"
+#include "Game/GameClear.h"
 
 Player* Player::m_Instance = nullptr;
 Player::Player()
@@ -280,21 +281,19 @@ void Player::DeadProcess()
 	}
 }
 
-void Player::DeadCameraMove()
-{
-
-}
-
 void Player::Update()
 {
 	if (IsDead)
 	{
 		//プレイヤーが死亡した時
 		DeadProcess();
-		DeadCameraMove();
 		GameOver::GetInstance()->Init(m_pos, m_forward);
 
 		return;
+	}
+	else if (Game::GetInstance()->GetEnemyCount() <= 0)
+	{
+		GameClear::GetInstance()->Init(m_pos, m_forward);
 	}
 	//待機ステートに切り替える
 	ChangeState(m_stateIdle);

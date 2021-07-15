@@ -148,8 +148,6 @@ private:
 	//死亡時の処理
 	void DeadProcess();
 
-	//死亡時のカメラの動き
-	void DeadCameraMove();
 private:
 	static Player* m_Instance;		//インスタンス
 	IPlayer* currentState = nullptr;		//現在のステート

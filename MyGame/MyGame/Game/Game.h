@@ -3,7 +3,7 @@
 class Stage;
 class Title;
 class GameOver;
-
+class GameClear;
 enum SceneNum {
 	enScene_Title,
 	enScene_Stage01,
@@ -50,6 +50,7 @@ private:
 	Title* m_Title = nullptr;		//タイトル
 	Stage* m_Stage_01 = nullptr;		//ステージ
 	GameOver* m_GameOver = nullptr;		//ゲームオーバー
+	GameClear* m_GameClear = nullptr;		//ゲームクリアー
 	int m_SceneNum = SceneNum::enScene_Num;		//現在のシーン番号
 	bool IsDirty = true;
 	bool IsStageInited = true;

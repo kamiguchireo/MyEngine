@@ -293,8 +293,4 @@ void Stage::Update()
 			m_IsInited = true;
 		}
 	}
-	if (Game::GetInstance()->GetEnemyCount() <= 0)
-	{
-		Game::GetInstance()->SceneTrans(SceneNum::enScene_Stage01);
-	}
 }
