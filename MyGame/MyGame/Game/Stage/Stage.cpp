@@ -32,11 +32,17 @@ void Stage::OnDestroy()
 		delete m_level;
 		m_level = nullptr;
 	}
-	if (m_sound != nullptr)
+	if (m_BirdSound != nullptr)
 	{
-		m_sound->Stop();
-		DeleteGO(m_sound);
-		m_sound = nullptr;
+		m_BirdSound->Stop();
+		DeleteGO(m_BirdSound);
+		m_BirdSound = nullptr;
+	}
+	if (m_BreezeSound != nullptr)
+	{
+		m_BreezeSound->Stop();
+		DeleteGO(m_BreezeSound);
+		m_BreezeSound = nullptr;
 	}
 	if (m_Glass != nullptr)
 	{
@@ -82,11 +88,18 @@ bool Stage::Start()
 	if (m_level == nullptr)
 	{
 		m_level = new Level();
-		m_sound = NewGO<SoundSource>(0);
+		m_BirdSound = NewGO<SoundSource>(0);
 		//”M‘Ñ‚ÌŠÂ‹«‰¹‚ð‰Šú‰»
-		m_sound->Init(L"Assets/sound/Environmental_sound_Tropical.wav");
+		m_BirdSound->Init(L"Assets/sound/Environmental_sound_Tropical.wav");
+		m_BreezeSound = NewGO<SoundSource>(0);
+		//‚»‚æ•—‚ÌŠÂ‹«‰¹‚ð‰Šú‰»
+		m_BreezeSound->Init(L"Assets/sound/Breeze.wav");
+		//‰¹—Ê‚ð’²®
+		m_BirdSound->SetVolume(0.5f);
+		m_BreezeSound->SetVolume(0.2f);
 		//ƒ‹[ƒv‚ÅÄ¶‚·‚é
-		m_sound->Play(true);
+		m_BirdSound->Play(true);
+		m_BreezeSound->Play(true);
 	}
 	m_level->Init("Assets/Level/Map.tkl", [&](const LevelObjectData& objData) {
 		if (wcscmp(objData.name, L"Player") == 0)

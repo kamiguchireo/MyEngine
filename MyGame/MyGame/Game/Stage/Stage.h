@@ -24,7 +24,8 @@ private:
 	Tree1* m_Tree1 = nullptr;
 	Tree2* m_Tree2 = nullptr;
 	Bush_02* m_Bush = nullptr;
-	SoundSource* m_sound = nullptr;
+	SoundSource* m_BirdSound = nullptr;
+	SoundSource* m_BreezeSound = nullptr;
 	Player* m_Player = nullptr;
 	std::vector<Path*> m_Path;
 	std::vector<Enemy*>m_enemy;
