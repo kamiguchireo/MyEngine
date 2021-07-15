@@ -46,4 +46,6 @@ void PlayerStateMove::Update()
 
 	//プレイヤーの前方向をセット
 	m_Player->SetForward(KeyDir);
+	//プレイヤーの右方向をセット
+	m_Player->SetRight(playerRight);
 }

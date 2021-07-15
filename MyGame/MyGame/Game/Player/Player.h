@@ -66,6 +66,11 @@ public:
 	{
 		m_forward = vec;
 	}
+	//右方向をセット
+	void SetRight(Vector3 vec)
+	{
+		m_right = vec;
+	}
 	//武器用の行列をゲット
 	const Matrix& GetWeaponBoneMat()
 	{
@@ -160,7 +165,8 @@ private:
 	PlayerStateAim* m_stateAim = nullptr;		//エイム状態
 	Weapon* m_PlayerWeapon = nullptr;		//プレイヤーの武器
 	GameCamera* m_camera = nullptr;		//カメラ
-	Vector3 m_forward = Vector3::AxisZ;		//前方向
+	Vector3 m_forward = Vector3::Front;		//前方向
+	Vector3 m_right = Vector3::Right;		//右方向
 	CharacterController* characon = nullptr;		//キャラコン
 	Vector3 footStepValue = Vector3::Zero;		//footStepの移動量
 	prefab::SpriteRender* m_AimFramesprite = nullptr;		//エイム時に表示するスプライト
@@ -177,4 +183,8 @@ private:
 	const float m_DeadAlphaFadeSpeed = 0.2f;
 	Vector3 m_DeadAfterCameraPos = Vector3::Zero;
 	Vector3 m_DeadAfterCameraTarget = Vector3::Zero;
+	Vector3 m_LerpForwardCameraPos = Vector3::Zero;
+	const float m_DeadCameraDist = 200.0f;
+	float m_DeadAfterLeapSpeed = 0.2f;
+	float m_DeadLeapTime = 0.0f;
 };

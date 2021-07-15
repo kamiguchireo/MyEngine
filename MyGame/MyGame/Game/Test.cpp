@@ -17,17 +17,6 @@ void Test::OnDestroy()
 		DeleteGO(m_player);
 		m_player = nullptr;
 	}
-	if (m_enemy != nullptr)
-	{
-		DeleteGO(m_enemy);
-		m_enemy = nullptr;
-	}
-	if (m_sound != nullptr)
-	{
-		m_sound->Stop();
-		DeleteGO(m_sound);
-		m_sound = nullptr;
-	}
 }
 bool Test::Start()
 {
@@ -39,63 +28,54 @@ bool Test::Start()
 	g_camera3D->SetTarget({ 0.0f,0.0f,0.0f });
 
 	m_player = NewGO < prefab::ModelRender>(0);
-	m_enemy = NewGO < prefab::ModelRender>(1);
-	m_sound = NewGO<SoundSource>(2);
 
 	//ファイルパス
 	m_player->SetTkmFilePath("Assets/modelData/soldier_bs01.tkm");
-	m_enemy->SetTkmFilePath("Assets/modelData/soldier_bs01.tkm");
-	m_sound->Init(L"Assets/sound/Rifle_fire.wav", true);
+	m_player->SetVSEntryPoint("VSMainSkin");
+	m_skeleton.Init("Assets/modelData/soldier_bs01.tks");
+	m_animClip[0].Load("Assets/animData/Death_From_Front.tka");
+	m_anim.Init(m_skeleton, m_animClip, 1);
+	m_anim.Play(0);
 
+	m_player->SetSkeleton(m_skeleton);
 	//ポジションをセット
 	m_player->SetPosition(m_pos);
-	m_enemy->SetPosition(Vector3::Zero);
-	m_sound->SetPosition(Vector3::Zero);
+
+	//カメラの位置に足すベクトル
+	Vector3 CameraAddPos = Vector3::Zero;
+	//プレイヤーの後ろ方向にカメラを引く
+	CameraAddPos = m_forward * m_DeadCameraDist * -1.0f;
+	CameraAddPos.y = 50.0f;
+	m_DeadAfterCameraPos = m_pos + CameraAddPos;
+	m_LerpForwardCameraPos = m_DeadAfterCameraPos;
 
 	return true;
 }
 
 void Test::Update()
 {
-	m_sound->Play(true);
-	m_pos.x += g_pad[0]->GetLStickXF();
-	m_pos.z += g_pad[0]->GetLStickYF();
-	m_forward = Vector3::Front;
-	if (GetAsyncKeyState(VK_SPACE))
-	{
-		m_pos.y += 1.0f;
-	}
-	else if (GetAsyncKeyState(VK_LCONTROL))
-	{
-		m_pos.y -= 1.0f;
-	}
-	if (GetAsyncKeyState(VK_RIGHT))
-	{
-		rot -= 0.01f;
-	}
-	if (GetAsyncKeyState(VK_LEFT))
-	{
-		rot += 0.01f;
-	}
+	auto deltaTime = g_gameTime.GetFrameDeltaTime();
+	m_anim.Update(deltaTime);
+	m_DeadLeapTime += deltaTime * m_DeadAfterLeapSpeed;
+	m_DeadLeapTime = min(1.0f, m_DeadLeapTime);
+	m_DeadAfterCameraPos = m_pos;
+	m_DeadAfterCameraTarget = m_pos;
+	//カメラの位置に足すベクトル
+	Vector3 CameraAddPos = Vector3::Zero;
+	//プレイヤーの後ろ方向にカメラを引く
+	//CameraAddPos = m_forward * m_DeadCameraDist * -1.0f;
+	CameraAddPos.y = 500.0f;
+	CameraAddPos.z += 100.0f;
+	m_DeadAfterCameraPos = m_pos + CameraAddPos;
+	m_DeadAfterCameraPos.Lerp(m_DeadLeapTime,m_LerpForwardCameraPos, m_DeadAfterCameraPos);
+	Vector3 cameradir = m_DeadAfterCameraPos - m_DeadAfterCameraTarget;
+	cameradir.Normalize();
+	Vector3 m_up = Cross(Vector3::Right, cameradir);
 
-	if (rot >= 360.0f)
-	{
-		rot = 0.0f;
-	}
-	if (rot <= -360.0f)
-	{
-		rot = 0.0f;
-	}
-	Vector3 AddPos = Vector3::Zero;
-	AddPos.x -= sinf(rot) * 100.0f;
-	AddPos.z = cosf(rot) * 100.0f;
-	m_forward += AddPos;
-
-	Quaternion m_rot = Quaternion::Identity;
 	m_rot.SetRotation(Vector3::Front, m_forward);
-
 	m_player->SetPosition(m_pos);
 	m_player->SetRotation(m_rot);
-	g_engine->GetSoundEngine().SetListenerPosition(m_pos);
-	g_engine->GetSoundEngine().SetListenerFront(m_forward);
+	g_camera3D->SetPosition(m_DeadAfterCameraPos);
+	g_camera3D->SetTarget(m_DeadAfterCameraTarget);
+	g_camera3D->SetUp(m_up);
 }

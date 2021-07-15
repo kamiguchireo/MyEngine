@@ -279,24 +279,53 @@ void Player::DeadProcess()
 		{
 			DeleteGO(m_camera);
 			m_camera = nullptr;
-			//死亡後のカメラの位置とターゲットをポジションにセット
-			m_DeadAfterCameraTarget = m_pos;
-			m_DeadAfterCameraPos = m_pos;
 		}
 	}
 	else
 	{
-		auto g_game = Game::GetInstance();
+		DeadCameraMove();
+		//auto g_game = Game::GetInstance();
 		//もう一度ステージ01を生成しなおす
-		g_game->SceneTrans(SceneNum::enScene_Stage01);
+		//g_game->SceneTrans(SceneNum::enScene_Stage01);
 	}
 }
 
 void Player::DeadCameraMove()
 {
-	//カメラの位置に足すベクトル
+	auto deltaTime = g_gameTime.GetFrameDeltaTime();
+	m_DeadLeapTime += deltaTime * m_DeadAfterLeapSpeed;
+	m_DeadLeapTime = min(1.0f, m_DeadLeapTime);
+	//最終的なカメラの位置に足すベクトル
 	Vector3 CameraAddPos = Vector3::Zero;
-	CameraAddPos = m_forward;
+	//前方向を加算
+	CameraAddPos = m_forward * 100.0f;
+	//カメラのターゲットを前方向に加算
+	m_DeadAfterCameraTarget = m_pos + CameraAddPos;
+	//高さを加算
+	CameraAddPos.y = 500.0f;
+	//少し後ろにする
+	CameraAddPos -= m_forward;
+	//最終的なカメラの位置
+	m_DeadAfterCameraPos = m_pos + CameraAddPos;
+	//プレイヤーの後ろ方向に補完前のカメラを引く
+	m_LerpForwardCameraPos = m_pos + (m_forward * m_DeadCameraDist * -1.0f);
+	m_LerpForwardCameraPos.Lerp(m_DeadLeapTime, m_LerpForwardCameraPos, m_DeadAfterCameraPos);
+	//上方向の計算
+	Vector3 cameradir = m_DeadAfterCameraTarget - m_LerpForwardCameraPos;
+	if (cameradir.Length() != 0.0f)
+	{
+		cameradir.Normalize();
+	}
+	Vector3 right = Cross(Vector3::Up, cameradir);
+	if (right.Length() != 0.0f)
+	{
+		right.Normalize();
+	}
+	Vector3 m_up = Cross(cameradir, right);
+	//カメラの各設定をセット
+	g_camera3D->SetPosition(m_LerpForwardCameraPos);
+	g_camera3D->SetTarget(m_DeadAfterCameraTarget);
+	g_camera3D->SetUp(m_up);
 }
 
 void Player::Update()

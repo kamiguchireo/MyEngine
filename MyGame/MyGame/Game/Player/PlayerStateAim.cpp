@@ -37,7 +37,6 @@ void PlayerStateAim::UpdateRotation()
 	aimForward.Normalize();
 	//プレイヤーの前方向をセット
 	m_Player->SetForward(aimForward);
-
 	//腰から上も回転
 	WaistBend();
 }
