@@ -9,12 +9,15 @@ class Path;
 class SoundSource;
 class Player;
 class Enemy;
-class Stage
+class Stage :public IGameObject
 {
 public:
 	Stage();
 	~Stage();
-	
+
+	void OnDestroy();
+	bool Start();
+	void Update();
 private:
 	Level* m_level = nullptr;
 	Grass_03* m_Glass = nullptr;
@@ -31,4 +34,5 @@ private:
 	int Firstplace = 0;
 	int Tenthplace = 0;
 	int m_numPath = 0;
+	int time = 0;
 };

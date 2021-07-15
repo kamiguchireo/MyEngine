@@ -45,5 +45,6 @@ private:
 	bool IsPlayFireSound = false;
 	prefab::SpriteRender* m_BulletTitleSprite = nullptr;
 	prefab::SpriteRender* m_TitleStartSprite = nullptr;
+	prefab::SpriteRender* m_TitleNameSprite = nullptr;
 	int m_process = TitleProcess::enProcess_Start;
 };

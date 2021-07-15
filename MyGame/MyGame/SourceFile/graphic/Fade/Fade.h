@@ -1,4 +1,5 @@
 #pragma once
+#include <thread>
 #include "SourceFile/Graphic/SpriteRender.h"
 
 namespace Engine {
@@ -28,12 +29,16 @@ namespace Engine {
 		{
 			return m_Alpha;
 		}
+		void SetAlpha(float f)
+		{
+			m_Alpha = f;
+		}
 	private:
 		prefab::SpriteRender* m_sprite = nullptr;		//スプライト
 		bool m_IsDirty = false;		//更新が必要かどうかのフラグ
 		float m_FadeSpeed = 0.2f;		//フェードスピード
-		float m_Alpha = 0.0f;		//現在のα
-		float m_NextAlpha = 0.0f;		//次のα
+		float m_Alpha = 1.0f;		//現在のα
+		float m_NextAlpha = 1.0f;		//次のα
 		float interpolate = 0.0f;		//補完率
 	};
 }

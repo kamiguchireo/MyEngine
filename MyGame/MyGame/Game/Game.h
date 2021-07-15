@@ -37,6 +37,6 @@ private:
 	Title* m_Title = nullptr;		//タイトル
 	Stage* m_Stage_01 = nullptr;		//ステージ
 	int m_SceneNum = SceneNum::enScene_Num;		//現在のシーン番号
-	bool IsDirty = false;
-	bool IsStageInited = false;
+	bool IsDirty = true;
+	bool IsStageInited = true;
 };

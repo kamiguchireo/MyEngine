@@ -59,6 +59,11 @@ void Title::OnDestroy()
 		DeleteGO(m_TitleStartSprite);
 		m_TitleStartSprite = nullptr;
 	}
+	if (m_TitleNameSprite != nullptr)
+	{
+		DeleteGO(m_TitleNameSprite);
+		m_TitleNameSprite = nullptr;
+	}
 }
 
 bool Title::Start()
@@ -152,6 +157,12 @@ bool Title::Start()
 	m_FireSound = NewGO<SoundSource>(0);
 	m_FireSound->Init(L"Assets/sound/Anti_materiel_rifle.wav");
 
+	//タイトル名のスプライト
+	m_TitleNameSprite = NewGO<prefab::SpriteRender>(0);
+	m_TitleNameSprite->Init("Assets/image/TitleName.dds", 600, 1500);
+	m_TitleNameSprite->SetPosition({ 0.0f,200.0f,0.0f });
+	m_TitleNameSprite->SetAlpha(1.0f);
+
 	//弾痕のスプライト
 	m_BulletTitleSprite = NewGO<prefab::SpriteRender>(0);
 	m_BulletTitleSprite->Init("Assets/image/BulletTitle.dds",250, 250);
@@ -160,12 +171,15 @@ bool Title::Start()
 
 	//左クリックを押してスタートすると書かれたスプライト
 	m_TitleStartSprite = NewGO<prefab::SpriteRender>(0);
-	m_TitleStartSprite->Init("Assets/image/TitleStart.dds", 250, 750);
+	m_TitleStartSprite->Init("Assets/image/TitleStart.dds", 300, 750);
 	m_TitleStartSprite->SetPosition({ 0.0f,-250,0.0f });
 	m_TitleStartSprite->SetAlpha(1.0f);
 
 	m_CameraPos = { 200.0f,150.0f,200.0f };
 	m_CameraTarget = { 0.0f,150.0f,0.0f };
+
+	g_graphicsEngine->GetFade()->FadeIn();
+
 	return true;
 }
 
@@ -180,7 +194,7 @@ void Title::CameraMove()
 	static float interpolate = 0.0f;
 	interpolate += g_gameTime.GetFrameDeltaTime() * 0.4f;
 	//補完率を二乗する
-	float f = pow(interpolate, 2.0);
+	float f = static_cast<float>(pow(interpolate, 2.0));
 	
 	//最大値を1にする
 	if (f >= 1.0f)
@@ -235,14 +249,26 @@ void Title::Update()
 		}
 		m_BulletTitleSprite->SetAlpha(alpha);
 		m_TitleStartSprite->SetAlpha(alpha);
+		m_TitleNameSprite->SetAlpha(alpha);
 	}
-	else if (m_process = TitleProcess::enProcess_SceneTrans)
+	else if (m_process == TitleProcess::enProcess_SceneTrans)
 	{
 		auto g_game = Game::GetInstance();
 		//ステージ01呼び出し
 		g_game->SceneTrans(SceneNum::enScene_Stage01);
 		return;
 	}
+
+	float alpha = 1.0f - g_graphicsEngine->GetFade()->GetAlpha();
+	if (alpha <= 0.001f)
+	{
+		//限りなく0に近いので0にする
+		alpha = 0.0f;
+	}
+	m_TitleStartSprite->SetAlpha(alpha);
+	m_TitleNameSprite->SetAlpha(alpha);
+
+
 	m_animation.Update(deltatime);
 
 	g_camera3D->SetPosition(m_CameraPos);

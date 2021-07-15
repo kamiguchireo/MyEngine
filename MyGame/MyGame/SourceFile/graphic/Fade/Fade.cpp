@@ -26,7 +26,15 @@ namespace Engine {
 		{
 			if (m_Alpha != m_NextAlpha)
 			{
-				interpolate += m_FadeSpeed * g_gameTime.GetFrameDeltaTime();
+				auto deltaTime = g_gameTime.GetFrameDeltaTime();
+				if (deltaTime >= m_FadeSpeed)
+				{
+					interpolate += m_FadeSpeed * 0.1f;
+				}
+				else
+				{
+					interpolate += m_FadeSpeed * deltaTime;
+				}
 				//•âŠ®—¦‚ð“ñæ‚·‚é
 				float f = pow(interpolate, 2.0);
 				if (f >= 1.0f)
@@ -40,10 +48,11 @@ namespace Engine {
 			}
 			else
 			{
+				interpolate = 0.0f;
 				m_IsDirty = false;
 			}
 			m_sprite->SetAlpha(m_Alpha);
-		}
+		}	
 	}
 
 	void Fade::FadeIn()

@@ -13,7 +13,72 @@
 Stage::Stage()
 {
 	g_camera3D->SetUp(Vector3::Up);
+}
 
+Stage::~Stage()
+{
+
+}
+
+void Stage::OnDestroy()
+{
+	if (m_Player != nullptr)
+	{
+		DeleteGO(m_Player);
+		m_Player = nullptr;
+	}
+	if (m_level != nullptr)
+	{
+		delete m_level;
+		m_level = nullptr;
+	}
+	if (m_sound != nullptr)
+	{
+		m_sound->Stop();
+		DeleteGO(m_sound);
+		m_sound = nullptr;
+	}
+	if (m_Glass != nullptr)
+	{
+		DeleteGO(m_Glass);
+		m_Glass = nullptr;
+	}
+	if (m_Tree1 != nullptr)
+	{
+		DeleteGO(m_Tree1);
+		m_Tree1 = nullptr;
+	}
+	if (m_Tree2 != nullptr)
+	{
+		DeleteGO(m_Tree2);
+		m_Tree2 = nullptr;
+	}
+	if (m_Bush != nullptr)
+	{
+		DeleteGO(m_Bush);
+		m_Bush = nullptr;
+	}
+
+	for (int i = 0; i < m_Path.size(); i++)
+	{
+		if (m_Path[i] != nullptr)
+		{
+			delete m_Path[i];
+			m_Path[i] = nullptr;
+		}
+	}
+	for (int i = 0; i < m_enemy.size(); i++)
+	{
+		if (m_enemy[i] != nullptr)
+		{
+			DeleteGO(m_enemy[i]);
+			m_enemy[i] = nullptr;
+		}
+	}
+}
+
+bool Stage::Start()
+{
 	if (m_level == nullptr)
 	{
 		m_level = new Level();
@@ -32,7 +97,7 @@ Stage::Stage()
 			return true;
 		}
 		else if (wcscmp(objData.name, L"SM_Grass_03") == 0)
-		{	
+		{
 			//‘
 			if (m_Glass == nullptr)
 			{
@@ -194,62 +259,16 @@ Stage::Stage()
 	{
 		m_enemy[i]->SetPath(m_Path[i]);
 	}
+
+	return true;
 }
 
-Stage::~Stage()
+void Stage::Update()
 {
-	if (m_Player != nullptr)
+	time++;
+	if (time > 10)
 	{
-		DeleteGO(m_Player);
-		m_Player = nullptr;
+		//new‚©‚ç10ƒtƒŒ[ƒ€Œã
+		g_graphicsEngine->GetFade()->FadeIn();
 	}
-	if (m_level != nullptr)
-	{
-		delete m_level;
-		m_level = nullptr;
-	}
-	if (m_sound != nullptr)
-	{
-		m_sound->Stop();
-		DeleteGO(m_sound);
-		m_sound = nullptr;
-	}
-	if (m_Glass != nullptr)
-	{
-		DeleteGO(m_Glass);
-		m_Glass = nullptr;
-	}
-	if (m_Tree1 != nullptr)
-	{
-		DeleteGO(m_Tree1);
-		m_Tree1 = nullptr;
-	}
-	if (m_Tree2 != nullptr)
-	{
-		DeleteGO(m_Tree2);
-		m_Tree2 = nullptr;
-	}
-	if (m_Bush != nullptr)
-	{
-		DeleteGO(m_Bush);
-		m_Bush = nullptr;
-	}
-
-	for (int i = 0; i < m_Path.size(); i++)
-	{
-		if (m_Path[i] != nullptr)
-		{
-			delete m_Path[i];
-			m_Path[i] = nullptr;
-		}
-	}
-	for (int i = 0; i < m_enemy.size(); i++)
-	{
-		if (m_enemy[i] != nullptr)
-		{
-			DeleteGO(m_enemy[i]);
-			m_enemy[i] = nullptr;
-		}
-	}
-
 }

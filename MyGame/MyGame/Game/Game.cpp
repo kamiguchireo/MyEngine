@@ -37,7 +37,6 @@ void Game::Update()
 	{
 		if (IsStageInited)
 		{
-			g_graphicsEngine->GetFade()->FadeIn();
 			IsDirty = false;
 			IsStageInited = false;
 			return;
@@ -63,7 +62,7 @@ void Game::DeleteScene(int scenenum)
 	{
 		if (m_Stage_01 != nullptr)
 		{
-			delete m_Stage_01;
+			DeleteGO(m_Stage_01);
 			m_Stage_01 = nullptr;
 		}
 		return;
@@ -87,7 +86,7 @@ void Game::NewScene(int scenenum)
 		if (m_Stage_01 == nullptr)
 		{
 			//ステージ01をnew
-			m_Stage_01 = new Stage();
+			m_Stage_01 = NewGO<Stage>(0);
 		}
 	}
 	m_SceneNum = scenenum;
