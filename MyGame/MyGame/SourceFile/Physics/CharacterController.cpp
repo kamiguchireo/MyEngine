@@ -260,25 +260,25 @@ namespace Engine {
 		Vector3 endPos;
 		endPos.Set(start.getOrigin());
 		//‹ó’†‚É‚¢‚é‚Æ‚«
-		if (m_isOnGround == false)
-		{
-			//ã¸’†
-			if (AddPos.y > 0.0f)
-			{
-				//ã¸’†‚Å‚àXZ‚ÉˆÚ“®‚µ‚½Œ‹‰Ê‚ß‚è‚ñ‚Å‚¢‚é‰Â”\«‚ª‚ ‚é‚Ì‚Å‰º‚ğ’²‚×‚é
-				endPos.y -= AddPos.y * 0.01f;
-			}
-			else
-			{
-				//—‰º‚µ‚Ä‚¢‚é‚Æ‚«
-				endPos.y += AddPos.y;
-			}
-		}
-		else
-		{
+		//if (m_isOnGround == false)
+		//{
+		//	//ã¸’†
+		//	if (AddPos.y > 0.0f)
+		//	{
+		//		//ã¸’†‚Å‚àXZ‚ÉˆÚ“®‚µ‚½Œ‹‰Ê‚ß‚è‚ñ‚Å‚¢‚é‰Â”\«‚ª‚ ‚é‚Ì‚Å‰º‚ğ’²‚×‚é
+		//		endPos.y -= AddPos.y;
+		//	}
+		//	else
+		//	{
+		//		//—‰º‚µ‚Ä‚¢‚é‚Æ‚«
+		//		endPos.y += AddPos.y;
+		//	}
+		//}
+		//else
+		//{
 			//’n–Êã‚É‚¢‚È‚¢ê‡‚Í1m‰º‚ğŒ©‚é
 			endPos.y -= 1.0f;
-		}
+		//}
 		end.setOrigin(btVector3(endPos.x, endPos.y, endPos.z));
 		SweepResultGround callback;
 		callback.me = m_rigidBody.GetBody();

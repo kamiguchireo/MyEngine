@@ -252,7 +252,10 @@ void Player::DeadProcess()
 	m_DiedSprite->SetAlpha(m_DeadSpriteAlpha);
 
 	//TPSƒJƒƒ‰‚ÉØ‚è‘Ö‚¦
-	m_camera->SetCameraState(CameraState::TPS);
+	if (m_camera != nullptr)
+	{
+		m_camera->SetCameraState(CameraState::TPS);
+	}
 	//Šù‚ÉŽ€‚ñ‚Å‚¢‚éê‡
 	if (m_animation.IsPlaying())
 	{
@@ -272,6 +275,11 @@ void Player::DeadProcess()
 			delete characon;
 			characon = nullptr;
 		}
+		if (m_camera != nullptr)
+		{
+			DeleteGO(m_camera);
+			m_camera = nullptr;
+		}
 	}
 	else
 	{
@@ -280,6 +288,12 @@ void Player::DeadProcess()
 		g_game->SceneTrans(SceneNum::enScene_Stage01);
 	}
 }
+
+void Player::DeadCameraMove()
+{
+
+}
+
 void Player::Update()
 {
 	if (IsDead)
