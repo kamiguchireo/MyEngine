@@ -61,6 +61,11 @@ public:
 		return m_forward;
 	}
 
+	//正面をセット
+	void SetForward(Vector3 vec)
+	{
+		m_forward = vec;
+	}
 	//武器用の行列をゲット
 	const Matrix& GetWeaponBoneMat()
 	{
@@ -170,4 +175,6 @@ private:
 	bool IsAim = false;
 	float m_DeadSpriteAlpha = 0.0f;
 	const float m_DeadAlphaFadeSpeed = 0.2f;
+	Vector3 m_DeadAfterCameraPos = Vector3::Zero;
+	Vector3 m_DeadAfterCameraTarget = Vector3::Zero;
 };

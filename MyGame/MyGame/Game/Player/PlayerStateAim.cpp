@@ -35,17 +35,9 @@ void PlayerStateAim::UpdateRotation()
 	aimForward.y = 0.0f;
 	//正規化
 	aimForward.Normalize();
-	//二つのベクトルに直行するベクトルを取得
-	Vector3 Axis = Cross(Vector3::Front, aimForward);
-	//正規化
-	Axis.Normalize();
-	//ベクトルの大きさ1なので二つのベクトルのcosθのみが残る
-	float dot = Dot(Vector3::Front, aimForward);
-	Quaternion rot = Quaternion::Identity;
-	//プレイヤーを視点方向に回転
-	rot.SetRotation(Axis, acosf(dot));
-	//プレイヤーに適応
-	m_Player->SetRotation(rot);
+	//プレイヤーの前方向をセット
+	m_Player->SetForward(aimForward);
+
 	//腰から上も回転
 	WaistBend();
 }

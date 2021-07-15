@@ -279,6 +279,9 @@ void Player::DeadProcess()
 		{
 			DeleteGO(m_camera);
 			m_camera = nullptr;
+			//死亡後のカメラの位置とターゲットをポジションにセット
+			m_DeadAfterCameraTarget = m_pos;
+			m_DeadAfterCameraPos = m_pos;
 		}
 	}
 	else
@@ -291,7 +294,9 @@ void Player::DeadProcess()
 
 void Player::DeadCameraMove()
 {
-
+	//カメラの位置に足すベクトル
+	Vector3 CameraAddPos = Vector3::Zero;
+	CameraAddPos = m_forward;
 }
 
 void Player::Update()
@@ -355,6 +360,7 @@ void Player::Update()
 	//ポジションをセット
 	m_playerModel->SetPosition(m_pos);
 	//回転をセット
+	m_rot.SetRotation(Vector3::Front, m_forward);
 	m_playerModel->SetRotation(m_rot);
 	//サウンドリスナーの位置をセット
 	g_engine->GetSoundEngine().SetListenerPosition(m_pos);

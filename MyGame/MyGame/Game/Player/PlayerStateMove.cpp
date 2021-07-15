@@ -27,15 +27,9 @@ void PlayerStateMove::Update()
 		//走りアニメーションを再生
 		m_Player->PlayAnimation(enPlayerAnimation_Rifle_Run);
 	}
-	//回転
-	Quaternion q_rot = Quaternion::Identity;
-	//プレイヤーの前方向
-	Vector3 playerforward = Vector3::Zero;
 	//移動方向
 	Vector3 movedir = Vector3::Zero;
 	
-	//プレイヤーの前方向をゲット
-	playerforward = m_Player->GetForward();
 	//カメラの前方向をゲット
 	movedir = g_camera3D->GetForward();
 	movedir.y = 0.0f;
@@ -50,9 +44,6 @@ void PlayerStateMove::Update()
 	KeyDir += playerRight* g_pad[0]->GetLStickXF();
 	KeyDir.Normalize();
 
-	//プレイヤーの前方向からキー入力方向への回転を計算
-	q_rot.SetRotation(playerforward, KeyDir);
-
-	//プレイヤーに回転をセット
-	m_Player->SetRotation(q_rot);
+	//プレイヤーの前方向をセット
+	m_Player->SetForward(KeyDir);
 }
