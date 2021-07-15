@@ -9,6 +9,7 @@
 #include "SourceFile/Sound/SoundSource.h"
 #include "Game/Player/Player.h"
 #include "Game/Enemy/Enemy.h"
+#include "Game/Game.h"
 
 Stage::Stage()
 {
@@ -255,10 +256,13 @@ bool Stage::Start()
 					Firstplace = 0;
 					//パスの数を0に戻す
 					m_numEnemy = 0;
+					//エネミーの数をインクリメント
+					Game::GetInstance()->AddEnemyCount();
 
 					return true;
 				}
 				m_numEnemy++;
+				
 			}
 			Tenthplace = 0;
 			Firstplace = 0;
@@ -283,5 +287,9 @@ void Stage::Update()
 	{
 		//newから10フレーム後
 		g_graphicsEngine->GetFade()->FadeIn();
+	}
+	if (Game::GetInstance()->GetEnemyCount() <= 0)
+	{
+		Game::GetInstance()->SceneTrans(SceneNum::enScene_Stage01);
 	}
 }

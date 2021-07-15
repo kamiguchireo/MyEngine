@@ -63,6 +63,11 @@ void Player::OnDestroy()
 		DeleteGO(m_AimFramesprite);
 		m_AimFramesprite = nullptr;
 	}
+	if (m_DiedSprite != nullptr)
+	{
+		DeleteGO(m_DiedSprite);
+		m_DiedSprite = nullptr;
+	}
 	//ヒットボックス
 	if (m_HitBox != nullptr)
 	{
@@ -160,8 +165,11 @@ bool Player::Start()
 
 	//スプライトをNew
 	m_AimFramesprite = NewGO<prefab::SpriteRender>(3, nullptr);
+	m_DiedSprite = NewGO<prefab::SpriteRender>(4, nullptr);
 	//初期化
 	m_AimFramesprite->Init("Assets/Image/AimFrame.dds", 100, 100);
+	m_DiedSprite->Init("Assets/Image/Died.dds", 600, 1500);
+	m_DiedSprite->SetAlpha(m_DeadSpriteAlpha);
 
 	m_HitBox = NewGO<PlayerHitBox>(4, nullptr);
 	m_HitBox->Init(&m_skeleton, this);
@@ -236,8 +244,13 @@ void Player::Hold()
 
 void Player::DeadProcess()
 {
+	auto deltaTime = g_gameTime.GetFrameDeltaTime();
 	//照準のαを0にする
 	m_AimFramesprite->SetAlpha(0.0f);
+	
+	m_DeadSpriteAlpha += m_DeadAlphaFadeSpeed * deltaTime;
+	m_DiedSprite->SetAlpha(m_DeadSpriteAlpha);
+
 	//TPSカメラに切り替え
 	m_camera->SetCameraState(CameraState::TPS);
 	//既に死んでいる場合
@@ -246,7 +259,7 @@ void Player::DeadProcess()
 		//アニメーションが終わっていない場合
 		//死亡時のアニメーションを流す
 		m_animation.Play(enPlayerAnimation_Death_From_Front);
-		m_animation.Update(g_gameTime.GetFrameDeltaTime());
+		m_animation.Update(deltaTime);
 		//ヒットボックスが残っているとき削除
 		if (m_HitBox != nullptr)
 		{

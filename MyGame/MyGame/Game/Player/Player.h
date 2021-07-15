@@ -157,6 +157,7 @@ private:
 	CharacterController* characon = nullptr;		//キャラコン
 	Vector3 footStepValue = Vector3::Zero;		//footStepの移動量
 	prefab::SpriteRender* m_AimFramesprite = nullptr;		//エイム時に表示するスプライト
+	prefab::SpriteRender* m_DiedSprite = nullptr;		//死亡時に表示するスプライト
 	Vector3 m_gravity = Vector3::Zero;		//重力による加速
 	PlayerHitBox* m_HitBox = nullptr;
 	bool IsDead = false;		//死んでいるかどうか
@@ -165,4 +166,6 @@ private:
 	SoundSource* m_HoldRifleSound = nullptr;		//銃を構えるときのサウンド
 	bool IsRightClick = false;
 	bool IsAim = false;
+	float m_DeadSpriteAlpha = 0.0f;
+	const float m_DeadAlphaFadeSpeed = 0.2f;
 };

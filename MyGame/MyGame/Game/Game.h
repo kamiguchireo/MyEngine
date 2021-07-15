@@ -28,10 +28,22 @@ public:
 	}
 
 	void SceneTrans(int scenenum);
-
+	void AddEnemyCount()
+	{
+		EnemyCount++;
+	}
+	void SubEnemyCount()
+	{
+		EnemyCount--;
+	}
+	int GetEnemyCount()
+	{
+		return EnemyCount;
+	}
 private:
 	void DeleteScene(int scenenum);
 	void NewScene(int scenenum);
+
 private:
 	static Game* m_Instance;		//インスタンス
 	Title* m_Title = nullptr;		//タイトル
@@ -39,4 +51,5 @@ private:
 	int m_SceneNum = SceneNum::enScene_Num;		//現在のシーン番号
 	bool IsDirty = true;
 	bool IsStageInited = true;
+	int EnemyCount = 0;
 };

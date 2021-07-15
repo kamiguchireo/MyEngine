@@ -11,6 +11,7 @@
 #include "EnemyStateAim.h"
 #include "Game/Player/Player.h"
 #include "EnemyRayTest.h"
+#include "Game/Game.h"
 #include <random>
 
 Enemy::Enemy()
@@ -64,6 +65,11 @@ void Enemy::OnDestroy()
 	{
 		delete characon;
 		characon = nullptr;
+	}
+	if (m_EnemySub == false)
+	{
+		Game::GetInstance()->SubEnemyCount();
+		m_EnemySub = true;
 	}
 }
 
@@ -209,6 +215,11 @@ void Enemy::DeadProcess()
 		{
 			delete characon;
 			characon = nullptr;
+		}
+		if (m_EnemySub == false)
+		{
+			Game::GetInstance()->SubEnemyCount();
+			m_EnemySub = true;
 		}
 		//m_weapon->StopFireSound();
 	}

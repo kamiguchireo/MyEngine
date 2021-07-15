@@ -614,4 +614,7 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\Image\Died.png" />
+  </ItemGroup>
 </Project>
