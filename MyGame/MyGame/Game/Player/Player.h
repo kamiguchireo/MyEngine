@@ -184,7 +184,7 @@ private:
 	Vector3 m_DeadAfterCameraPos = Vector3::Zero;
 	Vector3 m_DeadAfterCameraTarget = Vector3::Zero;
 	Vector3 m_LerpForwardCameraPos = Vector3::Zero;
-	const float m_DeadCameraDist = 200.0f;
-	float m_DeadAfterLeapSpeed = 0.2f;
-	float m_DeadLeapTime = 0.0f;
+	const float m_DeadCameraDist = 300.0f;		//€–SŒã‚ÉƒJƒƒ‰‚ğˆø‚­‹——£
+	float m_DeadAfterLeapSpeed = 0.2f;		//üŒ`•âŠ®‚·‚é‘¬“x
+	float m_DeadLeapTime = 0.0f;		//•âŠ®ŠÔ
 };

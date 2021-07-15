@@ -283,7 +283,7 @@ void Player::DeadProcess()
 	}
 	else
 	{
-		DeadCameraMove();
+		//DeadCameraMove();
 		//auto g_game = Game::GetInstance();
 		//もう一度ステージ01を生成しなおす
 		//g_game->SceneTrans(SceneNum::enScene_Stage01);
@@ -295,6 +295,7 @@ void Player::DeadCameraMove()
 	auto deltaTime = g_gameTime.GetFrameDeltaTime();
 	m_DeadLeapTime += deltaTime * m_DeadAfterLeapSpeed;
 	m_DeadLeapTime = min(1.0f, m_DeadLeapTime);
+	float f = static_cast<float>(pow(m_DeadLeapTime, 2));
 	//最終的なカメラの位置に足すベクトル
 	Vector3 CameraAddPos = Vector3::Zero;
 	//前方向を加算
@@ -309,7 +310,9 @@ void Player::DeadCameraMove()
 	m_DeadAfterCameraPos = m_pos + CameraAddPos;
 	//プレイヤーの後ろ方向に補完前のカメラを引く
 	m_LerpForwardCameraPos = m_pos + (m_forward * m_DeadCameraDist * -1.0f);
-	m_LerpForwardCameraPos.Lerp(m_DeadLeapTime, m_LerpForwardCameraPos, m_DeadAfterCameraPos);
+	m_LerpForwardCameraPos.y = 50.0f;
+	//補完する
+	m_LerpForwardCameraPos.Lerp(f, m_LerpForwardCameraPos, m_DeadAfterCameraPos);
 	//上方向の計算
 	Vector3 cameradir = m_DeadAfterCameraTarget - m_LerpForwardCameraPos;
 	if (cameradir.Length() != 0.0f)
@@ -334,6 +337,7 @@ void Player::Update()
 	{
 		//プレイヤーが死亡した時
 		DeadProcess();
+		DeadCameraMove();
 		return;
 	}
 	//待機ステートに切り替える
