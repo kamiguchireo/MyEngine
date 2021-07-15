@@ -178,7 +178,7 @@ void Title::CameraMove()
 
 	//•âŠ®—¦
 	static float interpolate = 0.0f;
-	interpolate += g_gameTime.GetFrameDeltaTime() * 0.2f;
+	interpolate += g_gameTime.GetFrameDeltaTime() * 0.4f;
 	//•âŠ®—¦‚ð“ñæ‚·‚é
 	float f = pow(interpolate, 2.0);
 	
@@ -234,6 +234,7 @@ void Title::Update()
 			m_process = TitleProcess::enProcess_SceneTrans;
 		}
 		m_BulletTitleSprite->SetAlpha(alpha);
+		m_TitleStartSprite->SetAlpha(alpha);
 	}
 	else if (m_process = TitleProcess::enProcess_SceneTrans)
 	{

@@ -119,6 +119,8 @@ bool Player::Start()
 	//発砲状態のアニメーション
 	m_animClip[enPlayerAnimation_Rifle_fire].Load("Assets/animData/Rifle_fire.tka");
 	m_animClip[enPlayerAnimation_Rifle_fire].SetLoopFlag(true);
+	m_animClip[enPlayerAnimation_Firing_Rifle].Load("Assets/animData/Firing_Rifle.tka");
+	m_animClip[enPlayerAnimation_Firing_Rifle].SetLoopFlag(true);
 	//死亡アニメーション
 	m_animClip[enPlayerAnimation_Death_From_Front].Load("Assets/animData/Death_From_Front.tka");
 	m_animClip[enPlayerAnimation_Death_From_Front].SetLoopFlag(false);
@@ -331,4 +333,9 @@ void Player::Update()
 	g_engine->GetSoundEngine().SetListenerPosition(m_pos);
 	//サウンドリスナーの前方向をセット
 	g_engine->GetSoundEngine().SetListenerFront((g_camera3D->GetForward()));
+	//if (GetAsyncKeyState(VK_LBUTTON))
+	//{
+	//	m_animation.Play(enPlayerAnimation_Firing_Rifle, 0.3f);
+	//	Shooting();
+	//}
 }

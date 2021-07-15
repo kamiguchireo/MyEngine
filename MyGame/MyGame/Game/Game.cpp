@@ -31,6 +31,21 @@ bool Game::Start()
 	return true;
 }
 
+void Game::Update()
+{
+	if (IsDirty)
+	{
+		if (IsStageInited)
+		{
+			g_graphicsEngine->GetFade()->FadeIn();
+			IsDirty = false;
+			IsStageInited = false;
+			return;
+		}
+		IsStageInited = true;
+	}
+}
+
 void Game::DeleteScene(int scenenum)
 {
 	if (scenenum == SceneNum::enScene_Title)
@@ -76,6 +91,7 @@ void Game::NewScene(int scenenum)
 		}
 	}
 	m_SceneNum = scenenum;
+	IsDirty = true;
 }
 
 void Game::SceneTrans(int scenenum)

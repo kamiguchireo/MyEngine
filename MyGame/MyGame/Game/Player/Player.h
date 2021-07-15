@@ -74,7 +74,13 @@ public:
 		{
 			Vector3 Direction = g_camera3D->GetTarget() - g_camera3D->GetPosition();
 			Direction.Normalize();
-			m_PlayerWeapon->SetRay(g_camera3D->GetPosition(), Direction);
+			auto bone = m_skeleton.GetBone(m_skeleton.GetWeaponBoneNum());
+			Vector3 weaponpos = bone->GetPosition();
+			Vector3 CameraToWeaponPos = g_camera3D->GetPosition() - weaponpos;
+			float length = CameraToWeaponPos.Length();
+			Vector3 pos = g_camera3D->GetPosition();
+			pos += Direction * length;
+			m_PlayerWeapon->SetRay(pos, Direction);
 			m_PlayerWeapon->shooting();
 		}
 	}

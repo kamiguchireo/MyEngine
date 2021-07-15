@@ -194,8 +194,6 @@ Stage::Stage()
 	{
 		m_enemy[i]->SetPath(m_Path[i]);
 	}
-
-	g_graphicsEngine->GetFade()->FadeIn();
 }
 
 Stage::~Stage()

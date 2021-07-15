@@ -131,6 +131,11 @@ namespace Engine {
 
 	const Vector3& CharacterController::Execute(Vector3& moveSpeed)
 	{
+		if (moveSpeed.LengthSq() <= 0.0001f)
+		{
+			//移動速度が小さすぎるので0とみなす
+			return m_position;
+		}
 		//初期化されていないキャラクターコントローラーが使われたとき
 		if (m_isInited == false)
 		{
