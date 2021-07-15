@@ -5,8 +5,8 @@
 class Level;
 class Tree1;
 class Tree2;
+class Grass_03;
 class SoundSource;
-
 enum TitleProcess {
 	enProcess_Start,
 	enProcess_Click,
@@ -30,6 +30,7 @@ private:
 	Level* m_level = nullptr;
 	Tree1* m_Tree1 = nullptr;
 	Tree2* m_Tree2 = nullptr;
+	Grass_03* m_Glass = nullptr;
 	prefab::ModelRender* m_skinModel = nullptr;
 	Skeleton m_skeleton;		//ƒXƒPƒ‹ƒgƒ“
 	Weapon* m_weapon = nullptr;
@@ -42,6 +43,7 @@ private:
 	Vector3 m_CameraUp = { 0.0f,1.0f,0.0f };
 	SoundSource* m_FireSound = nullptr;
 	bool IsPlayFireSound = false;
-	prefab::SpriteRender* m_sprite = nullptr;
+	prefab::SpriteRender* m_BulletTitleSprite = nullptr;
+	prefab::SpriteRender* m_TitleStartSprite = nullptr;
 	int m_process = TitleProcess::enProcess_Start;
 };

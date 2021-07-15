@@ -3,6 +3,7 @@
 #include "SourceFile/level/Level.h"
 #include "Game/Stage/Tree/Tree1.h"
 #include "Game/Stage/Tree/Tree2.h"
+#include "Game/Stage/Grass/Grass_03.h"
 #include "Game/Game.h"
 
 Title::~Title()
@@ -48,10 +49,15 @@ void Title::OnDestroy()
 		m_FireSound = nullptr;
 	}
 	//スプライト
-	if (m_sprite != nullptr)
+	if (m_BulletTitleSprite != nullptr)
 	{
-		DeleteGO(m_sprite);
-		m_sprite = nullptr;
+		DeleteGO(m_BulletTitleSprite);
+		m_BulletTitleSprite = nullptr;
+	}
+	if (m_TitleStartSprite != nullptr)
+	{
+		DeleteGO(m_TitleStartSprite);
+		m_TitleStartSprite = nullptr;
 	}
 }
 
@@ -97,6 +103,20 @@ bool Title::Start()
 
 			return true;
 		}
+		else if (wcscmp(objData.name, L"SM_Grass_03") == 0)
+		{
+			//草
+			if (m_Glass == nullptr)
+			{
+				m_Glass = NewGO<Grass_03>(0);
+				m_Glass->InitInstance(objData.position, objData.rotation, objData.scale);
+			}
+			else
+			{
+				m_Glass->AddInstance(objData.position, objData.rotation, objData.scale);
+			}
+			return true;
+		}
 		else if (wcscmp(objData.name, L"SM_Tree_Tropic_02_novines") == 0)
 		{
 			//木
@@ -132,10 +152,17 @@ bool Title::Start()
 	m_FireSound = NewGO<SoundSource>(0);
 	m_FireSound->Init(L"Assets/sound/Anti_materiel_rifle.wav");
 
-	m_sprite = NewGO<prefab::SpriteRender>(0);
-	m_sprite->Init("Assets/image/BulletTitle.dds",250, 250);
-	m_sprite->SetPosition(Vector3::Zero);
-	m_sprite->SetAlpha(0.0f);
+	//弾痕のスプライト
+	m_BulletTitleSprite = NewGO<prefab::SpriteRender>(0);
+	m_BulletTitleSprite->Init("Assets/image/BulletTitle.dds",250, 250);
+	m_BulletTitleSprite->SetPosition(Vector3::Zero);
+	m_BulletTitleSprite->SetAlpha(0.0f);
+
+	//左クリックを押してスタートすると書かれたスプライト
+	m_TitleStartSprite = NewGO<prefab::SpriteRender>(0);
+	m_TitleStartSprite->Init("Assets/image/TitleStart.dds", 250, 750);
+	m_TitleStartSprite->SetPosition({ 0.0f,-250,0.0f });
+	m_TitleStartSprite->SetAlpha(1.0f);
 
 	m_CameraPos = { 200.0f,150.0f,200.0f };
 	m_CameraTarget = { 0.0f,150.0f,0.0f };
@@ -145,8 +172,8 @@ bool Title::Start()
 void Title::CameraMove()
 {
 	//補完後のカメラの設定
-	Vector3 NextCameraPos = { 100.0f,15.0f,350 };
-	Vector3 NextCameraTarget = { -100.0f,50.0f,0.0f };
+	Vector3 NextCameraPos = { 100.0f,25.0f,350 };
+	Vector3 NextCameraTarget = { -100.0f,80.0f,0.0f };
 	Vector3 NextCameraUp = { -0.5f,0.0f,-0.5f };
 
 	//補完率
@@ -184,7 +211,7 @@ void Title::Update()
 		if (m_animation.IsPlaying() == false)
 		{
 			m_FireSound->Play(false, false);
-			m_sprite->SetAlpha(1.0f);
+			m_BulletTitleSprite->SetAlpha(1.0f);
 			m_process = TitleProcess::enProcess_PlaySound;
 		}
 	}
@@ -206,7 +233,7 @@ void Title::Update()
 			alpha = 0.0f;
 			m_process = TitleProcess::enProcess_SceneTrans;
 		}
-		m_sprite->SetAlpha(alpha);
+		m_BulletTitleSprite->SetAlpha(alpha);
 	}
 	else if (m_process = TitleProcess::enProcess_SceneTrans)
 	{
