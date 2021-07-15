@@ -193,6 +193,7 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TkmFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
+    <ClCompile Include="Game\GameOver.cpp" />
     <ClCompile Include="SourceFile\graphic\Fade\Fade.cpp" />
     <ClCompile Include="Game\Enemy\EnemyRayTest.cpp" />
     <ClCompile Include="Game\Enemy\EnemyStateAim.cpp" />
@@ -298,6 +299,7 @@
     <ClInclude Include="..\..\MiniEngine\tkFile\TkmFile.h" />
     <ClInclude Include="..\..\MiniEngine\tkFile\TksFile.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
+    <ClInclude Include="Game\GameOver.h" />
     <ClInclude Include="SourceFile\graphic\Fade\Fade.h" />
     <ClInclude Include="Game\Enemy\EnemyRayTest.h" />
     <ClInclude Include="Game\Enemy\EnemyStatus.h" />

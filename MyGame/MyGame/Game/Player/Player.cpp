@@ -7,6 +7,7 @@
 #include "PlayerStateAim.h"
 #include "PlayerHitBox.h"
 #include "Game/Game.h"
+#include "Game/GameOver.h"
 
 Player* Player::m_Instance = nullptr;
 Player::Player()
@@ -62,11 +63,6 @@ void Player::OnDestroy()
 	{
 		DeleteGO(m_AimFramesprite);
 		m_AimFramesprite = nullptr;
-	}
-	if (m_DiedSprite != nullptr)
-	{
-		DeleteGO(m_DiedSprite);
-		m_DiedSprite = nullptr;
 	}
 	//ヒットボックス
 	if (m_HitBox != nullptr)
@@ -165,11 +161,8 @@ bool Player::Start()
 
 	//スプライトをNew
 	m_AimFramesprite = NewGO<prefab::SpriteRender>(3, nullptr);
-	m_DiedSprite = NewGO<prefab::SpriteRender>(4, nullptr);
 	//初期化
 	m_AimFramesprite->Init("Assets/Image/AimFrame.dds", 100, 100);
-	m_DiedSprite->Init("Assets/Image/Died.dds", 600, 1500);
-	m_DiedSprite->SetAlpha(m_DeadSpriteAlpha);
 
 	m_HitBox = NewGO<PlayerHitBox>(4, nullptr);
 	m_HitBox->Init(&m_skeleton, this);
@@ -248,9 +241,6 @@ void Player::DeadProcess()
 	//照準のαを0にする
 	m_AimFramesprite->SetAlpha(0.0f);
 	
-	m_DeadSpriteAlpha += m_DeadAlphaFadeSpeed * deltaTime;
-	m_DiedSprite->SetAlpha(m_DeadSpriteAlpha);
-
 	//TPSカメラに切り替え
 	if (m_camera != nullptr)
 	{
@@ -292,43 +282,7 @@ void Player::DeadProcess()
 
 void Player::DeadCameraMove()
 {
-	auto deltaTime = g_gameTime.GetFrameDeltaTime();
-	m_DeadLeapTime += deltaTime * m_DeadAfterLeapSpeed;
-	m_DeadLeapTime = min(1.0f, m_DeadLeapTime);
-	float f = static_cast<float>(pow(m_DeadLeapTime, 2));
-	//最終的なカメラの位置に足すベクトル
-	Vector3 CameraAddPos = Vector3::Zero;
-	//前方向を加算
-	CameraAddPos = m_forward * 100.0f;
-	//カメラのターゲットを前方向に加算
-	m_DeadAfterCameraTarget = m_pos + CameraAddPos;
-	//高さを加算
-	CameraAddPos.y = 500.0f;
-	//少し後ろにする
-	CameraAddPos -= m_forward;
-	//最終的なカメラの位置
-	m_DeadAfterCameraPos = m_pos + CameraAddPos;
-	//プレイヤーの後ろ方向に補完前のカメラを引く
-	m_LerpForwardCameraPos = m_pos + (m_forward * m_DeadCameraDist * -1.0f);
-	m_LerpForwardCameraPos.y = 50.0f;
-	//補完する
-	m_LerpForwardCameraPos.Lerp(f, m_LerpForwardCameraPos, m_DeadAfterCameraPos);
-	//上方向の計算
-	Vector3 cameradir = m_DeadAfterCameraTarget - m_LerpForwardCameraPos;
-	if (cameradir.Length() != 0.0f)
-	{
-		cameradir.Normalize();
-	}
-	Vector3 right = Cross(Vector3::Up, cameradir);
-	if (right.Length() != 0.0f)
-	{
-		right.Normalize();
-	}
-	Vector3 m_up = Cross(cameradir, right);
-	//カメラの各設定をセット
-	g_camera3D->SetPosition(m_LerpForwardCameraPos);
-	g_camera3D->SetTarget(m_DeadAfterCameraTarget);
-	g_camera3D->SetUp(m_up);
+
 }
 
 void Player::Update()
@@ -338,6 +292,8 @@ void Player::Update()
 		//プレイヤーが死亡した時
 		DeadProcess();
 		DeadCameraMove();
+		GameOver::GetInstance()->Init(m_pos, m_forward);
+
 		return;
 	}
 	//待機ステートに切り替える

@@ -170,7 +170,6 @@ private:
 	CharacterController* characon = nullptr;		//キャラコン
 	Vector3 footStepValue = Vector3::Zero;		//footStepの移動量
 	prefab::SpriteRender* m_AimFramesprite = nullptr;		//エイム時に表示するスプライト
-	prefab::SpriteRender* m_DiedSprite = nullptr;		//死亡時に表示するスプライト
 	Vector3 m_gravity = Vector3::Zero;		//重力による加速
 	PlayerHitBox* m_HitBox = nullptr;
 	bool IsDead = false;		//死んでいるかどうか
@@ -179,12 +178,5 @@ private:
 	SoundSource* m_HoldRifleSound = nullptr;		//銃を構えるときのサウンド
 	bool IsRightClick = false;
 	bool IsAim = false;
-	float m_DeadSpriteAlpha = 0.0f;
-	const float m_DeadAlphaFadeSpeed = 0.2f;
-	Vector3 m_DeadAfterCameraPos = Vector3::Zero;
-	Vector3 m_DeadAfterCameraTarget = Vector3::Zero;
-	Vector3 m_LerpForwardCameraPos = Vector3::Zero;
-	const float m_DeadCameraDist = 300.0f;		//死亡後にカメラを引く距離
-	float m_DeadAfterLeapSpeed = 0.2f;		//線形補完する速度
-	float m_DeadLeapTime = 0.0f;		//補完時間
+
 };
