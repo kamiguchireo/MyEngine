@@ -1,4 +1,6 @@
 #pragma once
+#include "Game.h"
+
 class SoundSource;
 
 class GameOver:public IGameObject
@@ -48,5 +50,7 @@ private:
 	Vector3 m_pos = Vector3::Zero;		//ポジション
 	bool m_IsInited = false;		//初期化フラグ
 	int m_process = DeadProcess::enProcess_Num;		//プロセス
+	float m_ToTitleTime = 0.0f;
+	int m_NextSceneNum = SceneNum::enScene_Num;
 };
 

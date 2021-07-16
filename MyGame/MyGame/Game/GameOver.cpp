@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "GameOver.h"
 #include "SourceFile/sound/SoundSource.h"
-#include "Game.h"
 
 GameOver* GameOver::m_Instance = nullptr;
 GameOver::GameOver()
@@ -54,6 +53,7 @@ void GameOver::Update()
 {
 	if (m_IsInited)
 	{
+		auto deltaTime = g_gameTime.GetFrameDeltaTime();
 		if (m_process == DeadProcess::enProcess_PlaySound)
 		{
 			//サウンドをワンショットで再生
@@ -64,7 +64,6 @@ void GameOver::Update()
 		else if (m_process == DeadProcess::enProcess_CameraMove)
 		{
 			//ゲームオーバー時のカメラの動き
-			auto deltaTime = g_gameTime.GetFrameDeltaTime();
 			m_DeadSpriteAlpha += m_DeadAlphaFadeSpeed * deltaTime;
 			m_DeadSprite->SetAlpha(m_DeadSpriteAlpha);
 
@@ -113,8 +112,18 @@ void GameOver::Update()
 		}
 		else if (m_process == DeadProcess::enProcess_SelectScene)
 		{
-			//遷移するシーンを選択
-			m_process++;
+			m_ToTitleTime += deltaTime;
+			if (m_ToTitleTime >= 10.0f)
+			{
+				//60秒後
+				m_NextSceneNum = SceneNum::enScene_Title;
+				m_process++;
+			}
+			else if (GetAsyncKeyState(VK_LBUTTON))
+			{
+				m_NextSceneNum = SceneNum::enScene_Stage01;
+				m_process++;
+			}
 		}
 		else if (m_process == DeadProcess::enProcess_Fade)
 		{
@@ -135,12 +144,13 @@ void GameOver::Update()
 			}
 			m_DeadSprite->SetAlpha(alpha);
 		}
+
 		else if (m_process == DeadProcess::enProcess_SceneTrans)
 		{
 			g_graphicsEngine->CasterClear();
 			auto g_game = Game::GetInstance();
 			//ステージ01呼び出し
-			g_game->SceneTrans(SceneNum::enScene_Stage01);
+			g_game->SceneTrans(m_NextSceneNum);
 			//シーン遷移
 			m_process++;
 		}
