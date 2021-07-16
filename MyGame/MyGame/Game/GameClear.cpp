@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GameClear.h"
 #include "Game.h"
+#include "Player/Player.h"
 
 GameClear* GameClear::m_Instance = nullptr;
 GameClear::GameClear()
@@ -47,6 +48,8 @@ void GameClear::Update()
 	{
 		if (m_process == ClearProcess::enProcess_PlaySound)
 		{
+			auto player = Player::GetInstance();
+			player->ChangeCameraStateTPS();
 			//Ÿ‚ÌƒvƒƒZƒX‚Ö
 			m_process++;
 		}

@@ -233,7 +233,7 @@ void Title::Update()
 	{
 		if (m_process == TitleProcess::enProcess_Start)
 		{
-			if (GetKeyState(VK_LBUTTON))
+			if (GetAsyncKeyState(VK_LBUTTON))
 			{
 				m_animation.Play(enTitleCharacterAnimation_Rifle_Down_To_Aim, 0.3f);
 				m_TitleStartAlpha = 1.0f;

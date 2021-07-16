@@ -4,6 +4,7 @@
 #include "SourceFile/Graphic/SpriteRender.h"
 #include "PlayerStatus.h"
 #include "SourceFile/sound/SoundSource.h"
+#include "Game/Camera/GameCamera.h"
 
 class IPlayer;
 class GameCamera;
@@ -127,6 +128,11 @@ public:
 	const Vector3 GetPosition()const
 	{
 		return m_pos;
+	}
+
+	void ChangeCameraStateTPS()
+	{
+		m_camera->SetCameraState(CameraState::TPS);
 	}
 private:
 	//ステートの変更

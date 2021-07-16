@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Player.h"
-#include "Game/Camera/GameCamera.h"
 #include "IPlayer.h"
 #include "PlayerStateIdle.h"
 #include "PlayerStateMove.h"
@@ -271,13 +270,6 @@ void Player::DeadProcess()
 			DeleteGO(m_camera);
 			m_camera = nullptr;
 		}
-	}
-	else
-	{
-		//DeadCameraMove();
-		//auto g_game = Game::GetInstance();
-		//もう一度ステージ01を生成しなおす
-		//g_game->SceneTrans(SceneNum::enScene_Stage01);
 	}
 }
 
