@@ -189,28 +189,26 @@ bool Stage::Start()
 				//wcscat_s(m_pathchar, L"_");
 				//カウントを1上げる
 				Firstplace++;
+				m_numPath++;
 				if (wcsncmp(objData.name, m_pathchar, 7) == 0)
 				{
 					//ファイルパスが合致したとき
-					if (m_IsPathInited[m_numPath] == false)
+					if (m_IsPathInited[m_numPath -1] == false)
 					{
-						m_IsPathInited[m_numPath] = true;
+						m_IsPathInited[m_numPath -1] = true;
 						m_Path.push_back(new Path());
 					}
-					m_Path[m_numPath]->AddPosition(objData.position);
+					m_Path[m_numPath -1]->AddPosition(objData.position);
 					//10の位を0に戻す
 					Tenthplace = 0;
 					//1の位を0に戻す
 					Firstplace = 0;
-					//パスの数を0に戻す
 					m_numPath = 0;
 					return true;
 				}
-				m_numPath++;
 			}
 			Tenthplace = 0;
 			Firstplace = 0;
-			m_numPath = 0;
 		}
 		if (wcsncmp(objData.name, L"Enemy_", 6) == 0)
 		{
@@ -243,30 +241,27 @@ bool Stage::Start()
 					{
 						m_IsEnemyInited[m_numEnemy] = true;
 						m_enemy.push_back(NewGO<Enemy>(0));
+						m_numEnemy++;
 					}
 
 					//エネミーのポジションをセット
-					m_enemy[m_numEnemy]->SetPosition(objData.position);
+					m_enemy[m_numEnemy-1]->SetPosition(objData.position);
 					//エネミーの回転をセット
-					m_enemy[m_numEnemy]->SetRotation(objData.rotation);
+					m_enemy[m_numEnemy-1]->SetRotation(objData.rotation);
 
 					//10の位を0に戻す
 					Tenthplace = 0;
 					//1の位を0に戻す
 					Firstplace = 0;
-					//パスの数を0に戻す
-					m_numEnemy = 0;
 					//エネミーの数をインクリメント
 					Game::GetInstance()->AddEnemyCount();
 
 					return true;
 				}
-				m_numEnemy++;
 				
 			}
 			Tenthplace = 0;
 			Firstplace = 0;
-			m_numEnemy = 0;
 		}
 
 		return false;

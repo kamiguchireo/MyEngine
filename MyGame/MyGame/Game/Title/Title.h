@@ -54,7 +54,7 @@ private:
 	float m_TitleAlphaMin = 0.5f;
 	float m_TitleFadeSpeed = 0.005f;
 	int m_TitleNameFadeCount = 2;
-	bool m_IsInited = false;
+	//bool m_IsInited = false;
 	int m_Time = 0;
 	float interpolate = 0.0f;
 };

@@ -210,37 +210,30 @@ void Title::CameraMove()
 void Title::Update()
 {
 	auto deltatime = g_gameTime.GetFrameDeltaTime();
-	if (g_graphicsEngine->GetFade()->GetAlpha() == 0.0f)
+
+	if (m_TitleStartAlpha >= m_TitleAlphaMax)
 	{
-		m_Time++;
-		if (m_Time > 10)
+		m_TitleFadeSpeed *= -1.0f;
+	}
+	else if (m_TitleStartAlpha <= m_TitleAlphaMin)
+	{
+		m_TitleFadeSpeed *= -1.0f;
+		if (m_process >= TitleProcess::enProcess_Click)
 		{
-			m_IsInited = true;
+			m_TitleNameFadeCount--;
 		}
 	}
-	if (m_IsInited)
-	{
-		if (m_TitleStartAlpha >= m_TitleAlphaMax)
-		{
-			m_TitleFadeSpeed *= -1.0f;
-		}
-		else if (m_TitleStartAlpha <= m_TitleAlphaMin)
-		{
-			m_TitleFadeSpeed *= -1.0f;
-			if (m_process >= TitleProcess::enProcess_Click)
-			{
-				m_TitleNameFadeCount--;
-			}
-		}
-		m_TitleStartAlpha += m_TitleFadeSpeed;
+	m_TitleStartAlpha += m_TitleFadeSpeed;
 
-		if (m_TitleNameFadeCount < 0)
-		{
-			m_TitleStartAlpha = 0.0f;
-		}
+	if (m_TitleNameFadeCount < 0)
+	{
+		m_TitleStartAlpha = 0.0f;
+	}
+	if (g_graphicsEngine->GetFade()->GetAlpha() == 0.0f)
+	{
 		if (m_process == TitleProcess::enProcess_Start)
 		{
-			if (GetAsyncKeyState(VK_LBUTTON))
+			if (GetKeyState(VK_LBUTTON))
 			{
 				m_animation.Play(enTitleCharacterAnimation_Rifle_Down_To_Aim, 0.3f);
 				m_TitleStartAlpha = 1.0f;
@@ -249,56 +242,48 @@ void Title::Update()
 				m_process++;
 			}
 		}
-		else if (m_process == TitleProcess::enProcess_Click)
+	}
+	if (m_process == TitleProcess::enProcess_Click)
+	{
+		if (m_animation.IsPlaying() == false)
 		{
-			if (m_animation.IsPlaying() == false)
-			{
-				m_FireSound->Play(false, false);
-				m_BulletTitleSprite->SetAlpha(1.0f);
-				//プロセスをインクリメント
-				m_process++;
-			}
-		}
-		else if (m_process == TitleProcess::enProcess_PlaySound)
-		{
-			CameraMove();
-		}
-		else if (m_process == TitleProcess::enProcess_Fade)
-		{
-			g_graphicsEngine->GetFade()->FadeOut();
+			m_FireSound->Play(false, false);
+			m_BulletTitleSprite->SetAlpha(1.0f);
 			//プロセスをインクリメント
 			m_process++;
 		}
-		else if (m_process == TitleProcess::enProcess_WithoutAlpha)
-		{
-			float alpha = 1.0f - g_graphicsEngine->GetFade()->GetAlpha();
-			if (alpha <= 0.001f)
-			{
-				//限りなく0に近いので0にする
-				alpha = 0.0f;
-				//プロセスをインクリメント
-				m_process++;
-			}
-			m_BulletTitleSprite->SetAlpha(alpha);
-			m_TitleNameSprite->SetAlpha(alpha);
-		}
-		else if (m_process == TitleProcess::enProcess_SceneTrans)
-		{
-			auto g_game = Game::GetInstance();
-			//ステージ01呼び出し
-			g_game->SceneTrans(SceneNum::enScene_Stage01);
-			return;
-		}
-
+	}
+	else if (m_process == TitleProcess::enProcess_PlaySound)
+	{
+		CameraMove();
+	}
+	else if (m_process == TitleProcess::enProcess_Fade)
+	{
+		g_graphicsEngine->GetFade()->FadeOut();
+		//プロセスをインクリメント
+		m_process++;
+	}
+	else if (m_process == TitleProcess::enProcess_WithoutAlpha)
+	{
 		float alpha = 1.0f - g_graphicsEngine->GetFade()->GetAlpha();
 		if (alpha <= 0.001f)
 		{
 			//限りなく0に近いので0にする
 			alpha = 0.0f;
+			//プロセスをインクリメント
+			m_process++;
 		}
-
-
+		m_BulletTitleSprite->SetAlpha(alpha);
+		m_TitleNameSprite->SetAlpha(alpha);
 	}
+	else if (m_process == TitleProcess::enProcess_SceneTrans)
+	{
+		auto g_game = Game::GetInstance();
+		//ステージ01呼び出し
+		g_game->SceneTrans(SceneNum::enScene_Stage01);
+		return;
+	}
+
 	m_TitleStartSprite->SetAlpha(m_TitleStartAlpha);
 
 	m_animation.Update(deltatime);

@@ -119,7 +119,7 @@ void GameOver::Update()
 				m_NextSceneNum = SceneNum::enScene_Title;
 				m_process++;
 			}
-			else if (GetAsyncKeyState(VK_LBUTTON))
+			else if (GetKeyState(VK_LBUTTON))
 			{
 				m_NextSceneNum = SceneNum::enScene_Stage01;
 				m_process++;
