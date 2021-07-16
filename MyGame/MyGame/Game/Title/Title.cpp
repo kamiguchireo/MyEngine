@@ -229,7 +229,7 @@ void Title::Update()
 	{
 		m_TitleStartAlpha = 0.0f;
 	}
-	if (g_graphicsEngine->GetFade()->GetAlpha() == 0.0f)
+	if (g_graphicsEngine->GetFade()->GetAlpha() <= 0.5f)
 	{
 		if (m_process == TitleProcess::enProcess_Start)
 		{
