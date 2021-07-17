@@ -51,6 +51,12 @@ bool GameOver::Start()
 
 void GameOver::Update()
 {
+	bool IsLeftClick = false;
+	if (GetAsyncKeyState(VK_LBUTTON))
+	{
+		IsLeftClick = true;
+	}
+
 	if (m_IsInited)
 	{
 		auto deltaTime = g_gameTime.GetFrameDeltaTime();
@@ -73,8 +79,11 @@ void GameOver::Update()
 			if (f >= 1.0f)
 			{
 				f = 1.0f;
-				//次のプロセスへ
-				m_process++;
+				if (m_DeadSound->IsPlaying() == false)
+				{
+					//次のプロセスへ
+					m_process++;
+				}
 			}
 			//最終的なカメラの位置に足すベクトル
 			Vector3 CameraAddPos = Vector3::Zero;
@@ -113,13 +122,13 @@ void GameOver::Update()
 		else if (m_process == DeadProcess::enProcess_SelectScene)
 		{
 			m_ToTitleTime += deltaTime;
-			if (m_ToTitleTime >= 10.0f)
+			if (m_ToTitleTime >= 20.0f)
 			{
-				//60秒後
+				//20秒後
 				m_NextSceneNum = SceneNum::enScene_Title;
 				m_process++;
 			}
-			else if (GetAsyncKeyState(VK_LBUTTON))
+			else if (IsLeftClick == true)
 			{
 				m_NextSceneNum = SceneNum::enScene_Stage01;
 				m_process++;

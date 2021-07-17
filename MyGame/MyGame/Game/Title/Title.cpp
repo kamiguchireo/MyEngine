@@ -210,7 +210,11 @@ void Title::CameraMove()
 void Title::Update()
 {
 	auto deltatime = g_gameTime.GetFrameDeltaTime();
-
+	bool IsLeftClick = false;
+	if (GetAsyncKeyState(VK_LBUTTON))
+	{
+		IsLeftClick = true;
+	}
 	if (m_TitleStartAlpha >= m_TitleAlphaMax)
 	{
 		m_TitleFadeSpeed *= -1.0f;
@@ -233,7 +237,7 @@ void Title::Update()
 	{
 		if (m_process == TitleProcess::enProcess_Start)
 		{
-			if (GetAsyncKeyState(VK_LBUTTON))
+			if (IsLeftClick)
 			{
 				m_animation.Play(enTitleCharacterAnimation_Rifle_Down_To_Aim, 0.3f);
 				m_TitleStartAlpha = 1.0f;
