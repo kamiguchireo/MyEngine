@@ -195,6 +195,7 @@
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
     <ClCompile Include="Game\GameClear.cpp" />
     <ClCompile Include="Game\GameOver.cpp" />
+    <ClCompile Include="Game\Stage\ReadLevelObj.cpp" />
     <ClCompile Include="SourceFile\graphic\Fade\Fade.cpp" />
     <ClCompile Include="Game\Enemy\EnemyRayTest.cpp" />
     <ClCompile Include="Game\Enemy\EnemyStateAim.cpp" />
@@ -302,6 +303,7 @@
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
     <ClInclude Include="Game\GameClear.h" />
     <ClInclude Include="Game\GameOver.h" />
+    <ClInclude Include="Game\Stage\ReadLevelObj.h" />
     <ClInclude Include="SourceFile\graphic\Fade\Fade.h" />
     <ClInclude Include="Game\Enemy\EnemyRayTest.h" />
     <ClInclude Include="Game\Enemy\EnemyStatus.h" />

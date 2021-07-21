@@ -9,6 +9,7 @@ class Path;
 class SoundSource;
 class Player;
 class Enemy;
+class ReadLevelObj;
 class Stage :public IGameObject
 {
 public:
@@ -19,6 +20,7 @@ public:
 	bool Start();
 	void Update();
 private:
+	std::unique_ptr<ReadLevelObj> m_readobj;
 	Level* m_level = nullptr;
 	Grass_03* m_Glass = nullptr;
 	Tree1* m_Tree1 = nullptr;
@@ -30,8 +32,8 @@ private:
 	std::vector<Path*> m_Path;
 	std::vector<Enemy*>m_enemy;
 	bool m_IsPathInited[100] = { false };
-	bool m_IsEnemyInited[100] = { false };
-	int m_numEnemy = 0;
+	//bool m_IsEnemyInited[100] = { false };
+	//int m_numEnemy = 0;
 	int Firstplace = 0;
 	int Tenthplace = 0;
 	int m_numPath = 0;
