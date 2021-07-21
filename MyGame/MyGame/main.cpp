@@ -25,9 +25,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//////////////////////////////////////
 		
 	//テスト用のクラス
+	//Game* m_game = nullptr;
+	//m_game = new Game();
 	//Test* m_Test = nullptr;
 	//m_Test = Engine::NewGO<Test>(0, nullptr);
-
 	//////////////////////////////////////
 	// 初期化を行うコードを書くのはここまで！！！
 	//////////////////////////////////////
