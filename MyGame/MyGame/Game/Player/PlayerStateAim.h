@@ -23,4 +23,3 @@ private:
 	int m_SpineBoneNum = -1;		//左腕のボーン番号
 	int m_RightArmBoneNum = -1;		//右腕のボーン番号
 };
-

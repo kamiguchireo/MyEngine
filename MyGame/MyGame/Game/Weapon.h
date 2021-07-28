@@ -69,7 +69,25 @@ public:
 	void Init(Skeleton* sk,bool IsDither = false);
 
 	//ŽËŒ‚
-	void shooting();
+	//–ß‚è’l‚ÍŽËŒ‚‚Å‚«‚½‚©‚Ç‚¤‚©
+	bool shooting();
+
+	//ŽËŒ‚‚ð‚â‚ß‚½Žž‚Ìˆ—
+	void Release()
+	{
+		m_IsFirstShoot = true;
+	}
+	bool IsAvailable()
+	{
+		if (m_Magazine > 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 	void SetRay(const Vector3& startpos,const Vector3& dir)
 	{
@@ -104,8 +122,12 @@ private:
 	float time = 0.0f;
 	Vector3 m_RayStartPos = Vector3::Zero;
 	Vector3 m_RayDirection = Vector3::Zero;
-	SoundSource* m_FireSound[FireSoundNum_Rifle] = {nullptr};
+	SoundSource* m_FireSound[FireSoundNum_Rifle] = { nullptr };
+	SoundSource* m_OutOfAmmoSound = nullptr;
 	int Character = enCollisionAttr_Num;
-	const float m_CurveDistance = 3000.0f;
+	const float m_FireCurveDistance = 3000.0f;
+	const float m_OutOfAmmoCurveDistance = 500.0f;
+	int m_Magazine = 30;
+	bool m_IsFirstShoot = true;
 };
 

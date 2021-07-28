@@ -79,7 +79,7 @@ public:
 	}
 
 	//ƒfƒJ[ƒ‹‚ð’Ç‰Á
-	void Shooting()
+	bool Shooting()
 	{
 		if (m_PlayerWeapon != nullptr)
 		{
@@ -92,10 +92,20 @@ public:
 			Vector3 pos = g_camera3D->GetPosition();
 			pos += Direction * length;
 			m_PlayerWeapon->SetRay(pos, Direction);
-			m_PlayerWeapon->shooting();
+			return m_PlayerWeapon->shooting();
 		}
+		return false;
 	}
 
+	bool IsWeaponAvailable()
+	{
+		return m_PlayerWeapon->IsAvailable();
+	}
+
+	void WeaponRelease()
+	{
+		m_PlayerWeapon->Release();
+	}
 	//Ž€–S
 	void Dead()
 	{

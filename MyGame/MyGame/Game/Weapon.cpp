@@ -25,6 +25,12 @@ void Weapon::OnDestroy()
 			m_FireSound[i] = nullptr;
 		}
 	}
+	m_OutOfAmmoSound->Stop();
+	if (m_OutOfAmmoSound != nullptr)
+	{
+		DeleteGO(m_OutOfAmmoSound);
+		m_OutOfAmmoSound = nullptr;
+	}
 }
 void Weapon::Init(Skeleton* sk,bool IsDither)
 {
@@ -43,8 +49,12 @@ bool Weapon::Start()
 	{
 		m_FireSound[i] = NewGO<SoundSource>(0);
 		m_FireSound[i]->Init(L"Assets/sound/Rifle_fire.wav", true);
-		m_FireSound[i]->SetCurveDistance(m_CurveDistance);
+		m_FireSound[i]->SetCurveDistance(m_FireCurveDistance);
 	}
+	m_OutOfAmmoSound = NewGO<SoundSource>(0);
+	m_OutOfAmmoSound->Init(L"Assets/sound/OutOfAmmo.wav", true);
+	m_OutOfAmmoSound->SetCurveDistance(m_OutOfAmmoCurveDistance);
+
 	return true;
 }
 
@@ -55,11 +65,12 @@ void Weapon::AddDecale(const btVector3& start,const btVector3& end)
 
 void Weapon::Update()
 {
+	auto bone = m_skeleton->GetBone(m_skeleton->GetWeaponBoneNum());
 	for (int i = 0; i < FireSoundNum_Rifle; i++)
 	{
-		auto bone = m_skeleton->GetBone(m_skeleton->GetWeaponBoneNum());
 		m_FireSound[i]->SetPosition(bone->GetPosition());
 	}
+		m_OutOfAmmoSound->SetPosition(bone->GetPosition());
 
 	//武器用の行列をボーンから取得
 	m_weaponMat = m_skeleton->GetWeaponMatrix();
@@ -69,63 +80,77 @@ void Weapon::Update()
 	m_Model->SetUpdateFlag(false);
 }
 
-void Weapon::shooting()
+bool Weapon::shooting()
 {
 	time += g_gameTime.GetFrameDeltaTime();
 	//1秒間にrateの数だけ撃てる
 	if (time >= 1.0f / rate)
 	{
-		for (int i = 0; i < FireSoundNum_Rifle; i++)
+		if (m_Magazine > 0)
 		{
-			if (m_FireSound[i]->IsPlaying() == false)
+			for (int i = 0; i < FireSoundNum_Rifle; i++)
 			{
-				m_FireSound[i]->Play(false,false);
-				break;
+				if (m_FireSound[i]->IsPlaying() == false)
+				{
+					m_FireSound[i]->Play(false, false);
+					break;
+				}
 			}
-		}
-		//レイを作成
-		btVector3 start, end;
-		start.setZero();
-		end.setZero();
+			//レイを作成
+			btVector3 start, end;
+			start.setZero();
+			end.setZero();
 
-		//始点をセット
-		start.setValue(m_RayStartPos.x, m_RayStartPos.y, m_RayStartPos.z);
+			//始点をセット
+			start.setValue(m_RayStartPos.x, m_RayStartPos.y, m_RayStartPos.z);
 
-		//終点となる位置を作成
-		Vector3 EndPos = Vector3::Zero;
-		//終点は始点となる位置に方向*距離を足したもの
-		EndPos = m_RayStartPos;
-		//終点に方向に距離を掛けたもの足す
-		EndPos += m_RayDirection * m_range;
-		//終点をセット
-		end.setValue(EndPos.x, EndPos.y, EndPos.z);
+			//終点となる位置を作成
+			Vector3 EndPos = Vector3::Zero;
+			//終点は始点となる位置に方向*距離を足したもの
+			EndPos = m_RayStartPos;
+			//終点に方向に距離を掛けたもの足す
+			EndPos += m_RayDirection * m_range;
+			//終点をセット
+			end.setValue(EndPos.x, EndPos.y, EndPos.z);
 
-		//衝突検出
-		SweepResult callback;
-		callback.SetFireCharacter(Character);
-		//衝突検出
-		g_engine->GetPhysicsWorld().RayTest(start, end, callback);
+			//衝突検出
+			SweepResult callback;
+			callback.SetFireCharacter(Character);
+			//衝突検出
+			g_engine->GetPhysicsWorld().RayTest(start, end, callback);
 
-		//レイがゴーストオブジェクトに衝突しているとき
-		if (callback.isHit)
-		{
-			//ゴーストオブジェクトより手前にオブジェクトが何もないとき
-			if (callback.GhostDist < callback.ObjectNearDist)
+			//レイがゴーストオブジェクトに衝突しているとき
+			if (callback.isHit)
 			{
-				//コリジョンのステートをヒットにする
-				callback.m_collisionObject->setActivationState(CollisionActivationState::Hit);
-				return;
+				//ゴーストオブジェクトより手前にオブジェクトが何もないとき
+				if (callback.GhostDist < callback.ObjectNearDist)
+				{
+					//コリジョンのステートをヒットにする
+					callback.m_collisionObject->setActivationState(CollisionActivationState::Hit);
+				}
 			}
+			else
+			{
+				//衝突していなければデカールを追加
+				AddDecale(start, end);
+				time = 0.0f;
+			}
+
+			//撃つごとにマガジンの中を減らす
+			m_Magazine--;
+
+			return true;
 		}
-		else
+		if (m_IsFirstShoot)
 		{
-			//衝突していなければデカールを追加
-			AddDecale(start, end);
-			time = 0.0f;
+			if (m_OutOfAmmoSound->IsPlaying() == false)
+			{
+				m_OutOfAmmoSound->Play(false, false);
+				m_IsFirstShoot = false;
+			}
+
 		}
 	}
-	else
-	{
-		return;
-	}
+
+	return false;
 }

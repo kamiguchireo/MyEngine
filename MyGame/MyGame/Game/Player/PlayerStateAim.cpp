@@ -57,14 +57,22 @@ void PlayerStateAim::Update()
 	//マウスの左ボタンが押された"
 	if (GetKeyState(VK_LBUTTON) & (0x80))
 	{
-		//アニメーションを再生
-		m_Player->PlayAnimation(enPlayerAnimation_Rifle_fire);
 		m_Player->Shooting();
+		if (m_Player->IsWeaponAvailable())
+		{
+			//アニメーションを再生
+			m_Player->PlayAnimation(enPlayerAnimation_Rifle_fire);
+		}
+		else
+		{
+			//アニメーションを再生
+			m_Player->PlayAnimation(enPlayerAnimation_Rifle_Down_To_Aim);
+		}
 	}
 	else
 	{
+		m_Player->WeaponRelease();
 		//アニメーションを再生
 		m_Player->PlayAnimation(enPlayerAnimation_Rifle_Down_To_Aim);
-		//m_Player->StopFiresound();
 	}
 }
