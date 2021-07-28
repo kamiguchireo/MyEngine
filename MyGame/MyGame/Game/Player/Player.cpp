@@ -125,6 +125,9 @@ bool Player::Start()
 	//死亡アニメーション
 	m_animClip[enPlayerAnimation_Death_From_Front].Load("Assets/animData/Death_From_Front.tka");
 	m_animClip[enPlayerAnimation_Death_From_Front].SetLoopFlag(false);
+	//リロードアニメーション
+	m_animClip[enPlayerAnimation_Rifle_Reload].Load("Assets/animData/Rifle_Reloading.tka");
+	m_animClip[enPlayerAnimation_Rifle_Reload].SetLoopFlag(false);
 
 	//モデルをNew
 	m_playerModel = NewGO<prefab::ModelRender>(1, nullptr);
